@@ -44,3 +44,13 @@ workflows:
       - package:
           requires:
             - test
+  security:
+    jobs:
+      - general-platform-helpers/job-semgrep-prepare:
+          name: Prepare Semgrep
+      - general-platform-helpers/job-semgrep-scan:
+          name: Scan with Semgrep for Static Application Security Testing (SAST)
+          requires:
+            - Prepare Semgrep
+orbs:
+  general-platform-helpers: atko-eng/eng-services-platform-helpers-general@2.1
