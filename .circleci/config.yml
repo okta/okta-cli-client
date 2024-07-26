@@ -38,9 +38,29 @@ workflows:
   build-and-test:
     jobs:
       - build
+      - general-platform-helpers/job-snyk-prepare:
+          name: Prepare Snyk
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - main
+                - master
+      - snyk-scan:
+          name: Scan with Snyk for Software Composition Analysis (SCA)
+          requires:
+            - Prepare Snyk
+          filters:
+            branches:
+              only:
+                - main
+                - master
       - test:
           requires:
             - build
       - package:
           requires:
             - test
+orbs:
+  general-platform-helpers: atko-eng/eng-services-platform-helpers-general@2.1
