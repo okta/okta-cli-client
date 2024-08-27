@@ -1,19 +1,98 @@
-Welcome to your new repo,okta-cli-client!
+## Table of Contents
+- [Commands](#commands)
+- [Configuration](#configuration)
+- [Installation](#installation)
+- [Note](#Note)
 
-This is a default readme file created to provide some helpful links and first steps.
-A lot of your questions might already exist in our [wiki page](http://bit.ly/EngFAQ), so please check there first.
 
-Please reach out to us over on [#eng-release](https://okta.slack.com/archives/C7L27G2Q5) or
-[#eng-productivity](https://okta.slack.com/archives/C7LQ4U8T0) for any additional assistance you might require.
-# CI System: Bacon
+## Commands
 
-Please check out this [wiki](https://oktawiki.atlassian.net/wiki/spaces/ESS/pages/2436202798/Bacon+HowTo+Video+Series)
-for more information about Okta's CI System, Bacon, and how to get started.
+There are multiple resource that you can manage using the okta-cli
 
-Your bacon artifact is found [here](https://bacon-go.aue1e.saasure.net/commits?artifact=okta-cli-client).
-# CI System: CircleCI
+Examples for group resource
+```shell
+$ okta-cli group get --groupId groupId
+```
+```shell
+$ okta-cli group create --data '{ "profile": { "description": "test", "name": "Test" }, "type": "OKTA_GROUP"}'
+```
+```shell
+$ okta-cli group replace --groupId groupId --data '{ "profile": { "description": "test", "name": "Test2" }, "type": "OKTA_GROUP"}'
+```
+```shell
+$ okta-cli group delete --groupId groupId
+```
+```shell
+$ okta-cli group lists
+```
 
-Please check out this [wiki](https://oktawiki.atlassian.net/wiki/spaces/ESS/pages/2670692460/Circle+CI+User+Guide)
-for more information about getting onboarded to CircleCI at Okta.
+## Configuration
 
-Your CircleCI project is found [here](https://app.circleci.com/pipelines/github/atko-eng/okta-cli-client).
+This library looks for configuration in the following sources:
+
+0. An `okta.yaml` file in a `.okta` folder in the current user's home directory
+   (`~/.okta/okta.yaml` or `%userprofile\.okta\okta.yaml`)
+0. A `.okta.yaml` file in the application or project's root directory
+0. Environment variables
+
+### YAML configuration
+
+When you use an API Token instead of OAuth 2.0 the full YAML configuration
+looks like:
+
+```yaml
+okta:
+  client:
+    connectionTimeout: 30 # seconds
+    orgUrl: "https://{yourOktaDomain}"
+    proxy:
+      port: null
+      host: null
+      username: null
+      password: null
+    token: {apiToken}
+```
+
+When you use OAuth 2.0 the full YAML configuration looks like:
+
+```yaml
+okta:
+  client:
+    connectionTimeout: 30 # seconds
+    orgUrl: "https://{yourOktaDomain}"
+    proxy:
+      port: null
+      host: null
+      username: null
+      password: null
+    authorizationMode: "PrivateKey"
+    clientId: "{yourClientId}"
+    scopes:
+      - scope.1
+      - scope.2
+    privateKey: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEogIBAAKCAQEAl4F5CrP6Wu2kKwH1Z+CNBdo0iteHhVRIXeHdeoqIB1iXvuv4
+        THQdM5PIlot6XmeV1KUKuzw2ewDeb5zcasA4QHPcSVh2+KzbttPQ+RUXCUAr5t+r
+        0r6gBc5Dy1IPjCFsqsPJXFwqe3RzUb...
+        -----END RSA PRIVATE KEY-----
+    privateKeyId: "{JWK key id (kid}" # needed if Okta service application has more then a single JWK registered
+    requestTimeout: 0 # seconds
+    rateLimit:
+      maxRetries: 4
+```
+
+### Environment variables
+
+Each one of the configuration values above can be turned into an environment
+variable name with the `_` (underscore) character:
+
+* `OKTA_CLIENT_CONNECTIONTIMEOUT`
+* `OKTA_CLIENT_TOKEN`
+* and so on
+
+## Installation
+
+
+## Note
+In its current form, we only support stdout as output
