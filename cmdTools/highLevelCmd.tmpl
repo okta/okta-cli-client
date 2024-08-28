@@ -1,0 +1,25 @@
+package {{ .packageName }}
+
+import (
+	"io"
+
+	"github.com/okta/okta-cli-client/utils"
+	"github.com/spf13/cobra"
+)
+
+var {{ .name }}Cmd = &cobra.Command{
+	Use:   "{{ .nameLowerCase }}",
+	Long:  "Manage {{ .name }}API",
+}
+
+func New{{ .name }}Cmd() *cobra.Command {
+    cmd := &cobra.Command{
+		Use:   "{{ .nameLowerCase }}",
+		Long:  "Manage {{ .name }}API",
+	}
+	return cmd
+}
+
+func init() {
+    rootCmd.AddCommand({{ .name }}Cmd)
+}
