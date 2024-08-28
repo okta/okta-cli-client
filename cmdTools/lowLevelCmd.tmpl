@@ -1,0 +1,60 @@
+
+
+var (
+    {{ $operationId := .operationId }}
+    {{if not .requiredFlags}}
+    {{else}}
+        {{- range .requiredFlags}}
+            {{ $operationId }}{{ . }} string
+        {{ end }}
+    {{end}}
+)
+
+func New{{ .operationId }}Cmd() *cobra.Command {
+    cmd := &cobra.Command{
+	    Use:   "{{ .subCommand }}",
+	  
+        RunE: func(cmd *cobra.Command, args []string) error {
+            {{ $operationId := .operationId }}
+            {{ $newParam := "" }}
+            {{if not .pathParams}}
+            req := apiClient.{{ .name }}API.{{ .operationId }}(apiClient.GetConfig().Context)
+            {{else}}
+            req := apiClient.{{ .name }}API.{{ .operationId }}(apiClient.GetConfig().Context, {{join .pathParams ", "}})
+            {{end}}
+            {{if .data}}
+            if {{ .operationId }}data != "" {
+                req = req.Data({{ .operationId }}data)
+            }
+            {{else}}
+            {{end}}
+            resp, err := req.Execute()
+            if err != nil {
+                return err
+            }
+		    d, err := io.ReadAll(resp.Body)
+		    if err != nil {
+			    return err
+		    }
+		    utils.PrettyPrintByte(d)
+            cmd.Println(string(d))
+		    return nil
+        },
+    }
+
+    {{ $operationId := .operationId }}
+    {{if not .requiredFlags}}
+    {{else}}
+        {{- range .requiredFlags}}
+        cmd.Flags().StringVarP(&{{ $operationId }}{{ . }}, "{{ . }}", "", "", "")
+        cmd.MarkFlagRequired("{{ . }}")
+        {{ end }}
+    {{end}}
+
+	return cmd
+}
+
+func init() {
+	{{ .operationId }}Cmd := New{{ .operationId }}Cmd()
+    {{ .name }}Cmd.AddCommand({{ .operationId }}Cmd)
+}
