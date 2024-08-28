@@ -20,7 +20,7 @@ import (
 // APNSPushProvider struct for APNSPushProvider
 type APNSPushProvider struct {
 	PushProvider
-	Configuration *APNSConfiguration `json:"configuration,omitempty"`
+	Configuration        *APNSConfiguration `json:"configuration,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -188,4 +188,3 @@ func (v *NullableAPNSPushProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

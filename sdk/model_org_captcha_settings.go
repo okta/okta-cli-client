@@ -15,13 +15,13 @@ import (
 	"encoding/json"
 )
 
-// OrgCAPTCHASettings 
+// OrgCAPTCHASettings
 type OrgCAPTCHASettings struct {
 	// The unique key of the associated CAPTCHA instance
 	CaptchaId *string `json:"captchaId,omitempty"`
 	// An array of pages that have CAPTCHA enabled
-	EnabledPages []string `json:"enabledPages,omitempty"`
-	Links *OrgCAPTCHASettingsLinks `json:"_links,omitempty"`
+	EnabledPages         []string                 `json:"enabledPages,omitempty"`
+	Links                *OrgCAPTCHASettingsLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -219,4 +219,3 @@ func (v *NullableOrgCAPTCHASettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

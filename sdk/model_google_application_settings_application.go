@@ -20,7 +20,7 @@ type GoogleApplicationSettingsApplication struct {
 	// Your Google company domain
 	Domain string `json:"domain"`
 	// RPID
-	RpId *string `json:"rpId,omitempty"`
+	RpId                 *string `json:"rpId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -175,4 +175,3 @@ func (v *NullableGoogleApplicationSettingsApplication) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

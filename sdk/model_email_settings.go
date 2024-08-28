@@ -17,7 +17,7 @@ import (
 
 // EmailSettings struct for EmailSettings
 type EmailSettings struct {
-	Recipients string `json:"recipients"`
+	Recipients           string `json:"recipients"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -136,4 +136,3 @@ func (v *NullableEmailSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

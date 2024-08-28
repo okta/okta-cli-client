@@ -17,7 +17,7 @@ import (
 
 // Actions struct for Actions
 type Actions struct {
-	AssignUserToRealm *AssignUserToRealm `json:"assignUserToRealm,omitempty"`
+	AssignUserToRealm    *AssignUserToRealm `json:"assignUserToRealm,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableActions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

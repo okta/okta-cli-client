@@ -17,154 +17,144 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApiServiceIntegrationsAPI interface {
 
 	/*
-	ActivateApiServiceIntegrationInstanceSecret Activate an API Service Integration instance Secret
+		ActivateApiServiceIntegrationInstanceSecret Activate an API Service Integration instance Secret
 
-	Activates an API Service Integration instance Secret by `secretId`
+		Activates an API Service Integration instance Secret by `secretId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@param secretId `id` of the API Service Integration instance Secret
-	@return ApiActivateApiServiceIntegrationInstanceSecretRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param apiServiceId `id` of the API Service Integration instance
+		@param secretId `id` of the API Service Integration instance Secret
+		@return ApiActivateApiServiceIntegrationInstanceSecretRequest
 	*/
 	ActivateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiActivateApiServiceIntegrationInstanceSecretRequest
 
 	// ActivateApiServiceIntegrationInstanceSecretExecute executes the request
 	//  @return APIServiceIntegrationInstanceSecret
-	// TODU
 	ActivateApiServiceIntegrationInstanceSecretExecute(r ApiActivateApiServiceIntegrationInstanceSecretRequest) (*APIResponse, error)
 
 	/*
-	CreateApiServiceIntegrationInstance Create an API Service Integration instance
+		CreateApiServiceIntegrationInstance Create an API Service Integration instance
 
-	Creates and authorizes an API Service Integration instance
+		Creates and authorizes an API Service Integration instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateApiServiceIntegrationInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateApiServiceIntegrationInstanceRequest
 	*/
 	CreateApiServiceIntegrationInstance(ctx context.Context) ApiCreateApiServiceIntegrationInstanceRequest
 
 	// CreateApiServiceIntegrationInstanceExecute executes the request
 	//  @return PostAPIServiceIntegrationInstance
-	// TODU
 	CreateApiServiceIntegrationInstanceExecute(r ApiCreateApiServiceIntegrationInstanceRequest) (*APIResponse, error)
 
 	/*
-	CreateApiServiceIntegrationInstanceSecret Create an API Service Integration instance Secret
+		CreateApiServiceIntegrationInstanceSecret Create an API Service Integration instance Secret
 
-	Creates an API Service Integration instance Secret object with a new active client secret. You can create up to two Secret objects. An error is returned if you attempt to create more than two Secret objects.
+		Creates an API Service Integration instance Secret object with a new active client secret. You can create up to two Secret objects. An error is returned if you attempt to create more than two Secret objects.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@return ApiCreateApiServiceIntegrationInstanceSecretRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param apiServiceId `id` of the API Service Integration instance
+		@return ApiCreateApiServiceIntegrationInstanceSecretRequest
 	*/
 	CreateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string) ApiCreateApiServiceIntegrationInstanceSecretRequest
 
 	// CreateApiServiceIntegrationInstanceSecretExecute executes the request
 	//  @return APIServiceIntegrationInstanceSecret
-	// TODU
 	CreateApiServiceIntegrationInstanceSecretExecute(r ApiCreateApiServiceIntegrationInstanceSecretRequest) (*APIResponse, error)
 
 	/*
-	DeactivateApiServiceIntegrationInstanceSecret Deactivate an API Service Integration instance Secret
+		DeactivateApiServiceIntegrationInstanceSecret Deactivate an API Service Integration instance Secret
 
-	Deactivates an API Service Integration instance Secret by `secretId`
+		Deactivates an API Service Integration instance Secret by `secretId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@param secretId `id` of the API Service Integration instance Secret
-	@return ApiDeactivateApiServiceIntegrationInstanceSecretRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param apiServiceId `id` of the API Service Integration instance
+		@param secretId `id` of the API Service Integration instance Secret
+		@return ApiDeactivateApiServiceIntegrationInstanceSecretRequest
 	*/
 	DeactivateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiDeactivateApiServiceIntegrationInstanceSecretRequest
 
 	// DeactivateApiServiceIntegrationInstanceSecretExecute executes the request
 	//  @return APIServiceIntegrationInstanceSecret
-	// TODU
 	DeactivateApiServiceIntegrationInstanceSecretExecute(r ApiDeactivateApiServiceIntegrationInstanceSecretRequest) (*APIResponse, error)
 
 	/*
-	DeleteApiServiceIntegrationInstance Delete an API Service Integration instance
+		DeleteApiServiceIntegrationInstance Delete an API Service Integration instance
 
-	Deletes an API Service Integration instance by `id`. This operation also revokes access to scopes that were previously granted to this API Service Integration instance.
+		Deletes an API Service Integration instance by `id`. This operation also revokes access to scopes that were previously granted to this API Service Integration instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@return ApiDeleteApiServiceIntegrationInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param apiServiceId `id` of the API Service Integration instance
+		@return ApiDeleteApiServiceIntegrationInstanceRequest
 	*/
 	DeleteApiServiceIntegrationInstance(ctx context.Context, apiServiceId string) ApiDeleteApiServiceIntegrationInstanceRequest
 
 	// DeleteApiServiceIntegrationInstanceExecute executes the request
-	// TODU
 	DeleteApiServiceIntegrationInstanceExecute(r ApiDeleteApiServiceIntegrationInstanceRequest) (*APIResponse, error)
 
 	/*
-	DeleteApiServiceIntegrationInstanceSecret Delete an API Service Integration instance Secret
+		DeleteApiServiceIntegrationInstanceSecret Delete an API Service Integration instance Secret
 
-	Deletes an API Service Integration instance Secret by `secretId`. You can only delete an inactive Secret.
+		Deletes an API Service Integration instance Secret by `secretId`. You can only delete an inactive Secret.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@param secretId `id` of the API Service Integration instance Secret
-	@return ApiDeleteApiServiceIntegrationInstanceSecretRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param apiServiceId `id` of the API Service Integration instance
+		@param secretId `id` of the API Service Integration instance Secret
+		@return ApiDeleteApiServiceIntegrationInstanceSecretRequest
 	*/
 	DeleteApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiDeleteApiServiceIntegrationInstanceSecretRequest
 
 	// DeleteApiServiceIntegrationInstanceSecretExecute executes the request
-	// TODU
 	DeleteApiServiceIntegrationInstanceSecretExecute(r ApiDeleteApiServiceIntegrationInstanceSecretRequest) (*APIResponse, error)
 
 	/*
-	GetApiServiceIntegrationInstance Retrieve an API Service Integration instance
+		GetApiServiceIntegrationInstance Retrieve an API Service Integration instance
 
-	Retrieves an API Service Integration instance by `id`
+		Retrieves an API Service Integration instance by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@return ApiGetApiServiceIntegrationInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param apiServiceId `id` of the API Service Integration instance
+		@return ApiGetApiServiceIntegrationInstanceRequest
 	*/
 	GetApiServiceIntegrationInstance(ctx context.Context, apiServiceId string) ApiGetApiServiceIntegrationInstanceRequest
 
 	// GetApiServiceIntegrationInstanceExecute executes the request
 	//  @return APIServiceIntegrationInstance
-	// TODU
 	GetApiServiceIntegrationInstanceExecute(r ApiGetApiServiceIntegrationInstanceRequest) (*APIResponse, error)
 
 	/*
-	ListApiServiceIntegrationInstanceSecrets List all API Service Integration instance Secrets
+		ListApiServiceIntegrationInstanceSecrets List all API Service Integration instance Secrets
 
-	Lists all client secrets for an API Service Integration instance by `apiServiceId`
+		Lists all client secrets for an API Service Integration instance by `apiServiceId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param apiServiceId `id` of the API Service Integration instance
-	@return ApiListApiServiceIntegrationInstanceSecretsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param apiServiceId `id` of the API Service Integration instance
+		@return ApiListApiServiceIntegrationInstanceSecretsRequest
 	*/
 	ListApiServiceIntegrationInstanceSecrets(ctx context.Context, apiServiceId string) ApiListApiServiceIntegrationInstanceSecretsRequest
 
 	// ListApiServiceIntegrationInstanceSecretsExecute executes the request
 	//  @return []APIServiceIntegrationInstanceSecret
-	// TODU
 	ListApiServiceIntegrationInstanceSecretsExecute(r ApiListApiServiceIntegrationInstanceSecretsRequest) (*APIResponse, error)
 
 	/*
-	ListApiServiceIntegrationInstances List all API Service Integration instances
+		ListApiServiceIntegrationInstances List all API Service Integration instances
 
-	Lists all API Service Integration instances with a pagination option
+		Lists all API Service Integration instances with a pagination option
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListApiServiceIntegrationInstancesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListApiServiceIntegrationInstancesRequest
 	*/
 	ListApiServiceIntegrationInstances(ctx context.Context) ApiListApiServiceIntegrationInstancesRequest
 
 	// ListApiServiceIntegrationInstancesExecute executes the request
 	//  @return []APIServiceIntegrationInstance
-	// TODU
 	ListApiServiceIntegrationInstancesExecute(r ApiListApiServiceIntegrationInstancesRequest) (*APIResponse, error)
 }
 
@@ -172,23 +162,19 @@ type ApiServiceIntegrationsAPI interface {
 type ApiServiceIntegrationsAPIService service
 
 type ApiActivateApiServiceIntegrationInstanceSecretRequest struct {
-	ctx context.Context
-	ApiService ApiServiceIntegrationsAPI
+	ctx          context.Context
+	ApiService   ApiServiceIntegrationsAPI
 	apiServiceId string
-	secretId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	secretId     string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiActivateApiServiceIntegrationInstanceSecretRequest) Data (data interface{}) ApiActivateApiServiceIntegrationInstanceSecretRequest {
+func (r ApiActivateApiServiceIntegrationInstanceSecretRequest) Data(data interface{}) ApiActivateApiServiceIntegrationInstanceSecretRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateApiServiceIntegrationInstanceSecretRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateApiServiceIntegrationInstanceSecretExecute(r)
 }
@@ -203,15 +189,14 @@ Activates an API Service Integration instance Secret by `secretId`
  @param secretId `id` of the API Service Integration instance Secret
  @return ApiActivateApiServiceIntegrationInstanceSecretRequest
 */
-// TODU
 
 func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiActivateApiServiceIntegrationInstanceSecretRequest {
 	return ApiActivateApiServiceIntegrationInstanceSecretRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		apiServiceId: apiServiceId,
-		secretId: secretId,
-		retryCount: 0,
+		secretId:     secretId,
+		retryCount:   0,
 	}
 }
 
@@ -223,10 +208,9 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -236,7 +220,6 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServiceIntegrationsAPIService.ActivateApiServiceIntegrationInstanceSecret")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -265,7 +248,6 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -282,13 +264,11 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -297,7 +277,6 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -312,12 +291,10 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -326,12 +303,10 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -340,12 +315,10 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -354,13 +327,11 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -369,12 +340,11 @@ func (a *ApiServiceIntegrationsAPIService) ActivateApiServiceIntegrationInstance
 }
 
 type ApiCreateApiServiceIntegrationInstanceRequest struct {
-	ctx context.Context
-	ApiService ApiServiceIntegrationsAPI
+	ctx                                      context.Context
+	ApiService                               ApiServiceIntegrationsAPI
 	postAPIServiceIntegrationInstanceRequest *PostAPIServiceIntegrationInstanceRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                                     interface{}
+	retryCount                               int32
 }
 
 func (r ApiCreateApiServiceIntegrationInstanceRequest) PostAPIServiceIntegrationInstanceRequest(postAPIServiceIntegrationInstanceRequest PostAPIServiceIntegrationInstanceRequest) ApiCreateApiServiceIntegrationInstanceRequest {
@@ -382,14 +352,11 @@ func (r ApiCreateApiServiceIntegrationInstanceRequest) PostAPIServiceIntegration
 	return r
 }
 
-
-// TODU
-func (r ApiCreateApiServiceIntegrationInstanceRequest) Data (data interface{}) ApiCreateApiServiceIntegrationInstanceRequest {
+func (r ApiCreateApiServiceIntegrationInstanceRequest) Data(data interface{}) ApiCreateApiServiceIntegrationInstanceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateApiServiceIntegrationInstanceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateApiServiceIntegrationInstanceExecute(r)
 }
@@ -402,12 +369,11 @@ Creates and authorizes an API Service Integration instance
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateApiServiceIntegrationInstanceRequest
 */
-// TODU
 
 func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstance(ctx context.Context) ApiCreateApiServiceIntegrationInstanceRequest {
 	return ApiCreateApiServiceIntegrationInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -420,10 +386,9 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -433,7 +398,6 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServiceIntegrationsAPIService.CreateApiServiceIntegrationInstance")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -460,7 +424,6 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.postAPIServiceIntegrationInstanceRequest
 	localVarPostBody = r.data
@@ -480,13 +443,11 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -495,7 +456,6 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -510,12 +470,10 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -524,12 +482,10 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -538,12 +494,10 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -552,13 +506,11 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -567,22 +519,18 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceEx
 }
 
 type ApiCreateApiServiceIntegrationInstanceSecretRequest struct {
-	ctx context.Context
-	ApiService ApiServiceIntegrationsAPI
+	ctx          context.Context
+	ApiService   ApiServiceIntegrationsAPI
 	apiServiceId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiCreateApiServiceIntegrationInstanceSecretRequest) Data (data interface{}) ApiCreateApiServiceIntegrationInstanceSecretRequest {
+func (r ApiCreateApiServiceIntegrationInstanceSecretRequest) Data(data interface{}) ApiCreateApiServiceIntegrationInstanceSecretRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateApiServiceIntegrationInstanceSecretRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateApiServiceIntegrationInstanceSecretExecute(r)
 }
@@ -596,14 +544,13 @@ Creates an API Service Integration instance Secret object with a new active clie
  @param apiServiceId `id` of the API Service Integration instance
  @return ApiCreateApiServiceIntegrationInstanceSecretRequest
 */
-// TODU
 
 func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string) ApiCreateApiServiceIntegrationInstanceSecretRequest {
 	return ApiCreateApiServiceIntegrationInstanceSecretRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		apiServiceId: apiServiceId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -615,10 +562,9 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -628,7 +574,6 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServiceIntegrationsAPIService.CreateApiServiceIntegrationInstanceSecret")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -656,7 +601,6 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -673,13 +617,11 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -688,7 +630,6 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -703,12 +644,10 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -717,12 +656,10 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -731,12 +668,10 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -745,13 +680,11 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -760,23 +693,19 @@ func (a *ApiServiceIntegrationsAPIService) CreateApiServiceIntegrationInstanceSe
 }
 
 type ApiDeactivateApiServiceIntegrationInstanceSecretRequest struct {
-	ctx context.Context
-	ApiService ApiServiceIntegrationsAPI
+	ctx          context.Context
+	ApiService   ApiServiceIntegrationsAPI
 	apiServiceId string
-	secretId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	secretId     string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeactivateApiServiceIntegrationInstanceSecretRequest) Data (data interface{}) ApiDeactivateApiServiceIntegrationInstanceSecretRequest {
+func (r ApiDeactivateApiServiceIntegrationInstanceSecretRequest) Data(data interface{}) ApiDeactivateApiServiceIntegrationInstanceSecretRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateApiServiceIntegrationInstanceSecretRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateApiServiceIntegrationInstanceSecretExecute(r)
 }
@@ -791,15 +720,14 @@ Deactivates an API Service Integration instance Secret by `secretId`
  @param secretId `id` of the API Service Integration instance Secret
  @return ApiDeactivateApiServiceIntegrationInstanceSecretRequest
 */
-// TODU
 
 func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiDeactivateApiServiceIntegrationInstanceSecretRequest {
 	return ApiDeactivateApiServiceIntegrationInstanceSecretRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		apiServiceId: apiServiceId,
-		secretId: secretId,
-		retryCount: 0,
+		secretId:     secretId,
+		retryCount:   0,
 	}
 }
 
@@ -811,10 +739,9 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -824,7 +751,6 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServiceIntegrationsAPIService.DeactivateApiServiceIntegrationInstanceSecret")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -853,7 +779,6 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -870,13 +795,11 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -885,7 +808,6 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -900,12 +822,10 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -914,12 +834,10 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -928,12 +846,10 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -942,13 +858,11 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -957,22 +871,18 @@ func (a *ApiServiceIntegrationsAPIService) DeactivateApiServiceIntegrationInstan
 }
 
 type ApiDeleteApiServiceIntegrationInstanceRequest struct {
-	ctx context.Context
-	ApiService ApiServiceIntegrationsAPI
+	ctx          context.Context
+	ApiService   ApiServiceIntegrationsAPI
 	apiServiceId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeleteApiServiceIntegrationInstanceRequest) Data (data interface{}) ApiDeleteApiServiceIntegrationInstanceRequest {
+func (r ApiDeleteApiServiceIntegrationInstanceRequest) Data(data interface{}) ApiDeleteApiServiceIntegrationInstanceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteApiServiceIntegrationInstanceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteApiServiceIntegrationInstanceExecute(r)
 }
@@ -986,14 +896,13 @@ Deletes an API Service Integration instance by `id`. This operation also revokes
  @param apiServiceId `id` of the API Service Integration instance
  @return ApiDeleteApiServiceIntegrationInstanceRequest
 */
-// TODU
 
 func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstance(ctx context.Context, apiServiceId string) ApiDeleteApiServiceIntegrationInstanceRequest {
 	return ApiDeleteApiServiceIntegrationInstanceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		apiServiceId: apiServiceId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1006,7 +915,7 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1016,7 +925,6 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServiceIntegrationsAPIService.DeleteApiServiceIntegrationInstance")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1044,7 +952,6 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1061,13 +968,11 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1076,7 +981,6 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1091,12 +995,10 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1105,12 +1007,10 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1119,12 +1019,10 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1133,13 +1031,11 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1148,23 +1044,19 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceEx
 }
 
 type ApiDeleteApiServiceIntegrationInstanceSecretRequest struct {
-	ctx context.Context
-	ApiService ApiServiceIntegrationsAPI
+	ctx          context.Context
+	ApiService   ApiServiceIntegrationsAPI
 	apiServiceId string
-	secretId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	secretId     string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeleteApiServiceIntegrationInstanceSecretRequest) Data (data interface{}) ApiDeleteApiServiceIntegrationInstanceSecretRequest {
+func (r ApiDeleteApiServiceIntegrationInstanceSecretRequest) Data(data interface{}) ApiDeleteApiServiceIntegrationInstanceSecretRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteApiServiceIntegrationInstanceSecretRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteApiServiceIntegrationInstanceSecretExecute(r)
 }
@@ -1179,15 +1071,14 @@ Deletes an API Service Integration instance Secret by `secretId`. You can only d
  @param secretId `id` of the API Service Integration instance Secret
  @return ApiDeleteApiServiceIntegrationInstanceSecretRequest
 */
-// TODU
 
 func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSecret(ctx context.Context, apiServiceId string, secretId string) ApiDeleteApiServiceIntegrationInstanceSecretRequest {
 	return ApiDeleteApiServiceIntegrationInstanceSecretRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		apiServiceId: apiServiceId,
-		secretId: secretId,
-		retryCount: 0,
+		secretId:     secretId,
+		retryCount:   0,
 	}
 }
 
@@ -1200,7 +1091,7 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1210,7 +1101,6 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServiceIntegrationsAPIService.DeleteApiServiceIntegrationInstanceSecret")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1239,7 +1129,6 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1256,13 +1145,11 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1271,7 +1158,6 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1286,12 +1172,10 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1300,12 +1184,10 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1314,12 +1196,10 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1328,13 +1208,11 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1343,22 +1221,18 @@ func (a *ApiServiceIntegrationsAPIService) DeleteApiServiceIntegrationInstanceSe
 }
 
 type ApiGetApiServiceIntegrationInstanceRequest struct {
-	ctx context.Context
-	ApiService ApiServiceIntegrationsAPI
+	ctx          context.Context
+	ApiService   ApiServiceIntegrationsAPI
 	apiServiceId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiGetApiServiceIntegrationInstanceRequest) Data (data interface{}) ApiGetApiServiceIntegrationInstanceRequest {
+func (r ApiGetApiServiceIntegrationInstanceRequest) Data(data interface{}) ApiGetApiServiceIntegrationInstanceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetApiServiceIntegrationInstanceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetApiServiceIntegrationInstanceExecute(r)
 }
@@ -1372,14 +1246,13 @@ Retrieves an API Service Integration instance by `id`
  @param apiServiceId `id` of the API Service Integration instance
  @return ApiGetApiServiceIntegrationInstanceRequest
 */
-// TODU
 
 func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstance(ctx context.Context, apiServiceId string) ApiGetApiServiceIntegrationInstanceRequest {
 	return ApiGetApiServiceIntegrationInstanceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		apiServiceId: apiServiceId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1391,10 +1264,9 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1404,7 +1276,6 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServiceIntegrationsAPIService.GetApiServiceIntegrationInstance")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1432,7 +1303,6 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1449,13 +1319,11 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1464,7 +1332,6 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1479,12 +1346,10 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1493,12 +1358,10 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1507,12 +1370,10 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1521,13 +1382,11 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1536,22 +1395,18 @@ func (a *ApiServiceIntegrationsAPIService) GetApiServiceIntegrationInstanceExecu
 }
 
 type ApiListApiServiceIntegrationInstanceSecretsRequest struct {
-	ctx context.Context
-	ApiService ApiServiceIntegrationsAPI
+	ctx          context.Context
+	ApiService   ApiServiceIntegrationsAPI
 	apiServiceId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiListApiServiceIntegrationInstanceSecretsRequest) Data (data interface{}) ApiListApiServiceIntegrationInstanceSecretsRequest {
+func (r ApiListApiServiceIntegrationInstanceSecretsRequest) Data(data interface{}) ApiListApiServiceIntegrationInstanceSecretsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListApiServiceIntegrationInstanceSecretsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListApiServiceIntegrationInstanceSecretsExecute(r)
 }
@@ -1565,14 +1420,13 @@ Lists all client secrets for an API Service Integration instance by `apiServiceI
  @param apiServiceId `id` of the API Service Integration instance
  @return ApiListApiServiceIntegrationInstanceSecretsRequest
 */
-// TODU
 
 func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecrets(ctx context.Context, apiServiceId string) ApiListApiServiceIntegrationInstanceSecretsRequest {
 	return ApiListApiServiceIntegrationInstanceSecretsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		apiServiceId: apiServiceId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1584,10 +1438,9 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1597,7 +1450,6 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServiceIntegrationsAPIService.ListApiServiceIntegrationInstanceSecrets")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1625,7 +1477,6 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1642,13 +1493,11 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1657,7 +1506,6 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1672,12 +1520,10 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1686,12 +1532,10 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1700,12 +1544,10 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1714,13 +1556,11 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1729,10 +1569,9 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstanceSecr
 }
 
 type ApiListApiServiceIntegrationInstancesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApiServiceIntegrationsAPI
-	after *string
-	// TODU
+	after      *string
 	data       interface{}
 	retryCount int32
 }
@@ -1743,14 +1582,11 @@ func (r ApiListApiServiceIntegrationInstancesRequest) After(after string) ApiLis
 	return r
 }
 
-
-// TODU
-func (r ApiListApiServiceIntegrationInstancesRequest) Data (data interface{}) ApiListApiServiceIntegrationInstancesRequest {
+func (r ApiListApiServiceIntegrationInstancesRequest) Data(data interface{}) ApiListApiServiceIntegrationInstancesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListApiServiceIntegrationInstancesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListApiServiceIntegrationInstancesExecute(r)
 }
@@ -1763,12 +1599,11 @@ Lists all API Service Integration instances with a pagination option
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListApiServiceIntegrationInstancesRequest
 */
-// TODU
 
 func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstances(ctx context.Context) ApiListApiServiceIntegrationInstancesRequest {
 	return ApiListApiServiceIntegrationInstancesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1781,10 +1616,9 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExe
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1794,7 +1628,6 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApiServiceIntegrationsAPIService.ListApiServiceIntegrationInstances")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1824,7 +1657,6 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1841,13 +1673,11 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1856,7 +1686,6 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1871,12 +1700,10 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1885,12 +1712,10 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1899,13 +1724,11 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

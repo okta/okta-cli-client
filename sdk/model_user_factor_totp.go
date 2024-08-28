@@ -20,7 +20,7 @@ import (
 // UserFactorTOTP struct for UserFactorTOTP
 type UserFactorTOTP struct {
 	UserFactor
-	Profile *UserFactorTOTPProfile `json:"profile,omitempty"`
+	Profile              *UserFactorTOTPProfile `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -188,4 +188,3 @@ func (v *NullableUserFactorTOTP) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

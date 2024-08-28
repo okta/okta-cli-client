@@ -17,7 +17,7 @@ import (
 
 // DeviceAssuranceChromeOSPlatformAllOfThirdPartySignalProviders Settings for third-party signal providers (based on the `CHROMEOS` platform)
 type DeviceAssuranceChromeOSPlatformAllOfThirdPartySignalProviders struct {
-	Dtc *DTCChromeOS `json:"dtc,omitempty"`
+	Dtc                  *DTCChromeOS `json:"dtc,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableDeviceAssuranceChromeOSPlatformAllOfThirdPartySignalProviders) 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

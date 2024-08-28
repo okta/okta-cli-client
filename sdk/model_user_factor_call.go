@@ -20,7 +20,7 @@ import (
 // UserFactorCall struct for UserFactorCall
 type UserFactorCall struct {
 	UserFactor
-	Profile *UserFactorCallProfile `json:"profile,omitempty"`
+	Profile              *UserFactorCallProfile `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -188,4 +188,3 @@ func (v *NullableUserFactorCall) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

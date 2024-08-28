@@ -17,12 +17,12 @@ import (
 
 // PushProvider struct for PushProvider
 type PushProvider struct {
-	Id *string `json:"id,omitempty"`
+	Id              *string `json:"id,omitempty"`
 	LastUpdatedDate *string `json:"lastUpdatedDate,omitempty"`
 	// Display name of the push provider
-	Name *string `json:"name,omitempty"`
-	ProviderType *string `json:"providerType,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	ProviderType         *string    `json:"providerType,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -292,4 +292,3 @@ func (v *NullablePushProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

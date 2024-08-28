@@ -17,156 +17,146 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RoleAssignmentAPI interface {
 
 	/*
-	AssignRoleToGroup Assign a Role to a Group
+		AssignRoleToGroup Assign a Role to a Group
 
-	Assigns a role to a group
+		Assigns a role to a group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiAssignRoleToGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiAssignRoleToGroupRequest
 	*/
 	AssignRoleToGroup(ctx context.Context, groupId string) ApiAssignRoleToGroupRequest
 
 	// AssignRoleToGroupExecute executes the request
 	//  @return Role
-	// TODU
 	AssignRoleToGroupExecute(r ApiAssignRoleToGroupRequest) (*APIResponse, error)
 
 	/*
-	AssignRoleToUser Assign a Role to a User
+		AssignRoleToUser Assign a Role to a User
 
-	Assigns a role to a user identified by `userId`
+		Assigns a role to a user identified by `userId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiAssignRoleToUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiAssignRoleToUserRequest
 	*/
 	AssignRoleToUser(ctx context.Context, userId string) ApiAssignRoleToUserRequest
 
 	// AssignRoleToUserExecute executes the request
 	//  @return Role
-	// TODU
 	AssignRoleToUserExecute(r ApiAssignRoleToUserRequest) (*APIResponse, error)
 
 	/*
-	GetGroupAssignedRole Retrieve a Role assigned to Group
+		GetGroupAssignedRole Retrieve a Role assigned to Group
 
-	Retrieves a role identified by `roleId` assigned to group identified by `groupId`
+		Retrieves a role identified by `roleId` assigned to group identified by `groupId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@return ApiGetGroupAssignedRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@return ApiGetGroupAssignedRoleRequest
 	*/
 	GetGroupAssignedRole(ctx context.Context, groupId string, roleId string) ApiGetGroupAssignedRoleRequest
 
 	// GetGroupAssignedRoleExecute executes the request
 	//  @return Role
-	// TODU
 	GetGroupAssignedRoleExecute(r ApiGetGroupAssignedRoleRequest) (*APIResponse, error)
 
 	/*
-	GetUserAssignedRole Retrieve a Role assigned to a User
+		GetUserAssignedRole Retrieve a Role assigned to a User
 
-	Retrieves a role identified by `roleId` assigned to a user identified by `userId`
+		Retrieves a role identified by `roleId` assigned to a user identified by `userId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@return ApiGetUserAssignedRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@return ApiGetUserAssignedRoleRequest
 	*/
 	GetUserAssignedRole(ctx context.Context, userId string, roleId string) ApiGetUserAssignedRoleRequest
 
 	// GetUserAssignedRoleExecute executes the request
 	//  @return Role
-	// TODU
 	GetUserAssignedRoleExecute(r ApiGetUserAssignedRoleRequest) (*APIResponse, error)
 
 	/*
-	ListAssignedRolesForUser List all Roles assigned to a User
+		ListAssignedRolesForUser List all Roles assigned to a User
 
-	Lists all roles assigned to a user identified by `userId`
+		Lists all roles assigned to a user identified by `userId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListAssignedRolesForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListAssignedRolesForUserRequest
 	*/
 	ListAssignedRolesForUser(ctx context.Context, userId string) ApiListAssignedRolesForUserRequest
 
 	// ListAssignedRolesForUserExecute executes the request
 	//  @return []Role
-	// TODU
 	ListAssignedRolesForUserExecute(r ApiListAssignedRolesForUserRequest) (*APIResponse, error)
 
 	/*
-	ListGroupAssignedRoles List all Assigned Roles of Group
+		ListGroupAssignedRoles List all Assigned Roles of Group
 
-	Lists all assigned roles of group identified by `groupId`
+		Lists all assigned roles of group identified by `groupId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiListGroupAssignedRolesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiListGroupAssignedRolesRequest
 	*/
 	ListGroupAssignedRoles(ctx context.Context, groupId string) ApiListGroupAssignedRolesRequest
 
 	// ListGroupAssignedRolesExecute executes the request
 	//  @return []Role
-	// TODU
 	ListGroupAssignedRolesExecute(r ApiListGroupAssignedRolesRequest) (*APIResponse, error)
 
 	/*
-	ListUsersWithRoleAssignments List all Users with Role Assignments
+		ListUsersWithRoleAssignments List all Users with Role Assignments
 
-	Lists all users with Role Assignments
+		Lists all users with Role Assignments
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListUsersWithRoleAssignmentsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListUsersWithRoleAssignmentsRequest
 	*/
 	ListUsersWithRoleAssignments(ctx context.Context) ApiListUsersWithRoleAssignmentsRequest
 
 	// ListUsersWithRoleAssignmentsExecute executes the request
 	//  @return RoleAssignedUsers
-	// TODU
 	ListUsersWithRoleAssignmentsExecute(r ApiListUsersWithRoleAssignmentsRequest) (*APIResponse, error)
 
 	/*
-	UnassignRoleFromGroup Unassign a Role from a Group
+		UnassignRoleFromGroup Unassign a Role from a Group
 
-	Unassigns a role identified by `roleId` assigned to group identified by `groupId`
+		Unassigns a role identified by `roleId` assigned to group identified by `groupId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@return ApiUnassignRoleFromGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@return ApiUnassignRoleFromGroupRequest
 	*/
 	UnassignRoleFromGroup(ctx context.Context, groupId string, roleId string) ApiUnassignRoleFromGroupRequest
 
 	// UnassignRoleFromGroupExecute executes the request
-	// TODU
 	UnassignRoleFromGroupExecute(r ApiUnassignRoleFromGroupRequest) (*APIResponse, error)
 
 	/*
-	UnassignRoleFromUser Unassign a Role from a User
+		UnassignRoleFromUser Unassign a Role from a User
 
-	Unassigns a role identified by `roleId` from a user identified by `userId`
+		Unassigns a role identified by `roleId` from a user identified by `userId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@return ApiUnassignRoleFromUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@return ApiUnassignRoleFromUserRequest
 	*/
 	UnassignRoleFromUser(ctx context.Context, userId string, roleId string) ApiUnassignRoleFromUserRequest
 
 	// UnassignRoleFromUserExecute executes the request
-	// TODU
 	UnassignRoleFromUserExecute(r ApiUnassignRoleFromUserRequest) (*APIResponse, error)
 }
 
@@ -174,14 +164,13 @@ type RoleAssignmentAPI interface {
 type RoleAssignmentAPIService service
 
 type ApiAssignRoleToGroupRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentAPI
-	groupId string
-	assignRoleRequest *AssignRoleRequest
+	ctx                  context.Context
+	ApiService           RoleAssignmentAPI
+	groupId              string
+	assignRoleRequest    *AssignRoleRequest
 	disableNotifications *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                 interface{}
+	retryCount           int32
 }
 
 func (r ApiAssignRoleToGroupRequest) AssignRoleRequest(assignRoleRequest AssignRoleRequest) ApiAssignRoleToGroupRequest {
@@ -195,14 +184,11 @@ func (r ApiAssignRoleToGroupRequest) DisableNotifications(disableNotifications b
 	return r
 }
 
-
-// TODU
-func (r ApiAssignRoleToGroupRequest) Data (data interface{}) ApiAssignRoleToGroupRequest {
+func (r ApiAssignRoleToGroupRequest) Data(data interface{}) ApiAssignRoleToGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignRoleToGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignRoleToGroupExecute(r)
 }
@@ -216,13 +202,12 @@ Assigns a role to a group
  @param groupId The `id` of the group
  @return ApiAssignRoleToGroupRequest
 */
-// TODU
 
 func (a *RoleAssignmentAPIService) AssignRoleToGroup(ctx context.Context, groupId string) ApiAssignRoleToGroupRequest {
 	return ApiAssignRoleToGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -235,10 +220,9 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -248,7 +232,6 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAssignmentAPIService.AssignRoleToGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -279,7 +262,6 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.assignRoleRequest
 	localVarPostBody = r.data
@@ -299,13 +281,11 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -314,7 +294,6 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -329,12 +308,10 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -343,12 +320,10 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -357,12 +332,10 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -371,13 +344,11 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -386,14 +357,13 @@ func (a *RoleAssignmentAPIService) AssignRoleToGroupExecute(r ApiAssignRoleToGro
 }
 
 type ApiAssignRoleToUserRequest struct {
-	ctx context.Context
-	ApiService RoleAssignmentAPI
-	userId string
-	assignRoleRequest *AssignRoleRequest
+	ctx                  context.Context
+	ApiService           RoleAssignmentAPI
+	userId               string
+	assignRoleRequest    *AssignRoleRequest
 	disableNotifications *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                 interface{}
+	retryCount           int32
 }
 
 func (r ApiAssignRoleToUserRequest) AssignRoleRequest(assignRoleRequest AssignRoleRequest) ApiAssignRoleToUserRequest {
@@ -407,14 +377,11 @@ func (r ApiAssignRoleToUserRequest) DisableNotifications(disableNotifications bo
 	return r
 }
 
-
-// TODU
-func (r ApiAssignRoleToUserRequest) Data (data interface{}) ApiAssignRoleToUserRequest {
+func (r ApiAssignRoleToUserRequest) Data(data interface{}) ApiAssignRoleToUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignRoleToUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignRoleToUserExecute(r)
 }
@@ -428,13 +395,12 @@ Assigns a role to a user identified by `userId`
  @param userId ID of an existing Okta user
  @return ApiAssignRoleToUserRequest
 */
-// TODU
 
 func (a *RoleAssignmentAPIService) AssignRoleToUser(ctx context.Context, userId string) ApiAssignRoleToUserRequest {
 	return ApiAssignRoleToUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -447,10 +413,9 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -460,7 +425,6 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAssignmentAPIService.AssignRoleToUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -491,7 +455,6 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.assignRoleRequest
 	localVarPostBody = r.data
@@ -511,13 +474,11 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -526,7 +487,6 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -541,12 +501,10 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -555,12 +513,10 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -569,12 +525,10 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -583,13 +537,11 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -598,23 +550,19 @@ func (a *RoleAssignmentAPIService) AssignRoleToUserExecute(r ApiAssignRoleToUser
 }
 
 type ApiGetGroupAssignedRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAssignmentAPI
-	groupId string
-	roleId string
-	// TODU
+	groupId    string
+	roleId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetGroupAssignedRoleRequest) Data (data interface{}) ApiGetGroupAssignedRoleRequest {
+func (r ApiGetGroupAssignedRoleRequest) Data(data interface{}) ApiGetGroupAssignedRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetGroupAssignedRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetGroupAssignedRoleExecute(r)
 }
@@ -629,14 +577,13 @@ Retrieves a role identified by `roleId` assigned to group identified by `groupId
  @param roleId `id` of the Role
  @return ApiGetGroupAssignedRoleRequest
 */
-// TODU
 
 func (a *RoleAssignmentAPIService) GetGroupAssignedRole(ctx context.Context, groupId string, roleId string) ApiGetGroupAssignedRoleRequest {
 	return ApiGetGroupAssignedRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
@@ -649,10 +596,9 @@ func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssi
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -662,7 +608,6 @@ func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAssignmentAPIService.GetGroupAssignedRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -691,7 +636,6 @@ func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -708,13 +652,11 @@ func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -723,7 +665,6 @@ func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -738,12 +679,10 @@ func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -752,12 +691,10 @@ func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -766,13 +703,11 @@ func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -781,23 +716,19 @@ func (a *RoleAssignmentAPIService) GetGroupAssignedRoleExecute(r ApiGetGroupAssi
 }
 
 type ApiGetUserAssignedRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAssignmentAPI
-	userId string
-	roleId string
-	// TODU
+	userId     string
+	roleId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetUserAssignedRoleRequest) Data (data interface{}) ApiGetUserAssignedRoleRequest {
+func (r ApiGetUserAssignedRoleRequest) Data(data interface{}) ApiGetUserAssignedRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetUserAssignedRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetUserAssignedRoleExecute(r)
 }
@@ -812,14 +743,13 @@ Retrieves a role identified by `roleId` assigned to a user identified by `userId
  @param roleId `id` of the Role
  @return ApiGetUserAssignedRoleRequest
 */
-// TODU
 
 func (a *RoleAssignmentAPIService) GetUserAssignedRole(ctx context.Context, userId string, roleId string) ApiGetUserAssignedRoleRequest {
 	return ApiGetUserAssignedRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
@@ -832,10 +762,9 @@ func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssign
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -845,7 +774,6 @@ func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssign
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAssignmentAPIService.GetUserAssignedRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -874,7 +802,6 @@ func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssign
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -891,13 +818,11 @@ func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssign
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -906,7 +831,6 @@ func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssign
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -921,12 +845,10 @@ func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssign
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -935,12 +857,10 @@ func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssign
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -949,13 +869,11 @@ func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssign
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -964,11 +882,10 @@ func (a *RoleAssignmentAPIService) GetUserAssignedRoleExecute(r ApiGetUserAssign
 }
 
 type ApiListAssignedRolesForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAssignmentAPI
-	userId string
-	expand *string
-	// TODU
+	userId     string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -978,14 +895,11 @@ func (r ApiListAssignedRolesForUserRequest) Expand(expand string) ApiListAssigne
 	return r
 }
 
-
-// TODU
-func (r ApiListAssignedRolesForUserRequest) Data (data interface{}) ApiListAssignedRolesForUserRequest {
+func (r ApiListAssignedRolesForUserRequest) Data(data interface{}) ApiListAssignedRolesForUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListAssignedRolesForUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListAssignedRolesForUserExecute(r)
 }
@@ -999,13 +913,12 @@ Lists all roles assigned to a user identified by `userId`
  @param userId ID of an existing Okta user
  @return ApiListAssignedRolesForUserRequest
 */
-// TODU
 
 func (a *RoleAssignmentAPIService) ListAssignedRolesForUser(ctx context.Context, userId string) ApiListAssignedRolesForUserRequest {
 	return ApiListAssignedRolesForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1018,10 +931,9 @@ func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssi
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1031,7 +943,6 @@ func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAssignmentAPIService.ListAssignedRolesForUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1062,7 +973,6 @@ func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1079,13 +989,11 @@ func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1094,7 +1002,6 @@ func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1109,12 +1016,10 @@ func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1123,12 +1028,10 @@ func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1137,13 +1040,11 @@ func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1152,11 +1053,10 @@ func (a *RoleAssignmentAPIService) ListAssignedRolesForUserExecute(r ApiListAssi
 }
 
 type ApiListGroupAssignedRolesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAssignmentAPI
-	groupId string
-	expand *string
-	// TODU
+	groupId    string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -1166,14 +1066,11 @@ func (r ApiListGroupAssignedRolesRequest) Expand(expand string) ApiListGroupAssi
 	return r
 }
 
-
-// TODU
-func (r ApiListGroupAssignedRolesRequest) Data (data interface{}) ApiListGroupAssignedRolesRequest {
+func (r ApiListGroupAssignedRolesRequest) Data(data interface{}) ApiListGroupAssignedRolesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListGroupAssignedRolesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListGroupAssignedRolesExecute(r)
 }
@@ -1187,13 +1084,12 @@ Lists all assigned roles of group identified by `groupId`
  @param groupId The `id` of the group
  @return ApiListGroupAssignedRolesRequest
 */
-// TODU
 
 func (a *RoleAssignmentAPIService) ListGroupAssignedRoles(ctx context.Context, groupId string) ApiListGroupAssignedRolesRequest {
 	return ApiListGroupAssignedRolesRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -1206,10 +1102,9 @@ func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupA
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1219,7 +1114,6 @@ func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupA
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAssignmentAPIService.ListGroupAssignedRoles")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1250,7 +1144,6 @@ func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupA
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1267,13 +1160,11 @@ func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupA
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1282,7 +1173,6 @@ func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupA
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1297,12 +1187,10 @@ func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupA
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1311,12 +1199,10 @@ func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupA
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1325,13 +1211,11 @@ func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupA
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1340,11 +1224,10 @@ func (a *RoleAssignmentAPIService) ListGroupAssignedRolesExecute(r ApiListGroupA
 }
 
 type ApiListUsersWithRoleAssignmentsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAssignmentAPI
-	after *string
-	limit *int32
-	// TODU
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -1360,14 +1243,11 @@ func (r ApiListUsersWithRoleAssignmentsRequest) Limit(limit int32) ApiListUsersW
 	return r
 }
 
-
-// TODU
-func (r ApiListUsersWithRoleAssignmentsRequest) Data (data interface{}) ApiListUsersWithRoleAssignmentsRequest {
+func (r ApiListUsersWithRoleAssignmentsRequest) Data(data interface{}) ApiListUsersWithRoleAssignmentsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListUsersWithRoleAssignmentsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListUsersWithRoleAssignmentsExecute(r)
 }
@@ -1380,12 +1260,11 @@ Lists all users with Role Assignments
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListUsersWithRoleAssignmentsRequest
 */
-// TODU
 
 func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignments(ctx context.Context) ApiListUsersWithRoleAssignmentsRequest {
 	return ApiListUsersWithRoleAssignmentsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1398,10 +1277,9 @@ func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignmentsExecute(r ApiList
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1411,7 +1289,6 @@ func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignmentsExecute(r ApiList
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAssignmentAPIService.ListUsersWithRoleAssignments")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1444,7 +1321,6 @@ func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignmentsExecute(r ApiList
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1461,13 +1337,11 @@ func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignmentsExecute(r ApiList
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1476,7 +1350,6 @@ func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignmentsExecute(r ApiList
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1491,12 +1364,10 @@ func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignmentsExecute(r ApiList
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1505,13 +1376,11 @@ func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignmentsExecute(r ApiList
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1520,23 +1389,19 @@ func (a *RoleAssignmentAPIService) ListUsersWithRoleAssignmentsExecute(r ApiList
 }
 
 type ApiUnassignRoleFromGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAssignmentAPI
-	groupId string
-	roleId string
-	// TODU
+	groupId    string
+	roleId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnassignRoleFromGroupRequest) Data (data interface{}) ApiUnassignRoleFromGroupRequest {
+func (r ApiUnassignRoleFromGroupRequest) Data(data interface{}) ApiUnassignRoleFromGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnassignRoleFromGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnassignRoleFromGroupExecute(r)
 }
@@ -1551,14 +1416,13 @@ Unassigns a role identified by `roleId` assigned to group identified by `groupId
  @param roleId `id` of the Role
  @return ApiUnassignRoleFromGroupRequest
 */
-// TODU
 
 func (a *RoleAssignmentAPIService) UnassignRoleFromGroup(ctx context.Context, groupId string, roleId string) ApiUnassignRoleFromGroupRequest {
 	return ApiUnassignRoleFromGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
@@ -1572,7 +1436,7 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromGroupExecute(r ApiUnassignRol
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1582,7 +1446,6 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromGroupExecute(r ApiUnassignRol
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAssignmentAPIService.UnassignRoleFromGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1611,7 +1474,6 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromGroupExecute(r ApiUnassignRol
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1628,13 +1490,11 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromGroupExecute(r ApiUnassignRol
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1643,7 +1503,6 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromGroupExecute(r ApiUnassignRol
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1658,12 +1517,10 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromGroupExecute(r ApiUnassignRol
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1672,12 +1529,10 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromGroupExecute(r ApiUnassignRol
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1686,13 +1541,11 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromGroupExecute(r ApiUnassignRol
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1701,23 +1554,19 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromGroupExecute(r ApiUnassignRol
 }
 
 type ApiUnassignRoleFromUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAssignmentAPI
-	userId string
-	roleId string
-	// TODU
+	userId     string
+	roleId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnassignRoleFromUserRequest) Data (data interface{}) ApiUnassignRoleFromUserRequest {
+func (r ApiUnassignRoleFromUserRequest) Data(data interface{}) ApiUnassignRoleFromUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnassignRoleFromUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnassignRoleFromUserExecute(r)
 }
@@ -1732,14 +1581,13 @@ Unassigns a role identified by `roleId` from a user identified by `userId`
  @param roleId `id` of the Role
  @return ApiUnassignRoleFromUserRequest
 */
-// TODU
 
 func (a *RoleAssignmentAPIService) UnassignRoleFromUser(ctx context.Context, userId string, roleId string) ApiUnassignRoleFromUserRequest {
 	return ApiUnassignRoleFromUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
@@ -1753,7 +1601,7 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromUserExecute(r ApiUnassignRole
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1763,7 +1611,6 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromUserExecute(r ApiUnassignRole
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAssignmentAPIService.UnassignRoleFromUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1792,7 +1639,6 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromUserExecute(r ApiUnassignRole
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1809,13 +1655,11 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromUserExecute(r ApiUnassignRole
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1824,7 +1668,6 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromUserExecute(r ApiUnassignRole
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1839,12 +1682,10 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromUserExecute(r ApiUnassignRole
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1853,12 +1694,10 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromUserExecute(r ApiUnassignRole
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1867,13 +1706,11 @@ func (a *RoleAssignmentAPIService) UnassignRoleFromUserExecute(r ApiUnassignRole
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

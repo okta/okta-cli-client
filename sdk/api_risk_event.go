@@ -20,23 +20,21 @@ import (
 	"time"
 )
 
-
 type RiskEventAPI interface {
 
 	/*
-	SendRiskEvents Send multiple Risk Events
+			SendRiskEvents Send multiple Risk Events
 
-	Sends multiple IP risk events to Okta.
-This request is used by a third-party risk provider to send IP risk events to Okta. The third-party risk provider needs to be registered with Okta before they can send events to Okta. See [Risk Providers](/openapi/okta-management/management/tag/RiskProvider/).
-This API has a rate limit of 30 requests per minute. You can include multiple risk events (up to a maximum of 20 events) in a single payload to reduce the number of API calls. Prioritize sending high risk signals if you have a burst of signals to send that would exceed the maximum request limits.
+			Sends multiple IP risk events to Okta.
+		This request is used by a third-party risk provider to send IP risk events to Okta. The third-party risk provider needs to be registered with Okta before they can send events to Okta. See [Risk Providers](/openapi/okta-management/management/tag/RiskProvider/).
+		This API has a rate limit of 30 requests per minute. You can include multiple risk events (up to a maximum of 20 events) in a single payload to reduce the number of API calls. Prioritize sending high risk signals if you have a burst of signals to send that would exceed the maximum request limits.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSendRiskEventsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiSendRiskEventsRequest
 	*/
 	SendRiskEvents(ctx context.Context) ApiSendRiskEventsRequest
 
 	// SendRiskEventsExecute executes the request
-	// TODU
 	SendRiskEventsExecute(r ApiSendRiskEventsRequest) (*APIResponse, error)
 }
 
@@ -44,10 +42,9 @@ This API has a rate limit of 30 requests per minute. You can include multiple ri
 type RiskEventAPIService service
 
 type ApiSendRiskEventsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RiskEventAPI
-	instance *[]RiskEvent
-	// TODU
+	instance   *[]RiskEvent
 	data       interface{}
 	retryCount int32
 }
@@ -57,14 +54,11 @@ func (r ApiSendRiskEventsRequest) Instance(instance []RiskEvent) ApiSendRiskEven
 	return r
 }
 
-
-// TODU
-func (r ApiSendRiskEventsRequest) Data (data interface{}) ApiSendRiskEventsRequest {
+func (r ApiSendRiskEventsRequest) Data(data interface{}) ApiSendRiskEventsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiSendRiskEventsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.SendRiskEventsExecute(r)
 }
@@ -79,12 +73,11 @@ This API has a rate limit of 30 requests per minute. You can include multiple ri
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiSendRiskEventsRequest
 */
-// TODU
 
 func (a *RiskEventAPIService) SendRiskEvents(ctx context.Context) ApiSendRiskEventsRequest {
 	return ApiSendRiskEventsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -98,7 +91,7 @@ func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -108,7 +101,6 @@ func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskEventAPIService.SendRiskEvents")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -135,7 +127,6 @@ func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -155,13 +146,11 @@ func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -170,7 +159,6 @@ func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -185,12 +173,10 @@ func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -199,12 +185,10 @@ func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -213,13 +197,11 @@ func (a *RiskEventAPIService) SendRiskEventsExecute(r ApiSendRiskEventsRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

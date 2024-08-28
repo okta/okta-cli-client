@@ -18,9 +18,9 @@ import (
 // EmailTemplate struct for EmailTemplate
 type EmailTemplate struct {
 	// The name of this email template
-	Name *string `json:"name,omitempty"`
-	Embedded *EmailTemplateEmbedded `json:"_embedded,omitempty"`
-	Links *EmailTemplateLinks `json:"_links,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	Embedded             *EmailTemplateEmbedded `json:"_embedded,omitempty"`
+	Links                *EmailTemplateLinks    `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -218,4 +218,3 @@ func (v *NullableEmailTemplate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

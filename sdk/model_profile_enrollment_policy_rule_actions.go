@@ -17,7 +17,7 @@ import (
 
 // ProfileEnrollmentPolicyRuleActions struct for ProfileEnrollmentPolicyRuleActions
 type ProfileEnrollmentPolicyRuleActions struct {
-	ProfileEnrollment *ProfileEnrollmentPolicyRuleAction `json:"profileEnrollment,omitempty"`
+	ProfileEnrollment    *ProfileEnrollmentPolicyRuleAction `json:"profileEnrollment,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableProfileEnrollmentPolicyRuleActions) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -17,11 +17,11 @@ import (
 
 // SimulateResultPoliciesItems struct for SimulateResultPoliciesItems
 type SimulateResultPoliciesItems struct {
-	Conditions *SimulateResultConditions `json:"conditions,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Rules *SimulateResultRules `json:"rules,omitempty"`
-	Status *string `json:"status,omitempty"`
+	Conditions           *SimulateResultConditions `json:"conditions,omitempty"`
+	Id                   *string                   `json:"id,omitempty"`
+	Name                 *string                   `json:"name,omitempty"`
+	Rules                *SimulateResultRules      `json:"rules,omitempty"`
+	Status               *string                   `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -291,4 +291,3 @@ func (v *NullableSimulateResultPoliciesItems) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

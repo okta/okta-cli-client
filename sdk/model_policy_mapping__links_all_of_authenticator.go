@@ -23,7 +23,7 @@ type PolicyMappingLinksAllOfAuthenticator struct {
 	// Link name
 	Name *string `json:"name,omitempty"`
 	// The media type of the link. If omitted, it is implicitly `application/json`.
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -250,4 +250,3 @@ func (v *NullablePolicyMappingLinksAllOfAuthenticator) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

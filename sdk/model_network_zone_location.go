@@ -20,7 +20,7 @@ type NetworkZoneLocation struct {
 	// Format of the country value: length 2 [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code. Do not use continent codes as they are treated as generic codes for undesignated countries.
 	Country *string `json:"country,omitempty"`
 	// Format of the region value (optional): region code [ISO-3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) appended to country code (`countryCode-regionCode`), or `null` if empty. Do not use continent codes as they are treated as generic codes for undesignated regions.
-	Region *string `json:"region,omitempty"`
+	Region               *string `json:"region,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -182,4 +182,3 @@ func (v *NullableNetworkZoneLocation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

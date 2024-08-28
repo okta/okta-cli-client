@@ -17,11 +17,11 @@ import (
 
 // AuthenticatorProviderConfiguration struct for AuthenticatorProviderConfiguration
 type AuthenticatorProviderConfiguration struct {
-	AuthPort *int32 `json:"authPort,omitempty"`
-	HostName *string `json:"hostName,omitempty"`
-	InstanceId *string `json:"instanceId,omitempty"`
-	SharedSecret *string `json:"sharedSecret,omitempty"`
-	UserNameTemplate *AuthenticatorProviderConfigurationUserNameTemplate `json:"userNameTemplate,omitempty"`
+	AuthPort             *int32                                              `json:"authPort,omitempty"`
+	HostName             *string                                             `json:"hostName,omitempty"`
+	InstanceId           *string                                             `json:"instanceId,omitempty"`
+	SharedSecret         *string                                             `json:"sharedSecret,omitempty"`
+	UserNameTemplate     *AuthenticatorProviderConfigurationUserNameTemplate `json:"userNameTemplate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -291,4 +291,3 @@ func (v *NullableAuthenticatorProviderConfiguration) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

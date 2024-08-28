@@ -17,9 +17,9 @@ import (
 
 // AuthenticatorMethodPushAllOfSettings struct for AuthenticatorMethodPushAllOfSettings
 type AuthenticatorMethodPushAllOfSettings struct {
-	Algorithms []string `json:"algorithms,omitempty"`
-	KeyProtection *string `json:"keyProtection,omitempty"`
-	TransactionTypes []string `json:"transactionTypes,omitempty"`
+	Algorithms           []string `json:"algorithms,omitempty"`
+	KeyProtection        *string  `json:"keyProtection,omitempty"`
+	TransactionTypes     []string `json:"transactionTypes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -217,4 +217,3 @@ func (v *NullableAuthenticatorMethodPushAllOfSettings) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

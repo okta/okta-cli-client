@@ -17,7 +17,7 @@ import (
 
 // BehaviorRuleSettingsVelocity struct for BehaviorRuleSettingsVelocity
 type BehaviorRuleSettingsVelocity struct {
-	VelocityKph int32 `json:"velocityKph"`
+	VelocityKph          int32 `json:"velocityKph"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -138,4 +138,3 @@ func (v *NullableBehaviorRuleSettingsVelocity) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

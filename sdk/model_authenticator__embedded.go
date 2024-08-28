@@ -17,8 +17,8 @@ import (
 
 // AuthenticatorEmbedded struct for AuthenticatorEmbedded
 type AuthenticatorEmbedded struct {
-	Methods []AuthenticatorMethodBase `json:"methods,omitempty"`
-	Policies []Policy `json:"policies,omitempty"`
+	Methods              []AuthenticatorMethodBase `json:"methods,omitempty"`
+	Policies             []Policy                  `json:"policies,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableAuthenticatorEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -22,8 +22,8 @@ type ProfileMappingSource struct {
 	// Variable name of the application instance or name of the referenced UserType
 	Name *string `json:"name,omitempty"`
 	// Type of user referenced in the mapping
-	Type *string `json:"type,omitempty"`
-	Links *SourceLinks `json:"_links,omitempty"`
+	Type                 *string      `json:"type,omitempty"`
+	Links                *SourceLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -257,4 +257,3 @@ func (v *NullableProfileMappingSource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

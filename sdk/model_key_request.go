@@ -17,7 +17,7 @@ import (
 
 // KeyRequest struct for KeyRequest
 type KeyRequest struct {
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableKeyRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

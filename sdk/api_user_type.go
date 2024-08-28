@@ -17,108 +17,101 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserTypeAPI interface {
 
 	/*
-	CreateUserType Create a User Type
+			CreateUserType Create a User Type
 
-	Creates a new User Type. Okta automatically creates a `default` User Type for your org. You may add up to nine additional User Types.
-> **Note**: New User Types are based on the current default schema template. Modifications to this schema do not automatically propagate to previously created User Types.
+			Creates a new User Type. Okta automatically creates a `default` User Type for your org. You may add up to nine additional User Types.
+		> **Note**: New User Types are based on the current default schema template. Modifications to this schema do not automatically propagate to previously created User Types.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateUserTypeRequest
 	*/
 	CreateUserType(ctx context.Context) ApiCreateUserTypeRequest
 
 	// CreateUserTypeExecute executes the request
 	//  @return UserType
-	// TODU
 	CreateUserTypeExecute(r ApiCreateUserTypeRequest) (*APIResponse, error)
 
 	/*
-	DeleteUserType Delete a User Type
+			DeleteUserType Delete a User Type
 
-	Deletes a User Type permanently.
-> **Note**: You can't delete the default User Type or a User Type that is currently assigned to users.
+			Deletes a User Type permanently.
+		> **Note**: You can't delete the default User Type or a User Type that is currently assigned to users.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param typeId
-	@return ApiDeleteUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param typeId
+			@return ApiDeleteUserTypeRequest
 	*/
 	DeleteUserType(ctx context.Context, typeId string) ApiDeleteUserTypeRequest
 
 	// DeleteUserTypeExecute executes the request
-	// TODU
 	DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (*APIResponse, error)
 
 	/*
-	GetUserType Retrieve a User Type
+		GetUserType Retrieve a User Type
 
-	Retrieves a User Type by ID. Use `default` to fetch the default User Type.
+		Retrieves a User Type by ID. Use `default` to fetch the default User Type.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param typeId
-	@return ApiGetUserTypeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param typeId
+		@return ApiGetUserTypeRequest
 	*/
 	GetUserType(ctx context.Context, typeId string) ApiGetUserTypeRequest
 
 	// GetUserTypeExecute executes the request
 	//  @return UserType
-	// TODU
 	GetUserTypeExecute(r ApiGetUserTypeRequest) (*APIResponse, error)
 
 	/*
-	ListUserTypes List all User Types
+		ListUserTypes List all User Types
 
-	Lists all User Types in your org
+		Lists all User Types in your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListUserTypesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListUserTypesRequest
 	*/
 	ListUserTypes(ctx context.Context) ApiListUserTypesRequest
 
 	// ListUserTypesExecute executes the request
 	//  @return []UserType
-	// TODU
 	ListUserTypesExecute(r ApiListUserTypesRequest) (*APIResponse, error)
 
 	/*
-	ReplaceUserType Replace a User Type
+			ReplaceUserType Replace a User Type
 
-	Replaces an existing User Type.
-> **Note**: The `name` of an existing User Type can't be changed, but must be part of the request body. You can only replace the `displayName` and `description` elements.
+			Replaces an existing User Type.
+		> **Note**: The `name` of an existing User Type can't be changed, but must be part of the request body. You can only replace the `displayName` and `description` elements.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param typeId
-	@return ApiReplaceUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param typeId
+			@return ApiReplaceUserTypeRequest
 	*/
 	ReplaceUserType(ctx context.Context, typeId string) ApiReplaceUserTypeRequest
 
 	// ReplaceUserTypeExecute executes the request
 	//  @return UserType
-	// TODU
 	ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest) (*APIResponse, error)
 
 	/*
-	UpdateUserType Update a User Type
+			UpdateUserType Update a User Type
 
-	Updates an existing User Type.
-> **Note**: You can only update the `displayName` and `description` elements. The `name` of an existing User Type can't be changed.
+			Updates an existing User Type.
+		> **Note**: You can only update the `displayName` and `description` elements. The `name` of an existing User Type can't be changed.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param typeId
-	@return ApiUpdateUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param typeId
+			@return ApiUpdateUserTypeRequest
 	*/
 	UpdateUserType(ctx context.Context, typeId string) ApiUpdateUserTypeRequest
 
 	// UpdateUserTypeExecute executes the request
 	//  @return UserType
-	// TODU
 	UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (*APIResponse, error)
 }
 
@@ -126,10 +119,9 @@ type UserTypeAPI interface {
 type UserTypeAPIService service
 
 type ApiCreateUserTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
-	userType *UserType
-	// TODU
+	userType   *UserType
 	data       interface{}
 	retryCount int32
 }
@@ -139,14 +131,11 @@ func (r ApiCreateUserTypeRequest) UserType(userType UserType) ApiCreateUserTypeR
 	return r
 }
 
-
-// TODU
-func (r ApiCreateUserTypeRequest) Data (data interface{}) ApiCreateUserTypeRequest {
+func (r ApiCreateUserTypeRequest) Data(data interface{}) ApiCreateUserTypeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateUserTypeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateUserTypeExecute(r)
 }
@@ -160,12 +149,11 @@ Creates a new User Type. Okta automatically creates a `default` User Type for yo
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateUserTypeRequest
 */
-// TODU
 
 func (a *UserTypeAPIService) CreateUserType(ctx context.Context) ApiCreateUserTypeRequest {
 	return ApiCreateUserTypeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -178,10 +166,9 @@ func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -191,7 +178,6 @@ func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserTypeAPIService.CreateUserType")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -218,7 +204,6 @@ func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.userType
 	localVarPostBody = r.data
@@ -238,13 +223,11 @@ func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -253,7 +236,6 @@ func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -268,12 +250,10 @@ func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -282,12 +262,10 @@ func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -296,13 +274,11 @@ func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -311,22 +287,18 @@ func (a *UserTypeAPIService) CreateUserTypeExecute(r ApiCreateUserTypeRequest) (
 }
 
 type ApiDeleteUserTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
-	typeId string
-	// TODU
+	typeId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteUserTypeRequest) Data (data interface{}) ApiDeleteUserTypeRequest {
+func (r ApiDeleteUserTypeRequest) Data(data interface{}) ApiDeleteUserTypeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteUserTypeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteUserTypeExecute(r)
 }
@@ -341,13 +313,12 @@ Deletes a User Type permanently.
  @param typeId
  @return ApiDeleteUserTypeRequest
 */
-// TODU
 
 func (a *UserTypeAPIService) DeleteUserType(ctx context.Context, typeId string) ApiDeleteUserTypeRequest {
 	return ApiDeleteUserTypeRequest{
 		ApiService: a,
-		ctx: ctx,
-		typeId: typeId,
+		ctx:        ctx,
+		typeId:     typeId,
 		retryCount: 0,
 	}
 }
@@ -361,7 +332,7 @@ func (a *UserTypeAPIService) DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -371,7 +342,6 @@ func (a *UserTypeAPIService) DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserTypeAPIService.DeleteUserType")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -399,7 +369,6 @@ func (a *UserTypeAPIService) DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -416,13 +385,11 @@ func (a *UserTypeAPIService) DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -431,7 +398,6 @@ func (a *UserTypeAPIService) DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -446,12 +412,10 @@ func (a *UserTypeAPIService) DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -460,12 +424,10 @@ func (a *UserTypeAPIService) DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -474,13 +436,11 @@ func (a *UserTypeAPIService) DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -489,22 +449,18 @@ func (a *UserTypeAPIService) DeleteUserTypeExecute(r ApiDeleteUserTypeRequest) (
 }
 
 type ApiGetUserTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
-	typeId string
-	// TODU
+	typeId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetUserTypeRequest) Data (data interface{}) ApiGetUserTypeRequest {
+func (r ApiGetUserTypeRequest) Data(data interface{}) ApiGetUserTypeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetUserTypeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetUserTypeExecute(r)
 }
@@ -518,13 +474,12 @@ Retrieves a User Type by ID. Use `default` to fetch the default User Type.
  @param typeId
  @return ApiGetUserTypeRequest
 */
-// TODU
 
 func (a *UserTypeAPIService) GetUserType(ctx context.Context, typeId string) ApiGetUserTypeRequest {
 	return ApiGetUserTypeRequest{
 		ApiService: a,
-		ctx: ctx,
-		typeId: typeId,
+		ctx:        ctx,
+		typeId:     typeId,
 		retryCount: 0,
 	}
 }
@@ -537,10 +492,9 @@ func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*APIRe
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -550,7 +504,6 @@ func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*APIRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserTypeAPIService.GetUserType")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -578,7 +531,6 @@ func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*APIRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -595,13 +547,11 @@ func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*APIRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -610,7 +560,6 @@ func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*APIRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -625,12 +574,10 @@ func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -639,12 +586,10 @@ func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -653,13 +598,11 @@ func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -668,21 +611,17 @@ func (a *UserTypeAPIService) GetUserTypeExecute(r ApiGetUserTypeRequest) (*APIRe
 }
 
 type ApiListUserTypesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListUserTypesRequest) Data (data interface{}) ApiListUserTypesRequest {
+func (r ApiListUserTypesRequest) Data(data interface{}) ApiListUserTypesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListUserTypesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListUserTypesExecute(r)
 }
@@ -695,12 +634,11 @@ Lists all User Types in your org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListUserTypesRequest
 */
-// TODU
 
 func (a *UserTypeAPIService) ListUserTypes(ctx context.Context) ApiListUserTypesRequest {
 	return ApiListUserTypesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -713,10 +651,9 @@ func (a *UserTypeAPIService) ListUserTypesExecute(r ApiListUserTypesRequest) (*A
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -726,7 +663,6 @@ func (a *UserTypeAPIService) ListUserTypesExecute(r ApiListUserTypesRequest) (*A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserTypeAPIService.ListUserTypes")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -753,7 +689,6 @@ func (a *UserTypeAPIService) ListUserTypesExecute(r ApiListUserTypesRequest) (*A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -770,13 +705,11 @@ func (a *UserTypeAPIService) ListUserTypesExecute(r ApiListUserTypesRequest) (*A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -785,7 +718,6 @@ func (a *UserTypeAPIService) ListUserTypesExecute(r ApiListUserTypesRequest) (*A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -800,12 +732,10 @@ func (a *UserTypeAPIService) ListUserTypesExecute(r ApiListUserTypesRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -814,13 +744,11 @@ func (a *UserTypeAPIService) ListUserTypesExecute(r ApiListUserTypesRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -829,11 +757,10 @@ func (a *UserTypeAPIService) ListUserTypesExecute(r ApiListUserTypesRequest) (*A
 }
 
 type ApiReplaceUserTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
-	typeId string
-	userType *UserTypePutRequest
-	// TODU
+	typeId     string
+	userType   *UserTypePutRequest
 	data       interface{}
 	retryCount int32
 }
@@ -843,14 +770,11 @@ func (r ApiReplaceUserTypeRequest) UserType(userType UserTypePutRequest) ApiRepl
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceUserTypeRequest) Data (data interface{}) ApiReplaceUserTypeRequest {
+func (r ApiReplaceUserTypeRequest) Data(data interface{}) ApiReplaceUserTypeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceUserTypeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceUserTypeExecute(r)
 }
@@ -865,13 +789,12 @@ Replaces an existing User Type.
  @param typeId
  @return ApiReplaceUserTypeRequest
 */
-// TODU
 
 func (a *UserTypeAPIService) ReplaceUserType(ctx context.Context, typeId string) ApiReplaceUserTypeRequest {
 	return ApiReplaceUserTypeRequest{
 		ApiService: a,
-		ctx: ctx,
-		typeId: typeId,
+		ctx:        ctx,
+		typeId:     typeId,
 		retryCount: 0,
 	}
 }
@@ -884,10 +807,9 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -897,7 +819,6 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserTypeAPIService.ReplaceUserType")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -925,7 +846,6 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.userType
 	localVarPostBody = r.data
@@ -945,13 +865,11 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -960,7 +878,6 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -975,12 +892,10 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -989,12 +904,10 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1003,12 +916,10 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1017,13 +928,11 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1032,11 +941,10 @@ func (a *UserTypeAPIService) ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest)
 }
 
 type ApiUpdateUserTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserTypeAPI
-	typeId string
-	userType *UserTypePostRequest
-	// TODU
+	typeId     string
+	userType   *UserTypePostRequest
 	data       interface{}
 	retryCount int32
 }
@@ -1046,14 +954,11 @@ func (r ApiUpdateUserTypeRequest) UserType(userType UserTypePostRequest) ApiUpda
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateUserTypeRequest) Data (data interface{}) ApiUpdateUserTypeRequest {
+func (r ApiUpdateUserTypeRequest) Data(data interface{}) ApiUpdateUserTypeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateUserTypeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateUserTypeExecute(r)
 }
@@ -1068,13 +973,12 @@ Updates an existing User Type.
  @param typeId
  @return ApiUpdateUserTypeRequest
 */
-// TODU
 
 func (a *UserTypeAPIService) UpdateUserType(ctx context.Context, typeId string) ApiUpdateUserTypeRequest {
 	return ApiUpdateUserTypeRequest{
 		ApiService: a,
-		ctx: ctx,
-		typeId: typeId,
+		ctx:        ctx,
+		typeId:     typeId,
 		retryCount: 0,
 	}
 }
@@ -1087,10 +991,9 @@ func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1100,7 +1003,6 @@ func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserTypeAPIService.UpdateUserType")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1128,7 +1030,6 @@ func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.userType
 	localVarPostBody = r.data
@@ -1148,13 +1049,11 @@ func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1163,7 +1062,6 @@ func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1178,12 +1076,10 @@ func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1192,12 +1088,10 @@ func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1206,12 +1100,10 @@ func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1220,13 +1112,11 @@ func (a *UserTypeAPIService) UpdateUserTypeExecute(r ApiUpdateUserTypeRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

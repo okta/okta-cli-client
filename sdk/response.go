@@ -12,17 +12,16 @@ Contact: devex-public@okta.com
 package sdk
 
 import (
+	"bytes"
+	"encoding/json"
+	"encoding/xml"
 	"errors"
+	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
-	"io/ioutil"
 	"strings"
-	"bytes"
-	"encoding/xml"
-	"encoding/json"
-	"io"
 )
-
 
 // APIResponse stores the API response returned by the server.
 type APIResponse struct {
@@ -36,7 +35,7 @@ func newAPIResponse(r *http.Response, cli *APIClient, v interface{}) *APIRespons
 	// switch v
 	pg = newPaginationInHeader(r)
 	response := &APIResponse{Response: r, cli: cli, pg: pg}
-	return response 
+	return response
 }
 
 func buildResponse(resp *http.Response, cli *APIClient, v interface{}) (*APIResponse, error) {
@@ -88,7 +87,7 @@ func (c *APIClient) checkResponseForError(resp *http.Response) error {
 				return newErr
 			}
 			newErr.model = v
-			return  newErr
+			return newErr
 		}
 		if resp.StatusCode == 404 {
 			var v Error
@@ -98,7 +97,7 @@ func (c *APIClient) checkResponseForError(resp *http.Response) error {
 				return newErr
 			}
 			newErr.model = v
-			return  newErr
+			return newErr
 		}
 		if resp.StatusCode == 429 {
 			var v Error
@@ -108,7 +107,7 @@ func (c *APIClient) checkResponseForError(resp *http.Response) error {
 				return newErr
 			}
 			newErr.model = v
-			return  newErr
+			return newErr
 		}
 	}
 	return nil
@@ -118,7 +117,7 @@ func (res *APIResponse) Next(v interface{}) (*APIResponse, error) {
 	if res.cli == nil {
 		return nil, errors.New("no initial response provided from previous request")
 	}
-	req, err := res.cli.prepareRequest(res.cli.cfg.Context, res.NextPage(), http.MethodGet, nil, map[string]string{"Accept": "application/json"},nil, nil, nil)
+	req, err := res.cli.prepareRequest(res.cli.cfg.Context, res.NextPage(), http.MethodGet, nil, map[string]string{"Accept": "application/json"}, nil, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -17,151 +17,141 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type CAPTCHAAPI interface {
 
 	/*
-	CreateCaptchaInstance Create a CAPTCHA instance
+		CreateCaptchaInstance Create a CAPTCHA instance
 
-	Creates a new CAPTCHA instance. Currently, an org can only configure a single CAPTCHA instance.
+		Creates a new CAPTCHA instance. Currently, an org can only configure a single CAPTCHA instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateCaptchaInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateCaptchaInstanceRequest
 	*/
 	CreateCaptchaInstance(ctx context.Context) ApiCreateCaptchaInstanceRequest
 
 	// CreateCaptchaInstanceExecute executes the request
 	//  @return CAPTCHAInstance
-	// TODU
 	CreateCaptchaInstanceExecute(r ApiCreateCaptchaInstanceRequest) (*APIResponse, error)
 
 	/*
-	DeleteCaptchaInstance Delete a CAPTCHA Instance
+			DeleteCaptchaInstance Delete a CAPTCHA Instance
 
-	Deletes a specified CAPTCHA instance
-> **Note:** If your CAPTCHA instance is still associated with your org, the request fails. You must first update your Org-wide CAPTCHA settings to remove the CAPTCHA instance.
+			Deletes a specified CAPTCHA instance
+		> **Note:** If your CAPTCHA instance is still associated with your org, the request fails. You must first update your Org-wide CAPTCHA settings to remove the CAPTCHA instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param captchaId The unique key used to identify your CAPTCHA instance
-	@return ApiDeleteCaptchaInstanceRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param captchaId The unique key used to identify your CAPTCHA instance
+			@return ApiDeleteCaptchaInstanceRequest
 	*/
 	DeleteCaptchaInstance(ctx context.Context, captchaId string) ApiDeleteCaptchaInstanceRequest
 
 	// DeleteCaptchaInstanceExecute executes the request
-	// TODU
 	DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInstanceRequest) (*APIResponse, error)
 
 	/*
-	DeleteOrgCaptchaSettings Delete the Org-wide CAPTCHA Settings
+		DeleteOrgCaptchaSettings Delete the Org-wide CAPTCHA Settings
 
-	Deletes the CAPTCHA settings object for your organization
+		Deletes the CAPTCHA settings object for your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDeleteOrgCaptchaSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiDeleteOrgCaptchaSettingsRequest
 	*/
 	DeleteOrgCaptchaSettings(ctx context.Context) ApiDeleteOrgCaptchaSettingsRequest
 
 	// DeleteOrgCaptchaSettingsExecute executes the request
-	// TODU
 	DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptchaSettingsRequest) (*APIResponse, error)
 
 	/*
-	GetCaptchaInstance Retrieve a CAPTCHA Instance
+		GetCaptchaInstance Retrieve a CAPTCHA Instance
 
-	Retrieves the properties of a specified CAPTCHA instance
+		Retrieves the properties of a specified CAPTCHA instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param captchaId The unique key used to identify your CAPTCHA instance
-	@return ApiGetCaptchaInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param captchaId The unique key used to identify your CAPTCHA instance
+		@return ApiGetCaptchaInstanceRequest
 	*/
 	GetCaptchaInstance(ctx context.Context, captchaId string) ApiGetCaptchaInstanceRequest
 
 	// GetCaptchaInstanceExecute executes the request
 	//  @return CAPTCHAInstance
-	// TODU
 	GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceRequest) (*APIResponse, error)
 
 	/*
-	GetOrgCaptchaSettings Retrieve the Org-wide CAPTCHA Settings
+			GetOrgCaptchaSettings Retrieve the Org-wide CAPTCHA Settings
 
-	Retrieves the CAPTCHA settings object for your organization.
-> **Note**: If the current organization hasn't configured CAPTCHA Settings, the request returns an empty object.
+			Retrieves the CAPTCHA settings object for your organization.
+		> **Note**: If the current organization hasn't configured CAPTCHA Settings, the request returns an empty object.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgCaptchaSettingsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiGetOrgCaptchaSettingsRequest
 	*/
 	GetOrgCaptchaSettings(ctx context.Context) ApiGetOrgCaptchaSettingsRequest
 
 	// GetOrgCaptchaSettingsExecute executes the request
 	//  @return OrgCAPTCHASettings
-	// TODU
 	GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSettingsRequest) (*APIResponse, error)
 
 	/*
-	ListCaptchaInstances List all CAPTCHA Instances
+		ListCaptchaInstances List all CAPTCHA Instances
 
-	Lists all CAPTCHA instances with pagination support. A subset of CAPTCHA instances can be returned that match a supported filter expression or query.
+		Lists all CAPTCHA instances with pagination support. A subset of CAPTCHA instances can be returned that match a supported filter expression or query.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListCaptchaInstancesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListCaptchaInstancesRequest
 	*/
 	ListCaptchaInstances(ctx context.Context) ApiListCaptchaInstancesRequest
 
 	// ListCaptchaInstancesExecute executes the request
 	//  @return []CAPTCHAInstance
-	// TODU
 	ListCaptchaInstancesExecute(r ApiListCaptchaInstancesRequest) (*APIResponse, error)
 
 	/*
-	ReplaceCaptchaInstance Replace a CAPTCHA Instance
+		ReplaceCaptchaInstance Replace a CAPTCHA Instance
 
-	Replaces the properties for a specified CAPTCHA instance
+		Replaces the properties for a specified CAPTCHA instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param captchaId The unique key used to identify your CAPTCHA instance
-	@return ApiReplaceCaptchaInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param captchaId The unique key used to identify your CAPTCHA instance
+		@return ApiReplaceCaptchaInstanceRequest
 	*/
 	ReplaceCaptchaInstance(ctx context.Context, captchaId string) ApiReplaceCaptchaInstanceRequest
 
 	// ReplaceCaptchaInstanceExecute executes the request
 	//  @return CAPTCHAInstance
-	// TODU
 	ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaInstanceRequest) (*APIResponse, error)
 
 	/*
-	ReplacesOrgCaptchaSettings Replace the Org-wide CAPTCHA Settings
+			ReplacesOrgCaptchaSettings Replace the Org-wide CAPTCHA Settings
 
-	Replaces the CAPTCHA settings object for your organization.
-> **Note**: You can disable CAPTCHA for your organization by setting `captchaId` and `enabledPages` to `null`.
+			Replaces the CAPTCHA settings object for your organization.
+		> **Note**: You can disable CAPTCHA for your organization by setting `captchaId` and `enabledPages` to `null`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplacesOrgCaptchaSettingsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiReplacesOrgCaptchaSettingsRequest
 	*/
 	ReplacesOrgCaptchaSettings(ctx context.Context) ApiReplacesOrgCaptchaSettingsRequest
 
 	// ReplacesOrgCaptchaSettingsExecute executes the request
 	//  @return OrgCAPTCHASettings
-	// TODU
 	ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCaptchaSettingsRequest) (*APIResponse, error)
 
 	/*
-	UpdateCaptchaInstance Update a CAPTCHA Instance
+		UpdateCaptchaInstance Update a CAPTCHA Instance
 
-	Partially updates the properties of a specified CAPTCHA instance
+		Partially updates the properties of a specified CAPTCHA instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param captchaId The unique key used to identify your CAPTCHA instance
-	@return ApiUpdateCaptchaInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param captchaId The unique key used to identify your CAPTCHA instance
+		@return ApiUpdateCaptchaInstanceRequest
 	*/
 	UpdateCaptchaInstance(ctx context.Context, captchaId string) ApiUpdateCaptchaInstanceRequest
 
 	// UpdateCaptchaInstanceExecute executes the request
 	//  @return CAPTCHAInstance
-	// TODU
 	UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInstanceRequest) (*APIResponse, error)
 }
 
@@ -169,10 +159,9 @@ type CAPTCHAAPI interface {
 type CAPTCHAAPIService service
 
 type ApiCreateCaptchaInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	instance *CAPTCHAInstance
-	// TODU
+	instance   *CAPTCHAInstance
 	data       interface{}
 	retryCount int32
 }
@@ -182,14 +171,11 @@ func (r ApiCreateCaptchaInstanceRequest) Instance(instance CAPTCHAInstance) ApiC
 	return r
 }
 
-
-// TODU
-func (r ApiCreateCaptchaInstanceRequest) Data (data interface{}) ApiCreateCaptchaInstanceRequest {
+func (r ApiCreateCaptchaInstanceRequest) Data(data interface{}) ApiCreateCaptchaInstanceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateCaptchaInstanceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateCaptchaInstanceExecute(r)
 }
@@ -202,12 +188,11 @@ Creates a new CAPTCHA instance. Currently, an org can only configure a single CA
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateCaptchaInstanceRequest
 */
-// TODU
 
 func (a *CAPTCHAAPIService) CreateCaptchaInstance(ctx context.Context) ApiCreateCaptchaInstanceRequest {
 	return ApiCreateCaptchaInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -220,10 +205,9 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -233,7 +217,6 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CAPTCHAAPIService.CreateCaptchaInstance")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -260,7 +243,6 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -280,13 +262,11 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -295,7 +275,6 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -310,12 +289,10 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -324,12 +301,10 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -338,13 +313,11 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -353,22 +326,18 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 }
 
 type ApiDeleteCaptchaInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	captchaId string
-	// TODU
+	captchaId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteCaptchaInstanceRequest) Data (data interface{}) ApiDeleteCaptchaInstanceRequest {
+func (r ApiDeleteCaptchaInstanceRequest) Data(data interface{}) ApiDeleteCaptchaInstanceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteCaptchaInstanceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteCaptchaInstanceExecute(r)
 }
@@ -383,13 +352,12 @@ Deletes a specified CAPTCHA instance
  @param captchaId The unique key used to identify your CAPTCHA instance
  @return ApiDeleteCaptchaInstanceRequest
 */
-// TODU
 
 func (a *CAPTCHAAPIService) DeleteCaptchaInstance(ctx context.Context, captchaId string) ApiDeleteCaptchaInstanceRequest {
 	return ApiDeleteCaptchaInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
-		captchaId: captchaId,
+		ctx:        ctx,
+		captchaId:  captchaId,
 		retryCount: 0,
 	}
 }
@@ -403,7 +371,7 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -413,7 +381,6 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CAPTCHAAPIService.DeleteCaptchaInstance")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -441,7 +408,6 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -458,13 +424,11 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -473,7 +437,6 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -488,12 +451,10 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -502,12 +463,10 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -516,13 +475,11 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -531,21 +488,17 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 }
 
 type ApiDeleteOrgCaptchaSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteOrgCaptchaSettingsRequest) Data (data interface{}) ApiDeleteOrgCaptchaSettingsRequest {
+func (r ApiDeleteOrgCaptchaSettingsRequest) Data(data interface{}) ApiDeleteOrgCaptchaSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteOrgCaptchaSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteOrgCaptchaSettingsExecute(r)
 }
@@ -558,12 +511,11 @@ Deletes the CAPTCHA settings object for your organization
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDeleteOrgCaptchaSettingsRequest
 */
-// TODU
 
 func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettings(ctx context.Context) ApiDeleteOrgCaptchaSettingsRequest {
 	return ApiDeleteOrgCaptchaSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -577,7 +529,7 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -587,7 +539,6 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CAPTCHAAPIService.DeleteOrgCaptchaSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -614,7 +565,6 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -631,13 +581,11 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -646,7 +594,6 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -661,12 +608,10 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -675,12 +620,10 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -689,13 +632,11 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -704,22 +645,18 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 }
 
 type ApiGetCaptchaInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	captchaId string
-	// TODU
+	captchaId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetCaptchaInstanceRequest) Data (data interface{}) ApiGetCaptchaInstanceRequest {
+func (r ApiGetCaptchaInstanceRequest) Data(data interface{}) ApiGetCaptchaInstanceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetCaptchaInstanceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetCaptchaInstanceExecute(r)
 }
@@ -733,13 +670,12 @@ Retrieves the properties of a specified CAPTCHA instance
  @param captchaId The unique key used to identify your CAPTCHA instance
  @return ApiGetCaptchaInstanceRequest
 */
-// TODU
 
 func (a *CAPTCHAAPIService) GetCaptchaInstance(ctx context.Context, captchaId string) ApiGetCaptchaInstanceRequest {
 	return ApiGetCaptchaInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
-		captchaId: captchaId,
+		ctx:        ctx,
+		captchaId:  captchaId,
 		retryCount: 0,
 	}
 }
@@ -752,10 +688,9 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -765,7 +700,6 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CAPTCHAAPIService.GetCaptchaInstance")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -793,7 +727,6 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -810,13 +743,11 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -825,7 +756,6 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -840,12 +770,10 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -854,12 +782,10 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -868,13 +794,11 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -883,21 +807,17 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 }
 
 type ApiGetOrgCaptchaSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetOrgCaptchaSettingsRequest) Data (data interface{}) ApiGetOrgCaptchaSettingsRequest {
+func (r ApiGetOrgCaptchaSettingsRequest) Data(data interface{}) ApiGetOrgCaptchaSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetOrgCaptchaSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetOrgCaptchaSettingsExecute(r)
 }
@@ -911,12 +831,11 @@ Retrieves the CAPTCHA settings object for your organization.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetOrgCaptchaSettingsRequest
 */
-// TODU
 
 func (a *CAPTCHAAPIService) GetOrgCaptchaSettings(ctx context.Context) ApiGetOrgCaptchaSettingsRequest {
 	return ApiGetOrgCaptchaSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -929,10 +848,9 @@ func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSetti
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -942,7 +860,6 @@ func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSetti
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CAPTCHAAPIService.GetOrgCaptchaSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -969,7 +886,6 @@ func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSetti
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -986,13 +902,11 @@ func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSetti
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1001,7 +915,6 @@ func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSetti
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1016,12 +929,10 @@ func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSetti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1030,13 +941,11 @@ func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSetti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1045,21 +954,17 @@ func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSetti
 }
 
 type ApiListCaptchaInstancesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListCaptchaInstancesRequest) Data (data interface{}) ApiListCaptchaInstancesRequest {
+func (r ApiListCaptchaInstancesRequest) Data(data interface{}) ApiListCaptchaInstancesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListCaptchaInstancesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListCaptchaInstancesExecute(r)
 }
@@ -1072,12 +977,11 @@ Lists all CAPTCHA instances with pagination support. A subset of CAPTCHA instanc
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListCaptchaInstancesRequest
 */
-// TODU
 
 func (a *CAPTCHAAPIService) ListCaptchaInstances(ctx context.Context) ApiListCaptchaInstancesRequest {
 	return ApiListCaptchaInstancesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1090,10 +994,9 @@ func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstance
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1103,7 +1006,6 @@ func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstance
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CAPTCHAAPIService.ListCaptchaInstances")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1130,7 +1032,6 @@ func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstance
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1147,13 +1048,11 @@ func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstance
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1162,7 +1061,6 @@ func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstance
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1177,12 +1075,10 @@ func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstance
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1191,13 +1087,11 @@ func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstance
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1206,11 +1100,10 @@ func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstance
 }
 
 type ApiReplaceCaptchaInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	captchaId string
-	instance *CAPTCHAInstance
-	// TODU
+	captchaId  string
+	instance   *CAPTCHAInstance
 	data       interface{}
 	retryCount int32
 }
@@ -1220,14 +1113,11 @@ func (r ApiReplaceCaptchaInstanceRequest) Instance(instance CAPTCHAInstance) Api
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceCaptchaInstanceRequest) Data (data interface{}) ApiReplaceCaptchaInstanceRequest {
+func (r ApiReplaceCaptchaInstanceRequest) Data(data interface{}) ApiReplaceCaptchaInstanceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceCaptchaInstanceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceCaptchaInstanceExecute(r)
 }
@@ -1241,13 +1131,12 @@ Replaces the properties for a specified CAPTCHA instance
  @param captchaId The unique key used to identify your CAPTCHA instance
  @return ApiReplaceCaptchaInstanceRequest
 */
-// TODU
 
 func (a *CAPTCHAAPIService) ReplaceCaptchaInstance(ctx context.Context, captchaId string) ApiReplaceCaptchaInstanceRequest {
 	return ApiReplaceCaptchaInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
-		captchaId: captchaId,
+		ctx:        ctx,
+		captchaId:  captchaId,
 		retryCount: 0,
 	}
 }
@@ -1260,10 +1149,9 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1273,7 +1161,6 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CAPTCHAAPIService.ReplaceCaptchaInstance")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1301,7 +1188,6 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -1321,13 +1207,11 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1336,7 +1220,6 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1351,12 +1234,10 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1365,12 +1246,10 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1379,12 +1258,10 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1393,13 +1270,11 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1408,12 +1283,11 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 }
 
 type ApiReplacesOrgCaptchaSettingsRequest struct {
-	ctx context.Context
-	ApiService CAPTCHAAPI
+	ctx                context.Context
+	ApiService         CAPTCHAAPI
 	orgCAPTCHASettings *OrgCAPTCHASettings
-	// TODU
-	data       interface{}
-	retryCount int32
+	data               interface{}
+	retryCount         int32
 }
 
 func (r ApiReplacesOrgCaptchaSettingsRequest) OrgCAPTCHASettings(orgCAPTCHASettings OrgCAPTCHASettings) ApiReplacesOrgCaptchaSettingsRequest {
@@ -1421,14 +1295,11 @@ func (r ApiReplacesOrgCaptchaSettingsRequest) OrgCAPTCHASettings(orgCAPTCHASetti
 	return r
 }
 
-
-// TODU
-func (r ApiReplacesOrgCaptchaSettingsRequest) Data (data interface{}) ApiReplacesOrgCaptchaSettingsRequest {
+func (r ApiReplacesOrgCaptchaSettingsRequest) Data(data interface{}) ApiReplacesOrgCaptchaSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplacesOrgCaptchaSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplacesOrgCaptchaSettingsExecute(r)
 }
@@ -1442,12 +1313,11 @@ Replaces the CAPTCHA settings object for your organization.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiReplacesOrgCaptchaSettingsRequest
 */
-// TODU
 
 func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettings(ctx context.Context) ApiReplacesOrgCaptchaSettingsRequest {
 	return ApiReplacesOrgCaptchaSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1460,10 +1330,9 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1473,7 +1342,6 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CAPTCHAAPIService.ReplacesOrgCaptchaSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1500,7 +1368,6 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.orgCAPTCHASettings
 	localVarPostBody = r.data
@@ -1520,13 +1387,11 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1535,7 +1400,6 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1550,12 +1414,10 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1564,12 +1426,10 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1578,13 +1438,11 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1593,11 +1451,10 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 }
 
 type ApiUpdateCaptchaInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CAPTCHAAPI
-	captchaId string
-	instance *CAPTCHAInstance
-	// TODU
+	captchaId  string
+	instance   *CAPTCHAInstance
 	data       interface{}
 	retryCount int32
 }
@@ -1607,14 +1464,11 @@ func (r ApiUpdateCaptchaInstanceRequest) Instance(instance CAPTCHAInstance) ApiU
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateCaptchaInstanceRequest) Data (data interface{}) ApiUpdateCaptchaInstanceRequest {
+func (r ApiUpdateCaptchaInstanceRequest) Data(data interface{}) ApiUpdateCaptchaInstanceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateCaptchaInstanceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateCaptchaInstanceExecute(r)
 }
@@ -1628,13 +1482,12 @@ Partially updates the properties of a specified CAPTCHA instance
  @param captchaId The unique key used to identify your CAPTCHA instance
  @return ApiUpdateCaptchaInstanceRequest
 */
-// TODU
 
 func (a *CAPTCHAAPIService) UpdateCaptchaInstance(ctx context.Context, captchaId string) ApiUpdateCaptchaInstanceRequest {
 	return ApiUpdateCaptchaInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
-		captchaId: captchaId,
+		ctx:        ctx,
+		captchaId:  captchaId,
 		retryCount: 0,
 	}
 }
@@ -1647,10 +1500,9 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1660,7 +1512,6 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CAPTCHAAPIService.UpdateCaptchaInstance")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1688,7 +1539,6 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -1708,13 +1558,11 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1723,7 +1571,6 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1738,12 +1585,10 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1752,12 +1597,10 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1766,12 +1609,10 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1780,13 +1621,11 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

@@ -8,326 +8,235 @@ import (
 )
 
 var EmailDomainCmd = &cobra.Command{
-	Use:   "emailDomain",
-	Long:  "Manage EmailDomainAPI",
-}
-
-func NewEmailDomainCmd() *cobra.Command {
-    cmd := &cobra.Command{
-		Use:   "emailDomain",
-		Long:  "Manage EmailDomainAPI",
-	}
-	return cmd
+	Use:  "emailDomain",
+	Long: "Manage EmailDomainAPI",
 }
 
 func init() {
-    rootCmd.AddCommand(EmailDomainCmd)
+	rootCmd.AddCommand(EmailDomainCmd)
 }
 
-var (
-    
-    
-            CreateEmailDomaindata string
-        
-    
-)
+var CreateEmailDomaindata string
 
 func NewCreateEmailDomainCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "create",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.EmailDomainAPI.CreateEmailDomain(apiClient.GetConfig().Context)
-            
-            
-            if CreateEmailDomaindata != "" {
-                req = req.Data(CreateEmailDomaindata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "create",
 
-    
-    
-        cmd.Flags().StringVarP(&CreateEmailDomaindata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.EmailDomainAPI.CreateEmailDomain(apiClient.GetConfig().Context)
+
+			if CreateEmailDomaindata != "" {
+				req = req.Data(CreateEmailDomaindata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&CreateEmailDomaindata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	CreateEmailDomainCmd := NewCreateEmailDomainCmd()
-    EmailDomainCmd.AddCommand(CreateEmailDomainCmd)
+	EmailDomainCmd.AddCommand(CreateEmailDomainCmd)
 }
 
-var (
-    
-    
-    
-)
-
 func NewListEmailDomainsCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "lists",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.EmailDomainAPI.ListEmailDomains(apiClient.GetConfig().Context)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "lists",
 
-    
-    
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.EmailDomainAPI.ListEmailDomains(apiClient.GetConfig().Context)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
 
 	return cmd
 }
 
 func init() {
 	ListEmailDomainsCmd := NewListEmailDomainsCmd()
-    EmailDomainCmd.AddCommand(ListEmailDomainsCmd)
+	EmailDomainCmd.AddCommand(ListEmailDomainsCmd)
 }
 
-var (
-    
-    
-            GetEmailDomainemailDomainId string
-        
-    
-)
+var GetEmailDomainemailDomainId string
 
 func NewGetEmailDomainCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "get",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.EmailDomainAPI.GetEmailDomain(apiClient.GetConfig().Context, GetEmailDomainemailDomainId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "get",
 
-    
-    
-        cmd.Flags().StringVarP(&GetEmailDomainemailDomainId, "emailDomainId", "", "", "")
-        cmd.MarkFlagRequired("emailDomainId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.EmailDomainAPI.GetEmailDomain(apiClient.GetConfig().Context, GetEmailDomainemailDomainId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&GetEmailDomainemailDomainId, "emailDomainId", "", "", "")
+	cmd.MarkFlagRequired("emailDomainId")
 
 	return cmd
 }
 
 func init() {
 	GetEmailDomainCmd := NewGetEmailDomainCmd()
-    EmailDomainCmd.AddCommand(GetEmailDomainCmd)
+	EmailDomainCmd.AddCommand(GetEmailDomainCmd)
 }
 
 var (
-    
-    
-            ReplaceEmailDomainemailDomainId string
-        
-            ReplaceEmailDomaindata string
-        
-    
+	ReplaceEmailDomainemailDomainId string
+
+	ReplaceEmailDomaindata string
 )
 
 func NewReplaceEmailDomainCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "replace",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.EmailDomainAPI.ReplaceEmailDomain(apiClient.GetConfig().Context, ReplaceEmailDomainemailDomainId)
-            
-            
-            if ReplaceEmailDomaindata != "" {
-                req = req.Data(ReplaceEmailDomaindata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "replace",
 
-    
-    
-        cmd.Flags().StringVarP(&ReplaceEmailDomainemailDomainId, "emailDomainId", "", "", "")
-        cmd.MarkFlagRequired("emailDomainId")
-        
-        cmd.Flags().StringVarP(&ReplaceEmailDomaindata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.EmailDomainAPI.ReplaceEmailDomain(apiClient.GetConfig().Context, ReplaceEmailDomainemailDomainId)
+
+			if ReplaceEmailDomaindata != "" {
+				req = req.Data(ReplaceEmailDomaindata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&ReplaceEmailDomainemailDomainId, "emailDomainId", "", "", "")
+	cmd.MarkFlagRequired("emailDomainId")
+
+	cmd.Flags().StringVarP(&ReplaceEmailDomaindata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	ReplaceEmailDomainCmd := NewReplaceEmailDomainCmd()
-    EmailDomainCmd.AddCommand(ReplaceEmailDomainCmd)
+	EmailDomainCmd.AddCommand(ReplaceEmailDomainCmd)
 }
 
-var (
-    
-    
-            DeleteEmailDomainemailDomainId string
-        
-    
-)
+var DeleteEmailDomainemailDomainId string
 
 func NewDeleteEmailDomainCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "delete",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.EmailDomainAPI.DeleteEmailDomain(apiClient.GetConfig().Context, DeleteEmailDomainemailDomainId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "delete",
 
-    
-    
-        cmd.Flags().StringVarP(&DeleteEmailDomainemailDomainId, "emailDomainId", "", "", "")
-        cmd.MarkFlagRequired("emailDomainId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.EmailDomainAPI.DeleteEmailDomain(apiClient.GetConfig().Context, DeleteEmailDomainemailDomainId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&DeleteEmailDomainemailDomainId, "emailDomainId", "", "", "")
+	cmd.MarkFlagRequired("emailDomainId")
 
 	return cmd
 }
 
 func init() {
 	DeleteEmailDomainCmd := NewDeleteEmailDomainCmd()
-    EmailDomainCmd.AddCommand(DeleteEmailDomainCmd)
+	EmailDomainCmd.AddCommand(DeleteEmailDomainCmd)
 }
 
 var (
-    
-    
-            VerifyEmailDomainemailDomainId string
-        
-            VerifyEmailDomaindata string
-        
-    
+	VerifyEmailDomainemailDomainId string
+
+	VerifyEmailDomaindata string
 )
 
 func NewVerifyEmailDomainCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "verify",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.EmailDomainAPI.VerifyEmailDomain(apiClient.GetConfig().Context, VerifyEmailDomainemailDomainId)
-            
-            
-            if VerifyEmailDomaindata != "" {
-                req = req.Data(VerifyEmailDomaindata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "verify",
 
-    
-    
-        cmd.Flags().StringVarP(&VerifyEmailDomainemailDomainId, "emailDomainId", "", "", "")
-        cmd.MarkFlagRequired("emailDomainId")
-        
-        cmd.Flags().StringVarP(&VerifyEmailDomaindata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.EmailDomainAPI.VerifyEmailDomain(apiClient.GetConfig().Context, VerifyEmailDomainemailDomainId)
+
+			if VerifyEmailDomaindata != "" {
+				req = req.Data(VerifyEmailDomaindata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&VerifyEmailDomainemailDomainId, "emailDomainId", "", "", "")
+	cmd.MarkFlagRequired("emailDomainId")
+
+	cmd.Flags().StringVarP(&VerifyEmailDomaindata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	VerifyEmailDomainCmd := NewVerifyEmailDomainCmd()
-    EmailDomainCmd.AddCommand(VerifyEmailDomainCmd)
+	EmailDomainCmd.AddCommand(VerifyEmailDomainCmd)
 }

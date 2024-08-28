@@ -17,43 +17,40 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationOktaApplicationSettingsAPI interface {
 
 	/*
-	GetFirstPartyAppSettings Retrieve the Okta app settings
+		GetFirstPartyAppSettings Retrieve the Okta app settings
 
-	Retrieves the settings for the first party Okta app
+		Retrieves the settings for the first party Okta app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appName `appName` of the application
-	@return ApiGetFirstPartyAppSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appName `appName` of the application
+		@return ApiGetFirstPartyAppSettingsRequest
 	*/
 	GetFirstPartyAppSettings(ctx context.Context, appName string) ApiGetFirstPartyAppSettingsRequest
 
 	// GetFirstPartyAppSettingsExecute executes the request
 	//  @return AdminConsoleSettings
-	// TODU
 	GetFirstPartyAppSettingsExecute(r ApiGetFirstPartyAppSettingsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceFirstPartyAppSettings Replace the Okta app settings
+		ReplaceFirstPartyAppSettings Replace the Okta app settings
 
-	Replaces the settings for the first party Okta app
+		Replaces the settings for the first party Okta app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appName `appName` of the application
-	@return ApiReplaceFirstPartyAppSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appName `appName` of the application
+		@return ApiReplaceFirstPartyAppSettingsRequest
 	*/
 	ReplaceFirstPartyAppSettings(ctx context.Context, appName string) ApiReplaceFirstPartyAppSettingsRequest
 
 	// ReplaceFirstPartyAppSettingsExecute executes the request
 	//  @return AdminConsoleSettings
-	// TODU
 	ReplaceFirstPartyAppSettingsExecute(r ApiReplaceFirstPartyAppSettingsRequest) (*APIResponse, error)
 }
 
@@ -61,22 +58,18 @@ type ApplicationOktaApplicationSettingsAPI interface {
 type ApplicationOktaApplicationSettingsAPIService service
 
 type ApiGetFirstPartyAppSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationOktaApplicationSettingsAPI
-	appName string
-	// TODU
+	appName    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetFirstPartyAppSettingsRequest) Data (data interface{}) ApiGetFirstPartyAppSettingsRequest {
+func (r ApiGetFirstPartyAppSettingsRequest) Data(data interface{}) ApiGetFirstPartyAppSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetFirstPartyAppSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetFirstPartyAppSettingsExecute(r)
 }
@@ -90,13 +83,12 @@ Retrieves the settings for the first party Okta app
  @param appName `appName` of the application
  @return ApiGetFirstPartyAppSettingsRequest
 */
-// TODU
 
 func (a *ApplicationOktaApplicationSettingsAPIService) GetFirstPartyAppSettings(ctx context.Context, appName string) ApiGetFirstPartyAppSettingsRequest {
 	return ApiGetFirstPartyAppSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		appName: appName,
+		ctx:        ctx,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -109,10 +101,9 @@ func (a *ApplicationOktaApplicationSettingsAPIService) GetFirstPartyAppSettingsE
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -122,7 +113,6 @@ func (a *ApplicationOktaApplicationSettingsAPIService) GetFirstPartyAppSettingsE
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationOktaApplicationSettingsAPIService.GetFirstPartyAppSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -150,7 +140,6 @@ func (a *ApplicationOktaApplicationSettingsAPIService) GetFirstPartyAppSettingsE
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -167,13 +156,11 @@ func (a *ApplicationOktaApplicationSettingsAPIService) GetFirstPartyAppSettingsE
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -182,7 +169,6 @@ func (a *ApplicationOktaApplicationSettingsAPIService) GetFirstPartyAppSettingsE
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -197,12 +183,10 @@ func (a *ApplicationOktaApplicationSettingsAPIService) GetFirstPartyAppSettingsE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -211,13 +195,11 @@ func (a *ApplicationOktaApplicationSettingsAPIService) GetFirstPartyAppSettingsE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -226,13 +208,12 @@ func (a *ApplicationOktaApplicationSettingsAPIService) GetFirstPartyAppSettingsE
 }
 
 type ApiReplaceFirstPartyAppSettingsRequest struct {
-	ctx context.Context
-	ApiService ApplicationOktaApplicationSettingsAPI
-	appName string
+	ctx                  context.Context
+	ApiService           ApplicationOktaApplicationSettingsAPI
+	appName              string
 	adminConsoleSettings *AdminConsoleSettings
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                 interface{}
+	retryCount           int32
 }
 
 func (r ApiReplaceFirstPartyAppSettingsRequest) AdminConsoleSettings(adminConsoleSettings AdminConsoleSettings) ApiReplaceFirstPartyAppSettingsRequest {
@@ -240,14 +221,11 @@ func (r ApiReplaceFirstPartyAppSettingsRequest) AdminConsoleSettings(adminConsol
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceFirstPartyAppSettingsRequest) Data (data interface{}) ApiReplaceFirstPartyAppSettingsRequest {
+func (r ApiReplaceFirstPartyAppSettingsRequest) Data(data interface{}) ApiReplaceFirstPartyAppSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceFirstPartyAppSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceFirstPartyAppSettingsExecute(r)
 }
@@ -261,13 +239,12 @@ Replaces the settings for the first party Okta app
  @param appName `appName` of the application
  @return ApiReplaceFirstPartyAppSettingsRequest
 */
-// TODU
 
 func (a *ApplicationOktaApplicationSettingsAPIService) ReplaceFirstPartyAppSettings(ctx context.Context, appName string) ApiReplaceFirstPartyAppSettingsRequest {
 	return ApiReplaceFirstPartyAppSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		appName: appName,
+		ctx:        ctx,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -280,10 +257,9 @@ func (a *ApplicationOktaApplicationSettingsAPIService) ReplaceFirstPartyAppSetti
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -293,7 +269,6 @@ func (a *ApplicationOktaApplicationSettingsAPIService) ReplaceFirstPartyAppSetti
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationOktaApplicationSettingsAPIService.ReplaceFirstPartyAppSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -321,7 +296,6 @@ func (a *ApplicationOktaApplicationSettingsAPIService) ReplaceFirstPartyAppSetti
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.adminConsoleSettings
 	localVarPostBody = r.data
@@ -341,13 +315,11 @@ func (a *ApplicationOktaApplicationSettingsAPIService) ReplaceFirstPartyAppSetti
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -356,7 +328,6 @@ func (a *ApplicationOktaApplicationSettingsAPIService) ReplaceFirstPartyAppSetti
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -371,12 +342,10 @@ func (a *ApplicationOktaApplicationSettingsAPIService) ReplaceFirstPartyAppSetti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -385,12 +354,10 @@ func (a *ApplicationOktaApplicationSettingsAPIService) ReplaceFirstPartyAppSetti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -399,13 +366,11 @@ func (a *ApplicationOktaApplicationSettingsAPIService) ReplaceFirstPartyAppSetti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

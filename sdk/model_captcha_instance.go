@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// CAPTCHAInstance 
+// CAPTCHAInstance
 type CAPTCHAInstance struct {
 	// The unique key for the CAPTCHA instance
 	Id *string `json:"id,omitempty"`
@@ -26,8 +26,8 @@ type CAPTCHAInstance struct {
 	// The site key issued from the CAPTCHA provider to render a CAPTCHA on a page
 	SiteKey *string `json:"siteKey,omitempty"`
 	// The type of CAPTCHA provider
-	Type *string `json:"type,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Type                 *string    `json:"type,omitempty"`
+	Links                *LinksSelf `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -333,4 +333,3 @@ func (v *NullableCAPTCHAInstance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

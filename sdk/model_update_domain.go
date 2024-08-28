@@ -18,7 +18,7 @@ import (
 // UpdateDomain struct for UpdateDomain
 type UpdateDomain struct {
 	// The `id` of the brand used to replace the existing brand.
-	BrandId string `json:"brandId"`
+	BrandId              string `json:"brandId"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -137,4 +137,3 @@ func (v *NullableUpdateDomain) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

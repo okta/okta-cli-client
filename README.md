@@ -92,7 +92,10 @@ variable name with the `_` (underscore) character:
 * and so on
 
 ## Installation
-
+Run source code locally
+```
+make install
+```
 
 ## Note
 In its current form, we only support stdout as output

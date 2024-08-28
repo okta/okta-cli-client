@@ -17,10 +17,10 @@ import (
 
 // LinksSelfLifecycleAndAuthorize struct for LinksSelfLifecycleAndAuthorize
 type LinksSelfLifecycleAndAuthorize struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Activate *HrefObjectActivateLink `json:"activate,omitempty"`
-	Deactivate *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
-	Authorize *HrefObjectAuthorizeLink `json:"authorize,omitempty"`
+	Self                 *HrefObjectSelfLink       `json:"self,omitempty"`
+	Activate             *HrefObjectActivateLink   `json:"activate,omitempty"`
+	Deactivate           *HrefObjectDeactivateLink `json:"deactivate,omitempty"`
+	Authorize            *HrefObjectAuthorizeLink  `json:"authorize,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -254,4 +254,3 @@ func (v *NullableLinksSelfLifecycleAndAuthorize) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

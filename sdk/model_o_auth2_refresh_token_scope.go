@@ -24,8 +24,8 @@ type OAuth2RefreshTokenScope struct {
 	// Scope object ID
 	Id *string `json:"id,omitempty"`
 	// Scope name
-	Name *string `json:"name,omitempty"`
-	Links *OAuth2RefreshTokenScopeLinks `json:"_links,omitempty"`
+	Name                 *string                       `json:"name,omitempty"`
+	Links                *OAuth2RefreshTokenScopeLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -295,4 +295,3 @@ func (v *NullableOAuth2RefreshTokenScope) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

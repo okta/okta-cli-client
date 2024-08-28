@@ -17,7 +17,7 @@ import (
 
 // AuthorizationServerPolicyRuleActions struct for AuthorizationServerPolicyRuleActions
 type AuthorizationServerPolicyRuleActions struct {
-	Token *TokenAuthorizationServerPolicyRuleAction `json:"token,omitempty"`
+	Token                *TokenAuthorizationServerPolicyRuleAction `json:"token,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableAuthorizationServerPolicyRuleActions) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

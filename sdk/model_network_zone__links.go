@@ -17,8 +17,8 @@ import (
 
 // NetworkZoneLinks struct for NetworkZoneLinks
 type NetworkZoneLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Deactivate *HrefObject `json:"deactivate,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Deactivate           *HrefObject         `json:"deactivate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableNetworkZoneLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

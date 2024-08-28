@@ -17,31 +17,29 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationPoliciesAPI interface {
 
 	/*
-	AssignApplicationPolicy Assign an application to a Policy
+			AssignApplicationPolicy Assign an application to a Policy
 
-	Assigns an application to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
-If the application was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
+			Assigns an application to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
+		If the application was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
 
-> **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
-the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email.
+		> **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
+		the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param policyId `id` of the Policy
-	@return ApiAssignApplicationPolicyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@param policyId `id` of the Policy
+			@return ApiAssignApplicationPolicyRequest
 	*/
 	AssignApplicationPolicy(ctx context.Context, appId string, policyId string) ApiAssignApplicationPolicyRequest
 
 	// AssignApplicationPolicyExecute executes the request
-	// TODU
 	AssignApplicationPolicyExecute(r ApiAssignApplicationPolicyRequest) (*APIResponse, error)
 }
 
@@ -49,23 +47,19 @@ the policy and mapping CRUD operations may be unavailable during the consolidati
 type ApplicationPoliciesAPIService service
 
 type ApiAssignApplicationPolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationPoliciesAPI
-	appId string
-	policyId string
-	// TODU
+	appId      string
+	policyId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiAssignApplicationPolicyRequest) Data (data interface{}) ApiAssignApplicationPolicyRequest {
+func (r ApiAssignApplicationPolicyRequest) Data(data interface{}) ApiAssignApplicationPolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignApplicationPolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignApplicationPolicyExecute(r)
 }
@@ -84,14 +78,13 @@ the policy and mapping CRUD operations may be unavailable during the consolidati
  @param policyId `id` of the Policy
  @return ApiAssignApplicationPolicyRequest
 */
-// TODU
 
 func (a *ApplicationPoliciesAPIService) AssignApplicationPolicy(ctx context.Context, appId string, policyId string) ApiAssignApplicationPolicyRequest {
 	return ApiAssignApplicationPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		policyId: policyId,
+		ctx:        ctx,
+		appId:      appId,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -105,7 +98,7 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -115,7 +108,6 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationPoliciesAPIService.AssignApplicationPolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -144,7 +136,6 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -161,13 +152,11 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -176,7 +165,6 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -191,12 +179,10 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -205,12 +191,10 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -219,13 +203,11 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

@@ -17,8 +17,8 @@ import (
 
 // AccessPolicyConstraints struct for AccessPolicyConstraints
 type AccessPolicyConstraints struct {
-	Knowledge *KnowledgeConstraint `json:"knowledge,omitempty"`
-	Possession *PossessionConstraint `json:"possession,omitempty"`
+	Knowledge            *KnowledgeConstraint  `json:"knowledge,omitempty"`
+	Possession           *PossessionConstraint `json:"possession,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableAccessPolicyConstraints) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

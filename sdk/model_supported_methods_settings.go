@@ -17,9 +17,9 @@ import (
 
 // SupportedMethodsSettings struct for SupportedMethodsSettings
 type SupportedMethodsSettings struct {
-	KeyProtection *string `json:"keyProtection,omitempty"`
-	Algorithms []string `json:"algorithms,omitempty"`
-	TransactionTypes []string `json:"transactionTypes,omitempty"`
+	KeyProtection        *string  `json:"keyProtection,omitempty"`
+	Algorithms           []string `json:"algorithms,omitempty"`
+	TransactionTypes     []string `json:"transactionTypes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -217,4 +217,3 @@ func (v *NullableSupportedMethodsSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

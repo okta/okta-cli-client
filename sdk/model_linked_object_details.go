@@ -17,10 +17,10 @@ import (
 
 // LinkedObjectDetails struct for LinkedObjectDetails
 type LinkedObjectDetails struct {
-	Description *string `json:"description,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Title                *string `json:"title,omitempty"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -254,4 +254,3 @@ func (v *NullableLinkedObjectDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

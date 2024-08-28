@@ -14,264 +14,245 @@ package sdk
 import (
 	"bytes"
 	"context"
-	"fmt"
 	"io/ioutil"
 	"net/http"
-	//"net/http/httputil"
 	"net/url"
 	"strings"
 	"time"
 )
 
-
 type GroupAPI interface {
 
 	/*
-	ActivateGroupRule Activate a Group Rule
+		ActivateGroupRule Activate a Group Rule
 
-	Activates a specific group rule by `groupRuleId`
+		Activates a specific group rule by `groupRuleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupRuleId The `id` of the group rule
-	@return ApiActivateGroupRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupRuleId The `id` of the group rule
+		@return ApiActivateGroupRuleRequest
 	*/
 	ActivateGroupRule(ctx context.Context, groupRuleId string) ApiActivateGroupRuleRequest
 
 	// ActivateGroupRuleExecute executes the request
-	// TODU
 	ActivateGroupRuleExecute(r ApiActivateGroupRuleRequest) (*APIResponse, error)
 
 	/*
-	AssignUserToGroup Assign a User
+		AssignUserToGroup Assign a User
 
-	Assigns a user to a group with 'OKTA_GROUP' type
+		Assigns a user to a group with 'OKTA_GROUP' type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param userId ID of an existing Okta user
-	@return ApiAssignUserToGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param userId ID of an existing Okta user
+		@return ApiAssignUserToGroupRequest
 	*/
 	AssignUserToGroup(ctx context.Context, groupId string, userId string) ApiAssignUserToGroupRequest
 
 	// AssignUserToGroupExecute executes the request
-	// TODU
 	AssignUserToGroupExecute(r ApiAssignUserToGroupRequest) (*APIResponse, error)
 
 	/*
-	CreateGroup Create a Group
+		CreateGroup Create a Group
 
-	Creates a new group with `OKTA_GROUP` type
+		Creates a new group with `OKTA_GROUP` type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateGroupRequest
 	*/
 	CreateGroup(ctx context.Context) ApiCreateGroupRequest
 
 	// CreateGroupExecute executes the request
 	//  @return Group
-	// TODU
 	CreateGroupExecute(r ApiCreateGroupRequest) (*APIResponse, error)
 
 	/*
-	CreateGroupRule Create a Group Rule
+		CreateGroupRule Create a Group Rule
 
-	Creates a group rule to dynamically add users to the specified group if they match the condition
+		Creates a group rule to dynamically add users to the specified group if they match the condition
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateGroupRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateGroupRuleRequest
 	*/
 	CreateGroupRule(ctx context.Context) ApiCreateGroupRuleRequest
 
 	// CreateGroupRuleExecute executes the request
 	//  @return GroupRule
-	// TODU
 	CreateGroupRuleExecute(r ApiCreateGroupRuleRequest) (*APIResponse, error)
 
 	/*
-	DeactivateGroupRule Deactivate a Group Rule
+		DeactivateGroupRule Deactivate a Group Rule
 
-	Deactivates a specific group rule by `groupRuleId`
+		Deactivates a specific group rule by `groupRuleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupRuleId The `id` of the group rule
-	@return ApiDeactivateGroupRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupRuleId The `id` of the group rule
+		@return ApiDeactivateGroupRuleRequest
 	*/
 	DeactivateGroupRule(ctx context.Context, groupRuleId string) ApiDeactivateGroupRuleRequest
 
 	// DeactivateGroupRuleExecute executes the request
-	// TODU
 	DeactivateGroupRuleExecute(r ApiDeactivateGroupRuleRequest) (*APIResponse, error)
 
 	/*
-	DeleteGroup Delete a Group
+		DeleteGroup Delete a Group
 
-	Deletes a group with `OKTA_GROUP` type
+		Deletes a group with `OKTA_GROUP` type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiDeleteGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiDeleteGroupRequest
 	*/
 	DeleteGroup(ctx context.Context, groupId string) ApiDeleteGroupRequest
 
 	// DeleteGroupExecute executes the request
-	// TODU
 	DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIResponse, error)
 
 	/*
-	DeleteGroupRule Delete a group Rule
+		DeleteGroupRule Delete a group Rule
 
-	Deletes a specific group rule by `groupRuleId`
+		Deletes a specific group rule by `groupRuleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupRuleId The `id` of the group rule
-	@return ApiDeleteGroupRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupRuleId The `id` of the group rule
+		@return ApiDeleteGroupRuleRequest
 	*/
 	DeleteGroupRule(ctx context.Context, groupRuleId string) ApiDeleteGroupRuleRequest
 
 	// DeleteGroupRuleExecute executes the request
-	// TODU
 	DeleteGroupRuleExecute(r ApiDeleteGroupRuleRequest) (*APIResponse, error)
 
 	/*
-	GetGroup Retrieve a Group
+		GetGroup Retrieve a Group
 
-	Retrieves a group by `groupId`
+		Retrieves a group by `groupId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiGetGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiGetGroupRequest
 	*/
 	GetGroup(ctx context.Context, groupId string) ApiGetGroupRequest
 
 	// GetGroupExecute executes the request
 	//  @return Group
-	// TODU
 	GetGroupExecute(r ApiGetGroupRequest) (*APIResponse, error)
 
 	/*
-	GetGroupRule Retrieve a Group Rule
+		GetGroupRule Retrieve a Group Rule
 
-	Retrieves a specific group rule by `groupRuleId`
+		Retrieves a specific group rule by `groupRuleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupRuleId The `id` of the group rule
-	@return ApiGetGroupRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupRuleId The `id` of the group rule
+		@return ApiGetGroupRuleRequest
 	*/
 	GetGroupRule(ctx context.Context, groupRuleId string) ApiGetGroupRuleRequest
 
 	// GetGroupRuleExecute executes the request
 	//  @return GroupRule
-	// TODU
 	GetGroupRuleExecute(r ApiGetGroupRuleRequest) (*APIResponse, error)
 
 	/*
-	ListAssignedApplicationsForGroup List all Assigned Applications
+		ListAssignedApplicationsForGroup List all Assigned Applications
 
-	Lists all applications that are assigned to a group
+		Lists all applications that are assigned to a group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiListAssignedApplicationsForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiListAssignedApplicationsForGroupRequest
 	*/
 	ListAssignedApplicationsForGroup(ctx context.Context, groupId string) ApiListAssignedApplicationsForGroupRequest
 
 	// ListAssignedApplicationsForGroupExecute executes the request
 	//  @return []ListApplications200ResponseInner
-	// TODU
 	ListAssignedApplicationsForGroupExecute(r ApiListAssignedApplicationsForGroupRequest) (*APIResponse, error)
 
 	/*
-	ListGroupRules List all Group Rules
+		ListGroupRules List all Group Rules
 
-	Lists all group rules
+		Lists all group rules
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListGroupRulesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListGroupRulesRequest
 	*/
 	ListGroupRules(ctx context.Context) ApiListGroupRulesRequest
 
 	// ListGroupRulesExecute executes the request
 	//  @return []GroupRule
-	// TODU
 	ListGroupRulesExecute(r ApiListGroupRulesRequest) (*APIResponse, error)
 
 	/*
-	ListGroupUsers List all Member Users
+		ListGroupUsers List all Member Users
 
-	Lists all users that are a member of a group
+		Lists all users that are a member of a group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiListGroupUsersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiListGroupUsersRequest
 	*/
 	ListGroupUsers(ctx context.Context, groupId string) ApiListGroupUsersRequest
 
 	// ListGroupUsersExecute executes the request
 	//  @return []User
-	// TODU
 	ListGroupUsersExecute(r ApiListGroupUsersRequest) (*APIResponse, error)
 
 	/*
-	ListGroups List all Groups
+		ListGroups List all Groups
 
-	Lists all groups with pagination support. A subset of groups can be returned that match a supported filter expression or query.
+		Lists all groups with pagination support. A subset of groups can be returned that match a supported filter expression or query.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListGroupsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListGroupsRequest
 	*/
 	ListGroups(ctx context.Context) ApiListGroupsRequest
 
 	// ListGroupsExecute executes the request
 	//  @return []Group
-	// TODU
 	ListGroupsExecute(r ApiListGroupsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceGroup Replace a Group
+		ReplaceGroup Replace a Group
 
-	Replaces the profile for a group with `OKTA_GROUP` type
+		Replaces the profile for a group with `OKTA_GROUP` type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiReplaceGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiReplaceGroupRequest
 	*/
 	ReplaceGroup(ctx context.Context, groupId string) ApiReplaceGroupRequest
 
 	// ReplaceGroupExecute executes the request
 	//  @return Group
-	// TODU
 	ReplaceGroupExecute(r ApiReplaceGroupRequest) (*APIResponse, error)
 
 	/*
-	ReplaceGroupRule Replace a Group Rule
+		ReplaceGroupRule Replace a Group Rule
 
-	Replaces a group rule. Only `INACTIVE` rules can be updated.
+		Replaces a group rule. Only `INACTIVE` rules can be updated.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupRuleId The `id` of the group rule
-	@return ApiReplaceGroupRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupRuleId The `id` of the group rule
+		@return ApiReplaceGroupRuleRequest
 	*/
 	ReplaceGroupRule(ctx context.Context, groupRuleId string) ApiReplaceGroupRuleRequest
 
 	// ReplaceGroupRuleExecute executes the request
 	//  @return GroupRule
-	// TODU
 	ReplaceGroupRuleExecute(r ApiReplaceGroupRuleRequest) (*APIResponse, error)
 
 	/*
-	UnassignUserFromGroup Unassign a User
+		UnassignUserFromGroup Unassign a User
 
-	Unassigns a user from a group with 'OKTA_GROUP' type
+		Unassigns a user from a group with 'OKTA_GROUP' type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param userId ID of an existing Okta user
-	@return ApiUnassignUserFromGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param userId ID of an existing Okta user
+		@return ApiUnassignUserFromGroupRequest
 	*/
 	UnassignUserFromGroup(ctx context.Context, groupId string, userId string) ApiUnassignUserFromGroupRequest
 
 	// UnassignUserFromGroupExecute executes the request
-	// TODU
 	UnassignUserFromGroupExecute(r ApiUnassignUserFromGroupRequest) (*APIResponse, error)
 }
 
@@ -279,22 +260,18 @@ type GroupAPI interface {
 type GroupAPIService service
 
 type ApiActivateGroupRuleRequest struct {
-	ctx context.Context
-	ApiService GroupAPI
+	ctx         context.Context
+	ApiService  GroupAPI
 	groupRuleId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
-
-// TODU
-func (r ApiActivateGroupRuleRequest) Data (data interface{}) ApiActivateGroupRuleRequest {
+func (r ApiActivateGroupRuleRequest) Data(data interface{}) ApiActivateGroupRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateGroupRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateGroupRuleExecute(r)
 }
@@ -308,14 +285,13 @@ Activates a specific group rule by `groupRuleId`
  @param groupRuleId The `id` of the group rule
  @return ApiActivateGroupRuleRequest
 */
-// TODU
 
 func (a *GroupAPIService) ActivateGroupRule(ctx context.Context, groupRuleId string) ApiActivateGroupRuleRequest {
 	return ApiActivateGroupRuleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		groupRuleId: groupRuleId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -328,7 +304,7 @@ func (a *GroupAPIService) ActivateGroupRuleExecute(r ApiActivateGroupRuleRequest
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -338,7 +314,6 @@ func (a *GroupAPIService) ActivateGroupRuleExecute(r ApiActivateGroupRuleRequest
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.ActivateGroupRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -366,7 +341,6 @@ func (a *GroupAPIService) ActivateGroupRuleExecute(r ApiActivateGroupRuleRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -383,13 +357,11 @@ func (a *GroupAPIService) ActivateGroupRuleExecute(r ApiActivateGroupRuleRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -398,7 +370,6 @@ func (a *GroupAPIService) ActivateGroupRuleExecute(r ApiActivateGroupRuleRequest
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -413,12 +384,10 @@ func (a *GroupAPIService) ActivateGroupRuleExecute(r ApiActivateGroupRuleRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -427,12 +396,10 @@ func (a *GroupAPIService) ActivateGroupRuleExecute(r ApiActivateGroupRuleRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -441,13 +408,11 @@ func (a *GroupAPIService) ActivateGroupRuleExecute(r ApiActivateGroupRuleRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -456,23 +421,19 @@ func (a *GroupAPIService) ActivateGroupRuleExecute(r ApiActivateGroupRuleRequest
 }
 
 type ApiAssignUserToGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	userId string
-	// TODU
+	groupId    string
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiAssignUserToGroupRequest) Data (data interface{}) ApiAssignUserToGroupRequest {
+func (r ApiAssignUserToGroupRequest) Data(data interface{}) ApiAssignUserToGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignUserToGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignUserToGroupExecute(r)
 }
@@ -487,14 +448,13 @@ Assigns a user to a group with 'OKTA_GROUP' type
  @param userId ID of an existing Okta user
  @return ApiAssignUserToGroupRequest
 */
-// TODU
 
 func (a *GroupAPIService) AssignUserToGroup(ctx context.Context, groupId string, userId string) ApiAssignUserToGroupRequest {
 	return ApiAssignUserToGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		userId: userId,
+		ctx:        ctx,
+		groupId:    groupId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -508,7 +468,7 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -518,7 +478,6 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.AssignUserToGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -547,7 +506,6 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -564,13 +522,11 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -579,7 +535,6 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -594,12 +549,10 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -608,12 +561,10 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -622,13 +573,11 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -637,10 +586,9 @@ func (a *GroupAPIService) AssignUserToGroupExecute(r ApiAssignUserToGroupRequest
 }
 
 type ApiCreateGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	group *Group
-	// TODU
+	group      *Group
 	data       interface{}
 	retryCount int32
 }
@@ -650,14 +598,11 @@ func (r ApiCreateGroupRequest) Group(group Group) ApiCreateGroupRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiCreateGroupRequest) Data (data interface{}) ApiCreateGroupRequest {
+func (r ApiCreateGroupRequest) Data(data interface{}) ApiCreateGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateGroupExecute(r)
 }
@@ -670,12 +615,11 @@ Creates a new group with `OKTA_GROUP` type
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateGroupRequest
 */
-// TODU
 
 func (a *GroupAPIService) CreateGroup(ctx context.Context) ApiCreateGroupRequest {
 	return ApiCreateGroupRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -688,10 +632,9 @@ func (a *GroupAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*APIRespo
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -701,7 +644,6 @@ func (a *GroupAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*APIRespo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.CreateGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -728,7 +670,6 @@ func (a *GroupAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*APIRespo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.group
 	localVarPostBody = r.data
@@ -746,16 +687,13 @@ func (a *GroupAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*APIRespo
 			}
 		}
 	}
-	fmt.Println("783", localVarPostBody)
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -764,7 +702,6 @@ func (a *GroupAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*APIRespo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -779,12 +716,10 @@ func (a *GroupAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -793,12 +728,10 @@ func (a *GroupAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -807,13 +740,11 @@ func (a *GroupAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -822,10 +753,9 @@ func (a *GroupAPIService) CreateGroupExecute(r ApiCreateGroupRequest) (*APIRespo
 }
 
 type ApiCreateGroupRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupRule *GroupRule
-	// TODU
+	groupRule  *GroupRule
 	data       interface{}
 	retryCount int32
 }
@@ -835,14 +765,11 @@ func (r ApiCreateGroupRuleRequest) GroupRule(groupRule GroupRule) ApiCreateGroup
 	return r
 }
 
-
-// TODU
-func (r ApiCreateGroupRuleRequest) Data (data interface{}) ApiCreateGroupRuleRequest {
+func (r ApiCreateGroupRuleRequest) Data(data interface{}) ApiCreateGroupRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateGroupRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateGroupRuleExecute(r)
 }
@@ -855,12 +782,11 @@ Creates a group rule to dynamically add users to the specified group if they mat
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateGroupRuleRequest
 */
-// TODU
 
 func (a *GroupAPIService) CreateGroupRule(ctx context.Context) ApiCreateGroupRuleRequest {
 	return ApiCreateGroupRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -873,10 +799,9 @@ func (a *GroupAPIService) CreateGroupRuleExecute(r ApiCreateGroupRuleRequest) (*
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -886,7 +811,6 @@ func (a *GroupAPIService) CreateGroupRuleExecute(r ApiCreateGroupRuleRequest) (*
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.CreateGroupRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -913,7 +837,6 @@ func (a *GroupAPIService) CreateGroupRuleExecute(r ApiCreateGroupRuleRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.groupRule
 	localVarPostBody = r.data
@@ -933,13 +856,11 @@ func (a *GroupAPIService) CreateGroupRuleExecute(r ApiCreateGroupRuleRequest) (*
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -948,7 +869,6 @@ func (a *GroupAPIService) CreateGroupRuleExecute(r ApiCreateGroupRuleRequest) (*
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -963,12 +883,10 @@ func (a *GroupAPIService) CreateGroupRuleExecute(r ApiCreateGroupRuleRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -977,12 +895,10 @@ func (a *GroupAPIService) CreateGroupRuleExecute(r ApiCreateGroupRuleRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -991,13 +907,11 @@ func (a *GroupAPIService) CreateGroupRuleExecute(r ApiCreateGroupRuleRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1006,22 +920,18 @@ func (a *GroupAPIService) CreateGroupRuleExecute(r ApiCreateGroupRuleRequest) (*
 }
 
 type ApiDeactivateGroupRuleRequest struct {
-	ctx context.Context
-	ApiService GroupAPI
+	ctx         context.Context
+	ApiService  GroupAPI
 	groupRuleId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
-
-// TODU
-func (r ApiDeactivateGroupRuleRequest) Data (data interface{}) ApiDeactivateGroupRuleRequest {
+func (r ApiDeactivateGroupRuleRequest) Data(data interface{}) ApiDeactivateGroupRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateGroupRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateGroupRuleExecute(r)
 }
@@ -1035,14 +945,13 @@ Deactivates a specific group rule by `groupRuleId`
  @param groupRuleId The `id` of the group rule
  @return ApiDeactivateGroupRuleRequest
 */
-// TODU
 
 func (a *GroupAPIService) DeactivateGroupRule(ctx context.Context, groupRuleId string) ApiDeactivateGroupRuleRequest {
 	return ApiDeactivateGroupRuleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		groupRuleId: groupRuleId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -1055,7 +964,7 @@ func (a *GroupAPIService) DeactivateGroupRuleExecute(r ApiDeactivateGroupRuleReq
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1065,7 +974,6 @@ func (a *GroupAPIService) DeactivateGroupRuleExecute(r ApiDeactivateGroupRuleReq
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.DeactivateGroupRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1093,7 +1001,6 @@ func (a *GroupAPIService) DeactivateGroupRuleExecute(r ApiDeactivateGroupRuleReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1110,13 +1017,11 @@ func (a *GroupAPIService) DeactivateGroupRuleExecute(r ApiDeactivateGroupRuleReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1125,7 +1030,6 @@ func (a *GroupAPIService) DeactivateGroupRuleExecute(r ApiDeactivateGroupRuleReq
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1140,12 +1044,10 @@ func (a *GroupAPIService) DeactivateGroupRuleExecute(r ApiDeactivateGroupRuleReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1154,12 +1056,10 @@ func (a *GroupAPIService) DeactivateGroupRuleExecute(r ApiDeactivateGroupRuleReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1168,13 +1068,11 @@ func (a *GroupAPIService) DeactivateGroupRuleExecute(r ApiDeactivateGroupRuleReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1183,22 +1081,18 @@ func (a *GroupAPIService) DeactivateGroupRuleExecute(r ApiDeactivateGroupRuleReq
 }
 
 type ApiDeleteGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	// TODU
+	groupId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteGroupRequest) Data (data interface{}) ApiDeleteGroupRequest {
+func (r ApiDeleteGroupRequest) Data(data interface{}) ApiDeleteGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteGroupExecute(r)
 }
@@ -1212,13 +1106,12 @@ Deletes a group with `OKTA_GROUP` type
  @param groupId The `id` of the group
  @return ApiDeleteGroupRequest
 */
-// TODU
 
 func (a *GroupAPIService) DeleteGroup(ctx context.Context, groupId string) ApiDeleteGroupRequest {
 	return ApiDeleteGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -1232,7 +1125,7 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1242,7 +1135,6 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.DeleteGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1270,7 +1162,6 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1287,13 +1178,11 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1302,7 +1191,6 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1317,12 +1205,10 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1331,12 +1217,10 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1345,13 +1229,11 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1360,13 +1242,12 @@ func (a *GroupAPIService) DeleteGroupExecute(r ApiDeleteGroupRequest) (*APIRespo
 }
 
 type ApiDeleteGroupRuleRequest struct {
-	ctx context.Context
-	ApiService GroupAPI
+	ctx         context.Context
+	ApiService  GroupAPI
 	groupRuleId string
 	removeUsers *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
 // Indicates whether to keep or remove users from groups assigned by this rule.
@@ -1375,14 +1256,11 @@ func (r ApiDeleteGroupRuleRequest) RemoveUsers(removeUsers bool) ApiDeleteGroupR
 	return r
 }
 
-
-// TODU
-func (r ApiDeleteGroupRuleRequest) Data (data interface{}) ApiDeleteGroupRuleRequest {
+func (r ApiDeleteGroupRuleRequest) Data(data interface{}) ApiDeleteGroupRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteGroupRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteGroupRuleExecute(r)
 }
@@ -1396,14 +1274,13 @@ Deletes a specific group rule by `groupRuleId`
  @param groupRuleId The `id` of the group rule
  @return ApiDeleteGroupRuleRequest
 */
-// TODU
 
 func (a *GroupAPIService) DeleteGroupRule(ctx context.Context, groupRuleId string) ApiDeleteGroupRuleRequest {
 	return ApiDeleteGroupRuleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		groupRuleId: groupRuleId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -1416,7 +1293,7 @@ func (a *GroupAPIService) DeleteGroupRuleExecute(r ApiDeleteGroupRuleRequest) (*
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1426,7 +1303,6 @@ func (a *GroupAPIService) DeleteGroupRuleExecute(r ApiDeleteGroupRuleRequest) (*
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.DeleteGroupRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1457,7 +1333,6 @@ func (a *GroupAPIService) DeleteGroupRuleExecute(r ApiDeleteGroupRuleRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1474,13 +1349,11 @@ func (a *GroupAPIService) DeleteGroupRuleExecute(r ApiDeleteGroupRuleRequest) (*
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1489,7 +1362,6 @@ func (a *GroupAPIService) DeleteGroupRuleExecute(r ApiDeleteGroupRuleRequest) (*
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1504,12 +1376,10 @@ func (a *GroupAPIService) DeleteGroupRuleExecute(r ApiDeleteGroupRuleRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1518,12 +1388,10 @@ func (a *GroupAPIService) DeleteGroupRuleExecute(r ApiDeleteGroupRuleRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1532,13 +1400,11 @@ func (a *GroupAPIService) DeleteGroupRuleExecute(r ApiDeleteGroupRuleRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1547,22 +1413,18 @@ func (a *GroupAPIService) DeleteGroupRuleExecute(r ApiDeleteGroupRuleRequest) (*
 }
 
 type ApiGetGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	// TODU
+	groupId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetGroupRequest) Data (data interface{}) ApiGetGroupRequest {
+func (r ApiGetGroupRequest) Data(data interface{}) ApiGetGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetGroupExecute(r)
 }
@@ -1576,13 +1438,12 @@ Retrieves a group by `groupId`
  @param groupId The `id` of the group
  @return ApiGetGroupRequest
 */
-// TODU
 
 func (a *GroupAPIService) GetGroup(ctx context.Context, groupId string) ApiGetGroupRequest {
 	return ApiGetGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -1595,10 +1456,9 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*APIResponse, e
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1608,7 +1468,6 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*APIResponse, e
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.GetGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1636,7 +1495,6 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*APIResponse, e
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1653,13 +1511,11 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*APIResponse, e
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1668,7 +1524,6 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*APIResponse, e
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1683,12 +1538,10 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*APIResponse, e
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1697,12 +1550,10 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*APIResponse, e
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1711,13 +1562,11 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*APIResponse, e
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1726,13 +1575,12 @@ func (a *GroupAPIService) GetGroupExecute(r ApiGetGroupRequest) (*APIResponse, e
 }
 
 type ApiGetGroupRuleRequest struct {
-	ctx context.Context
-	ApiService GroupAPI
+	ctx         context.Context
+	ApiService  GroupAPI
 	groupRuleId string
-	expand *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	expand      *string
+	data        interface{}
+	retryCount  int32
 }
 
 func (r ApiGetGroupRuleRequest) Expand(expand string) ApiGetGroupRuleRequest {
@@ -1740,14 +1588,11 @@ func (r ApiGetGroupRuleRequest) Expand(expand string) ApiGetGroupRuleRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiGetGroupRuleRequest) Data (data interface{}) ApiGetGroupRuleRequest {
+func (r ApiGetGroupRuleRequest) Data(data interface{}) ApiGetGroupRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetGroupRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetGroupRuleExecute(r)
 }
@@ -1761,14 +1606,13 @@ Retrieves a specific group rule by `groupRuleId`
  @param groupRuleId The `id` of the group rule
  @return ApiGetGroupRuleRequest
 */
-// TODU
 
 func (a *GroupAPIService) GetGroupRule(ctx context.Context, groupRuleId string) ApiGetGroupRuleRequest {
 	return ApiGetGroupRuleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		groupRuleId: groupRuleId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -1780,10 +1624,9 @@ func (a *GroupAPIService) GetGroupRuleExecute(r ApiGetGroupRuleRequest) (*APIRes
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1793,7 +1636,6 @@ func (a *GroupAPIService) GetGroupRuleExecute(r ApiGetGroupRuleRequest) (*APIRes
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.GetGroupRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1824,7 +1666,6 @@ func (a *GroupAPIService) GetGroupRuleExecute(r ApiGetGroupRuleRequest) (*APIRes
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1841,13 +1682,11 @@ func (a *GroupAPIService) GetGroupRuleExecute(r ApiGetGroupRuleRequest) (*APIRes
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1856,7 +1695,6 @@ func (a *GroupAPIService) GetGroupRuleExecute(r ApiGetGroupRuleRequest) (*APIRes
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1871,12 +1709,10 @@ func (a *GroupAPIService) GetGroupRuleExecute(r ApiGetGroupRuleRequest) (*APIRes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1885,12 +1721,10 @@ func (a *GroupAPIService) GetGroupRuleExecute(r ApiGetGroupRuleRequest) (*APIRes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1899,13 +1733,11 @@ func (a *GroupAPIService) GetGroupRuleExecute(r ApiGetGroupRuleRequest) (*APIRes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1914,12 +1746,11 @@ func (a *GroupAPIService) GetGroupRuleExecute(r ApiGetGroupRuleRequest) (*APIRes
 }
 
 type ApiListAssignedApplicationsForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	after *string
-	limit *int32
-	// TODU
+	groupId    string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -1936,14 +1767,11 @@ func (r ApiListAssignedApplicationsForGroupRequest) Limit(limit int32) ApiListAs
 	return r
 }
 
-
-// TODU
-func (r ApiListAssignedApplicationsForGroupRequest) Data (data interface{}) ApiListAssignedApplicationsForGroupRequest {
+func (r ApiListAssignedApplicationsForGroupRequest) Data(data interface{}) ApiListAssignedApplicationsForGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListAssignedApplicationsForGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListAssignedApplicationsForGroupExecute(r)
 }
@@ -1957,13 +1785,12 @@ Lists all applications that are assigned to a group
  @param groupId The `id` of the group
  @return ApiListAssignedApplicationsForGroupRequest
 */
-// TODU
 
 func (a *GroupAPIService) ListAssignedApplicationsForGroup(ctx context.Context, groupId string) ApiListAssignedApplicationsForGroupRequest {
 	return ApiListAssignedApplicationsForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -1976,10 +1803,9 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1989,7 +1815,6 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.ListAssignedApplicationsForGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2023,7 +1848,6 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2040,13 +1864,11 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2055,7 +1877,6 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2070,12 +1891,10 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2084,12 +1903,10 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2098,13 +1915,11 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2113,13 +1928,12 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 }
 
 type ApiListGroupRulesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	limit *int32
-	after *string
-	search *string
-	expand *string
-	// TODU
+	limit      *int32
+	after      *string
+	search     *string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -2148,14 +1962,11 @@ func (r ApiListGroupRulesRequest) Expand(expand string) ApiListGroupRulesRequest
 	return r
 }
 
-
-// TODU
-func (r ApiListGroupRulesRequest) Data (data interface{}) ApiListGroupRulesRequest {
+func (r ApiListGroupRulesRequest) Data(data interface{}) ApiListGroupRulesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListGroupRulesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListGroupRulesExecute(r)
 }
@@ -2168,12 +1979,11 @@ Lists all group rules
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListGroupRulesRequest
 */
-// TODU
 
 func (a *GroupAPIService) ListGroupRules(ctx context.Context) ApiListGroupRulesRequest {
 	return ApiListGroupRulesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -2186,10 +1996,9 @@ func (a *GroupAPIService) ListGroupRulesExecute(r ApiListGroupRulesRequest) (*AP
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2199,7 +2008,6 @@ func (a *GroupAPIService) ListGroupRulesExecute(r ApiListGroupRulesRequest) (*AP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.ListGroupRules")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2238,7 +2046,6 @@ func (a *GroupAPIService) ListGroupRulesExecute(r ApiListGroupRulesRequest) (*AP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2255,13 +2062,11 @@ func (a *GroupAPIService) ListGroupRulesExecute(r ApiListGroupRulesRequest) (*AP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2270,7 +2075,6 @@ func (a *GroupAPIService) ListGroupRulesExecute(r ApiListGroupRulesRequest) (*AP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2285,12 +2089,10 @@ func (a *GroupAPIService) ListGroupRulesExecute(r ApiListGroupRulesRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2299,13 +2101,11 @@ func (a *GroupAPIService) ListGroupRulesExecute(r ApiListGroupRulesRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2314,12 +2114,11 @@ func (a *GroupAPIService) ListGroupRulesExecute(r ApiListGroupRulesRequest) (*AP
 }
 
 type ApiListGroupUsersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	after *string
-	limit *int32
-	// TODU
+	groupId    string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -2336,14 +2135,11 @@ func (r ApiListGroupUsersRequest) Limit(limit int32) ApiListGroupUsersRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiListGroupUsersRequest) Data (data interface{}) ApiListGroupUsersRequest {
+func (r ApiListGroupUsersRequest) Data(data interface{}) ApiListGroupUsersRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListGroupUsersRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListGroupUsersExecute(r)
 }
@@ -2357,13 +2153,12 @@ Lists all users that are a member of a group
  @param groupId The `id` of the group
  @return ApiListGroupUsersRequest
 */
-// TODU
 
 func (a *GroupAPIService) ListGroupUsers(ctx context.Context, groupId string) ApiListGroupUsersRequest {
 	return ApiListGroupUsersRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -2376,10 +2171,9 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) (*AP
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2389,7 +2183,6 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) (*AP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.ListGroupUsers")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2423,7 +2216,6 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) (*AP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2440,13 +2232,11 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) (*AP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2455,7 +2245,6 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) (*AP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2470,12 +2259,10 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2484,12 +2271,10 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2498,13 +2283,11 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2513,17 +2296,16 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) (*AP
 }
 
 type ApiListGroupsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	q *string
-	filter *string
-	after *string
-	limit *int32
-	expand *string
-	search *string
-	sortBy *string
-	sortOrder *string
-	// TODU
+	q          *string
+	filter     *string
+	after      *string
+	limit      *int32
+	expand     *string
+	search     *string
+	sortBy     *string
+	sortOrder  *string
 	data       interface{}
 	retryCount int32
 }
@@ -2576,14 +2358,11 @@ func (r ApiListGroupsRequest) SortOrder(sortOrder string) ApiListGroupsRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiListGroupsRequest) Data (data interface{}) ApiListGroupsRequest {
+func (r ApiListGroupsRequest) Data(data interface{}) ApiListGroupsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListGroupsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListGroupsExecute(r)
 }
@@ -2596,12 +2375,11 @@ Lists all groups with pagination support. A subset of groups can be returned tha
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListGroupsRequest
 */
-// TODU
 
 func (a *GroupAPIService) ListGroups(ctx context.Context) ApiListGroupsRequest {
 	return ApiListGroupsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -2614,10 +2392,9 @@ func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) (*APIRespons
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2627,7 +2404,6 @@ func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) (*APIRespons
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.ListGroups")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2678,7 +2454,6 @@ func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) (*APIRespons
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2695,13 +2470,11 @@ func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) (*APIRespons
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2710,7 +2483,6 @@ func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) (*APIRespons
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2725,12 +2497,10 @@ func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) (*APIRespons
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2739,28 +2509,23 @@ func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) (*APIRespons
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
 	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-	// data, _ := httputil.DumpResponse(localAPIResponse.Response, true)
-	// fmt.Println("2754", string(data))
 	return localAPIResponse, nil
 }
 
 type ApiReplaceGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	group *Group
-	// TODU
+	groupId    string
+	group      *Group
 	data       interface{}
 	retryCount int32
 }
@@ -2770,14 +2535,11 @@ func (r ApiReplaceGroupRequest) Group(group Group) ApiReplaceGroupRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceGroupRequest) Data (data interface{}) ApiReplaceGroupRequest {
+func (r ApiReplaceGroupRequest) Data(data interface{}) ApiReplaceGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceGroupExecute(r)
 }
@@ -2791,13 +2553,12 @@ Replaces the profile for a group with `OKTA_GROUP` type
  @param groupId The `id` of the group
  @return ApiReplaceGroupRequest
 */
-// TODU
 
 func (a *GroupAPIService) ReplaceGroup(ctx context.Context, groupId string) ApiReplaceGroupRequest {
 	return ApiReplaceGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -2810,10 +2571,9 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*APIRes
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2823,7 +2583,6 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*APIRes
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.ReplaceGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2851,7 +2610,6 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*APIRes
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.group
 	localVarPostBody = r.data
@@ -2871,13 +2629,11 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*APIRes
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2886,7 +2642,6 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*APIRes
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2901,12 +2656,10 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*APIRes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2915,12 +2668,10 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*APIRes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2929,12 +2680,10 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*APIRes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2943,13 +2692,11 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*APIRes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2958,13 +2705,12 @@ func (a *GroupAPIService) ReplaceGroupExecute(r ApiReplaceGroupRequest) (*APIRes
 }
 
 type ApiReplaceGroupRuleRequest struct {
-	ctx context.Context
-	ApiService GroupAPI
+	ctx         context.Context
+	ApiService  GroupAPI
 	groupRuleId string
-	groupRule *GroupRule
-	// TODU
-	data       interface{}
-	retryCount int32
+	groupRule   *GroupRule
+	data        interface{}
+	retryCount  int32
 }
 
 func (r ApiReplaceGroupRuleRequest) GroupRule(groupRule GroupRule) ApiReplaceGroupRuleRequest {
@@ -2972,14 +2718,11 @@ func (r ApiReplaceGroupRuleRequest) GroupRule(groupRule GroupRule) ApiReplaceGro
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceGroupRuleRequest) Data (data interface{}) ApiReplaceGroupRuleRequest {
+func (r ApiReplaceGroupRuleRequest) Data(data interface{}) ApiReplaceGroupRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceGroupRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceGroupRuleExecute(r)
 }
@@ -2993,14 +2736,13 @@ Replaces a group rule. Only `INACTIVE` rules can be updated.
  @param groupRuleId The `id` of the group rule
  @return ApiReplaceGroupRuleRequest
 */
-// TODU
 
 func (a *GroupAPIService) ReplaceGroupRule(ctx context.Context, groupRuleId string) ApiReplaceGroupRuleRequest {
 	return ApiReplaceGroupRuleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		groupRuleId: groupRuleId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -3012,10 +2754,9 @@ func (a *GroupAPIService) ReplaceGroupRuleExecute(r ApiReplaceGroupRuleRequest) 
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3025,7 +2766,6 @@ func (a *GroupAPIService) ReplaceGroupRuleExecute(r ApiReplaceGroupRuleRequest) 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.ReplaceGroupRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3053,7 +2793,6 @@ func (a *GroupAPIService) ReplaceGroupRuleExecute(r ApiReplaceGroupRuleRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.groupRule
 	localVarPostBody = r.data
@@ -3073,13 +2812,11 @@ func (a *GroupAPIService) ReplaceGroupRuleExecute(r ApiReplaceGroupRuleRequest) 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3088,7 +2825,6 @@ func (a *GroupAPIService) ReplaceGroupRuleExecute(r ApiReplaceGroupRuleRequest) 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3103,12 +2839,10 @@ func (a *GroupAPIService) ReplaceGroupRuleExecute(r ApiReplaceGroupRuleRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3117,12 +2851,10 @@ func (a *GroupAPIService) ReplaceGroupRuleExecute(r ApiReplaceGroupRuleRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3131,12 +2863,10 @@ func (a *GroupAPIService) ReplaceGroupRuleExecute(r ApiReplaceGroupRuleRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3145,13 +2875,11 @@ func (a *GroupAPIService) ReplaceGroupRuleExecute(r ApiReplaceGroupRuleRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3160,23 +2888,19 @@ func (a *GroupAPIService) ReplaceGroupRuleExecute(r ApiReplaceGroupRuleRequest) 
 }
 
 type ApiUnassignUserFromGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupAPI
-	groupId string
-	userId string
-	// TODU
+	groupId    string
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnassignUserFromGroupRequest) Data (data interface{}) ApiUnassignUserFromGroupRequest {
+func (r ApiUnassignUserFromGroupRequest) Data(data interface{}) ApiUnassignUserFromGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnassignUserFromGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnassignUserFromGroupExecute(r)
 }
@@ -3191,14 +2915,13 @@ Unassigns a user from a group with 'OKTA_GROUP' type
  @param userId ID of an existing Okta user
  @return ApiUnassignUserFromGroupRequest
 */
-// TODU
 
 func (a *GroupAPIService) UnassignUserFromGroup(ctx context.Context, groupId string, userId string) ApiUnassignUserFromGroupRequest {
 	return ApiUnassignUserFromGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		userId: userId,
+		ctx:        ctx,
+		groupId:    groupId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -3212,7 +2935,7 @@ func (a *GroupAPIService) UnassignUserFromGroupExecute(r ApiUnassignUserFromGrou
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3222,7 +2945,6 @@ func (a *GroupAPIService) UnassignUserFromGroupExecute(r ApiUnassignUserFromGrou
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.UnassignUserFromGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3251,7 +2973,6 @@ func (a *GroupAPIService) UnassignUserFromGroupExecute(r ApiUnassignUserFromGrou
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3268,13 +2989,11 @@ func (a *GroupAPIService) UnassignUserFromGroupExecute(r ApiUnassignUserFromGrou
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3283,7 +3002,6 @@ func (a *GroupAPIService) UnassignUserFromGroupExecute(r ApiUnassignUserFromGrou
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3298,12 +3016,10 @@ func (a *GroupAPIService) UnassignUserFromGroupExecute(r ApiUnassignUserFromGrou
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3312,12 +3028,10 @@ func (a *GroupAPIService) UnassignUserFromGroupExecute(r ApiUnassignUserFromGrou
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3326,13 +3040,11 @@ func (a *GroupAPIService) UnassignUserFromGroupExecute(r ApiUnassignUserFromGrou
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

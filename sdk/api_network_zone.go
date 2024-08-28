@@ -17,127 +17,119 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type NetworkZoneAPI interface {
 
 	/*
-	ActivateNetworkZone Activate a Network Zone
+		ActivateNetworkZone Activate a Network Zone
 
-	Activates a network zone by `zoneId`
+		Activates a network zone by `zoneId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param zoneId `id` of the Network Zone
-	@return ApiActivateNetworkZoneRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param zoneId `id` of the Network Zone
+		@return ApiActivateNetworkZoneRequest
 	*/
 	ActivateNetworkZone(ctx context.Context, zoneId string) ApiActivateNetworkZoneRequest
 
 	// ActivateNetworkZoneExecute executes the request
 	//  @return NetworkZone
-	// TODU
 	ActivateNetworkZoneExecute(r ApiActivateNetworkZoneRequest) (*APIResponse, error)
 
 	/*
-	CreateNetworkZone Create a Network Zone
+			CreateNetworkZone Create a Network Zone
 
-	Creates a new network zone.
-* At least one of either the `gateways` attribute or `proxies` attribute must be defined when creating a Network Zone.
-* At least one of the following attributes must be defined: `proxyType`, `locations`, or `asns`.
+			Creates a new network zone.
+		* At least one of either the `gateways` attribute or `proxies` attribute must be defined when creating a Network Zone.
+		* At least one of the following attributes must be defined: `proxyType`, `locations`, or `asns`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateNetworkZoneRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateNetworkZoneRequest
 	*/
 	CreateNetworkZone(ctx context.Context) ApiCreateNetworkZoneRequest
 
 	// CreateNetworkZoneExecute executes the request
 	//  @return NetworkZone
-	// TODU
 	CreateNetworkZoneExecute(r ApiCreateNetworkZoneRequest) (*APIResponse, error)
 
 	/*
-	DeactivateNetworkZone Deactivate a Network Zone
+		DeactivateNetworkZone Deactivate a Network Zone
 
-	Deactivates a network zone by `zoneId`
+		Deactivates a network zone by `zoneId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param zoneId `id` of the Network Zone
-	@return ApiDeactivateNetworkZoneRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param zoneId `id` of the Network Zone
+		@return ApiDeactivateNetworkZoneRequest
 	*/
 	DeactivateNetworkZone(ctx context.Context, zoneId string) ApiDeactivateNetworkZoneRequest
 
 	// DeactivateNetworkZoneExecute executes the request
 	//  @return NetworkZone
-	// TODU
 	DeactivateNetworkZoneExecute(r ApiDeactivateNetworkZoneRequest) (*APIResponse, error)
 
 	/*
-	DeleteNetworkZone Delete a Network Zone
+		DeleteNetworkZone Delete a Network Zone
 
-	Deletes network zone by `zoneId`
+		Deletes network zone by `zoneId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param zoneId `id` of the Network Zone
-	@return ApiDeleteNetworkZoneRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param zoneId `id` of the Network Zone
+		@return ApiDeleteNetworkZoneRequest
 	*/
 	DeleteNetworkZone(ctx context.Context, zoneId string) ApiDeleteNetworkZoneRequest
 
 	// DeleteNetworkZoneExecute executes the request
-	// TODU
 	DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneRequest) (*APIResponse, error)
 
 	/*
-	GetNetworkZone Retrieve a Network Zone
+		GetNetworkZone Retrieve a Network Zone
 
-	Retrieves a network zone by `zoneId`
+		Retrieves a network zone by `zoneId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param zoneId `id` of the Network Zone
-	@return ApiGetNetworkZoneRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param zoneId `id` of the Network Zone
+		@return ApiGetNetworkZoneRequest
 	*/
 	GetNetworkZone(ctx context.Context, zoneId string) ApiGetNetworkZoneRequest
 
 	// GetNetworkZoneExecute executes the request
 	//  @return NetworkZone
-	// TODU
 	GetNetworkZoneExecute(r ApiGetNetworkZoneRequest) (*APIResponse, error)
 
 	/*
-	ListNetworkZones List all Network Zones
+			ListNetworkZones List all Network Zones
 
-	Lists all network zones with pagination. A subset of zones can be returned that match a supported filter expression or query.
+			Lists all network zones with pagination. A subset of zones can be returned that match a supported filter expression or query.
 
-This operation requires URL encoding. For example, `filter=(id eq "nzoul0wf9jyb8xwZm0g3" or id eq "nzoul1MxmGN18NDQT0g3")` is encoded as `filter=%28id+eq+%22nzoul0wf9jyb8xwZm0g3%22+or+id+eq+%22nzoul1MxmGN18NDQT0g3%22%29`.
+		This operation requires URL encoding. For example, `filter=(id eq "nzoul0wf9jyb8xwZm0g3" or id eq "nzoul1MxmGN18NDQT0g3")` is encoded as `filter=%28id+eq+%22nzoul0wf9jyb8xwZm0g3%22+or+id+eq+%22nzoul1MxmGN18NDQT0g3%22%29`.
 
-Okta supports filtering on the `id` and `usage` properties. See [Filtering](https://developer.okta.com/docs/reference/core-okta-api/#filter) for more information on the expressions that are used in filtering.
+		Okta supports filtering on the `id` and `usage` properties. See [Filtering](https://developer.okta.com/docs/reference/core-okta-api/#filter) for more information on the expressions that are used in filtering.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListNetworkZonesRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListNetworkZonesRequest
 	*/
 	ListNetworkZones(ctx context.Context) ApiListNetworkZonesRequest
 
 	// ListNetworkZonesExecute executes the request
 	//  @return []NetworkZone
-	// TODU
 	ListNetworkZonesExecute(r ApiListNetworkZonesRequest) (*APIResponse, error)
 
 	/*
-	ReplaceNetworkZone Replace a Network Zone
+			ReplaceNetworkZone Replace a Network Zone
 
-	Replaces a network zone by `zoneId`. The replaced network zone type must be the same as the existing type.
-You may replace the usage (`POLICY`, `BLOCKLIST`) of a network zone by updating the `usage` attribute.
+			Replaces a network zone by `zoneId`. The replaced network zone type must be the same as the existing type.
+		You may replace the usage (`POLICY`, `BLOCKLIST`) of a network zone by updating the `usage` attribute.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param zoneId `id` of the Network Zone
-	@return ApiReplaceNetworkZoneRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param zoneId `id` of the Network Zone
+			@return ApiReplaceNetworkZoneRequest
 	*/
 	ReplaceNetworkZone(ctx context.Context, zoneId string) ApiReplaceNetworkZoneRequest
 
 	// ReplaceNetworkZoneExecute executes the request
 	//  @return NetworkZone
-	// TODU
 	ReplaceNetworkZoneExecute(r ApiReplaceNetworkZoneRequest) (*APIResponse, error)
 }
 
@@ -145,22 +137,18 @@ You may replace the usage (`POLICY`, `BLOCKLIST`) of a network zone by updating 
 type NetworkZoneAPIService service
 
 type ApiActivateNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zoneId string
-	// TODU
+	zoneId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiActivateNetworkZoneRequest) Data (data interface{}) ApiActivateNetworkZoneRequest {
+func (r ApiActivateNetworkZoneRequest) Data(data interface{}) ApiActivateNetworkZoneRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateNetworkZoneRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateNetworkZoneExecute(r)
 }
@@ -174,13 +162,12 @@ Activates a network zone by `zoneId`
  @param zoneId `id` of the Network Zone
  @return ApiActivateNetworkZoneRequest
 */
-// TODU
 
 func (a *NetworkZoneAPIService) ActivateNetworkZone(ctx context.Context, zoneId string) ApiActivateNetworkZoneRequest {
 	return ApiActivateNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
-		zoneId: zoneId,
+		ctx:        ctx,
+		zoneId:     zoneId,
 		retryCount: 0,
 	}
 }
@@ -193,10 +180,9 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -206,7 +192,6 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkZoneAPIService.ActivateNetworkZone")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -234,7 +219,6 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -251,13 +235,11 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -266,7 +248,6 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -281,12 +262,10 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -295,12 +274,10 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -309,13 +286,11 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -324,10 +299,9 @@ func (a *NetworkZoneAPIService) ActivateNetworkZoneExecute(r ApiActivateNetworkZ
 }
 
 type ApiCreateNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zone *NetworkZone
-	// TODU
+	zone       *NetworkZone
 	data       interface{}
 	retryCount int32
 }
@@ -337,14 +311,11 @@ func (r ApiCreateNetworkZoneRequest) Zone(zone NetworkZone) ApiCreateNetworkZone
 	return r
 }
 
-
-// TODU
-func (r ApiCreateNetworkZoneRequest) Data (data interface{}) ApiCreateNetworkZoneRequest {
+func (r ApiCreateNetworkZoneRequest) Data(data interface{}) ApiCreateNetworkZoneRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateNetworkZoneRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateNetworkZoneExecute(r)
 }
@@ -359,12 +330,11 @@ Creates a new network zone.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateNetworkZoneRequest
 */
-// TODU
 
 func (a *NetworkZoneAPIService) CreateNetworkZone(ctx context.Context) ApiCreateNetworkZoneRequest {
 	return ApiCreateNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -377,10 +347,9 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -390,7 +359,6 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkZoneAPIService.CreateNetworkZone")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -417,7 +385,6 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.zone
 	localVarPostBody = r.data
@@ -437,13 +404,11 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -452,7 +417,6 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -467,12 +431,10 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -481,12 +443,10 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -495,13 +455,11 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -510,22 +468,18 @@ func (a *NetworkZoneAPIService) CreateNetworkZoneExecute(r ApiCreateNetworkZoneR
 }
 
 type ApiDeactivateNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zoneId string
-	// TODU
+	zoneId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeactivateNetworkZoneRequest) Data (data interface{}) ApiDeactivateNetworkZoneRequest {
+func (r ApiDeactivateNetworkZoneRequest) Data(data interface{}) ApiDeactivateNetworkZoneRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateNetworkZoneRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateNetworkZoneExecute(r)
 }
@@ -539,13 +493,12 @@ Deactivates a network zone by `zoneId`
  @param zoneId `id` of the Network Zone
  @return ApiDeactivateNetworkZoneRequest
 */
-// TODU
 
 func (a *NetworkZoneAPIService) DeactivateNetworkZone(ctx context.Context, zoneId string) ApiDeactivateNetworkZoneRequest {
 	return ApiDeactivateNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
-		zoneId: zoneId,
+		ctx:        ctx,
+		zoneId:     zoneId,
 		retryCount: 0,
 	}
 }
@@ -558,10 +511,9 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -571,7 +523,6 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkZoneAPIService.DeactivateNetworkZone")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -599,7 +550,6 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -616,13 +566,11 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -631,7 +579,6 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -646,12 +593,10 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -660,12 +605,10 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -674,13 +617,11 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -689,22 +630,18 @@ func (a *NetworkZoneAPIService) DeactivateNetworkZoneExecute(r ApiDeactivateNetw
 }
 
 type ApiDeleteNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zoneId string
-	// TODU
+	zoneId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteNetworkZoneRequest) Data (data interface{}) ApiDeleteNetworkZoneRequest {
+func (r ApiDeleteNetworkZoneRequest) Data(data interface{}) ApiDeleteNetworkZoneRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteNetworkZoneRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteNetworkZoneExecute(r)
 }
@@ -718,13 +655,12 @@ Deletes network zone by `zoneId`
  @param zoneId `id` of the Network Zone
  @return ApiDeleteNetworkZoneRequest
 */
-// TODU
 
 func (a *NetworkZoneAPIService) DeleteNetworkZone(ctx context.Context, zoneId string) ApiDeleteNetworkZoneRequest {
 	return ApiDeleteNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
-		zoneId: zoneId,
+		ctx:        ctx,
+		zoneId:     zoneId,
 		retryCount: 0,
 	}
 }
@@ -738,7 +674,7 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -748,7 +684,6 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkZoneAPIService.DeleteNetworkZone")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -776,7 +711,6 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -793,13 +727,11 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -808,7 +740,6 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -823,12 +754,10 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -837,12 +766,10 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -851,13 +778,11 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -866,22 +791,18 @@ func (a *NetworkZoneAPIService) DeleteNetworkZoneExecute(r ApiDeleteNetworkZoneR
 }
 
 type ApiGetNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zoneId string
-	// TODU
+	zoneId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetNetworkZoneRequest) Data (data interface{}) ApiGetNetworkZoneRequest {
+func (r ApiGetNetworkZoneRequest) Data(data interface{}) ApiGetNetworkZoneRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetNetworkZoneRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetNetworkZoneExecute(r)
 }
@@ -895,13 +816,12 @@ Retrieves a network zone by `zoneId`
  @param zoneId `id` of the Network Zone
  @return ApiGetNetworkZoneRequest
 */
-// TODU
 
 func (a *NetworkZoneAPIService) GetNetworkZone(ctx context.Context, zoneId string) ApiGetNetworkZoneRequest {
 	return ApiGetNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
-		zoneId: zoneId,
+		ctx:        ctx,
+		zoneId:     zoneId,
 		retryCount: 0,
 	}
 }
@@ -914,10 +834,9 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -927,7 +846,6 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkZoneAPIService.GetNetworkZone")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -955,7 +873,6 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -972,13 +889,11 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -987,7 +902,6 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1002,12 +916,10 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1016,12 +928,10 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1030,13 +940,11 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1045,12 +953,11 @@ func (a *NetworkZoneAPIService) GetNetworkZoneExecute(r ApiGetNetworkZoneRequest
 }
 
 type ApiListNetworkZonesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	after *string
-	limit *int32
-	filter *string
-	// TODU
+	after      *string
+	limit      *int32
+	filter     *string
 	data       interface{}
 	retryCount int32
 }
@@ -1073,14 +980,11 @@ func (r ApiListNetworkZonesRequest) Filter(filter string) ApiListNetworkZonesReq
 	return r
 }
 
-
-// TODU
-func (r ApiListNetworkZonesRequest) Data (data interface{}) ApiListNetworkZonesRequest {
+func (r ApiListNetworkZonesRequest) Data(data interface{}) ApiListNetworkZonesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListNetworkZonesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListNetworkZonesExecute(r)
 }
@@ -1097,12 +1001,11 @@ Okta supports filtering on the `id` and `usage` properties. See [Filtering](http
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListNetworkZonesRequest
 */
-// TODU
 
 func (a *NetworkZoneAPIService) ListNetworkZones(ctx context.Context) ApiListNetworkZonesRequest {
 	return ApiListNetworkZonesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1115,10 +1018,9 @@ func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesReq
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1128,7 +1030,6 @@ func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesReq
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkZoneAPIService.ListNetworkZones")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1164,7 +1065,6 @@ func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1181,13 +1081,11 @@ func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1196,7 +1094,6 @@ func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesReq
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1211,12 +1108,10 @@ func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1225,13 +1120,11 @@ func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1240,11 +1133,10 @@ func (a *NetworkZoneAPIService) ListNetworkZonesExecute(r ApiListNetworkZonesReq
 }
 
 type ApiReplaceNetworkZoneRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService NetworkZoneAPI
-	zoneId string
-	zone *NetworkZone
-	// TODU
+	zoneId     string
+	zone       *NetworkZone
 	data       interface{}
 	retryCount int32
 }
@@ -1254,14 +1146,11 @@ func (r ApiReplaceNetworkZoneRequest) Zone(zone NetworkZone) ApiReplaceNetworkZo
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceNetworkZoneRequest) Data (data interface{}) ApiReplaceNetworkZoneRequest {
+func (r ApiReplaceNetworkZoneRequest) Data(data interface{}) ApiReplaceNetworkZoneRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceNetworkZoneRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceNetworkZoneExecute(r)
 }
@@ -1276,13 +1165,12 @@ You may replace the usage (`POLICY`, `BLOCKLIST`) of a network zone by updating 
  @param zoneId `id` of the Network Zone
  @return ApiReplaceNetworkZoneRequest
 */
-// TODU
 
 func (a *NetworkZoneAPIService) ReplaceNetworkZone(ctx context.Context, zoneId string) ApiReplaceNetworkZoneRequest {
 	return ApiReplaceNetworkZoneRequest{
 		ApiService: a,
-		ctx: ctx,
-		zoneId: zoneId,
+		ctx:        ctx,
+		zoneId:     zoneId,
 		retryCount: 0,
 	}
 }
@@ -1295,10 +1183,9 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1308,7 +1195,6 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "NetworkZoneAPIService.ReplaceNetworkZone")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1336,7 +1222,6 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.zone
 	localVarPostBody = r.data
@@ -1356,13 +1241,11 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1371,7 +1254,6 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1386,12 +1268,10 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1400,12 +1280,10 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1414,12 +1292,10 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1428,13 +1304,11 @@ func (a *NetworkZoneAPIService) ReplaceNetworkZoneExecute(r ApiReplaceNetworkZon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

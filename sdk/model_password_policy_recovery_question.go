@@ -17,8 +17,8 @@ import (
 
 // PasswordPolicyRecoveryQuestion struct for PasswordPolicyRecoveryQuestion
 type PasswordPolicyRecoveryQuestion struct {
-	Properties *PasswordPolicyRecoveryQuestionProperties `json:"properties,omitempty"`
-	Status *string `json:"status,omitempty"`
+	Properties           *PasswordPolicyRecoveryQuestionProperties `json:"properties,omitempty"`
+	Status               *string                                   `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullablePasswordPolicyRecoveryQuestion) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

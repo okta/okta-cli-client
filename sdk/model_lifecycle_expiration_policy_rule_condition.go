@@ -17,9 +17,9 @@ import (
 
 // LifecycleExpirationPolicyRuleCondition struct for LifecycleExpirationPolicyRuleCondition
 type LifecycleExpirationPolicyRuleCondition struct {
-	LifecycleStatus *string `json:"lifecycleStatus,omitempty"`
-	Number *int32 `json:"number,omitempty"`
-	Unit *string `json:"unit,omitempty"`
+	LifecycleStatus      *string `json:"lifecycleStatus,omitempty"`
+	Number               *int32  `json:"number,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -217,4 +217,3 @@ func (v *NullableLifecycleExpirationPolicyRuleCondition) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

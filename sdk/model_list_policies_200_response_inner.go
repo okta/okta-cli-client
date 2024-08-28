@@ -16,15 +16,15 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // ListPolicies200ResponseInner - struct for ListPolicies200ResponseInner
 type ListPolicies200ResponseInner struct {
-	AccessPolicy *AccessPolicy
-	IdpDiscoveryPolicy *IdpDiscoveryPolicy
+	AccessPolicy                *AccessPolicy
+	IdpDiscoveryPolicy          *IdpDiscoveryPolicy
 	MultifactorEnrollmentPolicy *MultifactorEnrollmentPolicy
-	OktaSignOnPolicy *OktaSignOnPolicy
-	PasswordPolicy *PasswordPolicy
-	ProfileEnrollmentPolicy *ProfileEnrollmentPolicy
+	OktaSignOnPolicy            *OktaSignOnPolicy
+	PasswordPolicy              *PasswordPolicy
+	ProfileEnrollmentPolicy     *ProfileEnrollmentPolicy
 }
 
 // AccessPolicyAsListPolicies200ResponseInner is a convenience function that returns AccessPolicy wrapped in ListPolicies200ResponseInner
@@ -68,7 +68,6 @@ func ProfileEnrollmentPolicyAsListPolicies200ResponseInner(v *ProfileEnrollmentP
 		ProfileEnrollmentPolicy: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListPolicies200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -257,7 +256,7 @@ func (src ListPolicies200ResponseInner) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListPolicies200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListPolicies200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -324,4 +323,3 @@ func (v *NullableListPolicies200ResponseInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

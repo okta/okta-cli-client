@@ -17,10 +17,10 @@ import (
 
 // UserSchemaBase struct for UserSchemaBase
 type UserSchemaBase struct {
-	Id *string `json:"id,omitempty"`
-	Properties *UserSchemaBaseProperties `json:"properties,omitempty"`
-	Required []string `json:"required,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Id                   *string                   `json:"id,omitempty"`
+	Properties           *UserSchemaBaseProperties `json:"properties,omitempty"`
+	Required             []string                  `json:"required,omitempty"`
+	Type                 *string                   `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -254,4 +254,3 @@ func (v *NullableUserSchemaBase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

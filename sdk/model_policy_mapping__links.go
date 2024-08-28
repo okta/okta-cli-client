@@ -17,10 +17,10 @@ import (
 
 // PolicyMappingLinks struct for PolicyMappingLinks
 type PolicyMappingLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Application *PolicyMappingLinksAllOfApplication `json:"application,omitempty"`
-	Authenticator *PolicyMappingLinksAllOfAuthenticator `json:"authenticator,omitempty"`
-	Policy *PolicyMappingLinksAllOfPolicy `json:"policy,omitempty"`
+	Self                 *HrefObjectSelfLink                   `json:"self,omitempty"`
+	Application          *PolicyMappingLinksAllOfApplication   `json:"application,omitempty"`
+	Authenticator        *PolicyMappingLinksAllOfAuthenticator `json:"authenticator,omitempty"`
+	Policy               *PolicyMappingLinksAllOfPolicy        `json:"policy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -254,4 +254,3 @@ func (v *NullablePolicyMappingLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

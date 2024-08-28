@@ -17,93 +17,87 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthorizationServerClaimsAPI interface {
 
 	/*
-	CreateOAuth2Claim Create a custom token Claim
+		CreateOAuth2Claim Create a custom token Claim
 
-	Creates a custom token Claim for a custom authorization server
+		Creates a custom token Claim for a custom authorization server
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiCreateOAuth2ClaimRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiCreateOAuth2ClaimRequest
 	*/
 	CreateOAuth2Claim(ctx context.Context, authServerId string) ApiCreateOAuth2ClaimRequest
 
 	// CreateOAuth2ClaimExecute executes the request
 	//  @return OAuth2Claim
-	// TODU
 	CreateOAuth2ClaimExecute(r ApiCreateOAuth2ClaimRequest) (*APIResponse, error)
 
 	/*
-	DeleteOAuth2Claim Delete a custom token Claim
+		DeleteOAuth2Claim Delete a custom token Claim
 
-	Deletes a custom token Claim specified by the `claimId`
+		Deletes a custom token Claim specified by the `claimId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param claimId `id` of Claim
-	@return ApiDeleteOAuth2ClaimRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param claimId `id` of Claim
+		@return ApiDeleteOAuth2ClaimRequest
 	*/
 	DeleteOAuth2Claim(ctx context.Context, authServerId string, claimId string) ApiDeleteOAuth2ClaimRequest
 
 	// DeleteOAuth2ClaimExecute executes the request
-	// TODU
 	DeleteOAuth2ClaimExecute(r ApiDeleteOAuth2ClaimRequest) (*APIResponse, error)
 
 	/*
-	GetOAuth2Claim Retrieve a custom token Claim
+		GetOAuth2Claim Retrieve a custom token Claim
 
-	Retrieves a custom token Claim by the specified `claimId`
+		Retrieves a custom token Claim by the specified `claimId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param claimId `id` of Claim
-	@return ApiGetOAuth2ClaimRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param claimId `id` of Claim
+		@return ApiGetOAuth2ClaimRequest
 	*/
 	GetOAuth2Claim(ctx context.Context, authServerId string, claimId string) ApiGetOAuth2ClaimRequest
 
 	// GetOAuth2ClaimExecute executes the request
 	//  @return OAuth2Claim
-	// TODU
 	GetOAuth2ClaimExecute(r ApiGetOAuth2ClaimRequest) (*APIResponse, error)
 
 	/*
-	ListOAuth2Claims List all custom token Claims
+		ListOAuth2Claims List all custom token Claims
 
-	Lists all custom token Claims defined for a specified custom authorization server
+		Lists all custom token Claims defined for a specified custom authorization server
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiListOAuth2ClaimsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiListOAuth2ClaimsRequest
 	*/
 	ListOAuth2Claims(ctx context.Context, authServerId string) ApiListOAuth2ClaimsRequest
 
 	// ListOAuth2ClaimsExecute executes the request
 	//  @return []OAuth2Claim
-	// TODU
 	ListOAuth2ClaimsExecute(r ApiListOAuth2ClaimsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceOAuth2Claim Replace a custom token Claim
+		ReplaceOAuth2Claim Replace a custom token Claim
 
-	Replaces a custom token Claim specified by the `claimId`
+		Replaces a custom token Claim specified by the `claimId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param claimId `id` of Claim
-	@return ApiReplaceOAuth2ClaimRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param claimId `id` of Claim
+		@return ApiReplaceOAuth2ClaimRequest
 	*/
 	ReplaceOAuth2Claim(ctx context.Context, authServerId string, claimId string) ApiReplaceOAuth2ClaimRequest
 
 	// ReplaceOAuth2ClaimExecute executes the request
 	//  @return OAuth2Claim
-	// TODU
 	ReplaceOAuth2ClaimExecute(r ApiReplaceOAuth2ClaimRequest) (*APIResponse, error)
 }
 
@@ -111,13 +105,12 @@ type AuthorizationServerClaimsAPI interface {
 type AuthorizationServerClaimsAPIService service
 
 type ApiCreateOAuth2ClaimRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerClaimsAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerClaimsAPI
 	authServerId string
-	oAuth2Claim *OAuth2Claim
-	// TODU
-	data       interface{}
-	retryCount int32
+	oAuth2Claim  *OAuth2Claim
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiCreateOAuth2ClaimRequest) OAuth2Claim(oAuth2Claim OAuth2Claim) ApiCreateOAuth2ClaimRequest {
@@ -125,14 +118,11 @@ func (r ApiCreateOAuth2ClaimRequest) OAuth2Claim(oAuth2Claim OAuth2Claim) ApiCre
 	return r
 }
 
-
-// TODU
-func (r ApiCreateOAuth2ClaimRequest) Data (data interface{}) ApiCreateOAuth2ClaimRequest {
+func (r ApiCreateOAuth2ClaimRequest) Data(data interface{}) ApiCreateOAuth2ClaimRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateOAuth2ClaimRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateOAuth2ClaimExecute(r)
 }
@@ -146,14 +136,13 @@ Creates a custom token Claim for a custom authorization server
  @param authServerId `id` of the Authorization Server
  @return ApiCreateOAuth2ClaimRequest
 */
-// TODU
 
 func (a *AuthorizationServerClaimsAPIService) CreateOAuth2Claim(ctx context.Context, authServerId string) ApiCreateOAuth2ClaimRequest {
 	return ApiCreateOAuth2ClaimRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -165,10 +154,9 @@ func (a *AuthorizationServerClaimsAPIService) CreateOAuth2ClaimExecute(r ApiCrea
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -178,7 +166,6 @@ func (a *AuthorizationServerClaimsAPIService) CreateOAuth2ClaimExecute(r ApiCrea
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerClaimsAPIService.CreateOAuth2Claim")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -206,7 +193,6 @@ func (a *AuthorizationServerClaimsAPIService) CreateOAuth2ClaimExecute(r ApiCrea
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.oAuth2Claim
 	localVarPostBody = r.data
@@ -226,13 +212,11 @@ func (a *AuthorizationServerClaimsAPIService) CreateOAuth2ClaimExecute(r ApiCrea
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -241,7 +225,6 @@ func (a *AuthorizationServerClaimsAPIService) CreateOAuth2ClaimExecute(r ApiCrea
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -256,12 +239,10 @@ func (a *AuthorizationServerClaimsAPIService) CreateOAuth2ClaimExecute(r ApiCrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -270,12 +251,10 @@ func (a *AuthorizationServerClaimsAPIService) CreateOAuth2ClaimExecute(r ApiCrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -284,12 +263,10 @@ func (a *AuthorizationServerClaimsAPIService) CreateOAuth2ClaimExecute(r ApiCrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -298,13 +275,11 @@ func (a *AuthorizationServerClaimsAPIService) CreateOAuth2ClaimExecute(r ApiCrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -313,23 +288,19 @@ func (a *AuthorizationServerClaimsAPIService) CreateOAuth2ClaimExecute(r ApiCrea
 }
 
 type ApiDeleteOAuth2ClaimRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerClaimsAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerClaimsAPI
 	authServerId string
-	claimId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	claimId      string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeleteOAuth2ClaimRequest) Data (data interface{}) ApiDeleteOAuth2ClaimRequest {
+func (r ApiDeleteOAuth2ClaimRequest) Data(data interface{}) ApiDeleteOAuth2ClaimRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteOAuth2ClaimRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteOAuth2ClaimExecute(r)
 }
@@ -344,15 +315,14 @@ Deletes a custom token Claim specified by the `claimId`
  @param claimId `id` of Claim
  @return ApiDeleteOAuth2ClaimRequest
 */
-// TODU
 
 func (a *AuthorizationServerClaimsAPIService) DeleteOAuth2Claim(ctx context.Context, authServerId string, claimId string) ApiDeleteOAuth2ClaimRequest {
 	return ApiDeleteOAuth2ClaimRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		claimId: claimId,
-		retryCount: 0,
+		claimId:      claimId,
+		retryCount:   0,
 	}
 }
 
@@ -365,7 +335,7 @@ func (a *AuthorizationServerClaimsAPIService) DeleteOAuth2ClaimExecute(r ApiDele
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -375,7 +345,6 @@ func (a *AuthorizationServerClaimsAPIService) DeleteOAuth2ClaimExecute(r ApiDele
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerClaimsAPIService.DeleteOAuth2Claim")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -404,7 +373,6 @@ func (a *AuthorizationServerClaimsAPIService) DeleteOAuth2ClaimExecute(r ApiDele
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -421,13 +389,11 @@ func (a *AuthorizationServerClaimsAPIService) DeleteOAuth2ClaimExecute(r ApiDele
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -436,7 +402,6 @@ func (a *AuthorizationServerClaimsAPIService) DeleteOAuth2ClaimExecute(r ApiDele
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -451,12 +416,10 @@ func (a *AuthorizationServerClaimsAPIService) DeleteOAuth2ClaimExecute(r ApiDele
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -465,12 +428,10 @@ func (a *AuthorizationServerClaimsAPIService) DeleteOAuth2ClaimExecute(r ApiDele
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -479,13 +440,11 @@ func (a *AuthorizationServerClaimsAPIService) DeleteOAuth2ClaimExecute(r ApiDele
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -494,23 +453,19 @@ func (a *AuthorizationServerClaimsAPIService) DeleteOAuth2ClaimExecute(r ApiDele
 }
 
 type ApiGetOAuth2ClaimRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerClaimsAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerClaimsAPI
 	authServerId string
-	claimId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	claimId      string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiGetOAuth2ClaimRequest) Data (data interface{}) ApiGetOAuth2ClaimRequest {
+func (r ApiGetOAuth2ClaimRequest) Data(data interface{}) ApiGetOAuth2ClaimRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetOAuth2ClaimRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetOAuth2ClaimExecute(r)
 }
@@ -525,15 +480,14 @@ Retrieves a custom token Claim by the specified `claimId`
  @param claimId `id` of Claim
  @return ApiGetOAuth2ClaimRequest
 */
-// TODU
 
 func (a *AuthorizationServerClaimsAPIService) GetOAuth2Claim(ctx context.Context, authServerId string, claimId string) ApiGetOAuth2ClaimRequest {
 	return ApiGetOAuth2ClaimRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		claimId: claimId,
-		retryCount: 0,
+		claimId:      claimId,
+		retryCount:   0,
 	}
 }
 
@@ -545,10 +499,9 @@ func (a *AuthorizationServerClaimsAPIService) GetOAuth2ClaimExecute(r ApiGetOAut
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -558,7 +511,6 @@ func (a *AuthorizationServerClaimsAPIService) GetOAuth2ClaimExecute(r ApiGetOAut
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerClaimsAPIService.GetOAuth2Claim")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -587,7 +539,6 @@ func (a *AuthorizationServerClaimsAPIService) GetOAuth2ClaimExecute(r ApiGetOAut
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -604,13 +555,11 @@ func (a *AuthorizationServerClaimsAPIService) GetOAuth2ClaimExecute(r ApiGetOAut
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -619,7 +568,6 @@ func (a *AuthorizationServerClaimsAPIService) GetOAuth2ClaimExecute(r ApiGetOAut
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -634,12 +582,10 @@ func (a *AuthorizationServerClaimsAPIService) GetOAuth2ClaimExecute(r ApiGetOAut
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -648,12 +594,10 @@ func (a *AuthorizationServerClaimsAPIService) GetOAuth2ClaimExecute(r ApiGetOAut
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -662,13 +606,11 @@ func (a *AuthorizationServerClaimsAPIService) GetOAuth2ClaimExecute(r ApiGetOAut
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -677,22 +619,18 @@ func (a *AuthorizationServerClaimsAPIService) GetOAuth2ClaimExecute(r ApiGetOAut
 }
 
 type ApiListOAuth2ClaimsRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerClaimsAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerClaimsAPI
 	authServerId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiListOAuth2ClaimsRequest) Data (data interface{}) ApiListOAuth2ClaimsRequest {
+func (r ApiListOAuth2ClaimsRequest) Data(data interface{}) ApiListOAuth2ClaimsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListOAuth2ClaimsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListOAuth2ClaimsExecute(r)
 }
@@ -706,14 +644,13 @@ Lists all custom token Claims defined for a specified custom authorization serve
  @param authServerId `id` of the Authorization Server
  @return ApiListOAuth2ClaimsRequest
 */
-// TODU
 
 func (a *AuthorizationServerClaimsAPIService) ListOAuth2Claims(ctx context.Context, authServerId string) ApiListOAuth2ClaimsRequest {
 	return ApiListOAuth2ClaimsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -725,10 +662,9 @@ func (a *AuthorizationServerClaimsAPIService) ListOAuth2ClaimsExecute(r ApiListO
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -738,7 +674,6 @@ func (a *AuthorizationServerClaimsAPIService) ListOAuth2ClaimsExecute(r ApiListO
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerClaimsAPIService.ListOAuth2Claims")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -766,7 +701,6 @@ func (a *AuthorizationServerClaimsAPIService) ListOAuth2ClaimsExecute(r ApiListO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -783,13 +717,11 @@ func (a *AuthorizationServerClaimsAPIService) ListOAuth2ClaimsExecute(r ApiListO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -798,7 +730,6 @@ func (a *AuthorizationServerClaimsAPIService) ListOAuth2ClaimsExecute(r ApiListO
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -813,12 +744,10 @@ func (a *AuthorizationServerClaimsAPIService) ListOAuth2ClaimsExecute(r ApiListO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -827,12 +756,10 @@ func (a *AuthorizationServerClaimsAPIService) ListOAuth2ClaimsExecute(r ApiListO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -841,13 +768,11 @@ func (a *AuthorizationServerClaimsAPIService) ListOAuth2ClaimsExecute(r ApiListO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -856,14 +781,13 @@ func (a *AuthorizationServerClaimsAPIService) ListOAuth2ClaimsExecute(r ApiListO
 }
 
 type ApiReplaceOAuth2ClaimRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerClaimsAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerClaimsAPI
 	authServerId string
-	claimId string
-	oAuth2Claim *OAuth2Claim
-	// TODU
-	data       interface{}
-	retryCount int32
+	claimId      string
+	oAuth2Claim  *OAuth2Claim
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiReplaceOAuth2ClaimRequest) OAuth2Claim(oAuth2Claim OAuth2Claim) ApiReplaceOAuth2ClaimRequest {
@@ -871,14 +795,11 @@ func (r ApiReplaceOAuth2ClaimRequest) OAuth2Claim(oAuth2Claim OAuth2Claim) ApiRe
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceOAuth2ClaimRequest) Data (data interface{}) ApiReplaceOAuth2ClaimRequest {
+func (r ApiReplaceOAuth2ClaimRequest) Data(data interface{}) ApiReplaceOAuth2ClaimRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceOAuth2ClaimRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceOAuth2ClaimExecute(r)
 }
@@ -893,15 +814,14 @@ Replaces a custom token Claim specified by the `claimId`
  @param claimId `id` of Claim
  @return ApiReplaceOAuth2ClaimRequest
 */
-// TODU
 
 func (a *AuthorizationServerClaimsAPIService) ReplaceOAuth2Claim(ctx context.Context, authServerId string, claimId string) ApiReplaceOAuth2ClaimRequest {
 	return ApiReplaceOAuth2ClaimRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		claimId: claimId,
-		retryCount: 0,
+		claimId:      claimId,
+		retryCount:   0,
 	}
 }
 
@@ -913,10 +833,9 @@ func (a *AuthorizationServerClaimsAPIService) ReplaceOAuth2ClaimExecute(r ApiRep
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -926,7 +845,6 @@ func (a *AuthorizationServerClaimsAPIService) ReplaceOAuth2ClaimExecute(r ApiRep
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerClaimsAPIService.ReplaceOAuth2Claim")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -955,7 +873,6 @@ func (a *AuthorizationServerClaimsAPIService) ReplaceOAuth2ClaimExecute(r ApiRep
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.oAuth2Claim
 	localVarPostBody = r.data
@@ -975,13 +892,11 @@ func (a *AuthorizationServerClaimsAPIService) ReplaceOAuth2ClaimExecute(r ApiRep
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -990,7 +905,6 @@ func (a *AuthorizationServerClaimsAPIService) ReplaceOAuth2ClaimExecute(r ApiRep
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1005,12 +919,10 @@ func (a *AuthorizationServerClaimsAPIService) ReplaceOAuth2ClaimExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1019,12 +931,10 @@ func (a *AuthorizationServerClaimsAPIService) ReplaceOAuth2ClaimExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1033,12 +943,10 @@ func (a *AuthorizationServerClaimsAPIService) ReplaceOAuth2ClaimExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1047,13 +955,11 @@ func (a *AuthorizationServerClaimsAPIService) ReplaceOAuth2ClaimExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

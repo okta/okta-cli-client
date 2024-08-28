@@ -22,13 +22,13 @@ type AuthenticatorMethodOtp struct {
 	AuthenticatorMethodWithVerifiableProperties
 	AcceptableAdjacentIntervals *int32 `json:"acceptableAdjacentIntervals,omitempty"`
 	// HMAC algorithm
-	Algorithm *string `json:"algorithm,omitempty"`
-	Encoding *string `json:"encoding,omitempty"`
-	FactorProfileId *string `json:"factorProfileId,omitempty"`
-	PassCodeLength *int32 `json:"passCodeLength,omitempty"`
-	Protocol *string `json:"protocol,omitempty"`
-	TimeIntervalInSeconds *int32 `json:"timeIntervalInSeconds,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Algorithm             *string `json:"algorithm,omitempty"`
+	Encoding              *string `json:"encoding,omitempty"`
+	FactorProfileId       *string `json:"factorProfileId,omitempty"`
+	PassCodeLength        *int32  `json:"passCodeLength,omitempty"`
+	Protocol              *string `json:"protocol,omitempty"`
+	TimeIntervalInSeconds *int32  `json:"timeIntervalInSeconds,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _AuthenticatorMethodOtp AuthenticatorMethodOtp
@@ -317,12 +317,12 @@ func (o *AuthenticatorMethodOtp) UnmarshalJSON(bytes []byte) (err error) {
 	type AuthenticatorMethodOtpWithoutEmbeddedStruct struct {
 		AcceptableAdjacentIntervals *int32 `json:"acceptableAdjacentIntervals,omitempty"`
 		// HMAC algorithm
-		Algorithm *string `json:"algorithm,omitempty"`
-		Encoding *string `json:"encoding,omitempty"`
-		FactorProfileId *string `json:"factorProfileId,omitempty"`
-		PassCodeLength *int32 `json:"passCodeLength,omitempty"`
-		Protocol *string `json:"protocol,omitempty"`
-		TimeIntervalInSeconds *int32 `json:"timeIntervalInSeconds,omitempty"`
+		Algorithm             *string `json:"algorithm,omitempty"`
+		Encoding              *string `json:"encoding,omitempty"`
+		FactorProfileId       *string `json:"factorProfileId,omitempty"`
+		PassCodeLength        *int32  `json:"passCodeLength,omitempty"`
+		Protocol              *string `json:"protocol,omitempty"`
+		TimeIntervalInSeconds *int32  `json:"timeIntervalInSeconds,omitempty"`
 	}
 
 	varAuthenticatorMethodOtpWithoutEmbeddedStruct := AuthenticatorMethodOtpWithoutEmbeddedStruct{}
@@ -424,4 +424,3 @@ func (v *NullableAuthenticatorMethodOtp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

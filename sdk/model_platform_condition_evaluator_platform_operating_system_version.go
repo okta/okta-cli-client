@@ -17,8 +17,8 @@ import (
 
 // PlatformConditionEvaluatorPlatformOperatingSystemVersion struct for PlatformConditionEvaluatorPlatformOperatingSystemVersion
 type PlatformConditionEvaluatorPlatformOperatingSystemVersion struct {
-	MatchType *string `json:"matchType,omitempty"`
-	Value *string `json:"value,omitempty"`
+	MatchType            *string `json:"matchType,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullablePlatformConditionEvaluatorPlatformOperatingSystemVersion) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

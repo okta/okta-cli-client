@@ -17,7 +17,7 @@ import (
 
 // CreateUISchema The request body properties for the new UI Schema
 type CreateUISchema struct {
-	UiSchema *UISchemaObject `json:"uiSchema,omitempty"`
+	UiSchema             *UISchemaObject `json:"uiSchema,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableCreateUISchema) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

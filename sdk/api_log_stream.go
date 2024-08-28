@@ -17,128 +17,120 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type LogStreamAPI interface {
 
 	/*
-	ActivateLogStream Activate a Log Stream
+		ActivateLogStream Activate a Log Stream
 
-	Activates a log stream by `logStreamId`
+		Activates a log stream by `logStreamId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamId Unique identifier for the Log Stream
-	@return ApiActivateLogStreamRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param logStreamId Unique identifier for the Log Stream
+		@return ApiActivateLogStreamRequest
 	*/
 	ActivateLogStream(ctx context.Context, logStreamId string) ApiActivateLogStreamRequest
 
 	// ActivateLogStreamExecute executes the request
 	//  @return ListLogStreams200ResponseInner
-	// TODU
 	ActivateLogStreamExecute(r ApiActivateLogStreamRequest) (*APIResponse, error)
 
 	/*
-	CreateLogStream Create a Log Stream
+		CreateLogStream Create a Log Stream
 
-	Creates a new Log Stream object
+		Creates a new Log Stream object
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateLogStreamRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateLogStreamRequest
 	*/
 	CreateLogStream(ctx context.Context) ApiCreateLogStreamRequest
 
 	// CreateLogStreamExecute executes the request
 	//  @return ListLogStreams200ResponseInner
-	// TODU
 	CreateLogStreamExecute(r ApiCreateLogStreamRequest) (*APIResponse, error)
 
 	/*
-	DeactivateLogStream Deactivate a Log Stream
+		DeactivateLogStream Deactivate a Log Stream
 
-	Deactivates a log stream by `logStreamId`
+		Deactivates a log stream by `logStreamId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamId Unique identifier for the Log Stream
-	@return ApiDeactivateLogStreamRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param logStreamId Unique identifier for the Log Stream
+		@return ApiDeactivateLogStreamRequest
 	*/
 	DeactivateLogStream(ctx context.Context, logStreamId string) ApiDeactivateLogStreamRequest
 
 	// DeactivateLogStreamExecute executes the request
 	//  @return ListLogStreams200ResponseInner
-	// TODU
 	DeactivateLogStreamExecute(r ApiDeactivateLogStreamRequest) (*APIResponse, error)
 
 	/*
-	DeleteLogStream Delete a Log Stream
+		DeleteLogStream Delete a Log Stream
 
-	Deletes a Log Stream object from your org by ID
+		Deletes a Log Stream object from your org by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamId Unique identifier for the Log Stream
-	@return ApiDeleteLogStreamRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param logStreamId Unique identifier for the Log Stream
+		@return ApiDeleteLogStreamRequest
 	*/
 	DeleteLogStream(ctx context.Context, logStreamId string) ApiDeleteLogStreamRequest
 
 	// DeleteLogStreamExecute executes the request
-	// TODU
 	DeleteLogStreamExecute(r ApiDeleteLogStreamRequest) (*APIResponse, error)
 
 	/*
-	GetLogStream Retrieve a Log Stream
+		GetLogStream Retrieve a Log Stream
 
-	Retrieves a Log Stream object by ID
+		Retrieves a Log Stream object by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamId Unique identifier for the Log Stream
-	@return ApiGetLogStreamRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param logStreamId Unique identifier for the Log Stream
+		@return ApiGetLogStreamRequest
 	*/
 	GetLogStream(ctx context.Context, logStreamId string) ApiGetLogStreamRequest
 
 	// GetLogStreamExecute executes the request
 	//  @return ListLogStreams200ResponseInner
-	// TODU
 	GetLogStreamExecute(r ApiGetLogStreamRequest) (*APIResponse, error)
 
 	/*
-	ListLogStreams List all Log Streams
+		ListLogStreams List all Log Streams
 
-	Lists all Log Stream objects in your org. You can request a paginated list or a subset of Log Streams that match a supported filter expression.
+		Lists all Log Stream objects in your org. You can request a paginated list or a subset of Log Streams that match a supported filter expression.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListLogStreamsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListLogStreamsRequest
 	*/
 	ListLogStreams(ctx context.Context) ApiListLogStreamsRequest
 
 	// ListLogStreamsExecute executes the request
 	//  @return []ListLogStreams200ResponseInner
-	// TODU
 	ListLogStreamsExecute(r ApiListLogStreamsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceLogStream Replace a Log Stream
+			ReplaceLogStream Replace a Log Stream
 
-	Replaces the Log Stream object properties for a given ID.
+			Replaces the Log Stream object properties for a given ID.
 
-This operation is typically used to update the configuration of a Log Stream.
-Depending on the type of Log Stream you want to update, certain properties can't be modified after the Log Stream is initially created.
-Use the [Retrieve the Log Stream Schema for the schema type](/openapi/okta-management/management/tag/Schema/#tag/Schema/operation/getLogStreamSchema) request to determine which properties you can update for the specific Log Stream type.
-Log Stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
-You must still specify these `writeOnce` properties in the request body with the original values in the PUT request.
+		This operation is typically used to update the configuration of a Log Stream.
+		Depending on the type of Log Stream you want to update, certain properties can't be modified after the Log Stream is initially created.
+		Use the [Retrieve the Log Stream Schema for the schema type](/openapi/okta-management/management/tag/Schema/#tag/Schema/operation/getLogStreamSchema) request to determine which properties you can update for the specific Log Stream type.
+		Log Stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
+		You must still specify these `writeOnce` properties in the request body with the original values in the PUT request.
 
-> **Note:** You don't have to specify properties that have both the `"writeOnce": true` and the `"writeOnly": true` attributes in the PUT request body. These property values are ignored even if you add them in the PUT request body.
+		> **Note:** You don't have to specify properties that have both the `"writeOnce": true` and the `"writeOnly": true` attributes in the PUT request body. These property values are ignored even if you add them in the PUT request body.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamId Unique identifier for the Log Stream
-	@return ApiReplaceLogStreamRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param logStreamId Unique identifier for the Log Stream
+			@return ApiReplaceLogStreamRequest
 	*/
 	ReplaceLogStream(ctx context.Context, logStreamId string) ApiReplaceLogStreamRequest
 
 	// ReplaceLogStreamExecute executes the request
 	//  @return ListLogStreams200ResponseInner
-	// TODU
 	ReplaceLogStreamExecute(r ApiReplaceLogStreamRequest) (*APIResponse, error)
 }
 
@@ -146,22 +138,18 @@ You must still specify these `writeOnce` properties in the request body with the
 type LogStreamAPIService service
 
 type ApiActivateLogStreamRequest struct {
-	ctx context.Context
-	ApiService LogStreamAPI
+	ctx         context.Context
+	ApiService  LogStreamAPI
 	logStreamId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
-
-// TODU
-func (r ApiActivateLogStreamRequest) Data (data interface{}) ApiActivateLogStreamRequest {
+func (r ApiActivateLogStreamRequest) Data(data interface{}) ApiActivateLogStreamRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateLogStreamRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateLogStreamExecute(r)
 }
@@ -175,14 +163,13 @@ Activates a log stream by `logStreamId`
  @param logStreamId Unique identifier for the Log Stream
  @return ApiActivateLogStreamRequest
 */
-// TODU
 
 func (a *LogStreamAPIService) ActivateLogStream(ctx context.Context, logStreamId string) ApiActivateLogStreamRequest {
 	return ApiActivateLogStreamRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		logStreamId: logStreamId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -194,10 +181,9 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -207,7 +193,6 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogStreamAPIService.ActivateLogStream")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -235,7 +220,6 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -252,13 +236,11 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -267,7 +249,6 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -282,12 +263,10 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -296,12 +275,10 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -310,13 +287,11 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -325,10 +300,9 @@ func (a *LogStreamAPIService) ActivateLogStreamExecute(r ApiActivateLogStreamReq
 }
 
 type ApiCreateLogStreamRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService LogStreamAPI
-	instance *ListLogStreams200ResponseInner
-	// TODU
+	instance   *ListLogStreams200ResponseInner
 	data       interface{}
 	retryCount int32
 }
@@ -338,14 +312,11 @@ func (r ApiCreateLogStreamRequest) Instance(instance ListLogStreams200ResponseIn
 	return r
 }
 
-
-// TODU
-func (r ApiCreateLogStreamRequest) Data (data interface{}) ApiCreateLogStreamRequest {
+func (r ApiCreateLogStreamRequest) Data(data interface{}) ApiCreateLogStreamRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateLogStreamRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateLogStreamExecute(r)
 }
@@ -358,12 +329,11 @@ Creates a new Log Stream object
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateLogStreamRequest
 */
-// TODU
 
 func (a *LogStreamAPIService) CreateLogStream(ctx context.Context) ApiCreateLogStreamRequest {
 	return ApiCreateLogStreamRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -376,10 +346,9 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -389,7 +358,6 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogStreamAPIService.CreateLogStream")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -416,7 +384,6 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -436,13 +403,11 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -451,7 +416,6 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -466,12 +430,10 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -480,12 +442,10 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -494,13 +454,11 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -509,22 +467,18 @@ func (a *LogStreamAPIService) CreateLogStreamExecute(r ApiCreateLogStreamRequest
 }
 
 type ApiDeactivateLogStreamRequest struct {
-	ctx context.Context
-	ApiService LogStreamAPI
+	ctx         context.Context
+	ApiService  LogStreamAPI
 	logStreamId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
-
-// TODU
-func (r ApiDeactivateLogStreamRequest) Data (data interface{}) ApiDeactivateLogStreamRequest {
+func (r ApiDeactivateLogStreamRequest) Data(data interface{}) ApiDeactivateLogStreamRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateLogStreamRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateLogStreamExecute(r)
 }
@@ -538,14 +492,13 @@ Deactivates a log stream by `logStreamId`
  @param logStreamId Unique identifier for the Log Stream
  @return ApiDeactivateLogStreamRequest
 */
-// TODU
 
 func (a *LogStreamAPIService) DeactivateLogStream(ctx context.Context, logStreamId string) ApiDeactivateLogStreamRequest {
 	return ApiDeactivateLogStreamRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		logStreamId: logStreamId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -557,10 +510,9 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -570,7 +522,6 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogStreamAPIService.DeactivateLogStream")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -598,7 +549,6 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -615,13 +565,11 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -630,7 +578,6 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -645,12 +592,10 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -659,12 +604,10 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -673,13 +616,11 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -688,22 +629,18 @@ func (a *LogStreamAPIService) DeactivateLogStreamExecute(r ApiDeactivateLogStrea
 }
 
 type ApiDeleteLogStreamRequest struct {
-	ctx context.Context
-	ApiService LogStreamAPI
+	ctx         context.Context
+	ApiService  LogStreamAPI
 	logStreamId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
-
-// TODU
-func (r ApiDeleteLogStreamRequest) Data (data interface{}) ApiDeleteLogStreamRequest {
+func (r ApiDeleteLogStreamRequest) Data(data interface{}) ApiDeleteLogStreamRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteLogStreamRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteLogStreamExecute(r)
 }
@@ -717,14 +654,13 @@ Deletes a Log Stream object from your org by ID
  @param logStreamId Unique identifier for the Log Stream
  @return ApiDeleteLogStreamRequest
 */
-// TODU
 
 func (a *LogStreamAPIService) DeleteLogStream(ctx context.Context, logStreamId string) ApiDeleteLogStreamRequest {
 	return ApiDeleteLogStreamRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		logStreamId: logStreamId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -737,7 +673,7 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -747,7 +683,6 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogStreamAPIService.DeleteLogStream")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -775,7 +710,6 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -792,13 +726,11 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -807,7 +739,6 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -822,12 +753,10 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -836,12 +765,10 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -850,13 +777,11 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -865,22 +790,18 @@ func (a *LogStreamAPIService) DeleteLogStreamExecute(r ApiDeleteLogStreamRequest
 }
 
 type ApiGetLogStreamRequest struct {
-	ctx context.Context
-	ApiService LogStreamAPI
+	ctx         context.Context
+	ApiService  LogStreamAPI
 	logStreamId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
-
-// TODU
-func (r ApiGetLogStreamRequest) Data (data interface{}) ApiGetLogStreamRequest {
+func (r ApiGetLogStreamRequest) Data(data interface{}) ApiGetLogStreamRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetLogStreamRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetLogStreamExecute(r)
 }
@@ -894,14 +815,13 @@ Retrieves a Log Stream object by ID
  @param logStreamId Unique identifier for the Log Stream
  @return ApiGetLogStreamRequest
 */
-// TODU
 
 func (a *LogStreamAPIService) GetLogStream(ctx context.Context, logStreamId string) ApiGetLogStreamRequest {
 	return ApiGetLogStreamRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		logStreamId: logStreamId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -913,10 +833,9 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*AP
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -926,7 +845,6 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*AP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogStreamAPIService.GetLogStream")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -954,7 +872,6 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*AP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -971,13 +888,11 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*AP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -986,7 +901,6 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*AP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1001,12 +915,10 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1015,12 +927,10 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1029,13 +939,11 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1044,12 +952,11 @@ func (a *LogStreamAPIService) GetLogStreamExecute(r ApiGetLogStreamRequest) (*AP
 }
 
 type ApiListLogStreamsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService LogStreamAPI
-	after *string
-	limit *int32
-	filter *string
-	// TODU
+	after      *string
+	limit      *int32
+	filter     *string
 	data       interface{}
 	retryCount int32
 }
@@ -1072,14 +979,11 @@ func (r ApiListLogStreamsRequest) Filter(filter string) ApiListLogStreamsRequest
 	return r
 }
 
-
-// TODU
-func (r ApiListLogStreamsRequest) Data (data interface{}) ApiListLogStreamsRequest {
+func (r ApiListLogStreamsRequest) Data(data interface{}) ApiListLogStreamsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListLogStreamsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListLogStreamsExecute(r)
 }
@@ -1092,12 +996,11 @@ Lists all Log Stream objects in your org. You can request a paginated list or a 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListLogStreamsRequest
 */
-// TODU
 
 func (a *LogStreamAPIService) ListLogStreams(ctx context.Context) ApiListLogStreamsRequest {
 	return ApiListLogStreamsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1110,10 +1013,9 @@ func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) 
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1123,7 +1025,6 @@ func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogStreamAPIService.ListLogStreams")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1159,7 +1060,6 @@ func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1176,13 +1076,11 @@ func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1191,7 +1089,6 @@ func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1206,12 +1103,10 @@ func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1220,13 +1115,11 @@ func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1235,13 +1128,12 @@ func (a *LogStreamAPIService) ListLogStreamsExecute(r ApiListLogStreamsRequest) 
 }
 
 type ApiReplaceLogStreamRequest struct {
-	ctx context.Context
-	ApiService LogStreamAPI
+	ctx         context.Context
+	ApiService  LogStreamAPI
 	logStreamId string
-	instance *ReplaceLogStreamRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	instance    *ReplaceLogStreamRequest
+	data        interface{}
+	retryCount  int32
 }
 
 func (r ApiReplaceLogStreamRequest) Instance(instance ReplaceLogStreamRequest) ApiReplaceLogStreamRequest {
@@ -1249,14 +1141,11 @@ func (r ApiReplaceLogStreamRequest) Instance(instance ReplaceLogStreamRequest) A
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceLogStreamRequest) Data (data interface{}) ApiReplaceLogStreamRequest {
+func (r ApiReplaceLogStreamRequest) Data(data interface{}) ApiReplaceLogStreamRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceLogStreamRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceLogStreamExecute(r)
 }
@@ -1278,14 +1167,13 @@ You must still specify these `writeOnce` properties in the request body with the
  @param logStreamId Unique identifier for the Log Stream
  @return ApiReplaceLogStreamRequest
 */
-// TODU
 
 func (a *LogStreamAPIService) ReplaceLogStream(ctx context.Context, logStreamId string) ApiReplaceLogStreamRequest {
 	return ApiReplaceLogStreamRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		logStreamId: logStreamId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -1297,10 +1185,9 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1310,7 +1197,6 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LogStreamAPIService.ReplaceLogStream")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1338,7 +1224,6 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -1358,13 +1243,11 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1373,7 +1256,6 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1388,12 +1270,10 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1402,12 +1282,10 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1416,12 +1294,10 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1430,13 +1306,11 @@ func (a *LogStreamAPIService) ReplaceLogStreamExecute(r ApiReplaceLogStreamReque
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

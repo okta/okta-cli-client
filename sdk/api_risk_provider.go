@@ -17,88 +17,82 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RiskProviderAPI interface {
 
 	/*
-	CreateRiskProvider Create a Risk Provider
+		CreateRiskProvider Create a Risk Provider
 
-	Creates a Risk Provider object. A maximum of three Risk Provider objects can be created.
+		Creates a Risk Provider object. A maximum of three Risk Provider objects can be created.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateRiskProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateRiskProviderRequest
 	*/
 	CreateRiskProvider(ctx context.Context) ApiCreateRiskProviderRequest
 
 	// CreateRiskProviderExecute executes the request
 	//  @return RiskProvider
-	// TODU
 	CreateRiskProviderExecute(r ApiCreateRiskProviderRequest) (*APIResponse, error)
 
 	/*
-	DeleteRiskProvider Delete a Risk Provider
+		DeleteRiskProvider Delete a Risk Provider
 
-	Deletes a Risk Provider object by its ID
+		Deletes a Risk Provider object by its ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param riskProviderId `id` of the Risk Provider object
-	@return ApiDeleteRiskProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param riskProviderId `id` of the Risk Provider object
+		@return ApiDeleteRiskProviderRequest
 	*/
 	DeleteRiskProvider(ctx context.Context, riskProviderId string) ApiDeleteRiskProviderRequest
 
 	// DeleteRiskProviderExecute executes the request
-	// TODU
 	DeleteRiskProviderExecute(r ApiDeleteRiskProviderRequest) (*APIResponse, error)
 
 	/*
-	GetRiskProvider Retrieve a Risk Provider
+		GetRiskProvider Retrieve a Risk Provider
 
-	Retrieves a Risk Provider object by ID
+		Retrieves a Risk Provider object by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param riskProviderId `id` of the Risk Provider object
-	@return ApiGetRiskProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param riskProviderId `id` of the Risk Provider object
+		@return ApiGetRiskProviderRequest
 	*/
 	GetRiskProvider(ctx context.Context, riskProviderId string) ApiGetRiskProviderRequest
 
 	// GetRiskProviderExecute executes the request
 	//  @return RiskProvider
-	// TODU
 	GetRiskProviderExecute(r ApiGetRiskProviderRequest) (*APIResponse, error)
 
 	/*
-	ListRiskProviders List all Risk Providers
+		ListRiskProviders List all Risk Providers
 
-	Lists all Risk Provider objects
+		Lists all Risk Provider objects
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRiskProvidersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListRiskProvidersRequest
 	*/
 	ListRiskProviders(ctx context.Context) ApiListRiskProvidersRequest
 
 	// ListRiskProvidersExecute executes the request
 	//  @return []RiskProvider
-	// TODU
 	ListRiskProvidersExecute(r ApiListRiskProvidersRequest) (*APIResponse, error)
 
 	/*
-	ReplaceRiskProvider Replace a Risk Provider
+		ReplaceRiskProvider Replace a Risk Provider
 
-	Replaces the properties for a given Risk Provider object ID
+		Replaces the properties for a given Risk Provider object ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param riskProviderId `id` of the Risk Provider object
-	@return ApiReplaceRiskProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param riskProviderId `id` of the Risk Provider object
+		@return ApiReplaceRiskProviderRequest
 	*/
 	ReplaceRiskProvider(ctx context.Context, riskProviderId string) ApiReplaceRiskProviderRequest
 
 	// ReplaceRiskProviderExecute executes the request
 	//  @return RiskProvider
-	// TODU
 	ReplaceRiskProviderExecute(r ApiReplaceRiskProviderRequest) (*APIResponse, error)
 }
 
@@ -106,10 +100,9 @@ type RiskProviderAPI interface {
 type RiskProviderAPIService service
 
 type ApiCreateRiskProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RiskProviderAPI
-	instance *RiskProvider
-	// TODU
+	instance   *RiskProvider
 	data       interface{}
 	retryCount int32
 }
@@ -119,14 +112,11 @@ func (r ApiCreateRiskProviderRequest) Instance(instance RiskProvider) ApiCreateR
 	return r
 }
 
-
-// TODU
-func (r ApiCreateRiskProviderRequest) Data (data interface{}) ApiCreateRiskProviderRequest {
+func (r ApiCreateRiskProviderRequest) Data(data interface{}) ApiCreateRiskProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateRiskProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateRiskProviderExecute(r)
 }
@@ -139,12 +129,11 @@ Creates a Risk Provider object. A maximum of three Risk Provider objects can be 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateRiskProviderRequest
 */
-// TODU
 
 func (a *RiskProviderAPIService) CreateRiskProvider(ctx context.Context) ApiCreateRiskProviderRequest {
 	return ApiCreateRiskProviderRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -157,10 +146,9 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -170,7 +158,6 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskProviderAPIService.CreateRiskProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -197,7 +184,6 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -217,13 +203,11 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -232,7 +216,6 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -247,12 +230,10 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -261,12 +242,10 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -275,13 +254,11 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -290,22 +267,18 @@ func (a *RiskProviderAPIService) CreateRiskProviderExecute(r ApiCreateRiskProvid
 }
 
 type ApiDeleteRiskProviderRequest struct {
-	ctx context.Context
-	ApiService RiskProviderAPI
+	ctx            context.Context
+	ApiService     RiskProviderAPI
 	riskProviderId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data           interface{}
+	retryCount     int32
 }
 
-
-// TODU
-func (r ApiDeleteRiskProviderRequest) Data (data interface{}) ApiDeleteRiskProviderRequest {
+func (r ApiDeleteRiskProviderRequest) Data(data interface{}) ApiDeleteRiskProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteRiskProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteRiskProviderExecute(r)
 }
@@ -319,14 +292,13 @@ Deletes a Risk Provider object by its ID
  @param riskProviderId `id` of the Risk Provider object
  @return ApiDeleteRiskProviderRequest
 */
-// TODU
 
 func (a *RiskProviderAPIService) DeleteRiskProvider(ctx context.Context, riskProviderId string) ApiDeleteRiskProviderRequest {
 	return ApiDeleteRiskProviderRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:     a,
+		ctx:            ctx,
 		riskProviderId: riskProviderId,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
@@ -339,7 +311,7 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -349,7 +321,6 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskProviderAPIService.DeleteRiskProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -377,7 +348,6 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -394,13 +364,11 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -409,7 +377,6 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -424,12 +391,10 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -438,12 +403,10 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -452,13 +415,11 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -467,22 +428,18 @@ func (a *RiskProviderAPIService) DeleteRiskProviderExecute(r ApiDeleteRiskProvid
 }
 
 type ApiGetRiskProviderRequest struct {
-	ctx context.Context
-	ApiService RiskProviderAPI
+	ctx            context.Context
+	ApiService     RiskProviderAPI
 	riskProviderId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data           interface{}
+	retryCount     int32
 }
 
-
-// TODU
-func (r ApiGetRiskProviderRequest) Data (data interface{}) ApiGetRiskProviderRequest {
+func (r ApiGetRiskProviderRequest) Data(data interface{}) ApiGetRiskProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetRiskProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetRiskProviderExecute(r)
 }
@@ -496,14 +453,13 @@ Retrieves a Risk Provider object by ID
  @param riskProviderId `id` of the Risk Provider object
  @return ApiGetRiskProviderRequest
 */
-// TODU
 
 func (a *RiskProviderAPIService) GetRiskProvider(ctx context.Context, riskProviderId string) ApiGetRiskProviderRequest {
 	return ApiGetRiskProviderRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:     a,
+		ctx:            ctx,
 		riskProviderId: riskProviderId,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
@@ -515,10 +471,9 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -528,7 +483,6 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskProviderAPIService.GetRiskProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -556,7 +510,6 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -573,13 +526,11 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -588,7 +539,6 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -603,12 +553,10 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -617,12 +565,10 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -631,13 +577,11 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -646,21 +590,17 @@ func (a *RiskProviderAPIService) GetRiskProviderExecute(r ApiGetRiskProviderRequ
 }
 
 type ApiListRiskProvidersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RiskProviderAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListRiskProvidersRequest) Data (data interface{}) ApiListRiskProvidersRequest {
+func (r ApiListRiskProvidersRequest) Data(data interface{}) ApiListRiskProvidersRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListRiskProvidersRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListRiskProvidersExecute(r)
 }
@@ -673,12 +613,11 @@ Lists all Risk Provider objects
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListRiskProvidersRequest
 */
-// TODU
 
 func (a *RiskProviderAPIService) ListRiskProviders(ctx context.Context) ApiListRiskProvidersRequest {
 	return ApiListRiskProvidersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -691,10 +630,9 @@ func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProviders
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -704,7 +642,6 @@ func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProviders
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskProviderAPIService.ListRiskProviders")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -731,7 +668,6 @@ func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProviders
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -748,13 +684,11 @@ func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProviders
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -763,7 +697,6 @@ func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProviders
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -778,12 +711,10 @@ func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProviders
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -792,13 +723,11 @@ func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProviders
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -807,13 +736,12 @@ func (a *RiskProviderAPIService) ListRiskProvidersExecute(r ApiListRiskProviders
 }
 
 type ApiReplaceRiskProviderRequest struct {
-	ctx context.Context
-	ApiService RiskProviderAPI
+	ctx            context.Context
+	ApiService     RiskProviderAPI
 	riskProviderId string
-	instance *RiskProvider
-	// TODU
-	data       interface{}
-	retryCount int32
+	instance       *RiskProvider
+	data           interface{}
+	retryCount     int32
 }
 
 func (r ApiReplaceRiskProviderRequest) Instance(instance RiskProvider) ApiReplaceRiskProviderRequest {
@@ -821,14 +749,11 @@ func (r ApiReplaceRiskProviderRequest) Instance(instance RiskProvider) ApiReplac
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceRiskProviderRequest) Data (data interface{}) ApiReplaceRiskProviderRequest {
+func (r ApiReplaceRiskProviderRequest) Data(data interface{}) ApiReplaceRiskProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceRiskProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceRiskProviderExecute(r)
 }
@@ -842,14 +767,13 @@ Replaces the properties for a given Risk Provider object ID
  @param riskProviderId `id` of the Risk Provider object
  @return ApiReplaceRiskProviderRequest
 */
-// TODU
 
 func (a *RiskProviderAPIService) ReplaceRiskProvider(ctx context.Context, riskProviderId string) ApiReplaceRiskProviderRequest {
 	return ApiReplaceRiskProviderRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:     a,
+		ctx:            ctx,
 		riskProviderId: riskProviderId,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
@@ -861,10 +785,9 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -874,7 +797,6 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RiskProviderAPIService.ReplaceRiskProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -902,7 +824,6 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -922,13 +843,11 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -937,7 +856,6 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -952,12 +870,10 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -966,12 +882,10 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -980,12 +894,10 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -994,13 +906,11 @@ func (a *RiskProviderAPIService) ReplaceRiskProviderExecute(r ApiReplaceRiskProv
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

@@ -17,77 +17,72 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationGroupsAPI interface {
 
 	/*
-	AssignGroupToApplication Assign a Group
+		AssignGroupToApplication Assign a Group
 
-	Assigns a group to an application
+		Assigns a group to an application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param groupId The `id` of the group
-	@return ApiAssignGroupToApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param groupId The `id` of the group
+		@return ApiAssignGroupToApplicationRequest
 	*/
 	AssignGroupToApplication(ctx context.Context, appId string, groupId string) ApiAssignGroupToApplicationRequest
 
 	// AssignGroupToApplicationExecute executes the request
 	//  @return ApplicationGroupAssignment
-	// TODU
 	AssignGroupToApplicationExecute(r ApiAssignGroupToApplicationRequest) (*APIResponse, error)
 
 	/*
-	GetApplicationGroupAssignment Retrieve an Assigned Group
+		GetApplicationGroupAssignment Retrieve an Assigned Group
 
-	Retrieves an application group assignment
+		Retrieves an application group assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param groupId The `id` of the group
-	@return ApiGetApplicationGroupAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param groupId The `id` of the group
+		@return ApiGetApplicationGroupAssignmentRequest
 	*/
 	GetApplicationGroupAssignment(ctx context.Context, appId string, groupId string) ApiGetApplicationGroupAssignmentRequest
 
 	// GetApplicationGroupAssignmentExecute executes the request
 	//  @return ApplicationGroupAssignment
-	// TODU
 	GetApplicationGroupAssignmentExecute(r ApiGetApplicationGroupAssignmentRequest) (*APIResponse, error)
 
 	/*
-	ListApplicationGroupAssignments List all Assigned Groups
+		ListApplicationGroupAssignments List all Assigned Groups
 
-	Lists all group assignments for an application
+		Lists all group assignments for an application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListApplicationGroupAssignmentsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListApplicationGroupAssignmentsRequest
 	*/
 	ListApplicationGroupAssignments(ctx context.Context, appId string) ApiListApplicationGroupAssignmentsRequest
 
 	// ListApplicationGroupAssignmentsExecute executes the request
 	//  @return []ApplicationGroupAssignment
-	// TODU
 	ListApplicationGroupAssignmentsExecute(r ApiListApplicationGroupAssignmentsRequest) (*APIResponse, error)
 
 	/*
-	UnassignApplicationFromGroup Unassign a Group
+		UnassignApplicationFromGroup Unassign a Group
 
-	Unassigns a group from an application
+		Unassigns a group from an application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param groupId The `id` of the group
-	@return ApiUnassignApplicationFromGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param groupId The `id` of the group
+		@return ApiUnassignApplicationFromGroupRequest
 	*/
 	UnassignApplicationFromGroup(ctx context.Context, appId string, groupId string) ApiUnassignApplicationFromGroupRequest
 
 	// UnassignApplicationFromGroupExecute executes the request
-	// TODU
 	UnassignApplicationFromGroupExecute(r ApiUnassignApplicationFromGroupRequest) (*APIResponse, error)
 }
 
@@ -95,14 +90,13 @@ type ApplicationGroupsAPI interface {
 type ApplicationGroupsAPIService service
 
 type ApiAssignGroupToApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationGroupsAPI
-	appId string
-	groupId string
+	ctx                        context.Context
+	ApiService                 ApplicationGroupsAPI
+	appId                      string
+	groupId                    string
 	applicationGroupAssignment *ApplicationGroupAssignment
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                       interface{}
+	retryCount                 int32
 }
 
 func (r ApiAssignGroupToApplicationRequest) ApplicationGroupAssignment(applicationGroupAssignment ApplicationGroupAssignment) ApiAssignGroupToApplicationRequest {
@@ -110,14 +104,11 @@ func (r ApiAssignGroupToApplicationRequest) ApplicationGroupAssignment(applicati
 	return r
 }
 
-
-// TODU
-func (r ApiAssignGroupToApplicationRequest) Data (data interface{}) ApiAssignGroupToApplicationRequest {
+func (r ApiAssignGroupToApplicationRequest) Data(data interface{}) ApiAssignGroupToApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignGroupToApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignGroupToApplicationExecute(r)
 }
@@ -132,14 +123,13 @@ Assigns a group to an application
  @param groupId The `id` of the group
  @return ApiAssignGroupToApplicationRequest
 */
-// TODU
 
 func (a *ApplicationGroupsAPIService) AssignGroupToApplication(ctx context.Context, appId string, groupId string) ApiAssignGroupToApplicationRequest {
 	return ApiAssignGroupToApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		groupId: groupId,
+		ctx:        ctx,
+		appId:      appId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -152,10 +142,9 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -165,7 +154,6 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationGroupsAPIService.AssignGroupToApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -194,7 +182,6 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.applicationGroupAssignment
 	localVarPostBody = r.data
@@ -214,13 +201,11 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -229,7 +214,6 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -244,12 +228,10 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -258,12 +240,10 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -272,12 +252,10 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -286,13 +264,11 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -301,12 +277,11 @@ func (a *ApplicationGroupsAPIService) AssignGroupToApplicationExecute(r ApiAssig
 }
 
 type ApiGetApplicationGroupAssignmentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGroupsAPI
-	appId string
-	groupId string
-	expand *string
-	// TODU
+	appId      string
+	groupId    string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -316,14 +291,11 @@ func (r ApiGetApplicationGroupAssignmentRequest) Expand(expand string) ApiGetApp
 	return r
 }
 
-
-// TODU
-func (r ApiGetApplicationGroupAssignmentRequest) Data (data interface{}) ApiGetApplicationGroupAssignmentRequest {
+func (r ApiGetApplicationGroupAssignmentRequest) Data(data interface{}) ApiGetApplicationGroupAssignmentRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetApplicationGroupAssignmentRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetApplicationGroupAssignmentExecute(r)
 }
@@ -338,14 +310,13 @@ Retrieves an application group assignment
  @param groupId The `id` of the group
  @return ApiGetApplicationGroupAssignmentRequest
 */
-// TODU
 
 func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignment(ctx context.Context, appId string, groupId string) ApiGetApplicationGroupAssignmentRequest {
 	return ApiGetApplicationGroupAssignmentRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		groupId: groupId,
+		ctx:        ctx,
+		appId:      appId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -358,10 +329,9 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -371,7 +341,6 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationGroupsAPIService.GetApplicationGroupAssignment")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -403,7 +372,6 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -420,13 +388,11 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -435,7 +401,6 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -450,12 +415,10 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -464,12 +427,10 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -478,13 +439,11 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -493,14 +452,13 @@ func (a *ApplicationGroupsAPIService) GetApplicationGroupAssignmentExecute(r Api
 }
 
 type ApiListApplicationGroupAssignmentsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGroupsAPI
-	appId string
-	q *string
-	after *string
-	limit *int32
-	expand *string
-	// TODU
+	appId      string
+	q          *string
+	after      *string
+	limit      *int32
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -527,14 +485,11 @@ func (r ApiListApplicationGroupAssignmentsRequest) Expand(expand string) ApiList
 	return r
 }
 
-
-// TODU
-func (r ApiListApplicationGroupAssignmentsRequest) Data (data interface{}) ApiListApplicationGroupAssignmentsRequest {
+func (r ApiListApplicationGroupAssignmentsRequest) Data(data interface{}) ApiListApplicationGroupAssignmentsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListApplicationGroupAssignmentsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListApplicationGroupAssignmentsExecute(r)
 }
@@ -548,13 +503,12 @@ Lists all group assignments for an application
  @param appId Application ID
  @return ApiListApplicationGroupAssignmentsRequest
 */
-// TODU
 
 func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignments(ctx context.Context, appId string) ApiListApplicationGroupAssignmentsRequest {
 	return ApiListApplicationGroupAssignmentsRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -567,10 +521,9 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -580,7 +533,6 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationGroupsAPIService.ListApplicationGroupAssignments")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -620,7 +572,6 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -637,13 +588,11 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -652,7 +601,6 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -667,12 +615,10 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -681,12 +627,10 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -695,13 +639,11 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -710,23 +652,19 @@ func (a *ApplicationGroupsAPIService) ListApplicationGroupAssignmentsExecute(r A
 }
 
 type ApiUnassignApplicationFromGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGroupsAPI
-	appId string
-	groupId string
-	// TODU
+	appId      string
+	groupId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnassignApplicationFromGroupRequest) Data (data interface{}) ApiUnassignApplicationFromGroupRequest {
+func (r ApiUnassignApplicationFromGroupRequest) Data(data interface{}) ApiUnassignApplicationFromGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnassignApplicationFromGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnassignApplicationFromGroupExecute(r)
 }
@@ -741,14 +679,13 @@ Unassigns a group from an application
  @param groupId The `id` of the group
  @return ApiUnassignApplicationFromGroupRequest
 */
-// TODU
 
 func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroup(ctx context.Context, appId string, groupId string) ApiUnassignApplicationFromGroupRequest {
 	return ApiUnassignApplicationFromGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		groupId: groupId,
+		ctx:        ctx,
+		appId:      appId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -762,7 +699,7 @@ func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroupExecute(r ApiU
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -772,7 +709,6 @@ func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroupExecute(r ApiU
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationGroupsAPIService.UnassignApplicationFromGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -801,7 +737,6 @@ func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroupExecute(r ApiU
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -818,13 +753,11 @@ func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroupExecute(r ApiU
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -833,7 +766,6 @@ func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroupExecute(r ApiU
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -848,12 +780,10 @@ func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroupExecute(r ApiU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -862,12 +792,10 @@ func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroupExecute(r ApiU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -876,13 +804,11 @@ func (a *ApplicationGroupsAPIService) UnassignApplicationFromGroupExecute(r ApiU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

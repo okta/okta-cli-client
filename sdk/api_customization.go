@@ -17,826 +17,777 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
-	"strings"
 	"os"
+	"strings"
+	"time"
 )
-
 
 type CustomizationAPI interface {
 
 	/*
-	CreateBrand Create a Brand
+		CreateBrand Create a Brand
 
-	Creates a new brand in your org
+		Creates a new brand in your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateBrandRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateBrandRequest
 	*/
 	CreateBrand(ctx context.Context) ApiCreateBrandRequest
 
 	// CreateBrandExecute executes the request
 	//  @return Brand
-	// TODU
 	CreateBrandExecute(r ApiCreateBrandRequest) (*APIResponse, error)
 
 	/*
-	CreateEmailCustomization Create an Email Customization
+			CreateEmailCustomization Create an Email Customization
 
-	Creates a new Email Customization
+			Creates a new Email Customization
 
-<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, you can create a customization for any BCP47 language in addition to the Okta-supported languages.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, you can create a customization for any BCP47 language in addition to the Okta-supported languages.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@return ApiCreateEmailCustomizationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiCreateEmailCustomizationRequest
 	*/
 	CreateEmailCustomization(ctx context.Context, brandId string, templateName string) ApiCreateEmailCustomizationRequest
 
 	// CreateEmailCustomizationExecute executes the request
 	//  @return EmailCustomization
-	// TODU
 	CreateEmailCustomizationExecute(r ApiCreateEmailCustomizationRequest) (*APIResponse, error)
 
 	/*
-	DeleteAllCustomizations Delete all Email Customizations
+			DeleteAllCustomizations Delete all Email Customizations
 
-	Deletes all customizations for an email template
+			Deletes all customizations for an email template
 
-<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, all customizations are deleted, including customizations for additional languages. If disabled, only customizations in Okta-supported languages are deleted.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, all customizations are deleted, including customizations for additional languages. If disabled, only customizations in Okta-supported languages are deleted.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@return ApiDeleteAllCustomizationsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiDeleteAllCustomizationsRequest
 	*/
 	DeleteAllCustomizations(ctx context.Context, brandId string, templateName string) ApiDeleteAllCustomizationsRequest
 
 	// DeleteAllCustomizationsExecute executes the request
-	// TODU
 	DeleteAllCustomizationsExecute(r ApiDeleteAllCustomizationsRequest) (*APIResponse, error)
 
 	/*
-	DeleteBrand Delete a brand
+		DeleteBrand Delete a brand
 
-	Deletes a brand by `brandId`
+		Deletes a brand by `brandId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiDeleteBrandRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiDeleteBrandRequest
 	*/
 	DeleteBrand(ctx context.Context, brandId string) ApiDeleteBrandRequest
 
 	// DeleteBrandExecute executes the request
-	// TODU
 	DeleteBrandExecute(r ApiDeleteBrandRequest) (*APIResponse, error)
 
 	/*
-	DeleteBrandThemeBackgroundImage Delete the Background Image
+		DeleteBrandThemeBackgroundImage Delete the Background Image
 
-	Deletes a Theme background image
+		Deletes a Theme background image
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiDeleteBrandThemeBackgroundImageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiDeleteBrandThemeBackgroundImageRequest
 	*/
 	DeleteBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeBackgroundImageRequest
 
 	// DeleteBrandThemeBackgroundImageExecute executes the request
-	// TODU
 	DeleteBrandThemeBackgroundImageExecute(r ApiDeleteBrandThemeBackgroundImageRequest) (*APIResponse, error)
 
 	/*
-	DeleteBrandThemeFavicon Delete the Favicon
+		DeleteBrandThemeFavicon Delete the Favicon
 
-	Deletes a Theme favicon. The theme will use the default Okta favicon.
+		Deletes a Theme favicon. The theme will use the default Okta favicon.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiDeleteBrandThemeFaviconRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiDeleteBrandThemeFaviconRequest
 	*/
 	DeleteBrandThemeFavicon(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeFaviconRequest
 
 	// DeleteBrandThemeFaviconExecute executes the request
-	// TODU
 	DeleteBrandThemeFaviconExecute(r ApiDeleteBrandThemeFaviconRequest) (*APIResponse, error)
 
 	/*
-	DeleteBrandThemeLogo Delete the Logo
+		DeleteBrandThemeLogo Delete the Logo
 
-	Deletes a Theme logo. The theme will use the default Okta logo.
+		Deletes a Theme logo. The theme will use the default Okta logo.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiDeleteBrandThemeLogoRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiDeleteBrandThemeLogoRequest
 	*/
 	DeleteBrandThemeLogo(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeLogoRequest
 
 	// DeleteBrandThemeLogoExecute executes the request
-	// TODU
 	DeleteBrandThemeLogoExecute(r ApiDeleteBrandThemeLogoRequest) (*APIResponse, error)
 
 	/*
-	DeleteCustomizedErrorPage Delete the Customized Error Page
+		DeleteCustomizedErrorPage Delete the Customized Error Page
 
-	Deletes the customized error page. As a result, the default error page appears in your live environment.
+		Deletes the customized error page. As a result, the default error page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiDeleteCustomizedErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiDeleteCustomizedErrorPageRequest
 	*/
 	DeleteCustomizedErrorPage(ctx context.Context, brandId string) ApiDeleteCustomizedErrorPageRequest
 
 	// DeleteCustomizedErrorPageExecute executes the request
-	// TODU
 	DeleteCustomizedErrorPageExecute(r ApiDeleteCustomizedErrorPageRequest) (*APIResponse, error)
 
 	/*
-	DeleteCustomizedSignInPage Delete the Customized Sign-in Page
+		DeleteCustomizedSignInPage Delete the Customized Sign-in Page
 
-	Deletes the customized sign-in page. As a result, the default sign-in page appears in your live environment.
+		Deletes the customized sign-in page. As a result, the default sign-in page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiDeleteCustomizedSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiDeleteCustomizedSignInPageRequest
 	*/
 	DeleteCustomizedSignInPage(ctx context.Context, brandId string) ApiDeleteCustomizedSignInPageRequest
 
 	// DeleteCustomizedSignInPageExecute executes the request
-	// TODU
 	DeleteCustomizedSignInPageExecute(r ApiDeleteCustomizedSignInPageRequest) (*APIResponse, error)
 
 	/*
-	DeleteEmailCustomization Delete an Email Customization
+			DeleteEmailCustomization Delete an Email Customization
 
-	Deletes an Email Customization by its unique identifier
+			Deletes an Email Customization by its unique identifier
 
-<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, deletion of an existing additional language customization by ID doesn't register.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, deletion of an existing additional language customization by ID doesn't register.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@param customizationId The ID of the email customization
-	@return ApiDeleteEmailCustomizationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@param customizationId The ID of the email customization
+			@return ApiDeleteEmailCustomizationRequest
 	*/
 	DeleteEmailCustomization(ctx context.Context, brandId string, templateName string, customizationId string) ApiDeleteEmailCustomizationRequest
 
 	// DeleteEmailCustomizationExecute executes the request
-	// TODU
 	DeleteEmailCustomizationExecute(r ApiDeleteEmailCustomizationRequest) (*APIResponse, error)
 
 	/*
-	DeletePreviewErrorPage Delete the Preview Error Page
+		DeletePreviewErrorPage Delete the Preview Error Page
 
-	Deletes the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
+		Deletes the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiDeletePreviewErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiDeletePreviewErrorPageRequest
 	*/
 	DeletePreviewErrorPage(ctx context.Context, brandId string) ApiDeletePreviewErrorPageRequest
 
 	// DeletePreviewErrorPageExecute executes the request
-	// TODU
 	DeletePreviewErrorPageExecute(r ApiDeletePreviewErrorPageRequest) (*APIResponse, error)
 
 	/*
-	DeletePreviewSignInPage Delete the Preview Sign-in Page
+		DeletePreviewSignInPage Delete the Preview Sign-in Page
 
-	Deletes the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
+		Deletes the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiDeletePreviewSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiDeletePreviewSignInPageRequest
 	*/
 	DeletePreviewSignInPage(ctx context.Context, brandId string) ApiDeletePreviewSignInPageRequest
 
 	// DeletePreviewSignInPageExecute executes the request
-	// TODU
 	DeletePreviewSignInPageExecute(r ApiDeletePreviewSignInPageRequest) (*APIResponse, error)
 
 	/*
-	GetBrand Retrieve a Brand
+		GetBrand Retrieve a Brand
 
-	Retrieves a brand by `brandId`
+		Retrieves a brand by `brandId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetBrandRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetBrandRequest
 	*/
 	GetBrand(ctx context.Context, brandId string) ApiGetBrandRequest
 
 	// GetBrandExecute executes the request
 	//  @return BrandWithEmbedded
-	// TODU
 	GetBrandExecute(r ApiGetBrandRequest) (*APIResponse, error)
 
 	/*
-	GetBrandTheme Retrieve a Theme
+		GetBrandTheme Retrieve a Theme
 
-	Retrieves a theme for a brand
+		Retrieves a theme for a brand
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiGetBrandThemeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiGetBrandThemeRequest
 	*/
 	GetBrandTheme(ctx context.Context, brandId string, themeId string) ApiGetBrandThemeRequest
 
 	// GetBrandThemeExecute executes the request
 	//  @return ThemeResponse
-	// TODU
 	GetBrandThemeExecute(r ApiGetBrandThemeRequest) (*APIResponse, error)
 
 	/*
-	GetCustomizationPreview Retrieve a Preview of an Email Customization
+			GetCustomizationPreview Retrieve a Preview of an Email Customization
 
-	Retrieves a Preview of an Email Customization. All variable references are populated from the current user's context. For example, `${user.profile.firstName}`.
+			Retrieves a Preview of an Email Customization. All variable references are populated from the current user's context. For example, `${user.profile.firstName}`.
 
-<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests for the preview of an additional language customization by ID return a `404 Not Found` error response.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests for the preview of an additional language customization by ID return a `404 Not Found` error response.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@param customizationId The ID of the email customization
-	@return ApiGetCustomizationPreviewRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@param customizationId The ID of the email customization
+			@return ApiGetCustomizationPreviewRequest
 	*/
 	GetCustomizationPreview(ctx context.Context, brandId string, templateName string, customizationId string) ApiGetCustomizationPreviewRequest
 
 	// GetCustomizationPreviewExecute executes the request
 	//  @return EmailPreview
-	// TODU
 	GetCustomizationPreviewExecute(r ApiGetCustomizationPreviewRequest) (*APIResponse, error)
 
 	/*
-	GetCustomizedErrorPage Retrieve the Customized Error Page
+		GetCustomizedErrorPage Retrieve the Customized Error Page
 
-	Retrieves the customized error page. The customized error page appears in your live environment.
+		Retrieves the customized error page. The customized error page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetCustomizedErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetCustomizedErrorPageRequest
 	*/
 	GetCustomizedErrorPage(ctx context.Context, brandId string) ApiGetCustomizedErrorPageRequest
 
 	// GetCustomizedErrorPageExecute executes the request
 	//  @return ErrorPage
-	// TODU
 	GetCustomizedErrorPageExecute(r ApiGetCustomizedErrorPageRequest) (*APIResponse, error)
 
 	/*
-	GetCustomizedSignInPage Retrieve the Customized Sign-in Page
+		GetCustomizedSignInPage Retrieve the Customized Sign-in Page
 
-	Retrieves the customized sign-in page. The customized sign-in page appears in your live environment.
+		Retrieves the customized sign-in page. The customized sign-in page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetCustomizedSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetCustomizedSignInPageRequest
 	*/
 	GetCustomizedSignInPage(ctx context.Context, brandId string) ApiGetCustomizedSignInPageRequest
 
 	// GetCustomizedSignInPageExecute executes the request
 	//  @return SignInPage
-	// TODU
 	GetCustomizedSignInPageExecute(r ApiGetCustomizedSignInPageRequest) (*APIResponse, error)
 
 	/*
-	GetDefaultErrorPage Retrieve the Default Error Page
+		GetDefaultErrorPage Retrieve the Default Error Page
 
-	Retrieves the default error page. The default error page appears when no customized error page exists.
+		Retrieves the default error page. The default error page appears when no customized error page exists.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetDefaultErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetDefaultErrorPageRequest
 	*/
 	GetDefaultErrorPage(ctx context.Context, brandId string) ApiGetDefaultErrorPageRequest
 
 	// GetDefaultErrorPageExecute executes the request
 	//  @return ErrorPage
-	// TODU
 	GetDefaultErrorPageExecute(r ApiGetDefaultErrorPageRequest) (*APIResponse, error)
 
 	/*
-	GetDefaultSignInPage Retrieve the Default Sign-in Page
+		GetDefaultSignInPage Retrieve the Default Sign-in Page
 
-	Retrieves the default sign-in page. The default sign-in page appears when no customized sign-in page exists.
+		Retrieves the default sign-in page. The default sign-in page appears when no customized sign-in page exists.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetDefaultSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetDefaultSignInPageRequest
 	*/
 	GetDefaultSignInPage(ctx context.Context, brandId string) ApiGetDefaultSignInPageRequest
 
 	// GetDefaultSignInPageExecute executes the request
 	//  @return SignInPage
-	// TODU
 	GetDefaultSignInPageExecute(r ApiGetDefaultSignInPageRequest) (*APIResponse, error)
 
 	/*
-	GetEmailCustomization Retrieve an Email Customization
+			GetEmailCustomization Retrieve an Email Customization
 
-	Retrieves an email customization by its unique identifier
+			Retrieves an email customization by its unique identifier
 
-<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests to retrieve an additional language customization by ID result in a `404 Not Found` error response.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests to retrieve an additional language customization by ID result in a `404 Not Found` error response.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@param customizationId The ID of the email customization
-	@return ApiGetEmailCustomizationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@param customizationId The ID of the email customization
+			@return ApiGetEmailCustomizationRequest
 	*/
 	GetEmailCustomization(ctx context.Context, brandId string, templateName string, customizationId string) ApiGetEmailCustomizationRequest
 
 	// GetEmailCustomizationExecute executes the request
 	//  @return EmailCustomization
-	// TODU
 	GetEmailCustomizationExecute(r ApiGetEmailCustomizationRequest) (*APIResponse, error)
 
 	/*
-	GetEmailDefaultContent Retrieve an Email Template Default Content
+			GetEmailDefaultContent Retrieve an Email Template Default Content
 
-	Retrieves an email template's default content
+			Retrieves an email template's default content
 
-<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following: 
-- Custom languages for Okta Email Templates is enabled
-- An additional language is specified for the `language` parameter
+		<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
+		- Custom languages for Okta Email Templates is enabled
+		- An additional language is specified for the `language` parameter
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@return ApiGetEmailDefaultContentRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiGetEmailDefaultContentRequest
 	*/
 	GetEmailDefaultContent(ctx context.Context, brandId string, templateName string) ApiGetEmailDefaultContentRequest
 
 	// GetEmailDefaultContentExecute executes the request
 	//  @return EmailDefaultContent
-	// TODU
 	GetEmailDefaultContentExecute(r ApiGetEmailDefaultContentRequest) (*APIResponse, error)
 
 	/*
-	GetEmailDefaultPreview Retrieve a Preview of the Email Template default content
+			GetEmailDefaultPreview Retrieve a Preview of the Email Template default content
 
-	Retrieves a preview of an Email Template's default content. All variable references are populated using the current user's context. For example, `${user.profile.firstName}`.
+			Retrieves a preview of an Email Template's default content. All variable references are populated using the current user's context. For example, `${user.profile.firstName}`.
 
-<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
-- Custom languages for Okta Email Templates is enabled
-- An additional language is specified for the `language` parameter
+		<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
+		- Custom languages for Okta Email Templates is enabled
+		- An additional language is specified for the `language` parameter
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@return ApiGetEmailDefaultPreviewRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiGetEmailDefaultPreviewRequest
 	*/
 	GetEmailDefaultPreview(ctx context.Context, brandId string, templateName string) ApiGetEmailDefaultPreviewRequest
 
 	// GetEmailDefaultPreviewExecute executes the request
 	//  @return EmailPreview
-	// TODU
 	GetEmailDefaultPreviewExecute(r ApiGetEmailDefaultPreviewRequest) (*APIResponse, error)
 
 	/*
-	GetEmailSettings Retrieve the Email Template Settings
+		GetEmailSettings Retrieve the Email Template Settings
 
-	Retrieves an email template's settings
+		Retrieves an email template's settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@return ApiGetEmailSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param templateName The name of the email template
+		@return ApiGetEmailSettingsRequest
 	*/
 	GetEmailSettings(ctx context.Context, brandId string, templateName string) ApiGetEmailSettingsRequest
 
 	// GetEmailSettingsExecute executes the request
 	//  @return EmailSettings
-	// TODU
 	GetEmailSettingsExecute(r ApiGetEmailSettingsRequest) (*APIResponse, error)
 
 	/*
-	GetEmailTemplate Retrieve an Email Template
+		GetEmailTemplate Retrieve an Email Template
 
-	Retrieves the details of an email template by name
+		Retrieves the details of an email template by name
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@return ApiGetEmailTemplateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param templateName The name of the email template
+		@return ApiGetEmailTemplateRequest
 	*/
 	GetEmailTemplate(ctx context.Context, brandId string, templateName string) ApiGetEmailTemplateRequest
 
 	// GetEmailTemplateExecute executes the request
 	//  @return EmailTemplate
-	// TODU
 	GetEmailTemplateExecute(r ApiGetEmailTemplateRequest) (*APIResponse, error)
 
 	/*
-	GetErrorPage Retrieve the Error Page Sub-Resources
+		GetErrorPage Retrieve the Error Page Sub-Resources
 
-	Retrieves the error page sub-resources. The `expand` query parameter specifies which sub-resources to include in the response.
+		Retrieves the error page sub-resources. The `expand` query parameter specifies which sub-resources to include in the response.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetErrorPageRequest
 	*/
 	GetErrorPage(ctx context.Context, brandId string) ApiGetErrorPageRequest
 
 	// GetErrorPageExecute executes the request
 	//  @return PageRoot
-	// TODU
 	GetErrorPageExecute(r ApiGetErrorPageRequest) (*APIResponse, error)
 
 	/*
-	GetPreviewErrorPage Retrieve the Preview Error Page Preview
+		GetPreviewErrorPage Retrieve the Preview Error Page Preview
 
-	Retrieves the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
+		Retrieves the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetPreviewErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetPreviewErrorPageRequest
 	*/
 	GetPreviewErrorPage(ctx context.Context, brandId string) ApiGetPreviewErrorPageRequest
 
 	// GetPreviewErrorPageExecute executes the request
 	//  @return ErrorPage
-	// TODU
 	GetPreviewErrorPageExecute(r ApiGetPreviewErrorPageRequest) (*APIResponse, error)
 
 	/*
-	GetPreviewSignInPage Retrieve the Preview Sign-in Page Preview
+		GetPreviewSignInPage Retrieve the Preview Sign-in Page Preview
 
-	Retrieves the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
+		Retrieves the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetPreviewSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetPreviewSignInPageRequest
 	*/
 	GetPreviewSignInPage(ctx context.Context, brandId string) ApiGetPreviewSignInPageRequest
 
 	// GetPreviewSignInPageExecute executes the request
 	//  @return SignInPage
-	// TODU
 	GetPreviewSignInPageExecute(r ApiGetPreviewSignInPageRequest) (*APIResponse, error)
 
 	/*
-	GetSignInPage Retrieve the Sign-in Page Sub-Resources
+		GetSignInPage Retrieve the Sign-in Page Sub-Resources
 
-	Retrieves the sign-in page sub-resources. The `expand` query parameter specifies which sub-resources to include in the response.
+		Retrieves the sign-in page sub-resources. The `expand` query parameter specifies which sub-resources to include in the response.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetSignInPageRequest
 	*/
 	GetSignInPage(ctx context.Context, brandId string) ApiGetSignInPageRequest
 
 	// GetSignInPageExecute executes the request
 	//  @return PageRoot
-	// TODU
 	GetSignInPageExecute(r ApiGetSignInPageRequest) (*APIResponse, error)
 
 	/*
-	GetSignOutPageSettings Retrieve the Sign-out Page Settings
+		GetSignOutPageSettings Retrieve the Sign-out Page Settings
 
-	Retrieves the sign-out page settings
+		Retrieves the sign-out page settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiGetSignOutPageSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiGetSignOutPageSettingsRequest
 	*/
 	GetSignOutPageSettings(ctx context.Context, brandId string) ApiGetSignOutPageSettingsRequest
 
 	// GetSignOutPageSettingsExecute executes the request
 	//  @return HostedPage
-	// TODU
 	GetSignOutPageSettingsExecute(r ApiGetSignOutPageSettingsRequest) (*APIResponse, error)
 
 	/*
-	ListAllSignInWidgetVersions List all Sign-in Widget Versions
+		ListAllSignInWidgetVersions List all Sign-in Widget Versions
 
-	Lists all sign-in widget versions supported by the current org
+		Lists all sign-in widget versions supported by the current org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiListAllSignInWidgetVersionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiListAllSignInWidgetVersionsRequest
 	*/
 	ListAllSignInWidgetVersions(ctx context.Context, brandId string) ApiListAllSignInWidgetVersionsRequest
 
 	// ListAllSignInWidgetVersionsExecute executes the request
 	//  @return []string
-	// TODU
 	ListAllSignInWidgetVersionsExecute(r ApiListAllSignInWidgetVersionsRequest) (*APIResponse, error)
 
 	/*
-	ListBrandDomains List all Domains associated with a Brand
+		ListBrandDomains List all Domains associated with a Brand
 
-	Lists all domains associated with a brand by `brandId`
+		Lists all domains associated with a brand by `brandId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiListBrandDomainsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiListBrandDomainsRequest
 	*/
 	ListBrandDomains(ctx context.Context, brandId string) ApiListBrandDomainsRequest
 
 	// ListBrandDomainsExecute executes the request
 	//  @return []DomainResponse
-	// TODU
 	ListBrandDomainsExecute(r ApiListBrandDomainsRequest) (*APIResponse, error)
 
 	/*
-	ListBrandThemes List all Themes
+		ListBrandThemes List all Themes
 
-	Lists all the themes in your brand
+		Lists all the themes in your brand
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiListBrandThemesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiListBrandThemesRequest
 	*/
 	ListBrandThemes(ctx context.Context, brandId string) ApiListBrandThemesRequest
 
 	// ListBrandThemesExecute executes the request
 	//  @return []ThemeResponse
-	// TODU
 	ListBrandThemesExecute(r ApiListBrandThemesRequest) (*APIResponse, error)
 
 	/*
-	ListBrands List all Brands
+		ListBrands List all Brands
 
-	Lists all the brands in your org
+		Lists all the brands in your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListBrandsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListBrandsRequest
 	*/
 	ListBrands(ctx context.Context) ApiListBrandsRequest
 
 	// ListBrandsExecute executes the request
 	//  @return []BrandWithEmbedded
-	// TODU
 	ListBrandsExecute(r ApiListBrandsRequest) (*APIResponse, error)
 
 	/*
-	ListEmailCustomizations List all Email Customizations
+			ListEmailCustomizations List all Email Customizations
 
-	Lists all customizations of an email template
+			Lists all customizations of an email template
 
-<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, all existing customizations are retrieved, including customizations for additional languages. If disabled, only customizations for Okta-supported languages are returned.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, all existing customizations are retrieved, including customizations for additional languages. If disabled, only customizations for Okta-supported languages are returned.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@return ApiListEmailCustomizationsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiListEmailCustomizationsRequest
 	*/
 	ListEmailCustomizations(ctx context.Context, brandId string, templateName string) ApiListEmailCustomizationsRequest
 
 	// ListEmailCustomizationsExecute executes the request
 	//  @return []EmailCustomization
-	// TODU
 	ListEmailCustomizationsExecute(r ApiListEmailCustomizationsRequest) (*APIResponse, error)
 
 	/*
-	ListEmailTemplates List all Email Templates
+		ListEmailTemplates List all Email Templates
 
-	Lists all email templates
+		Lists all email templates
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiListEmailTemplatesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiListEmailTemplatesRequest
 	*/
 	ListEmailTemplates(ctx context.Context, brandId string) ApiListEmailTemplatesRequest
 
 	// ListEmailTemplatesExecute executes the request
 	//  @return []EmailTemplate
-	// TODU
 	ListEmailTemplatesExecute(r ApiListEmailTemplatesRequest) (*APIResponse, error)
 
 	/*
-	ReplaceBrand Replace a Brand
+		ReplaceBrand Replace a Brand
 
-	Replaces a brand by `brandId`
+		Replaces a brand by `brandId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplaceBrandRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiReplaceBrandRequest
 	*/
 	ReplaceBrand(ctx context.Context, brandId string) ApiReplaceBrandRequest
 
 	// ReplaceBrandExecute executes the request
 	//  @return Brand
-	// TODU
 	ReplaceBrandExecute(r ApiReplaceBrandRequest) (*APIResponse, error)
 
 	/*
-	ReplaceBrandTheme Replace a Theme
+		ReplaceBrandTheme Replace a Theme
 
-	Replaces a theme for a brand
+		Replaces a theme for a brand
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiReplaceBrandThemeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiReplaceBrandThemeRequest
 	*/
 	ReplaceBrandTheme(ctx context.Context, brandId string, themeId string) ApiReplaceBrandThemeRequest
 
 	// ReplaceBrandThemeExecute executes the request
 	//  @return ThemeResponse
-	// TODU
 	ReplaceBrandThemeExecute(r ApiReplaceBrandThemeRequest) (*APIResponse, error)
 
 	/*
-	ReplaceCustomizedErrorPage Replace the Customized Error Page
+		ReplaceCustomizedErrorPage Replace the Customized Error Page
 
-	Replaces the customized error page. The customized error page appears in your live environment.
+		Replaces the customized error page. The customized error page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplaceCustomizedErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiReplaceCustomizedErrorPageRequest
 	*/
 	ReplaceCustomizedErrorPage(ctx context.Context, brandId string) ApiReplaceCustomizedErrorPageRequest
 
 	// ReplaceCustomizedErrorPageExecute executes the request
 	//  @return ErrorPage
-	// TODU
 	ReplaceCustomizedErrorPageExecute(r ApiReplaceCustomizedErrorPageRequest) (*APIResponse, error)
 
 	/*
-	ReplaceCustomizedSignInPage Replace the Customized Sign-in Page
+		ReplaceCustomizedSignInPage Replace the Customized Sign-in Page
 
-	Replaces the customized sign-in page. The customized sign-in page appears in your live environment.
+		Replaces the customized sign-in page. The customized sign-in page appears in your live environment.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplaceCustomizedSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiReplaceCustomizedSignInPageRequest
 	*/
 	ReplaceCustomizedSignInPage(ctx context.Context, brandId string) ApiReplaceCustomizedSignInPageRequest
 
 	// ReplaceCustomizedSignInPageExecute executes the request
 	//  @return SignInPage
-	// TODU
 	ReplaceCustomizedSignInPageExecute(r ApiReplaceCustomizedSignInPageRequest) (*APIResponse, error)
 
 	/*
-	ReplaceEmailCustomization Replace an Email Customization
+			ReplaceEmailCustomization Replace an Email Customization
 
-	Replaces an email customization using property values
+			Replaces an email customization using property values
 
-<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests to update a customization for an additional language return a `404 Not Found` error response.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests to update a customization for an additional language return a `404 Not Found` error response.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@param customizationId The ID of the email customization
-	@return ApiReplaceEmailCustomizationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@param customizationId The ID of the email customization
+			@return ApiReplaceEmailCustomizationRequest
 	*/
 	ReplaceEmailCustomization(ctx context.Context, brandId string, templateName string, customizationId string) ApiReplaceEmailCustomizationRequest
 
 	// ReplaceEmailCustomizationExecute executes the request
 	//  @return EmailCustomization
-	// TODU
 	ReplaceEmailCustomizationExecute(r ApiReplaceEmailCustomizationRequest) (*APIResponse, error)
 
 	/*
-	ReplaceEmailSettings Replace the Email Template Settings
+		ReplaceEmailSettings Replace the Email Template Settings
 
-	Replaces an email template's settings
+		Replaces an email template's settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@return ApiReplaceEmailSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param templateName The name of the email template
+		@return ApiReplaceEmailSettingsRequest
 	*/
 	ReplaceEmailSettings(ctx context.Context, brandId string, templateName string) ApiReplaceEmailSettingsRequest
 
 	// ReplaceEmailSettingsExecute executes the request
-	// TODU
 	ReplaceEmailSettingsExecute(r ApiReplaceEmailSettingsRequest) (*APIResponse, error)
 
 	/*
-	ReplacePreviewErrorPage Replace the Preview Error Page
+		ReplacePreviewErrorPage Replace the Preview Error Page
 
-	Replaces the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
+		Replaces the preview error page. The preview error page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/error/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplacePreviewErrorPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiReplacePreviewErrorPageRequest
 	*/
 	ReplacePreviewErrorPage(ctx context.Context, brandId string) ApiReplacePreviewErrorPageRequest
 
 	// ReplacePreviewErrorPageExecute executes the request
 	//  @return ErrorPage
-	// TODU
 	ReplacePreviewErrorPageExecute(r ApiReplacePreviewErrorPageRequest) (*APIResponse, error)
 
 	/*
-	ReplacePreviewSignInPage Replace the Preview Sign-in Page
+		ReplacePreviewSignInPage Replace the Preview Sign-in Page
 
-	Replaces the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
+		Replaces the preview sign-in page. The preview sign-in page contains unpublished changes and isn't shown in your live environment. Preview it at `${yourOktaDomain}/login/preview`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplacePreviewSignInPageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiReplacePreviewSignInPageRequest
 	*/
 	ReplacePreviewSignInPage(ctx context.Context, brandId string) ApiReplacePreviewSignInPageRequest
 
 	// ReplacePreviewSignInPageExecute executes the request
 	//  @return SignInPage
-	// TODU
 	ReplacePreviewSignInPageExecute(r ApiReplacePreviewSignInPageRequest) (*APIResponse, error)
 
 	/*
-	ReplaceSignOutPageSettings Replace the Sign-out Page Settings
+		ReplaceSignOutPageSettings Replace the Sign-out Page Settings
 
-	Replaces the sign-out page settings
+		Replaces the sign-out page settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@return ApiReplaceSignOutPageSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@return ApiReplaceSignOutPageSettingsRequest
 	*/
 	ReplaceSignOutPageSettings(ctx context.Context, brandId string) ApiReplaceSignOutPageSettingsRequest
 
 	// ReplaceSignOutPageSettingsExecute executes the request
 	//  @return HostedPage
-	// TODU
 	ReplaceSignOutPageSettingsExecute(r ApiReplaceSignOutPageSettingsRequest) (*APIResponse, error)
 
 	/*
-	SendTestEmail Send a Test Email
+			SendTestEmail Send a Test Email
 
-	Sends a test email to the current user’s primary and secondary email addresses. The email content is selected based on the following priority:
-1. The email customization for the language specified in the `language` query parameter.
-<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled and the `language` parameter is an additional language, the test email uses the customization corresponding to the language.
-2. The email template's default customization.
-3. The email template’s default content, translated to the current user's language.
+			Sends a test email to the current user’s primary and secondary email addresses. The email content is selected based on the following priority:
+		1. The email customization for the language specified in the `language` query parameter.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled and the `language` parameter is an additional language, the test email uses the customization corresponding to the language.
+		2. The email template's default customization.
+		3. The email template’s default content, translated to the current user's language.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param templateName The name of the email template
-	@return ApiSendTestEmailRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiSendTestEmailRequest
 	*/
 	SendTestEmail(ctx context.Context, brandId string, templateName string) ApiSendTestEmailRequest
 
 	// SendTestEmailExecute executes the request
-	// TODU
 	SendTestEmailExecute(r ApiSendTestEmailRequest) (*APIResponse, error)
 
 	/*
-	UploadBrandThemeBackgroundImage Upload the Background Image
+		UploadBrandThemeBackgroundImage Upload the Background Image
 
-	Uploads and replaces the background image for the theme. The file must be in PNG, JPG, or GIF format and less than 2 MB in size.
+		Uploads and replaces the background image for the theme. The file must be in PNG, JPG, or GIF format and less than 2 MB in size.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiUploadBrandThemeBackgroundImageRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiUploadBrandThemeBackgroundImageRequest
 	*/
 	UploadBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeBackgroundImageRequest
 
 	// UploadBrandThemeBackgroundImageExecute executes the request
 	//  @return ImageUploadResponse
-	// TODU
 	UploadBrandThemeBackgroundImageExecute(r ApiUploadBrandThemeBackgroundImageRequest) (*APIResponse, error)
 
 	/*
-	UploadBrandThemeFavicon Upload the Favicon
+		UploadBrandThemeFavicon Upload the Favicon
 
-	Uploads and replaces the favicon for the theme
+		Uploads and replaces the favicon for the theme
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiUploadBrandThemeFaviconRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiUploadBrandThemeFaviconRequest
 	*/
 	UploadBrandThemeFavicon(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeFaviconRequest
 
 	// UploadBrandThemeFaviconExecute executes the request
 	//  @return ImageUploadResponse
-	// TODU
 	UploadBrandThemeFaviconExecute(r ApiUploadBrandThemeFaviconRequest) (*APIResponse, error)
 
 	/*
-	UploadBrandThemeLogo Upload the Logo
+		UploadBrandThemeLogo Upload the Logo
 
-	Uploads and replaces the logo for the theme. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
+		Uploads and replaces the logo for the theme. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param brandId The ID of the brand
-	@param themeId The ID of the theme
-	@return ApiUploadBrandThemeLogoRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param brandId The ID of the brand
+		@param themeId The ID of the theme
+		@return ApiUploadBrandThemeLogoRequest
 	*/
 	UploadBrandThemeLogo(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeLogoRequest
 
 	// UploadBrandThemeLogoExecute executes the request
 	//  @return ImageUploadResponse
-	// TODU
 	UploadBrandThemeLogoExecute(r ApiUploadBrandThemeLogoRequest) (*APIResponse, error)
 }
 
@@ -844,16 +795,15 @@ type CustomizationAPI interface {
 type CustomizationAPIService service
 
 type ApiCreateBrandRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	expand *[]string
-	after *string
-	limit *int32
-	q *string
+	ctx                context.Context
+	ApiService         CustomizationAPI
+	expand             *[]string
+	after              *string
+	limit              *int32
+	q                  *string
 	createBrandRequest *CreateBrandRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	data               interface{}
+	retryCount         int32
 }
 
 // Specifies additional metadata to be included in the response
@@ -885,14 +835,11 @@ func (r ApiCreateBrandRequest) CreateBrandRequest(createBrandRequest CreateBrand
 	return r
 }
 
-
-// TODU
-func (r ApiCreateBrandRequest) Data (data interface{}) ApiCreateBrandRequest {
+func (r ApiCreateBrandRequest) Data(data interface{}) ApiCreateBrandRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateBrandRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateBrandExecute(r)
 }
@@ -905,12 +852,11 @@ Creates a new brand in your org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateBrandRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) CreateBrand(ctx context.Context) ApiCreateBrandRequest {
 	return ApiCreateBrandRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -923,10 +869,9 @@ func (a *CustomizationAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -936,7 +881,6 @@ func (a *CustomizationAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.CreateBrand")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -975,7 +919,6 @@ func (a *CustomizationAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.createBrandRequest
 	localVarPostBody = r.data
@@ -995,13 +938,11 @@ func (a *CustomizationAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1010,7 +951,6 @@ func (a *CustomizationAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1025,12 +965,10 @@ func (a *CustomizationAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1039,12 +977,10 @@ func (a *CustomizationAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1053,13 +989,11 @@ func (a *CustomizationAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1068,14 +1002,13 @@ func (a *CustomizationAPIService) CreateBrandExecute(r ApiCreateBrandRequest) (*
 }
 
 type ApiCreateEmailCustomizationRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
+	ctx          context.Context
+	ApiService   CustomizationAPI
+	brandId      string
 	templateName string
-	instance *EmailCustomization
-	// TODU
-	data       interface{}
-	retryCount int32
+	instance     *EmailCustomization
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiCreateEmailCustomizationRequest) Instance(instance EmailCustomization) ApiCreateEmailCustomizationRequest {
@@ -1083,14 +1016,11 @@ func (r ApiCreateEmailCustomizationRequest) Instance(instance EmailCustomization
 	return r
 }
 
-
-// TODU
-func (r ApiCreateEmailCustomizationRequest) Data (data interface{}) ApiCreateEmailCustomizationRequest {
+func (r ApiCreateEmailCustomizationRequest) Data(data interface{}) ApiCreateEmailCustomizationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateEmailCustomizationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateEmailCustomizationExecute(r)
 }
@@ -1108,15 +1038,14 @@ Creates a new Email Customization
  @param templateName The name of the email template
  @return ApiCreateEmailCustomizationRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) CreateEmailCustomization(ctx context.Context, brandId string, templateName string) ApiCreateEmailCustomizationRequest {
 	return ApiCreateEmailCustomizationRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ApiService:   a,
+		ctx:          ctx,
+		brandId:      brandId,
 		templateName: templateName,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1128,10 +1057,9 @@ func (a *CustomizationAPIService) CreateEmailCustomizationExecute(r ApiCreateEma
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1141,7 +1069,6 @@ func (a *CustomizationAPIService) CreateEmailCustomizationExecute(r ApiCreateEma
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.CreateEmailCustomization")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1170,7 +1097,6 @@ func (a *CustomizationAPIService) CreateEmailCustomizationExecute(r ApiCreateEma
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -1190,13 +1116,11 @@ func (a *CustomizationAPIService) CreateEmailCustomizationExecute(r ApiCreateEma
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1205,7 +1129,6 @@ func (a *CustomizationAPIService) CreateEmailCustomizationExecute(r ApiCreateEma
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1220,12 +1143,10 @@ func (a *CustomizationAPIService) CreateEmailCustomizationExecute(r ApiCreateEma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1234,12 +1155,10 @@ func (a *CustomizationAPIService) CreateEmailCustomizationExecute(r ApiCreateEma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1248,12 +1167,10 @@ func (a *CustomizationAPIService) CreateEmailCustomizationExecute(r ApiCreateEma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1262,12 +1179,10 @@ func (a *CustomizationAPIService) CreateEmailCustomizationExecute(r ApiCreateEma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1276,13 +1191,11 @@ func (a *CustomizationAPIService) CreateEmailCustomizationExecute(r ApiCreateEma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1291,23 +1204,19 @@ func (a *CustomizationAPIService) CreateEmailCustomizationExecute(r ApiCreateEma
 }
 
 type ApiDeleteAllCustomizationsRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
+	ctx          context.Context
+	ApiService   CustomizationAPI
+	brandId      string
 	templateName string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeleteAllCustomizationsRequest) Data (data interface{}) ApiDeleteAllCustomizationsRequest {
+func (r ApiDeleteAllCustomizationsRequest) Data(data interface{}) ApiDeleteAllCustomizationsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteAllCustomizationsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteAllCustomizationsExecute(r)
 }
@@ -1325,15 +1234,14 @@ Deletes all customizations for an email template
  @param templateName The name of the email template
  @return ApiDeleteAllCustomizationsRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) DeleteAllCustomizations(ctx context.Context, brandId string, templateName string) ApiDeleteAllCustomizationsRequest {
 	return ApiDeleteAllCustomizationsRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ApiService:   a,
+		ctx:          ctx,
+		brandId:      brandId,
 		templateName: templateName,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1346,7 +1254,7 @@ func (a *CustomizationAPIService) DeleteAllCustomizationsExecute(r ApiDeleteAllC
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1356,7 +1264,6 @@ func (a *CustomizationAPIService) DeleteAllCustomizationsExecute(r ApiDeleteAllC
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.DeleteAllCustomizations")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1385,7 +1292,6 @@ func (a *CustomizationAPIService) DeleteAllCustomizationsExecute(r ApiDeleteAllC
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1402,13 +1308,11 @@ func (a *CustomizationAPIService) DeleteAllCustomizationsExecute(r ApiDeleteAllC
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1417,7 +1321,6 @@ func (a *CustomizationAPIService) DeleteAllCustomizationsExecute(r ApiDeleteAllC
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1432,12 +1335,10 @@ func (a *CustomizationAPIService) DeleteAllCustomizationsExecute(r ApiDeleteAllC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1446,12 +1347,10 @@ func (a *CustomizationAPIService) DeleteAllCustomizationsExecute(r ApiDeleteAllC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1460,13 +1359,11 @@ func (a *CustomizationAPIService) DeleteAllCustomizationsExecute(r ApiDeleteAllC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1475,11 +1372,10 @@ func (a *CustomizationAPIService) DeleteAllCustomizationsExecute(r ApiDeleteAllC
 }
 
 type ApiDeleteBrandRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	expand *[]string
-	// TODU
+	brandId    string
+	expand     *[]string
 	data       interface{}
 	retryCount int32
 }
@@ -1490,14 +1386,11 @@ func (r ApiDeleteBrandRequest) Expand(expand []string) ApiDeleteBrandRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiDeleteBrandRequest) Data (data interface{}) ApiDeleteBrandRequest {
+func (r ApiDeleteBrandRequest) Data(data interface{}) ApiDeleteBrandRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteBrandRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteBrandExecute(r)
 }
@@ -1511,13 +1404,12 @@ Deletes a brand by `brandId`
  @param brandId The ID of the brand
  @return ApiDeleteBrandRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) DeleteBrand(ctx context.Context, brandId string) ApiDeleteBrandRequest {
 	return ApiDeleteBrandRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -1531,7 +1423,7 @@ func (a *CustomizationAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1541,7 +1433,6 @@ func (a *CustomizationAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.DeleteBrand")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1572,7 +1463,6 @@ func (a *CustomizationAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1589,13 +1479,11 @@ func (a *CustomizationAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1604,7 +1492,6 @@ func (a *CustomizationAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1619,12 +1506,10 @@ func (a *CustomizationAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1633,12 +1518,10 @@ func (a *CustomizationAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1647,12 +1530,10 @@ func (a *CustomizationAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1661,13 +1542,11 @@ func (a *CustomizationAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1676,23 +1555,19 @@ func (a *CustomizationAPIService) DeleteBrandExecute(r ApiDeleteBrandRequest) (*
 }
 
 type ApiDeleteBrandThemeBackgroundImageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	themeId string
-	// TODU
+	brandId    string
+	themeId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteBrandThemeBackgroundImageRequest) Data (data interface{}) ApiDeleteBrandThemeBackgroundImageRequest {
+func (r ApiDeleteBrandThemeBackgroundImageRequest) Data(data interface{}) ApiDeleteBrandThemeBackgroundImageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteBrandThemeBackgroundImageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteBrandThemeBackgroundImageExecute(r)
 }
@@ -1707,14 +1582,13 @@ Deletes a Theme background image
  @param themeId The ID of the theme
  @return ApiDeleteBrandThemeBackgroundImageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) DeleteBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeBackgroundImageRequest {
 	return ApiDeleteBrandThemeBackgroundImageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
@@ -1728,7 +1602,7 @@ func (a *CustomizationAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1738,7 +1612,6 @@ func (a *CustomizationAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.DeleteBrandThemeBackgroundImage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1767,7 +1640,6 @@ func (a *CustomizationAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1784,13 +1656,11 @@ func (a *CustomizationAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1799,7 +1669,6 @@ func (a *CustomizationAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1814,12 +1683,10 @@ func (a *CustomizationAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1828,12 +1695,10 @@ func (a *CustomizationAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1842,13 +1707,11 @@ func (a *CustomizationAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1857,23 +1720,19 @@ func (a *CustomizationAPIService) DeleteBrandThemeBackgroundImageExecute(r ApiDe
 }
 
 type ApiDeleteBrandThemeFaviconRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	themeId string
-	// TODU
+	brandId    string
+	themeId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteBrandThemeFaviconRequest) Data (data interface{}) ApiDeleteBrandThemeFaviconRequest {
+func (r ApiDeleteBrandThemeFaviconRequest) Data(data interface{}) ApiDeleteBrandThemeFaviconRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteBrandThemeFaviconRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteBrandThemeFaviconExecute(r)
 }
@@ -1888,14 +1747,13 @@ Deletes a Theme favicon. The theme will use the default Okta favicon.
  @param themeId The ID of the theme
  @return ApiDeleteBrandThemeFaviconRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) DeleteBrandThemeFavicon(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeFaviconRequest {
 	return ApiDeleteBrandThemeFaviconRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
@@ -1909,7 +1767,7 @@ func (a *CustomizationAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBran
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1919,7 +1777,6 @@ func (a *CustomizationAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBran
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.DeleteBrandThemeFavicon")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1948,7 +1805,6 @@ func (a *CustomizationAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBran
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1965,13 +1821,11 @@ func (a *CustomizationAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBran
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1980,7 +1834,6 @@ func (a *CustomizationAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBran
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1995,12 +1848,10 @@ func (a *CustomizationAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBran
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2009,12 +1860,10 @@ func (a *CustomizationAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBran
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2023,13 +1872,11 @@ func (a *CustomizationAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBran
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2038,23 +1885,19 @@ func (a *CustomizationAPIService) DeleteBrandThemeFaviconExecute(r ApiDeleteBran
 }
 
 type ApiDeleteBrandThemeLogoRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	themeId string
-	// TODU
+	brandId    string
+	themeId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteBrandThemeLogoRequest) Data (data interface{}) ApiDeleteBrandThemeLogoRequest {
+func (r ApiDeleteBrandThemeLogoRequest) Data(data interface{}) ApiDeleteBrandThemeLogoRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteBrandThemeLogoRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteBrandThemeLogoExecute(r)
 }
@@ -2069,14 +1912,13 @@ Deletes a Theme logo. The theme will use the default Okta logo.
  @param themeId The ID of the theme
  @return ApiDeleteBrandThemeLogoRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) DeleteBrandThemeLogo(ctx context.Context, brandId string, themeId string) ApiDeleteBrandThemeLogoRequest {
 	return ApiDeleteBrandThemeLogoRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
@@ -2090,7 +1932,7 @@ func (a *CustomizationAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandTh
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2100,7 +1942,6 @@ func (a *CustomizationAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandTh
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.DeleteBrandThemeLogo")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2129,7 +1970,6 @@ func (a *CustomizationAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandTh
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2146,13 +1986,11 @@ func (a *CustomizationAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandTh
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2161,7 +1999,6 @@ func (a *CustomizationAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandTh
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2176,12 +2013,10 @@ func (a *CustomizationAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandTh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2190,12 +2025,10 @@ func (a *CustomizationAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandTh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2204,13 +2037,11 @@ func (a *CustomizationAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandTh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2219,22 +2050,18 @@ func (a *CustomizationAPIService) DeleteBrandThemeLogoExecute(r ApiDeleteBrandTh
 }
 
 type ApiDeleteCustomizedErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteCustomizedErrorPageRequest) Data (data interface{}) ApiDeleteCustomizedErrorPageRequest {
+func (r ApiDeleteCustomizedErrorPageRequest) Data(data interface{}) ApiDeleteCustomizedErrorPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteCustomizedErrorPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteCustomizedErrorPageExecute(r)
 }
@@ -2248,13 +2075,12 @@ Deletes the customized error page. As a result, the default error page appears i
  @param brandId The ID of the brand
  @return ApiDeleteCustomizedErrorPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) DeleteCustomizedErrorPage(ctx context.Context, brandId string) ApiDeleteCustomizedErrorPageRequest {
 	return ApiDeleteCustomizedErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -2268,7 +2094,7 @@ func (a *CustomizationAPIService) DeleteCustomizedErrorPageExecute(r ApiDeleteCu
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2278,7 +2104,6 @@ func (a *CustomizationAPIService) DeleteCustomizedErrorPageExecute(r ApiDeleteCu
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.DeleteCustomizedErrorPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2306,7 +2131,6 @@ func (a *CustomizationAPIService) DeleteCustomizedErrorPageExecute(r ApiDeleteCu
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2323,13 +2147,11 @@ func (a *CustomizationAPIService) DeleteCustomizedErrorPageExecute(r ApiDeleteCu
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2338,7 +2160,6 @@ func (a *CustomizationAPIService) DeleteCustomizedErrorPageExecute(r ApiDeleteCu
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2353,12 +2174,10 @@ func (a *CustomizationAPIService) DeleteCustomizedErrorPageExecute(r ApiDeleteCu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2367,12 +2186,10 @@ func (a *CustomizationAPIService) DeleteCustomizedErrorPageExecute(r ApiDeleteCu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2381,13 +2198,11 @@ func (a *CustomizationAPIService) DeleteCustomizedErrorPageExecute(r ApiDeleteCu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2396,22 +2211,18 @@ func (a *CustomizationAPIService) DeleteCustomizedErrorPageExecute(r ApiDeleteCu
 }
 
 type ApiDeleteCustomizedSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteCustomizedSignInPageRequest) Data (data interface{}) ApiDeleteCustomizedSignInPageRequest {
+func (r ApiDeleteCustomizedSignInPageRequest) Data(data interface{}) ApiDeleteCustomizedSignInPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteCustomizedSignInPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteCustomizedSignInPageExecute(r)
 }
@@ -2425,13 +2236,12 @@ Deletes the customized sign-in page. As a result, the default sign-in page appea
  @param brandId The ID of the brand
  @return ApiDeleteCustomizedSignInPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) DeleteCustomizedSignInPage(ctx context.Context, brandId string) ApiDeleteCustomizedSignInPageRequest {
 	return ApiDeleteCustomizedSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -2445,7 +2255,7 @@ func (a *CustomizationAPIService) DeleteCustomizedSignInPageExecute(r ApiDeleteC
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2455,7 +2265,6 @@ func (a *CustomizationAPIService) DeleteCustomizedSignInPageExecute(r ApiDeleteC
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.DeleteCustomizedSignInPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2483,7 +2292,6 @@ func (a *CustomizationAPIService) DeleteCustomizedSignInPageExecute(r ApiDeleteC
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2500,13 +2308,11 @@ func (a *CustomizationAPIService) DeleteCustomizedSignInPageExecute(r ApiDeleteC
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2515,7 +2321,6 @@ func (a *CustomizationAPIService) DeleteCustomizedSignInPageExecute(r ApiDeleteC
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2530,12 +2335,10 @@ func (a *CustomizationAPIService) DeleteCustomizedSignInPageExecute(r ApiDeleteC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2544,12 +2347,10 @@ func (a *CustomizationAPIService) DeleteCustomizedSignInPageExecute(r ApiDeleteC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2558,13 +2359,11 @@ func (a *CustomizationAPIService) DeleteCustomizedSignInPageExecute(r ApiDeleteC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2573,24 +2372,20 @@ func (a *CustomizationAPIService) DeleteCustomizedSignInPageExecute(r ApiDeleteC
 }
 
 type ApiDeleteEmailCustomizationRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
-	templateName string
+	ctx             context.Context
+	ApiService      CustomizationAPI
+	brandId         string
+	templateName    string
 	customizationId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiDeleteEmailCustomizationRequest) Data (data interface{}) ApiDeleteEmailCustomizationRequest {
+func (r ApiDeleteEmailCustomizationRequest) Data(data interface{}) ApiDeleteEmailCustomizationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteEmailCustomizationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteEmailCustomizationExecute(r)
 }
@@ -2609,16 +2404,15 @@ Deletes an Email Customization by its unique identifier
  @param customizationId The ID of the email customization
  @return ApiDeleteEmailCustomizationRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) DeleteEmailCustomization(ctx context.Context, brandId string, templateName string, customizationId string) ApiDeleteEmailCustomizationRequest {
 	return ApiDeleteEmailCustomizationRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		templateName: templateName,
+		ApiService:      a,
+		ctx:             ctx,
+		brandId:         brandId,
+		templateName:    templateName,
 		customizationId: customizationId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -2631,7 +2425,7 @@ func (a *CustomizationAPIService) DeleteEmailCustomizationExecute(r ApiDeleteEma
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2641,7 +2435,6 @@ func (a *CustomizationAPIService) DeleteEmailCustomizationExecute(r ApiDeleteEma
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.DeleteEmailCustomization")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2671,7 +2464,6 @@ func (a *CustomizationAPIService) DeleteEmailCustomizationExecute(r ApiDeleteEma
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2688,13 +2480,11 @@ func (a *CustomizationAPIService) DeleteEmailCustomizationExecute(r ApiDeleteEma
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2703,7 +2493,6 @@ func (a *CustomizationAPIService) DeleteEmailCustomizationExecute(r ApiDeleteEma
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2718,12 +2507,10 @@ func (a *CustomizationAPIService) DeleteEmailCustomizationExecute(r ApiDeleteEma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2732,12 +2519,10 @@ func (a *CustomizationAPIService) DeleteEmailCustomizationExecute(r ApiDeleteEma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -2746,12 +2531,10 @@ func (a *CustomizationAPIService) DeleteEmailCustomizationExecute(r ApiDeleteEma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2760,13 +2543,11 @@ func (a *CustomizationAPIService) DeleteEmailCustomizationExecute(r ApiDeleteEma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2775,22 +2556,18 @@ func (a *CustomizationAPIService) DeleteEmailCustomizationExecute(r ApiDeleteEma
 }
 
 type ApiDeletePreviewErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeletePreviewErrorPageRequest) Data (data interface{}) ApiDeletePreviewErrorPageRequest {
+func (r ApiDeletePreviewErrorPageRequest) Data(data interface{}) ApiDeletePreviewErrorPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeletePreviewErrorPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeletePreviewErrorPageExecute(r)
 }
@@ -2804,13 +2581,12 @@ Deletes the preview error page. The preview error page contains unpublished chan
  @param brandId The ID of the brand
  @return ApiDeletePreviewErrorPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) DeletePreviewErrorPage(ctx context.Context, brandId string) ApiDeletePreviewErrorPageRequest {
 	return ApiDeletePreviewErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -2824,7 +2600,7 @@ func (a *CustomizationAPIService) DeletePreviewErrorPageExecute(r ApiDeletePrevi
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2834,7 +2610,6 @@ func (a *CustomizationAPIService) DeletePreviewErrorPageExecute(r ApiDeletePrevi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.DeletePreviewErrorPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2862,7 +2637,6 @@ func (a *CustomizationAPIService) DeletePreviewErrorPageExecute(r ApiDeletePrevi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2879,13 +2653,11 @@ func (a *CustomizationAPIService) DeletePreviewErrorPageExecute(r ApiDeletePrevi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2894,7 +2666,6 @@ func (a *CustomizationAPIService) DeletePreviewErrorPageExecute(r ApiDeletePrevi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2909,12 +2680,10 @@ func (a *CustomizationAPIService) DeletePreviewErrorPageExecute(r ApiDeletePrevi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2923,12 +2692,10 @@ func (a *CustomizationAPIService) DeletePreviewErrorPageExecute(r ApiDeletePrevi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2937,13 +2704,11 @@ func (a *CustomizationAPIService) DeletePreviewErrorPageExecute(r ApiDeletePrevi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2952,22 +2717,18 @@ func (a *CustomizationAPIService) DeletePreviewErrorPageExecute(r ApiDeletePrevi
 }
 
 type ApiDeletePreviewSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeletePreviewSignInPageRequest) Data (data interface{}) ApiDeletePreviewSignInPageRequest {
+func (r ApiDeletePreviewSignInPageRequest) Data(data interface{}) ApiDeletePreviewSignInPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeletePreviewSignInPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeletePreviewSignInPageExecute(r)
 }
@@ -2981,13 +2742,12 @@ Deletes the preview sign-in page. The preview sign-in page contains unpublished 
  @param brandId The ID of the brand
  @return ApiDeletePreviewSignInPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) DeletePreviewSignInPage(ctx context.Context, brandId string) ApiDeletePreviewSignInPageRequest {
 	return ApiDeletePreviewSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -3001,7 +2761,7 @@ func (a *CustomizationAPIService) DeletePreviewSignInPageExecute(r ApiDeletePrev
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3011,7 +2771,6 @@ func (a *CustomizationAPIService) DeletePreviewSignInPageExecute(r ApiDeletePrev
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.DeletePreviewSignInPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3039,7 +2798,6 @@ func (a *CustomizationAPIService) DeletePreviewSignInPageExecute(r ApiDeletePrev
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3056,13 +2814,11 @@ func (a *CustomizationAPIService) DeletePreviewSignInPageExecute(r ApiDeletePrev
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3071,7 +2827,6 @@ func (a *CustomizationAPIService) DeletePreviewSignInPageExecute(r ApiDeletePrev
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3086,12 +2841,10 @@ func (a *CustomizationAPIService) DeletePreviewSignInPageExecute(r ApiDeletePrev
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3100,12 +2853,10 @@ func (a *CustomizationAPIService) DeletePreviewSignInPageExecute(r ApiDeletePrev
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3114,13 +2865,11 @@ func (a *CustomizationAPIService) DeletePreviewSignInPageExecute(r ApiDeletePrev
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3129,11 +2878,10 @@ func (a *CustomizationAPIService) DeletePreviewSignInPageExecute(r ApiDeletePrev
 }
 
 type ApiGetBrandRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	expand *[]string
-	// TODU
+	brandId    string
+	expand     *[]string
 	data       interface{}
 	retryCount int32
 }
@@ -3144,14 +2892,11 @@ func (r ApiGetBrandRequest) Expand(expand []string) ApiGetBrandRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiGetBrandRequest) Data (data interface{}) ApiGetBrandRequest {
+func (r ApiGetBrandRequest) Data(data interface{}) ApiGetBrandRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetBrandRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetBrandExecute(r)
 }
@@ -3165,13 +2910,12 @@ Retrieves a brand by `brandId`
  @param brandId The ID of the brand
  @return ApiGetBrandRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetBrand(ctx context.Context, brandId string) ApiGetBrandRequest {
 	return ApiGetBrandRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -3184,10 +2928,9 @@ func (a *CustomizationAPIService) GetBrandExecute(r ApiGetBrandRequest) (*APIRes
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3197,7 +2940,6 @@ func (a *CustomizationAPIService) GetBrandExecute(r ApiGetBrandRequest) (*APIRes
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetBrand")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3228,7 +2970,6 @@ func (a *CustomizationAPIService) GetBrandExecute(r ApiGetBrandRequest) (*APIRes
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3245,13 +2986,11 @@ func (a *CustomizationAPIService) GetBrandExecute(r ApiGetBrandRequest) (*APIRes
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3260,7 +2999,6 @@ func (a *CustomizationAPIService) GetBrandExecute(r ApiGetBrandRequest) (*APIRes
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3275,12 +3013,10 @@ func (a *CustomizationAPIService) GetBrandExecute(r ApiGetBrandRequest) (*APIRes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3289,12 +3025,10 @@ func (a *CustomizationAPIService) GetBrandExecute(r ApiGetBrandRequest) (*APIRes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3303,13 +3037,11 @@ func (a *CustomizationAPIService) GetBrandExecute(r ApiGetBrandRequest) (*APIRes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3318,23 +3050,19 @@ func (a *CustomizationAPIService) GetBrandExecute(r ApiGetBrandRequest) (*APIRes
 }
 
 type ApiGetBrandThemeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	themeId string
-	// TODU
+	brandId    string
+	themeId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetBrandThemeRequest) Data (data interface{}) ApiGetBrandThemeRequest {
+func (r ApiGetBrandThemeRequest) Data(data interface{}) ApiGetBrandThemeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetBrandThemeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetBrandThemeExecute(r)
 }
@@ -3349,14 +3077,13 @@ Retrieves a theme for a brand
  @param themeId The ID of the theme
  @return ApiGetBrandThemeRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetBrandTheme(ctx context.Context, brandId string, themeId string) ApiGetBrandThemeRequest {
 	return ApiGetBrandThemeRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
@@ -3369,10 +3096,9 @@ func (a *CustomizationAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3382,7 +3108,6 @@ func (a *CustomizationAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetBrandTheme")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3411,7 +3136,6 @@ func (a *CustomizationAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3428,13 +3152,11 @@ func (a *CustomizationAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3443,7 +3165,6 @@ func (a *CustomizationAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3458,12 +3179,10 @@ func (a *CustomizationAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3472,12 +3191,10 @@ func (a *CustomizationAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3486,13 +3203,11 @@ func (a *CustomizationAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3501,24 +3216,20 @@ func (a *CustomizationAPIService) GetBrandThemeExecute(r ApiGetBrandThemeRequest
 }
 
 type ApiGetCustomizationPreviewRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
-	templateName string
+	ctx             context.Context
+	ApiService      CustomizationAPI
+	brandId         string
+	templateName    string
 	customizationId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiGetCustomizationPreviewRequest) Data (data interface{}) ApiGetCustomizationPreviewRequest {
+func (r ApiGetCustomizationPreviewRequest) Data(data interface{}) ApiGetCustomizationPreviewRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetCustomizationPreviewRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetCustomizationPreviewExecute(r)
 }
@@ -3537,16 +3248,15 @@ Retrieves a Preview of an Email Customization. All variable references are popul
  @param customizationId The ID of the email customization
  @return ApiGetCustomizationPreviewRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetCustomizationPreview(ctx context.Context, brandId string, templateName string, customizationId string) ApiGetCustomizationPreviewRequest {
 	return ApiGetCustomizationPreviewRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		templateName: templateName,
+		ApiService:      a,
+		ctx:             ctx,
+		brandId:         brandId,
+		templateName:    templateName,
 		customizationId: customizationId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -3558,10 +3268,9 @@ func (a *CustomizationAPIService) GetCustomizationPreviewExecute(r ApiGetCustomi
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3571,7 +3280,6 @@ func (a *CustomizationAPIService) GetCustomizationPreviewExecute(r ApiGetCustomi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetCustomizationPreview")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3601,7 +3309,6 @@ func (a *CustomizationAPIService) GetCustomizationPreviewExecute(r ApiGetCustomi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3618,13 +3325,11 @@ func (a *CustomizationAPIService) GetCustomizationPreviewExecute(r ApiGetCustomi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3633,7 +3338,6 @@ func (a *CustomizationAPIService) GetCustomizationPreviewExecute(r ApiGetCustomi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3648,12 +3352,10 @@ func (a *CustomizationAPIService) GetCustomizationPreviewExecute(r ApiGetCustomi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3662,12 +3364,10 @@ func (a *CustomizationAPIService) GetCustomizationPreviewExecute(r ApiGetCustomi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3676,13 +3376,11 @@ func (a *CustomizationAPIService) GetCustomizationPreviewExecute(r ApiGetCustomi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3691,22 +3389,18 @@ func (a *CustomizationAPIService) GetCustomizationPreviewExecute(r ApiGetCustomi
 }
 
 type ApiGetCustomizedErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetCustomizedErrorPageRequest) Data (data interface{}) ApiGetCustomizedErrorPageRequest {
+func (r ApiGetCustomizedErrorPageRequest) Data(data interface{}) ApiGetCustomizedErrorPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetCustomizedErrorPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetCustomizedErrorPageExecute(r)
 }
@@ -3720,13 +3414,12 @@ Retrieves the customized error page. The customized error page appears in your l
  @param brandId The ID of the brand
  @return ApiGetCustomizedErrorPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetCustomizedErrorPage(ctx context.Context, brandId string) ApiGetCustomizedErrorPageRequest {
 	return ApiGetCustomizedErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -3739,10 +3432,9 @@ func (a *CustomizationAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomiz
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3752,7 +3444,6 @@ func (a *CustomizationAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomiz
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetCustomizedErrorPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3780,7 +3471,6 @@ func (a *CustomizationAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomiz
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3797,13 +3487,11 @@ func (a *CustomizationAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomiz
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3812,7 +3500,6 @@ func (a *CustomizationAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomiz
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3827,12 +3514,10 @@ func (a *CustomizationAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomiz
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3841,12 +3526,10 @@ func (a *CustomizationAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomiz
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3855,13 +3538,11 @@ func (a *CustomizationAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomiz
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3870,22 +3551,18 @@ func (a *CustomizationAPIService) GetCustomizedErrorPageExecute(r ApiGetCustomiz
 }
 
 type ApiGetCustomizedSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetCustomizedSignInPageRequest) Data (data interface{}) ApiGetCustomizedSignInPageRequest {
+func (r ApiGetCustomizedSignInPageRequest) Data(data interface{}) ApiGetCustomizedSignInPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetCustomizedSignInPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetCustomizedSignInPageExecute(r)
 }
@@ -3899,13 +3576,12 @@ Retrieves the customized sign-in page. The customized sign-in page appears in yo
  @param brandId The ID of the brand
  @return ApiGetCustomizedSignInPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetCustomizedSignInPage(ctx context.Context, brandId string) ApiGetCustomizedSignInPageRequest {
 	return ApiGetCustomizedSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -3918,10 +3594,9 @@ func (a *CustomizationAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomi
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3931,7 +3606,6 @@ func (a *CustomizationAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetCustomizedSignInPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3959,7 +3633,6 @@ func (a *CustomizationAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3976,13 +3649,11 @@ func (a *CustomizationAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3991,7 +3662,6 @@ func (a *CustomizationAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4006,12 +3676,10 @@ func (a *CustomizationAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4020,12 +3688,10 @@ func (a *CustomizationAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4034,13 +3700,11 @@ func (a *CustomizationAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4049,22 +3713,18 @@ func (a *CustomizationAPIService) GetCustomizedSignInPageExecute(r ApiGetCustomi
 }
 
 type ApiGetDefaultErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetDefaultErrorPageRequest) Data (data interface{}) ApiGetDefaultErrorPageRequest {
+func (r ApiGetDefaultErrorPageRequest) Data(data interface{}) ApiGetDefaultErrorPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetDefaultErrorPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetDefaultErrorPageExecute(r)
 }
@@ -4078,13 +3738,12 @@ Retrieves the default error page. The default error page appears when no customi
  @param brandId The ID of the brand
  @return ApiGetDefaultErrorPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetDefaultErrorPage(ctx context.Context, brandId string) ApiGetDefaultErrorPageRequest {
 	return ApiGetDefaultErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -4097,10 +3756,9 @@ func (a *CustomizationAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErro
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4110,7 +3768,6 @@ func (a *CustomizationAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErro
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetDefaultErrorPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4138,7 +3795,6 @@ func (a *CustomizationAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErro
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4155,13 +3811,11 @@ func (a *CustomizationAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErro
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4170,7 +3824,6 @@ func (a *CustomizationAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErro
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4185,12 +3838,10 @@ func (a *CustomizationAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4199,12 +3850,10 @@ func (a *CustomizationAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4213,13 +3862,11 @@ func (a *CustomizationAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4228,22 +3875,18 @@ func (a *CustomizationAPIService) GetDefaultErrorPageExecute(r ApiGetDefaultErro
 }
 
 type ApiGetDefaultSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetDefaultSignInPageRequest) Data (data interface{}) ApiGetDefaultSignInPageRequest {
+func (r ApiGetDefaultSignInPageRequest) Data(data interface{}) ApiGetDefaultSignInPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetDefaultSignInPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetDefaultSignInPageExecute(r)
 }
@@ -4257,13 +3900,12 @@ Retrieves the default sign-in page. The default sign-in page appears when no cus
  @param brandId The ID of the brand
  @return ApiGetDefaultSignInPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetDefaultSignInPage(ctx context.Context, brandId string) ApiGetDefaultSignInPageRequest {
 	return ApiGetDefaultSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -4276,10 +3918,9 @@ func (a *CustomizationAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSig
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4289,7 +3930,6 @@ func (a *CustomizationAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSig
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetDefaultSignInPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4317,7 +3957,6 @@ func (a *CustomizationAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4334,13 +3973,11 @@ func (a *CustomizationAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSig
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4349,7 +3986,6 @@ func (a *CustomizationAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSig
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4364,12 +4000,10 @@ func (a *CustomizationAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4378,12 +4012,10 @@ func (a *CustomizationAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4392,13 +4024,11 @@ func (a *CustomizationAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4407,24 +4037,20 @@ func (a *CustomizationAPIService) GetDefaultSignInPageExecute(r ApiGetDefaultSig
 }
 
 type ApiGetEmailCustomizationRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
-	templateName string
+	ctx             context.Context
+	ApiService      CustomizationAPI
+	brandId         string
+	templateName    string
 	customizationId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiGetEmailCustomizationRequest) Data (data interface{}) ApiGetEmailCustomizationRequest {
+func (r ApiGetEmailCustomizationRequest) Data(data interface{}) ApiGetEmailCustomizationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetEmailCustomizationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetEmailCustomizationExecute(r)
 }
@@ -4443,16 +4069,15 @@ Retrieves an email customization by its unique identifier
  @param customizationId The ID of the email customization
  @return ApiGetEmailCustomizationRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetEmailCustomization(ctx context.Context, brandId string, templateName string, customizationId string) ApiGetEmailCustomizationRequest {
 	return ApiGetEmailCustomizationRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		templateName: templateName,
+		ApiService:      a,
+		ctx:             ctx,
+		brandId:         brandId,
+		templateName:    templateName,
 		customizationId: customizationId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -4464,10 +4089,9 @@ func (a *CustomizationAPIService) GetEmailCustomizationExecute(r ApiGetEmailCust
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4477,7 +4101,6 @@ func (a *CustomizationAPIService) GetEmailCustomizationExecute(r ApiGetEmailCust
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetEmailCustomization")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4507,7 +4130,6 @@ func (a *CustomizationAPIService) GetEmailCustomizationExecute(r ApiGetEmailCust
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4524,13 +4146,11 @@ func (a *CustomizationAPIService) GetEmailCustomizationExecute(r ApiGetEmailCust
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4539,7 +4159,6 @@ func (a *CustomizationAPIService) GetEmailCustomizationExecute(r ApiGetEmailCust
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4554,12 +4173,10 @@ func (a *CustomizationAPIService) GetEmailCustomizationExecute(r ApiGetEmailCust
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4568,12 +4185,10 @@ func (a *CustomizationAPIService) GetEmailCustomizationExecute(r ApiGetEmailCust
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4582,13 +4197,11 @@ func (a *CustomizationAPIService) GetEmailCustomizationExecute(r ApiGetEmailCust
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4597,14 +4210,13 @@ func (a *CustomizationAPIService) GetEmailCustomizationExecute(r ApiGetEmailCust
 }
 
 type ApiGetEmailDefaultContentRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
+	ctx          context.Context
+	ApiService   CustomizationAPI
+	brandId      string
 	templateName string
-	language *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	language     *string
+	data         interface{}
+	retryCount   int32
 }
 
 // The language to use for the email. Defaults to the current user&#39;s language if unspecified.
@@ -4613,14 +4225,11 @@ func (r ApiGetEmailDefaultContentRequest) Language(language string) ApiGetEmailD
 	return r
 }
 
-
-// TODU
-func (r ApiGetEmailDefaultContentRequest) Data (data interface{}) ApiGetEmailDefaultContentRequest {
+func (r ApiGetEmailDefaultContentRequest) Data(data interface{}) ApiGetEmailDefaultContentRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetEmailDefaultContentRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetEmailDefaultContentExecute(r)
 }
@@ -4630,7 +4239,7 @@ GetEmailDefaultContent Retrieve an Email Template Default Content
 
 Retrieves an email template's default content
 
-<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following: 
+<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
 - Custom languages for Okta Email Templates is enabled
 - An additional language is specified for the `language` parameter
 
@@ -4640,15 +4249,14 @@ Retrieves an email template's default content
  @param templateName The name of the email template
  @return ApiGetEmailDefaultContentRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetEmailDefaultContent(ctx context.Context, brandId string, templateName string) ApiGetEmailDefaultContentRequest {
 	return ApiGetEmailDefaultContentRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ApiService:   a,
+		ctx:          ctx,
+		brandId:      brandId,
 		templateName: templateName,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -4660,10 +4268,9 @@ func (a *CustomizationAPIService) GetEmailDefaultContentExecute(r ApiGetEmailDef
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4673,7 +4280,6 @@ func (a *CustomizationAPIService) GetEmailDefaultContentExecute(r ApiGetEmailDef
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetEmailDefaultContent")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4705,7 +4311,6 @@ func (a *CustomizationAPIService) GetEmailDefaultContentExecute(r ApiGetEmailDef
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4722,13 +4327,11 @@ func (a *CustomizationAPIService) GetEmailDefaultContentExecute(r ApiGetEmailDef
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4737,7 +4340,6 @@ func (a *CustomizationAPIService) GetEmailDefaultContentExecute(r ApiGetEmailDef
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4752,12 +4354,10 @@ func (a *CustomizationAPIService) GetEmailDefaultContentExecute(r ApiGetEmailDef
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4766,12 +4366,10 @@ func (a *CustomizationAPIService) GetEmailDefaultContentExecute(r ApiGetEmailDef
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4780,13 +4378,11 @@ func (a *CustomizationAPIService) GetEmailDefaultContentExecute(r ApiGetEmailDef
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4795,14 +4391,13 @@ func (a *CustomizationAPIService) GetEmailDefaultContentExecute(r ApiGetEmailDef
 }
 
 type ApiGetEmailDefaultPreviewRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
+	ctx          context.Context
+	ApiService   CustomizationAPI
+	brandId      string
 	templateName string
-	language *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	language     *string
+	data         interface{}
+	retryCount   int32
 }
 
 // The language to use for the email. Defaults to the current user&#39;s language if unspecified.
@@ -4811,14 +4406,11 @@ func (r ApiGetEmailDefaultPreviewRequest) Language(language string) ApiGetEmailD
 	return r
 }
 
-
-// TODU
-func (r ApiGetEmailDefaultPreviewRequest) Data (data interface{}) ApiGetEmailDefaultPreviewRequest {
+func (r ApiGetEmailDefaultPreviewRequest) Data(data interface{}) ApiGetEmailDefaultPreviewRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetEmailDefaultPreviewRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetEmailDefaultPreviewExecute(r)
 }
@@ -4838,15 +4430,14 @@ Retrieves a preview of an Email Template's default content. All variable referen
  @param templateName The name of the email template
  @return ApiGetEmailDefaultPreviewRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetEmailDefaultPreview(ctx context.Context, brandId string, templateName string) ApiGetEmailDefaultPreviewRequest {
 	return ApiGetEmailDefaultPreviewRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ApiService:   a,
+		ctx:          ctx,
+		brandId:      brandId,
 		templateName: templateName,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -4858,10 +4449,9 @@ func (a *CustomizationAPIService) GetEmailDefaultPreviewExecute(r ApiGetEmailDef
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4871,7 +4461,6 @@ func (a *CustomizationAPIService) GetEmailDefaultPreviewExecute(r ApiGetEmailDef
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetEmailDefaultPreview")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4903,7 +4492,6 @@ func (a *CustomizationAPIService) GetEmailDefaultPreviewExecute(r ApiGetEmailDef
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4920,13 +4508,11 @@ func (a *CustomizationAPIService) GetEmailDefaultPreviewExecute(r ApiGetEmailDef
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4935,7 +4521,6 @@ func (a *CustomizationAPIService) GetEmailDefaultPreviewExecute(r ApiGetEmailDef
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4950,12 +4535,10 @@ func (a *CustomizationAPIService) GetEmailDefaultPreviewExecute(r ApiGetEmailDef
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4964,12 +4547,10 @@ func (a *CustomizationAPIService) GetEmailDefaultPreviewExecute(r ApiGetEmailDef
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4978,13 +4559,11 @@ func (a *CustomizationAPIService) GetEmailDefaultPreviewExecute(r ApiGetEmailDef
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4993,23 +4572,19 @@ func (a *CustomizationAPIService) GetEmailDefaultPreviewExecute(r ApiGetEmailDef
 }
 
 type ApiGetEmailSettingsRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
+	ctx          context.Context
+	ApiService   CustomizationAPI
+	brandId      string
 	templateName string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiGetEmailSettingsRequest) Data (data interface{}) ApiGetEmailSettingsRequest {
+func (r ApiGetEmailSettingsRequest) Data(data interface{}) ApiGetEmailSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetEmailSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetEmailSettingsExecute(r)
 }
@@ -5024,15 +4599,14 @@ Retrieves an email template's settings
  @param templateName The name of the email template
  @return ApiGetEmailSettingsRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetEmailSettings(ctx context.Context, brandId string, templateName string) ApiGetEmailSettingsRequest {
 	return ApiGetEmailSettingsRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ApiService:   a,
+		ctx:          ctx,
+		brandId:      brandId,
 		templateName: templateName,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -5044,10 +4618,9 @@ func (a *CustomizationAPIService) GetEmailSettingsExecute(r ApiGetEmailSettingsR
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5057,7 +4630,6 @@ func (a *CustomizationAPIService) GetEmailSettingsExecute(r ApiGetEmailSettingsR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetEmailSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5086,7 +4658,6 @@ func (a *CustomizationAPIService) GetEmailSettingsExecute(r ApiGetEmailSettingsR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -5103,13 +4674,11 @@ func (a *CustomizationAPIService) GetEmailSettingsExecute(r ApiGetEmailSettingsR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5118,7 +4687,6 @@ func (a *CustomizationAPIService) GetEmailSettingsExecute(r ApiGetEmailSettingsR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -5133,12 +4701,10 @@ func (a *CustomizationAPIService) GetEmailSettingsExecute(r ApiGetEmailSettingsR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -5147,12 +4713,10 @@ func (a *CustomizationAPIService) GetEmailSettingsExecute(r ApiGetEmailSettingsR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -5161,13 +4725,11 @@ func (a *CustomizationAPIService) GetEmailSettingsExecute(r ApiGetEmailSettingsR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -5176,14 +4738,13 @@ func (a *CustomizationAPIService) GetEmailSettingsExecute(r ApiGetEmailSettingsR
 }
 
 type ApiGetEmailTemplateRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
+	ctx          context.Context
+	ApiService   CustomizationAPI
+	brandId      string
 	templateName string
-	expand *[]string
-	// TODU
-	data       interface{}
-	retryCount int32
+	expand       *[]string
+	data         interface{}
+	retryCount   int32
 }
 
 // Specifies additional metadata to be included in the response
@@ -5192,14 +4753,11 @@ func (r ApiGetEmailTemplateRequest) Expand(expand []string) ApiGetEmailTemplateR
 	return r
 }
 
-
-// TODU
-func (r ApiGetEmailTemplateRequest) Data (data interface{}) ApiGetEmailTemplateRequest {
+func (r ApiGetEmailTemplateRequest) Data(data interface{}) ApiGetEmailTemplateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetEmailTemplateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetEmailTemplateExecute(r)
 }
@@ -5214,15 +4772,14 @@ Retrieves the details of an email template by name
  @param templateName The name of the email template
  @return ApiGetEmailTemplateRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetEmailTemplate(ctx context.Context, brandId string, templateName string) ApiGetEmailTemplateRequest {
 	return ApiGetEmailTemplateRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ApiService:   a,
+		ctx:          ctx,
+		brandId:      brandId,
 		templateName: templateName,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -5234,10 +4791,9 @@ func (a *CustomizationAPIService) GetEmailTemplateExecute(r ApiGetEmailTemplateR
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5247,7 +4803,6 @@ func (a *CustomizationAPIService) GetEmailTemplateExecute(r ApiGetEmailTemplateR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetEmailTemplate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5279,7 +4834,6 @@ func (a *CustomizationAPIService) GetEmailTemplateExecute(r ApiGetEmailTemplateR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -5296,13 +4850,11 @@ func (a *CustomizationAPIService) GetEmailTemplateExecute(r ApiGetEmailTemplateR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5311,7 +4863,6 @@ func (a *CustomizationAPIService) GetEmailTemplateExecute(r ApiGetEmailTemplateR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -5326,12 +4877,10 @@ func (a *CustomizationAPIService) GetEmailTemplateExecute(r ApiGetEmailTemplateR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -5340,12 +4889,10 @@ func (a *CustomizationAPIService) GetEmailTemplateExecute(r ApiGetEmailTemplateR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -5354,13 +4901,11 @@ func (a *CustomizationAPIService) GetEmailTemplateExecute(r ApiGetEmailTemplateR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -5369,11 +4914,10 @@ func (a *CustomizationAPIService) GetEmailTemplateExecute(r ApiGetEmailTemplateR
 }
 
 type ApiGetErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	expand *[]string
-	// TODU
+	brandId    string
+	expand     *[]string
 	data       interface{}
 	retryCount int32
 }
@@ -5384,14 +4928,11 @@ func (r ApiGetErrorPageRequest) Expand(expand []string) ApiGetErrorPageRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiGetErrorPageRequest) Data (data interface{}) ApiGetErrorPageRequest {
+func (r ApiGetErrorPageRequest) Data(data interface{}) ApiGetErrorPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetErrorPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetErrorPageExecute(r)
 }
@@ -5405,13 +4946,12 @@ Retrieves the error page sub-resources. The `expand` query parameter specifies w
  @param brandId The ID of the brand
  @return ApiGetErrorPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetErrorPage(ctx context.Context, brandId string) ApiGetErrorPageRequest {
 	return ApiGetErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -5424,10 +4964,9 @@ func (a *CustomizationAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) 
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5437,7 +4976,6 @@ func (a *CustomizationAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetErrorPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5468,7 +5006,6 @@ func (a *CustomizationAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -5485,13 +5022,11 @@ func (a *CustomizationAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5500,7 +5035,6 @@ func (a *CustomizationAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -5515,12 +5049,10 @@ func (a *CustomizationAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -5529,12 +5061,10 @@ func (a *CustomizationAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -5543,13 +5073,11 @@ func (a *CustomizationAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -5558,22 +5086,18 @@ func (a *CustomizationAPIService) GetErrorPageExecute(r ApiGetErrorPageRequest) 
 }
 
 type ApiGetPreviewErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetPreviewErrorPageRequest) Data (data interface{}) ApiGetPreviewErrorPageRequest {
+func (r ApiGetPreviewErrorPageRequest) Data(data interface{}) ApiGetPreviewErrorPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetPreviewErrorPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetPreviewErrorPageExecute(r)
 }
@@ -5587,13 +5111,12 @@ Retrieves the preview error page. The preview error page contains unpublished ch
  @param brandId The ID of the brand
  @return ApiGetPreviewErrorPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetPreviewErrorPage(ctx context.Context, brandId string) ApiGetPreviewErrorPageRequest {
 	return ApiGetPreviewErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -5606,10 +5129,9 @@ func (a *CustomizationAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErro
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5619,7 +5141,6 @@ func (a *CustomizationAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErro
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetPreviewErrorPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5647,7 +5168,6 @@ func (a *CustomizationAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErro
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -5664,13 +5184,11 @@ func (a *CustomizationAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErro
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5679,7 +5197,6 @@ func (a *CustomizationAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErro
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -5694,12 +5211,10 @@ func (a *CustomizationAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -5708,12 +5223,10 @@ func (a *CustomizationAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -5722,13 +5235,11 @@ func (a *CustomizationAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -5737,22 +5248,18 @@ func (a *CustomizationAPIService) GetPreviewErrorPageExecute(r ApiGetPreviewErro
 }
 
 type ApiGetPreviewSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetPreviewSignInPageRequest) Data (data interface{}) ApiGetPreviewSignInPageRequest {
+func (r ApiGetPreviewSignInPageRequest) Data(data interface{}) ApiGetPreviewSignInPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetPreviewSignInPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetPreviewSignInPageExecute(r)
 }
@@ -5766,13 +5273,12 @@ Retrieves the preview sign-in page. The preview sign-in page contains unpublishe
  @param brandId The ID of the brand
  @return ApiGetPreviewSignInPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetPreviewSignInPage(ctx context.Context, brandId string) ApiGetPreviewSignInPageRequest {
 	return ApiGetPreviewSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -5785,10 +5291,9 @@ func (a *CustomizationAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSig
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5798,7 +5303,6 @@ func (a *CustomizationAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSig
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetPreviewSignInPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5826,7 +5330,6 @@ func (a *CustomizationAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -5843,13 +5346,11 @@ func (a *CustomizationAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSig
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5858,7 +5359,6 @@ func (a *CustomizationAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSig
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -5873,12 +5373,10 @@ func (a *CustomizationAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -5887,12 +5385,10 @@ func (a *CustomizationAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -5901,13 +5397,11 @@ func (a *CustomizationAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -5916,11 +5410,10 @@ func (a *CustomizationAPIService) GetPreviewSignInPageExecute(r ApiGetPreviewSig
 }
 
 type ApiGetSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	expand *[]string
-	// TODU
+	brandId    string
+	expand     *[]string
 	data       interface{}
 	retryCount int32
 }
@@ -5931,14 +5424,11 @@ func (r ApiGetSignInPageRequest) Expand(expand []string) ApiGetSignInPageRequest
 	return r
 }
 
-
-// TODU
-func (r ApiGetSignInPageRequest) Data (data interface{}) ApiGetSignInPageRequest {
+func (r ApiGetSignInPageRequest) Data(data interface{}) ApiGetSignInPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetSignInPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetSignInPageExecute(r)
 }
@@ -5952,13 +5442,12 @@ Retrieves the sign-in page sub-resources. The `expand` query parameter specifies
  @param brandId The ID of the brand
  @return ApiGetSignInPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetSignInPage(ctx context.Context, brandId string) ApiGetSignInPageRequest {
 	return ApiGetSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -5971,10 +5460,9 @@ func (a *CustomizationAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5984,7 +5472,6 @@ func (a *CustomizationAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetSignInPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6015,7 +5502,6 @@ func (a *CustomizationAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -6032,13 +5518,11 @@ func (a *CustomizationAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6047,7 +5531,6 @@ func (a *CustomizationAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -6062,12 +5545,10 @@ func (a *CustomizationAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -6076,12 +5557,10 @@ func (a *CustomizationAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -6090,13 +5569,11 @@ func (a *CustomizationAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -6105,22 +5582,18 @@ func (a *CustomizationAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest
 }
 
 type ApiGetSignOutPageSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetSignOutPageSettingsRequest) Data (data interface{}) ApiGetSignOutPageSettingsRequest {
+func (r ApiGetSignOutPageSettingsRequest) Data(data interface{}) ApiGetSignOutPageSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetSignOutPageSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetSignOutPageSettingsExecute(r)
 }
@@ -6134,13 +5607,12 @@ Retrieves the sign-out page settings
  @param brandId The ID of the brand
  @return ApiGetSignOutPageSettingsRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) GetSignOutPageSettings(ctx context.Context, brandId string) ApiGetSignOutPageSettingsRequest {
 	return ApiGetSignOutPageSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -6153,10 +5625,9 @@ func (a *CustomizationAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutP
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6166,7 +5637,6 @@ func (a *CustomizationAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.GetSignOutPageSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6194,7 +5664,6 @@ func (a *CustomizationAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -6211,13 +5680,11 @@ func (a *CustomizationAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6226,7 +5693,6 @@ func (a *CustomizationAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -6241,12 +5707,10 @@ func (a *CustomizationAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -6255,12 +5719,10 @@ func (a *CustomizationAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -6269,13 +5731,11 @@ func (a *CustomizationAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -6284,22 +5744,18 @@ func (a *CustomizationAPIService) GetSignOutPageSettingsExecute(r ApiGetSignOutP
 }
 
 type ApiListAllSignInWidgetVersionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListAllSignInWidgetVersionsRequest) Data (data interface{}) ApiListAllSignInWidgetVersionsRequest {
+func (r ApiListAllSignInWidgetVersionsRequest) Data(data interface{}) ApiListAllSignInWidgetVersionsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListAllSignInWidgetVersionsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListAllSignInWidgetVersionsExecute(r)
 }
@@ -6313,13 +5769,12 @@ Lists all sign-in widget versions supported by the current org
  @param brandId The ID of the brand
  @return ApiListAllSignInWidgetVersionsRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ListAllSignInWidgetVersions(ctx context.Context, brandId string) ApiListAllSignInWidgetVersionsRequest {
 	return ApiListAllSignInWidgetVersionsRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -6332,10 +5787,9 @@ func (a *CustomizationAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAl
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6345,7 +5799,6 @@ func (a *CustomizationAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAl
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ListAllSignInWidgetVersions")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6373,7 +5826,6 @@ func (a *CustomizationAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -6390,13 +5842,11 @@ func (a *CustomizationAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAl
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6405,7 +5855,6 @@ func (a *CustomizationAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAl
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -6420,12 +5869,10 @@ func (a *CustomizationAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -6434,12 +5881,10 @@ func (a *CustomizationAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -6448,13 +5893,11 @@ func (a *CustomizationAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -6463,22 +5906,18 @@ func (a *CustomizationAPIService) ListAllSignInWidgetVersionsExecute(r ApiListAl
 }
 
 type ApiListBrandDomainsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListBrandDomainsRequest) Data (data interface{}) ApiListBrandDomainsRequest {
+func (r ApiListBrandDomainsRequest) Data(data interface{}) ApiListBrandDomainsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListBrandDomainsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListBrandDomainsExecute(r)
 }
@@ -6492,13 +5931,12 @@ Lists all domains associated with a brand by `brandId`
  @param brandId The ID of the brand
  @return ApiListBrandDomainsRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ListBrandDomains(ctx context.Context, brandId string) ApiListBrandDomainsRequest {
 	return ApiListBrandDomainsRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -6511,10 +5949,9 @@ func (a *CustomizationAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsR
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6524,7 +5961,6 @@ func (a *CustomizationAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ListBrandDomains")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6552,7 +5988,6 @@ func (a *CustomizationAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -6569,13 +6004,11 @@ func (a *CustomizationAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6584,7 +6017,6 @@ func (a *CustomizationAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -6599,12 +6031,10 @@ func (a *CustomizationAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -6613,12 +6043,10 @@ func (a *CustomizationAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -6627,13 +6055,11 @@ func (a *CustomizationAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -6642,22 +6068,18 @@ func (a *CustomizationAPIService) ListBrandDomainsExecute(r ApiListBrandDomainsR
 }
 
 type ApiListBrandThemesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	// TODU
+	brandId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListBrandThemesRequest) Data (data interface{}) ApiListBrandThemesRequest {
+func (r ApiListBrandThemesRequest) Data(data interface{}) ApiListBrandThemesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListBrandThemesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListBrandThemesExecute(r)
 }
@@ -6671,13 +6093,12 @@ Lists all the themes in your brand
  @param brandId The ID of the brand
  @return ApiListBrandThemesRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ListBrandThemes(ctx context.Context, brandId string) ApiListBrandThemesRequest {
 	return ApiListBrandThemesRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -6690,10 +6111,9 @@ func (a *CustomizationAPIService) ListBrandThemesExecute(r ApiListBrandThemesReq
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6703,7 +6123,6 @@ func (a *CustomizationAPIService) ListBrandThemesExecute(r ApiListBrandThemesReq
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ListBrandThemes")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6731,7 +6150,6 @@ func (a *CustomizationAPIService) ListBrandThemesExecute(r ApiListBrandThemesReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -6748,13 +6166,11 @@ func (a *CustomizationAPIService) ListBrandThemesExecute(r ApiListBrandThemesReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6763,7 +6179,6 @@ func (a *CustomizationAPIService) ListBrandThemesExecute(r ApiListBrandThemesReq
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -6778,12 +6193,10 @@ func (a *CustomizationAPIService) ListBrandThemesExecute(r ApiListBrandThemesReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -6792,12 +6205,10 @@ func (a *CustomizationAPIService) ListBrandThemesExecute(r ApiListBrandThemesReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -6806,13 +6217,11 @@ func (a *CustomizationAPIService) ListBrandThemesExecute(r ApiListBrandThemesReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -6821,13 +6230,12 @@ func (a *CustomizationAPIService) ListBrandThemesExecute(r ApiListBrandThemesReq
 }
 
 type ApiListBrandsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	expand *[]string
-	after *string
-	limit *int32
-	q *string
-	// TODU
+	expand     *[]string
+	after      *string
+	limit      *int32
+	q          *string
 	data       interface{}
 	retryCount int32
 }
@@ -6856,14 +6264,11 @@ func (r ApiListBrandsRequest) Q(q string) ApiListBrandsRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiListBrandsRequest) Data (data interface{}) ApiListBrandsRequest {
+func (r ApiListBrandsRequest) Data(data interface{}) ApiListBrandsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListBrandsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListBrandsExecute(r)
 }
@@ -6876,12 +6281,11 @@ Lists all the brands in your org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListBrandsRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ListBrands(ctx context.Context) ApiListBrandsRequest {
 	return ApiListBrandsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -6894,10 +6298,9 @@ func (a *CustomizationAPIService) ListBrandsExecute(r ApiListBrandsRequest) (*AP
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6907,7 +6310,6 @@ func (a *CustomizationAPIService) ListBrandsExecute(r ApiListBrandsRequest) (*AP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ListBrands")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6946,7 +6348,6 @@ func (a *CustomizationAPIService) ListBrandsExecute(r ApiListBrandsRequest) (*AP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -6963,13 +6364,11 @@ func (a *CustomizationAPIService) ListBrandsExecute(r ApiListBrandsRequest) (*AP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6978,7 +6377,6 @@ func (a *CustomizationAPIService) ListBrandsExecute(r ApiListBrandsRequest) (*AP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -6993,12 +6391,10 @@ func (a *CustomizationAPIService) ListBrandsExecute(r ApiListBrandsRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -7007,13 +6403,11 @@ func (a *CustomizationAPIService) ListBrandsExecute(r ApiListBrandsRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -7022,15 +6416,14 @@ func (a *CustomizationAPIService) ListBrandsExecute(r ApiListBrandsRequest) (*AP
 }
 
 type ApiListEmailCustomizationsRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
+	ctx          context.Context
+	ApiService   CustomizationAPI
+	brandId      string
 	templateName string
-	after *string
-	limit *int32
-	// TODU
-	data       interface{}
-	retryCount int32
+	after        *string
+	limit        *int32
+	data         interface{}
+	retryCount   int32
 }
 
 // The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](/#pagination).
@@ -7045,14 +6438,11 @@ func (r ApiListEmailCustomizationsRequest) Limit(limit int32) ApiListEmailCustom
 	return r
 }
 
-
-// TODU
-func (r ApiListEmailCustomizationsRequest) Data (data interface{}) ApiListEmailCustomizationsRequest {
+func (r ApiListEmailCustomizationsRequest) Data(data interface{}) ApiListEmailCustomizationsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListEmailCustomizationsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListEmailCustomizationsExecute(r)
 }
@@ -7070,15 +6460,14 @@ Lists all customizations of an email template
  @param templateName The name of the email template
  @return ApiListEmailCustomizationsRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ListEmailCustomizations(ctx context.Context, brandId string, templateName string) ApiListEmailCustomizationsRequest {
 	return ApiListEmailCustomizationsRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ApiService:   a,
+		ctx:          ctx,
+		brandId:      brandId,
 		templateName: templateName,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -7090,10 +6479,9 @@ func (a *CustomizationAPIService) ListEmailCustomizationsExecute(r ApiListEmailC
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7103,7 +6491,6 @@ func (a *CustomizationAPIService) ListEmailCustomizationsExecute(r ApiListEmailC
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ListEmailCustomizations")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7138,7 +6525,6 @@ func (a *CustomizationAPIService) ListEmailCustomizationsExecute(r ApiListEmailC
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -7155,13 +6541,11 @@ func (a *CustomizationAPIService) ListEmailCustomizationsExecute(r ApiListEmailC
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7170,7 +6554,6 @@ func (a *CustomizationAPIService) ListEmailCustomizationsExecute(r ApiListEmailC
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -7185,12 +6568,10 @@ func (a *CustomizationAPIService) ListEmailCustomizationsExecute(r ApiListEmailC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -7199,12 +6580,10 @@ func (a *CustomizationAPIService) ListEmailCustomizationsExecute(r ApiListEmailC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -7213,13 +6592,11 @@ func (a *CustomizationAPIService) ListEmailCustomizationsExecute(r ApiListEmailC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -7228,13 +6605,12 @@ func (a *CustomizationAPIService) ListEmailCustomizationsExecute(r ApiListEmailC
 }
 
 type ApiListEmailTemplatesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	after *string
-	limit *int32
-	expand *[]string
-	// TODU
+	brandId    string
+	after      *string
+	limit      *int32
+	expand     *[]string
 	data       interface{}
 	retryCount int32
 }
@@ -7257,14 +6633,11 @@ func (r ApiListEmailTemplatesRequest) Expand(expand []string) ApiListEmailTempla
 	return r
 }
 
-
-// TODU
-func (r ApiListEmailTemplatesRequest) Data (data interface{}) ApiListEmailTemplatesRequest {
+func (r ApiListEmailTemplatesRequest) Data(data interface{}) ApiListEmailTemplatesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListEmailTemplatesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListEmailTemplatesExecute(r)
 }
@@ -7278,13 +6651,12 @@ Lists all email templates
  @param brandId The ID of the brand
  @return ApiListEmailTemplatesRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ListEmailTemplates(ctx context.Context, brandId string) ApiListEmailTemplatesRequest {
 	return ApiListEmailTemplatesRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -7297,10 +6669,9 @@ func (a *CustomizationAPIService) ListEmailTemplatesExecute(r ApiListEmailTempla
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7310,7 +6681,6 @@ func (a *CustomizationAPIService) ListEmailTemplatesExecute(r ApiListEmailTempla
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ListEmailTemplates")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7347,7 +6717,6 @@ func (a *CustomizationAPIService) ListEmailTemplatesExecute(r ApiListEmailTempla
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -7364,13 +6733,11 @@ func (a *CustomizationAPIService) ListEmailTemplatesExecute(r ApiListEmailTempla
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7379,7 +6746,6 @@ func (a *CustomizationAPIService) ListEmailTemplatesExecute(r ApiListEmailTempla
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -7394,12 +6760,10 @@ func (a *CustomizationAPIService) ListEmailTemplatesExecute(r ApiListEmailTempla
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -7408,12 +6772,10 @@ func (a *CustomizationAPIService) ListEmailTemplatesExecute(r ApiListEmailTempla
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -7422,13 +6784,11 @@ func (a *CustomizationAPIService) ListEmailTemplatesExecute(r ApiListEmailTempla
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -7437,12 +6797,11 @@ func (a *CustomizationAPIService) ListEmailTemplatesExecute(r ApiListEmailTempla
 }
 
 type ApiReplaceBrandRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	brand *BrandRequest
-	expand *[]string
-	// TODU
+	brandId    string
+	brand      *BrandRequest
+	expand     *[]string
 	data       interface{}
 	retryCount int32
 }
@@ -7458,14 +6817,11 @@ func (r ApiReplaceBrandRequest) Expand(expand []string) ApiReplaceBrandRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceBrandRequest) Data (data interface{}) ApiReplaceBrandRequest {
+func (r ApiReplaceBrandRequest) Data(data interface{}) ApiReplaceBrandRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceBrandRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceBrandExecute(r)
 }
@@ -7479,13 +6835,12 @@ Replaces a brand by `brandId`
  @param brandId The ID of the brand
  @return ApiReplaceBrandRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ReplaceBrand(ctx context.Context, brandId string) ApiReplaceBrandRequest {
 	return ApiReplaceBrandRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -7498,10 +6853,9 @@ func (a *CustomizationAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) 
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7511,7 +6865,6 @@ func (a *CustomizationAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ReplaceBrand")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7542,7 +6895,6 @@ func (a *CustomizationAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.brand
 	localVarPostBody = r.data
@@ -7562,13 +6914,11 @@ func (a *CustomizationAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7577,7 +6927,6 @@ func (a *CustomizationAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -7592,12 +6941,10 @@ func (a *CustomizationAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -7606,12 +6953,10 @@ func (a *CustomizationAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -7620,12 +6965,10 @@ func (a *CustomizationAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -7634,13 +6977,11 @@ func (a *CustomizationAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -7649,12 +6990,11 @@ func (a *CustomizationAPIService) ReplaceBrandExecute(r ApiReplaceBrandRequest) 
 }
 
 type ApiReplaceBrandThemeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	themeId string
-	theme *Theme
-	// TODU
+	brandId    string
+	themeId    string
+	theme      *Theme
 	data       interface{}
 	retryCount int32
 }
@@ -7664,14 +7004,11 @@ func (r ApiReplaceBrandThemeRequest) Theme(theme Theme) ApiReplaceBrandThemeRequ
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceBrandThemeRequest) Data (data interface{}) ApiReplaceBrandThemeRequest {
+func (r ApiReplaceBrandThemeRequest) Data(data interface{}) ApiReplaceBrandThemeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceBrandThemeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceBrandThemeExecute(r)
 }
@@ -7686,14 +7023,13 @@ Replaces a theme for a brand
  @param themeId The ID of the theme
  @return ApiReplaceBrandThemeRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ReplaceBrandTheme(ctx context.Context, brandId string, themeId string) ApiReplaceBrandThemeRequest {
 	return ApiReplaceBrandThemeRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
@@ -7706,10 +7042,9 @@ func (a *CustomizationAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThem
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7719,7 +7054,6 @@ func (a *CustomizationAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThem
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ReplaceBrandTheme")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7748,7 +7082,6 @@ func (a *CustomizationAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThem
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.theme
 	localVarPostBody = r.data
@@ -7768,13 +7101,11 @@ func (a *CustomizationAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThem
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7783,7 +7114,6 @@ func (a *CustomizationAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThem
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -7798,12 +7128,10 @@ func (a *CustomizationAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThem
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -7812,12 +7140,10 @@ func (a *CustomizationAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThem
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -7826,12 +7152,10 @@ func (a *CustomizationAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThem
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -7840,13 +7164,11 @@ func (a *CustomizationAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThem
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -7855,11 +7177,10 @@ func (a *CustomizationAPIService) ReplaceBrandThemeExecute(r ApiReplaceBrandThem
 }
 
 type ApiReplaceCustomizedErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	errorPage *ErrorPage
-	// TODU
+	brandId    string
+	errorPage  *ErrorPage
 	data       interface{}
 	retryCount int32
 }
@@ -7869,14 +7190,11 @@ func (r ApiReplaceCustomizedErrorPageRequest) ErrorPage(errorPage ErrorPage) Api
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceCustomizedErrorPageRequest) Data (data interface{}) ApiReplaceCustomizedErrorPageRequest {
+func (r ApiReplaceCustomizedErrorPageRequest) Data(data interface{}) ApiReplaceCustomizedErrorPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceCustomizedErrorPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceCustomizedErrorPageExecute(r)
 }
@@ -7890,13 +7208,12 @@ Replaces the customized error page. The customized error page appears in your li
  @param brandId The ID of the brand
  @return ApiReplaceCustomizedErrorPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ReplaceCustomizedErrorPage(ctx context.Context, brandId string) ApiReplaceCustomizedErrorPageRequest {
 	return ApiReplaceCustomizedErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -7909,10 +7226,9 @@ func (a *CustomizationAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplace
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7922,7 +7238,6 @@ func (a *CustomizationAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplace
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ReplaceCustomizedErrorPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7950,7 +7265,6 @@ func (a *CustomizationAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplace
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.errorPage
 	localVarPostBody = r.data
@@ -7970,13 +7284,11 @@ func (a *CustomizationAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplace
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7985,7 +7297,6 @@ func (a *CustomizationAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplace
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -8000,12 +7311,10 @@ func (a *CustomizationAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -8014,12 +7323,10 @@ func (a *CustomizationAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -8028,12 +7335,10 @@ func (a *CustomizationAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -8042,13 +7347,11 @@ func (a *CustomizationAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -8057,11 +7360,10 @@ func (a *CustomizationAPIService) ReplaceCustomizedErrorPageExecute(r ApiReplace
 }
 
 type ApiReplaceCustomizedSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
+	brandId    string
 	signInPage *SignInPage
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -8071,14 +7373,11 @@ func (r ApiReplaceCustomizedSignInPageRequest) SignInPage(signInPage SignInPage)
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceCustomizedSignInPageRequest) Data (data interface{}) ApiReplaceCustomizedSignInPageRequest {
+func (r ApiReplaceCustomizedSignInPageRequest) Data(data interface{}) ApiReplaceCustomizedSignInPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceCustomizedSignInPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceCustomizedSignInPageExecute(r)
 }
@@ -8092,13 +7391,12 @@ Replaces the customized sign-in page. The customized sign-in page appears in you
  @param brandId The ID of the brand
  @return ApiReplaceCustomizedSignInPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ReplaceCustomizedSignInPage(ctx context.Context, brandId string) ApiReplaceCustomizedSignInPageRequest {
 	return ApiReplaceCustomizedSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -8111,10 +7409,9 @@ func (a *CustomizationAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplac
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -8124,7 +7421,6 @@ func (a *CustomizationAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplac
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ReplaceCustomizedSignInPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -8152,7 +7448,6 @@ func (a *CustomizationAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplac
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.signInPage
 	localVarPostBody = r.data
@@ -8172,13 +7467,11 @@ func (a *CustomizationAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplac
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -8187,7 +7480,6 @@ func (a *CustomizationAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplac
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -8202,12 +7494,10 @@ func (a *CustomizationAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -8216,12 +7506,10 @@ func (a *CustomizationAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -8230,12 +7518,10 @@ func (a *CustomizationAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -8244,13 +7530,11 @@ func (a *CustomizationAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -8259,15 +7543,14 @@ func (a *CustomizationAPIService) ReplaceCustomizedSignInPageExecute(r ApiReplac
 }
 
 type ApiReplaceEmailCustomizationRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
-	templateName string
+	ctx             context.Context
+	ApiService      CustomizationAPI
+	brandId         string
+	templateName    string
 	customizationId string
-	instance *EmailCustomization
-	// TODU
-	data       interface{}
-	retryCount int32
+	instance        *EmailCustomization
+	data            interface{}
+	retryCount      int32
 }
 
 // Request
@@ -8276,14 +7559,11 @@ func (r ApiReplaceEmailCustomizationRequest) Instance(instance EmailCustomizatio
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceEmailCustomizationRequest) Data (data interface{}) ApiReplaceEmailCustomizationRequest {
+func (r ApiReplaceEmailCustomizationRequest) Data(data interface{}) ApiReplaceEmailCustomizationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceEmailCustomizationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceEmailCustomizationExecute(r)
 }
@@ -8302,16 +7582,15 @@ Replaces an email customization using property values
  @param customizationId The ID of the email customization
  @return ApiReplaceEmailCustomizationRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ReplaceEmailCustomization(ctx context.Context, brandId string, templateName string, customizationId string) ApiReplaceEmailCustomizationRequest {
 	return ApiReplaceEmailCustomizationRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		templateName: templateName,
+		ApiService:      a,
+		ctx:             ctx,
+		brandId:         brandId,
+		templateName:    templateName,
 		customizationId: customizationId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -8323,10 +7602,9 @@ func (a *CustomizationAPIService) ReplaceEmailCustomizationExecute(r ApiReplaceE
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -8336,7 +7614,6 @@ func (a *CustomizationAPIService) ReplaceEmailCustomizationExecute(r ApiReplaceE
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ReplaceEmailCustomization")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -8366,7 +7643,6 @@ func (a *CustomizationAPIService) ReplaceEmailCustomizationExecute(r ApiReplaceE
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -8386,13 +7662,11 @@ func (a *CustomizationAPIService) ReplaceEmailCustomizationExecute(r ApiReplaceE
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -8401,7 +7675,6 @@ func (a *CustomizationAPIService) ReplaceEmailCustomizationExecute(r ApiReplaceE
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -8416,12 +7689,10 @@ func (a *CustomizationAPIService) ReplaceEmailCustomizationExecute(r ApiReplaceE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -8430,12 +7701,10 @@ func (a *CustomizationAPIService) ReplaceEmailCustomizationExecute(r ApiReplaceE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -8444,12 +7713,10 @@ func (a *CustomizationAPIService) ReplaceEmailCustomizationExecute(r ApiReplaceE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -8458,12 +7725,10 @@ func (a *CustomizationAPIService) ReplaceEmailCustomizationExecute(r ApiReplaceE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -8472,13 +7737,11 @@ func (a *CustomizationAPIService) ReplaceEmailCustomizationExecute(r ApiReplaceE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -8487,14 +7750,13 @@ func (a *CustomizationAPIService) ReplaceEmailCustomizationExecute(r ApiReplaceE
 }
 
 type ApiReplaceEmailSettingsRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
-	templateName string
+	ctx           context.Context
+	ApiService    CustomizationAPI
+	brandId       string
+	templateName  string
 	emailSettings *EmailSettings
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
 func (r ApiReplaceEmailSettingsRequest) EmailSettings(emailSettings EmailSettings) ApiReplaceEmailSettingsRequest {
@@ -8502,14 +7764,11 @@ func (r ApiReplaceEmailSettingsRequest) EmailSettings(emailSettings EmailSetting
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceEmailSettingsRequest) Data (data interface{}) ApiReplaceEmailSettingsRequest {
+func (r ApiReplaceEmailSettingsRequest) Data(data interface{}) ApiReplaceEmailSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceEmailSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceEmailSettingsExecute(r)
 }
@@ -8524,15 +7783,14 @@ Replaces an email template's settings
  @param templateName The name of the email template
  @return ApiReplaceEmailSettingsRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ReplaceEmailSettings(ctx context.Context, brandId string, templateName string) ApiReplaceEmailSettingsRequest {
 	return ApiReplaceEmailSettingsRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ApiService:   a,
+		ctx:          ctx,
+		brandId:      brandId,
 		templateName: templateName,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -8545,7 +7803,7 @@ func (a *CustomizationAPIService) ReplaceEmailSettingsExecute(r ApiReplaceEmailS
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -8555,7 +7813,6 @@ func (a *CustomizationAPIService) ReplaceEmailSettingsExecute(r ApiReplaceEmailS
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ReplaceEmailSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -8584,7 +7841,6 @@ func (a *CustomizationAPIService) ReplaceEmailSettingsExecute(r ApiReplaceEmailS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.emailSettings
 	localVarPostBody = r.data
@@ -8604,13 +7860,11 @@ func (a *CustomizationAPIService) ReplaceEmailSettingsExecute(r ApiReplaceEmailS
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -8619,7 +7873,6 @@ func (a *CustomizationAPIService) ReplaceEmailSettingsExecute(r ApiReplaceEmailS
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -8634,12 +7887,10 @@ func (a *CustomizationAPIService) ReplaceEmailSettingsExecute(r ApiReplaceEmailS
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -8648,12 +7899,10 @@ func (a *CustomizationAPIService) ReplaceEmailSettingsExecute(r ApiReplaceEmailS
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -8662,12 +7911,10 @@ func (a *CustomizationAPIService) ReplaceEmailSettingsExecute(r ApiReplaceEmailS
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
@@ -8676,12 +7923,10 @@ func (a *CustomizationAPIService) ReplaceEmailSettingsExecute(r ApiReplaceEmailS
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -8690,13 +7935,11 @@ func (a *CustomizationAPIService) ReplaceEmailSettingsExecute(r ApiReplaceEmailS
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -8705,11 +7948,10 @@ func (a *CustomizationAPIService) ReplaceEmailSettingsExecute(r ApiReplaceEmailS
 }
 
 type ApiReplacePreviewErrorPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	errorPage *ErrorPage
-	// TODU
+	brandId    string
+	errorPage  *ErrorPage
 	data       interface{}
 	retryCount int32
 }
@@ -8719,14 +7961,11 @@ func (r ApiReplacePreviewErrorPageRequest) ErrorPage(errorPage ErrorPage) ApiRep
 	return r
 }
 
-
-// TODU
-func (r ApiReplacePreviewErrorPageRequest) Data (data interface{}) ApiReplacePreviewErrorPageRequest {
+func (r ApiReplacePreviewErrorPageRequest) Data(data interface{}) ApiReplacePreviewErrorPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplacePreviewErrorPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplacePreviewErrorPageExecute(r)
 }
@@ -8740,13 +7979,12 @@ Replaces the preview error page. The preview error page contains unpublished cha
  @param brandId The ID of the brand
  @return ApiReplacePreviewErrorPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ReplacePreviewErrorPage(ctx context.Context, brandId string) ApiReplacePreviewErrorPageRequest {
 	return ApiReplacePreviewErrorPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -8759,10 +7997,9 @@ func (a *CustomizationAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePre
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -8772,7 +8009,6 @@ func (a *CustomizationAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePre
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ReplacePreviewErrorPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -8800,7 +8036,6 @@ func (a *CustomizationAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePre
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.errorPage
 	localVarPostBody = r.data
@@ -8820,13 +8055,11 @@ func (a *CustomizationAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePre
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -8835,7 +8068,6 @@ func (a *CustomizationAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePre
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -8850,12 +8082,10 @@ func (a *CustomizationAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePre
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -8864,12 +8094,10 @@ func (a *CustomizationAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePre
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -8878,12 +8106,10 @@ func (a *CustomizationAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePre
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -8892,13 +8118,11 @@ func (a *CustomizationAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePre
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -8907,11 +8131,10 @@ func (a *CustomizationAPIService) ReplacePreviewErrorPageExecute(r ApiReplacePre
 }
 
 type ApiReplacePreviewSignInPageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
+	brandId    string
 	signInPage *SignInPage
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -8921,14 +8144,11 @@ func (r ApiReplacePreviewSignInPageRequest) SignInPage(signInPage SignInPage) Ap
 	return r
 }
 
-
-// TODU
-func (r ApiReplacePreviewSignInPageRequest) Data (data interface{}) ApiReplacePreviewSignInPageRequest {
+func (r ApiReplacePreviewSignInPageRequest) Data(data interface{}) ApiReplacePreviewSignInPageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplacePreviewSignInPageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplacePreviewSignInPageExecute(r)
 }
@@ -8942,13 +8162,12 @@ Replaces the preview sign-in page. The preview sign-in page contains unpublished
  @param brandId The ID of the brand
  @return ApiReplacePreviewSignInPageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ReplacePreviewSignInPage(ctx context.Context, brandId string) ApiReplacePreviewSignInPageRequest {
 	return ApiReplacePreviewSignInPageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -8961,10 +8180,9 @@ func (a *CustomizationAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePr
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -8974,7 +8192,6 @@ func (a *CustomizationAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePr
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ReplacePreviewSignInPage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -9002,7 +8219,6 @@ func (a *CustomizationAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePr
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.signInPage
 	localVarPostBody = r.data
@@ -9022,13 +8238,11 @@ func (a *CustomizationAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePr
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -9037,7 +8251,6 @@ func (a *CustomizationAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePr
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -9052,12 +8265,10 @@ func (a *CustomizationAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePr
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -9066,12 +8277,10 @@ func (a *CustomizationAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePr
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -9080,12 +8289,10 @@ func (a *CustomizationAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePr
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -9094,13 +8301,11 @@ func (a *CustomizationAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePr
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -9109,11 +8314,10 @@ func (a *CustomizationAPIService) ReplacePreviewSignInPageExecute(r ApiReplacePr
 }
 
 type ApiReplaceSignOutPageSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
+	brandId    string
 	hostedPage *HostedPage
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -9123,14 +8327,11 @@ func (r ApiReplaceSignOutPageSettingsRequest) HostedPage(hostedPage HostedPage) 
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceSignOutPageSettingsRequest) Data (data interface{}) ApiReplaceSignOutPageSettingsRequest {
+func (r ApiReplaceSignOutPageSettingsRequest) Data(data interface{}) ApiReplaceSignOutPageSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceSignOutPageSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceSignOutPageSettingsExecute(r)
 }
@@ -9144,13 +8345,12 @@ Replaces the sign-out page settings
  @param brandId The ID of the brand
  @return ApiReplaceSignOutPageSettingsRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) ReplaceSignOutPageSettings(ctx context.Context, brandId string) ApiReplaceSignOutPageSettingsRequest {
 	return ApiReplaceSignOutPageSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ctx:        ctx,
+		brandId:    brandId,
 		retryCount: 0,
 	}
 }
@@ -9163,10 +8363,9 @@ func (a *CustomizationAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplace
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -9176,7 +8375,6 @@ func (a *CustomizationAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplace
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.ReplaceSignOutPageSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -9204,7 +8402,6 @@ func (a *CustomizationAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplace
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.hostedPage
 	localVarPostBody = r.data
@@ -9224,13 +8421,11 @@ func (a *CustomizationAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplace
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -9239,7 +8434,6 @@ func (a *CustomizationAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplace
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -9254,12 +8448,10 @@ func (a *CustomizationAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -9268,12 +8460,10 @@ func (a *CustomizationAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -9282,12 +8472,10 @@ func (a *CustomizationAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -9296,13 +8484,11 @@ func (a *CustomizationAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -9311,14 +8497,13 @@ func (a *CustomizationAPIService) ReplaceSignOutPageSettingsExecute(r ApiReplace
 }
 
 type ApiSendTestEmailRequest struct {
-	ctx context.Context
-	ApiService CustomizationAPI
-	brandId string
+	ctx          context.Context
+	ApiService   CustomizationAPI
+	brandId      string
 	templateName string
-	language *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	language     *string
+	data         interface{}
+	retryCount   int32
 }
 
 // The language to use for the email. Defaults to the current user&#39;s language if unspecified.
@@ -9327,14 +8512,11 @@ func (r ApiSendTestEmailRequest) Language(language string) ApiSendTestEmailReque
 	return r
 }
 
-
-// TODU
-func (r ApiSendTestEmailRequest) Data (data interface{}) ApiSendTestEmailRequest {
+func (r ApiSendTestEmailRequest) Data(data interface{}) ApiSendTestEmailRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiSendTestEmailRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.SendTestEmailExecute(r)
 }
@@ -9353,15 +8535,14 @@ Sends a test email to the current user’s primary and secondary email addresses
  @param templateName The name of the email template
  @return ApiSendTestEmailRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) SendTestEmail(ctx context.Context, brandId string, templateName string) ApiSendTestEmailRequest {
 	return ApiSendTestEmailRequest{
-		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
+		ApiService:   a,
+		ctx:          ctx,
+		brandId:      brandId,
 		templateName: templateName,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -9374,7 +8555,7 @@ func (a *CustomizationAPIService) SendTestEmailExecute(r ApiSendTestEmailRequest
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -9384,7 +8565,6 @@ func (a *CustomizationAPIService) SendTestEmailExecute(r ApiSendTestEmailRequest
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.SendTestEmail")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -9416,7 +8596,6 @@ func (a *CustomizationAPIService) SendTestEmailExecute(r ApiSendTestEmailRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -9433,13 +8612,11 @@ func (a *CustomizationAPIService) SendTestEmailExecute(r ApiSendTestEmailRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -9448,7 +8625,6 @@ func (a *CustomizationAPIService) SendTestEmailExecute(r ApiSendTestEmailRequest
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -9463,12 +8639,10 @@ func (a *CustomizationAPIService) SendTestEmailExecute(r ApiSendTestEmailRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -9477,12 +8651,10 @@ func (a *CustomizationAPIService) SendTestEmailExecute(r ApiSendTestEmailRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -9491,13 +8663,11 @@ func (a *CustomizationAPIService) SendTestEmailExecute(r ApiSendTestEmailRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -9506,12 +8676,11 @@ func (a *CustomizationAPIService) SendTestEmailExecute(r ApiSendTestEmailRequest
 }
 
 type ApiUploadBrandThemeBackgroundImageRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	themeId string
-	file **os.File
-	// TODU
+	brandId    string
+	themeId    string
+	file       **os.File
 	data       interface{}
 	retryCount int32
 }
@@ -9521,14 +8690,11 @@ func (r ApiUploadBrandThemeBackgroundImageRequest) File(file *os.File) ApiUpload
 	return r
 }
 
-
-// TODU
-func (r ApiUploadBrandThemeBackgroundImageRequest) Data (data interface{}) ApiUploadBrandThemeBackgroundImageRequest {
+func (r ApiUploadBrandThemeBackgroundImageRequest) Data(data interface{}) ApiUploadBrandThemeBackgroundImageRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUploadBrandThemeBackgroundImageRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UploadBrandThemeBackgroundImageExecute(r)
 }
@@ -9543,14 +8709,13 @@ Uploads and replaces the background image for the theme. The file must be in PNG
  @param themeId The ID of the theme
  @return ApiUploadBrandThemeBackgroundImageRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) UploadBrandThemeBackgroundImage(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeBackgroundImageRequest {
 	return ApiUploadBrandThemeBackgroundImageRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
@@ -9563,10 +8728,9 @@ func (a *CustomizationAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUp
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -9576,7 +8740,6 @@ func (a *CustomizationAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUp
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.UploadBrandThemeBackgroundImage")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -9606,8 +8769,8 @@ func (a *CustomizationAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUp
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileLocalVarFormFileName string
-	var fileLocalVarFileName     string
-	var fileLocalVarFileBytes    []byte
+	var fileLocalVarFileName string
+	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
 
@@ -9619,7 +8782,6 @@ func (a *CustomizationAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUp
 		fileLocalVarFile.Close()
 	}
 	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -9636,13 +8798,11 @@ func (a *CustomizationAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUp
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -9651,7 +8811,6 @@ func (a *CustomizationAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUp
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -9666,12 +8825,10 @@ func (a *CustomizationAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -9680,12 +8837,10 @@ func (a *CustomizationAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -9694,12 +8849,10 @@ func (a *CustomizationAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -9708,13 +8861,11 @@ func (a *CustomizationAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -9723,12 +8874,11 @@ func (a *CustomizationAPIService) UploadBrandThemeBackgroundImageExecute(r ApiUp
 }
 
 type ApiUploadBrandThemeFaviconRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	themeId string
-	file **os.File
-	// TODU
+	brandId    string
+	themeId    string
+	file       **os.File
 	data       interface{}
 	retryCount int32
 }
@@ -9738,14 +8888,11 @@ func (r ApiUploadBrandThemeFaviconRequest) File(file *os.File) ApiUploadBrandThe
 	return r
 }
 
-
-// TODU
-func (r ApiUploadBrandThemeFaviconRequest) Data (data interface{}) ApiUploadBrandThemeFaviconRequest {
+func (r ApiUploadBrandThemeFaviconRequest) Data(data interface{}) ApiUploadBrandThemeFaviconRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUploadBrandThemeFaviconRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UploadBrandThemeFaviconExecute(r)
 }
@@ -9760,14 +8907,13 @@ Uploads and replaces the favicon for the theme
  @param themeId The ID of the theme
  @return ApiUploadBrandThemeFaviconRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) UploadBrandThemeFavicon(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeFaviconRequest {
 	return ApiUploadBrandThemeFaviconRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
@@ -9780,10 +8926,9 @@ func (a *CustomizationAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBran
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -9793,7 +8938,6 @@ func (a *CustomizationAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBran
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.UploadBrandThemeFavicon")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -9823,8 +8967,8 @@ func (a *CustomizationAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBran
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileLocalVarFormFileName string
-	var fileLocalVarFileName     string
-	var fileLocalVarFileBytes    []byte
+	var fileLocalVarFileName string
+	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
 
@@ -9836,7 +8980,6 @@ func (a *CustomizationAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBran
 		fileLocalVarFile.Close()
 	}
 	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -9853,13 +8996,11 @@ func (a *CustomizationAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBran
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -9868,7 +9009,6 @@ func (a *CustomizationAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBran
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -9883,12 +9023,10 @@ func (a *CustomizationAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBran
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -9897,12 +9035,10 @@ func (a *CustomizationAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBran
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -9911,12 +9047,10 @@ func (a *CustomizationAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBran
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -9925,13 +9059,11 @@ func (a *CustomizationAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBran
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -9940,12 +9072,11 @@ func (a *CustomizationAPIService) UploadBrandThemeFaviconExecute(r ApiUploadBran
 }
 
 type ApiUploadBrandThemeLogoRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomizationAPI
-	brandId string
-	themeId string
-	file **os.File
-	// TODU
+	brandId    string
+	themeId    string
+	file       **os.File
 	data       interface{}
 	retryCount int32
 }
@@ -9955,14 +9086,11 @@ func (r ApiUploadBrandThemeLogoRequest) File(file *os.File) ApiUploadBrandThemeL
 	return r
 }
 
-
-// TODU
-func (r ApiUploadBrandThemeLogoRequest) Data (data interface{}) ApiUploadBrandThemeLogoRequest {
+func (r ApiUploadBrandThemeLogoRequest) Data(data interface{}) ApiUploadBrandThemeLogoRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUploadBrandThemeLogoRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UploadBrandThemeLogoExecute(r)
 }
@@ -9977,14 +9105,13 @@ Uploads and replaces the logo for the theme. The file must be in PNG, JPG, or GI
  @param themeId The ID of the theme
  @return ApiUploadBrandThemeLogoRequest
 */
-// TODU
 
 func (a *CustomizationAPIService) UploadBrandThemeLogo(ctx context.Context, brandId string, themeId string) ApiUploadBrandThemeLogoRequest {
 	return ApiUploadBrandThemeLogoRequest{
 		ApiService: a,
-		ctx: ctx,
-		brandId: brandId,
-		themeId: themeId,
+		ctx:        ctx,
+		brandId:    brandId,
+		themeId:    themeId,
 		retryCount: 0,
 	}
 }
@@ -9997,10 +9124,9 @@ func (a *CustomizationAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandTh
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -10010,7 +9136,6 @@ func (a *CustomizationAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandTh
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomizationAPIService.UploadBrandThemeLogo")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -10040,8 +9165,8 @@ func (a *CustomizationAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandTh
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileLocalVarFormFileName string
-	var fileLocalVarFileName     string
-	var fileLocalVarFileBytes    []byte
+	var fileLocalVarFileName string
+	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
 
@@ -10053,7 +9178,6 @@ func (a *CustomizationAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandTh
 		fileLocalVarFile.Close()
 	}
 	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -10070,13 +9194,11 @@ func (a *CustomizationAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandTh
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -10085,7 +9207,6 @@ func (a *CustomizationAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandTh
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -10100,12 +9221,10 @@ func (a *CustomizationAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandTh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -10114,12 +9233,10 @@ func (a *CustomizationAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandTh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -10128,12 +9245,10 @@ func (a *CustomizationAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandTh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -10142,13 +9257,11 @@ func (a *CustomizationAPIService) UploadBrandThemeLogoExecute(r ApiUploadBrandTh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

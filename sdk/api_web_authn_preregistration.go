@@ -17,101 +17,94 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type WebAuthnPreregistrationAPI interface {
 
 	/*
-	ActivatePreregistrationEnrollment Activate a Preregistered WebAuthn Factor
+		ActivatePreregistrationEnrollment Activate a Preregistered WebAuthn Factor
 
-	Activates a preregistered WebAuthn Factor. As part of this operation, Okta first decrypts and verifies the Factor PIN and enrollment data sent by the fulfillment provider.
+		Activates a preregistered WebAuthn Factor. As part of this operation, Okta first decrypts and verifies the Factor PIN and enrollment data sent by the fulfillment provider.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiActivatePreregistrationEnrollmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiActivatePreregistrationEnrollmentRequest
 	*/
 	ActivatePreregistrationEnrollment(ctx context.Context) ApiActivatePreregistrationEnrollmentRequest
 
 	// ActivatePreregistrationEnrollmentExecute executes the request
 	//  @return EnrollmentActivationResponse
-	// TODU
 	ActivatePreregistrationEnrollmentExecute(r ApiActivatePreregistrationEnrollmentRequest) (*APIResponse, error)
 
 	/*
-	DeleteWebAuthnPreregistrationFactor Delete a WebAuthn Preregistration Factor
+		DeleteWebAuthnPreregistrationFactor Delete a WebAuthn Preregistration Factor
 
-	Deletes a specific WebAuthn Preregistration Factor for a user
+		Deletes a specific WebAuthn Preregistration Factor for a user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param authenticatorEnrollmentId ID for a WebAuthn Preregistration Factor in Okta
-	@return ApiDeleteWebAuthnPreregistrationFactorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param authenticatorEnrollmentId ID for a WebAuthn Preregistration Factor in Okta
+		@return ApiDeleteWebAuthnPreregistrationFactorRequest
 	*/
 	DeleteWebAuthnPreregistrationFactor(ctx context.Context, userId string, authenticatorEnrollmentId string) ApiDeleteWebAuthnPreregistrationFactorRequest
 
 	// DeleteWebAuthnPreregistrationFactorExecute executes the request
-	// TODU
 	DeleteWebAuthnPreregistrationFactorExecute(r ApiDeleteWebAuthnPreregistrationFactorRequest) (*APIResponse, error)
 
 	/*
-	EnrollPreregistrationEnrollment Enroll a Preregistered WebAuthn Factor
+		EnrollPreregistrationEnrollment Enroll a Preregistered WebAuthn Factor
 
-	Enrolls a preregistered WebAuthn Factor. This WebAuthn Factor has a longer challenge timeout period to accommodate the fulfillment request process. As part of this operation, Okta generates EC key-pairs used to encrypt the Factor PIN and enrollment data sent by the fulfillment provider.
+		Enrolls a preregistered WebAuthn Factor. This WebAuthn Factor has a longer challenge timeout period to accommodate the fulfillment request process. As part of this operation, Okta generates EC key-pairs used to encrypt the Factor PIN and enrollment data sent by the fulfillment provider.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiEnrollPreregistrationEnrollmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiEnrollPreregistrationEnrollmentRequest
 	*/
 	EnrollPreregistrationEnrollment(ctx context.Context) ApiEnrollPreregistrationEnrollmentRequest
 
 	// EnrollPreregistrationEnrollmentExecute executes the request
 	//  @return EnrollmentInitializationResponse
-	// TODU
 	EnrollPreregistrationEnrollmentExecute(r ApiEnrollPreregistrationEnrollmentRequest) (*APIResponse, error)
 
 	/*
-	GenerateFulfillmentRequest Generate a Fulfillment Request
+		GenerateFulfillmentRequest Generate a Fulfillment Request
 
-	Generates a fulfillment request by sending a WebAuthn Preregistration event to start the flow. The Okta Workflows WebAuthn preregistration integration uses this to populate the fulfillment request.
+		Generates a fulfillment request by sending a WebAuthn Preregistration event to start the flow. The Okta Workflows WebAuthn preregistration integration uses this to populate the fulfillment request.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGenerateFulfillmentRequestRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGenerateFulfillmentRequestRequest
 	*/
 	GenerateFulfillmentRequest(ctx context.Context) ApiGenerateFulfillmentRequestRequest
 
 	// GenerateFulfillmentRequestExecute executes the request
-	// TODU
 	GenerateFulfillmentRequestExecute(r ApiGenerateFulfillmentRequestRequest) (*APIResponse, error)
 
 	/*
-	ListWebAuthnPreregistrationFactors List all WebAuthn Preregistration Factors
+		ListWebAuthnPreregistrationFactors List all WebAuthn Preregistration Factors
 
-	Lists all WebAuthn Preregistration Factors for the specified user
+		Lists all WebAuthn Preregistration Factors for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListWebAuthnPreregistrationFactorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListWebAuthnPreregistrationFactorsRequest
 	*/
 	ListWebAuthnPreregistrationFactors(ctx context.Context, userId string) ApiListWebAuthnPreregistrationFactorsRequest
 
 	// ListWebAuthnPreregistrationFactorsExecute executes the request
 	//  @return []WebAuthnPreregistrationFactor
-	// TODU
 	ListWebAuthnPreregistrationFactorsExecute(r ApiListWebAuthnPreregistrationFactorsRequest) (*APIResponse, error)
 
 	/*
-	SendPin Send a PIN to user
+		SendPin Send a PIN to user
 
-	Sends the decoded PIN for the specified WebAuthn Preregistration Enrollment. PINs are sent to the user's email. To resend the PIN, call this operation again.
+		Sends the decoded PIN for the specified WebAuthn Preregistration Enrollment. PINs are sent to the user's email. To resend the PIN, call this operation again.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSendPinRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiSendPinRequest
 	*/
 	SendPin(ctx context.Context) ApiSendPinRequest
 
 	// SendPinExecute executes the request
-	// TODU
 	SendPinExecute(r ApiSendPinRequest) (*APIResponse, error)
 }
 
@@ -119,10 +112,9 @@ type WebAuthnPreregistrationAPI interface {
 type WebAuthnPreregistrationAPIService service
 
 type ApiActivatePreregistrationEnrollmentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService WebAuthnPreregistrationAPI
-	body *EnrollmentActivationRequest
-	// TODU
+	body       *EnrollmentActivationRequest
 	data       interface{}
 	retryCount int32
 }
@@ -133,14 +125,11 @@ func (r ApiActivatePreregistrationEnrollmentRequest) Body(body EnrollmentActivat
 	return r
 }
 
-
-// TODU
-func (r ApiActivatePreregistrationEnrollmentRequest) Data (data interface{}) ApiActivatePreregistrationEnrollmentRequest {
+func (r ApiActivatePreregistrationEnrollmentRequest) Data(data interface{}) ApiActivatePreregistrationEnrollmentRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivatePreregistrationEnrollmentRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivatePreregistrationEnrollmentExecute(r)
 }
@@ -153,12 +142,11 @@ Activates a preregistered WebAuthn Factor. As part of this operation, Okta first
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiActivatePreregistrationEnrollmentRequest
 */
-// TODU
 
 func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollment(ctx context.Context) ApiActivatePreregistrationEnrollmentRequest {
 	return ApiActivatePreregistrationEnrollmentRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -171,10 +159,9 @@ func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollmentExe
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -184,7 +171,6 @@ func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollmentExe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebAuthnPreregistrationAPIService.ActivatePreregistrationEnrollment")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -211,7 +197,6 @@ func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollmentExe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -231,13 +216,11 @@ func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollmentExe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -246,7 +229,6 @@ func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollmentExe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -261,12 +243,10 @@ func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollmentExe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -275,12 +255,10 @@ func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollmentExe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -289,12 +267,10 @@ func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollmentExe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -303,13 +279,11 @@ func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollmentExe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -318,23 +292,19 @@ func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollmentExe
 }
 
 type ApiDeleteWebAuthnPreregistrationFactorRequest struct {
-	ctx context.Context
-	ApiService WebAuthnPreregistrationAPI
-	userId string
+	ctx                       context.Context
+	ApiService                WebAuthnPreregistrationAPI
+	userId                    string
 	authenticatorEnrollmentId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                      interface{}
+	retryCount                int32
 }
 
-
-// TODU
-func (r ApiDeleteWebAuthnPreregistrationFactorRequest) Data (data interface{}) ApiDeleteWebAuthnPreregistrationFactorRequest {
+func (r ApiDeleteWebAuthnPreregistrationFactorRequest) Data(data interface{}) ApiDeleteWebAuthnPreregistrationFactorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteWebAuthnPreregistrationFactorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteWebAuthnPreregistrationFactorExecute(r)
 }
@@ -349,15 +319,14 @@ Deletes a specific WebAuthn Preregistration Factor for a user
  @param authenticatorEnrollmentId ID for a WebAuthn Preregistration Factor in Okta
  @return ApiDeleteWebAuthnPreregistrationFactorRequest
 */
-// TODU
 
 func (a *WebAuthnPreregistrationAPIService) DeleteWebAuthnPreregistrationFactor(ctx context.Context, userId string, authenticatorEnrollmentId string) ApiDeleteWebAuthnPreregistrationFactorRequest {
 	return ApiDeleteWebAuthnPreregistrationFactorRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ApiService:                a,
+		ctx:                       ctx,
+		userId:                    userId,
 		authenticatorEnrollmentId: authenticatorEnrollmentId,
-		retryCount: 0,
+		retryCount:                0,
 	}
 }
 
@@ -370,7 +339,7 @@ func (a *WebAuthnPreregistrationAPIService) DeleteWebAuthnPreregistrationFactorE
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -380,7 +349,6 @@ func (a *WebAuthnPreregistrationAPIService) DeleteWebAuthnPreregistrationFactorE
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebAuthnPreregistrationAPIService.DeleteWebAuthnPreregistrationFactor")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -409,7 +377,6 @@ func (a *WebAuthnPreregistrationAPIService) DeleteWebAuthnPreregistrationFactorE
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -426,13 +393,11 @@ func (a *WebAuthnPreregistrationAPIService) DeleteWebAuthnPreregistrationFactorE
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -441,7 +406,6 @@ func (a *WebAuthnPreregistrationAPIService) DeleteWebAuthnPreregistrationFactorE
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -456,12 +420,10 @@ func (a *WebAuthnPreregistrationAPIService) DeleteWebAuthnPreregistrationFactorE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -470,12 +432,10 @@ func (a *WebAuthnPreregistrationAPIService) DeleteWebAuthnPreregistrationFactorE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -484,13 +444,11 @@ func (a *WebAuthnPreregistrationAPIService) DeleteWebAuthnPreregistrationFactorE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -499,10 +457,9 @@ func (a *WebAuthnPreregistrationAPIService) DeleteWebAuthnPreregistrationFactorE
 }
 
 type ApiEnrollPreregistrationEnrollmentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService WebAuthnPreregistrationAPI
-	body *EnrollmentInitializationRequest
-	// TODU
+	body       *EnrollmentInitializationRequest
 	data       interface{}
 	retryCount int32
 }
@@ -513,14 +470,11 @@ func (r ApiEnrollPreregistrationEnrollmentRequest) Body(body EnrollmentInitializ
 	return r
 }
 
-
-// TODU
-func (r ApiEnrollPreregistrationEnrollmentRequest) Data (data interface{}) ApiEnrollPreregistrationEnrollmentRequest {
+func (r ApiEnrollPreregistrationEnrollmentRequest) Data(data interface{}) ApiEnrollPreregistrationEnrollmentRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiEnrollPreregistrationEnrollmentRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.EnrollPreregistrationEnrollmentExecute(r)
 }
@@ -533,12 +487,11 @@ Enrolls a preregistered WebAuthn Factor. This WebAuthn Factor has a longer chall
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiEnrollPreregistrationEnrollmentRequest
 */
-// TODU
 
 func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollment(ctx context.Context) ApiEnrollPreregistrationEnrollmentRequest {
 	return ApiEnrollPreregistrationEnrollmentRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -551,10 +504,9 @@ func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollmentExecu
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -564,7 +516,6 @@ func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollmentExecu
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebAuthnPreregistrationAPIService.EnrollPreregistrationEnrollment")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -591,7 +542,6 @@ func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollmentExecu
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -611,13 +561,11 @@ func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollmentExecu
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -626,7 +574,6 @@ func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollmentExecu
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -641,12 +588,10 @@ func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollmentExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -655,12 +600,10 @@ func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollmentExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -669,12 +612,10 @@ func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollmentExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -683,13 +624,11 @@ func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollmentExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -698,10 +637,9 @@ func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollmentExecu
 }
 
 type ApiGenerateFulfillmentRequestRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService WebAuthnPreregistrationAPI
-	body *FulfillmentRequest
-	// TODU
+	body       *FulfillmentRequest
 	data       interface{}
 	retryCount int32
 }
@@ -712,14 +650,11 @@ func (r ApiGenerateFulfillmentRequestRequest) Body(body FulfillmentRequest) ApiG
 	return r
 }
 
-
-// TODU
-func (r ApiGenerateFulfillmentRequestRequest) Data (data interface{}) ApiGenerateFulfillmentRequestRequest {
+func (r ApiGenerateFulfillmentRequestRequest) Data(data interface{}) ApiGenerateFulfillmentRequestRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGenerateFulfillmentRequestRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GenerateFulfillmentRequestExecute(r)
 }
@@ -732,12 +667,11 @@ Generates a fulfillment request by sending a WebAuthn Preregistration event to s
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGenerateFulfillmentRequestRequest
 */
-// TODU
 
 func (a *WebAuthnPreregistrationAPIService) GenerateFulfillmentRequest(ctx context.Context) ApiGenerateFulfillmentRequestRequest {
 	return ApiGenerateFulfillmentRequestRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -751,7 +685,7 @@ func (a *WebAuthnPreregistrationAPIService) GenerateFulfillmentRequestExecute(r 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -761,7 +695,6 @@ func (a *WebAuthnPreregistrationAPIService) GenerateFulfillmentRequestExecute(r 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebAuthnPreregistrationAPIService.GenerateFulfillmentRequest")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -788,7 +721,6 @@ func (a *WebAuthnPreregistrationAPIService) GenerateFulfillmentRequestExecute(r 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -808,13 +740,11 @@ func (a *WebAuthnPreregistrationAPIService) GenerateFulfillmentRequestExecute(r 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -823,7 +753,6 @@ func (a *WebAuthnPreregistrationAPIService) GenerateFulfillmentRequestExecute(r 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -838,12 +767,10 @@ func (a *WebAuthnPreregistrationAPIService) GenerateFulfillmentRequestExecute(r 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -852,12 +779,10 @@ func (a *WebAuthnPreregistrationAPIService) GenerateFulfillmentRequestExecute(r 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -866,13 +791,11 @@ func (a *WebAuthnPreregistrationAPIService) GenerateFulfillmentRequestExecute(r 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -881,22 +804,18 @@ func (a *WebAuthnPreregistrationAPIService) GenerateFulfillmentRequestExecute(r 
 }
 
 type ApiListWebAuthnPreregistrationFactorsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService WebAuthnPreregistrationAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListWebAuthnPreregistrationFactorsRequest) Data (data interface{}) ApiListWebAuthnPreregistrationFactorsRequest {
+func (r ApiListWebAuthnPreregistrationFactorsRequest) Data(data interface{}) ApiListWebAuthnPreregistrationFactorsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListWebAuthnPreregistrationFactorsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListWebAuthnPreregistrationFactorsExecute(r)
 }
@@ -910,13 +829,12 @@ Lists all WebAuthn Preregistration Factors for the specified user
  @param userId ID of an existing Okta user
  @return ApiListWebAuthnPreregistrationFactorsRequest
 */
-// TODU
 
 func (a *WebAuthnPreregistrationAPIService) ListWebAuthnPreregistrationFactors(ctx context.Context, userId string) ApiListWebAuthnPreregistrationFactorsRequest {
 	return ApiListWebAuthnPreregistrationFactorsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -929,10 +847,9 @@ func (a *WebAuthnPreregistrationAPIService) ListWebAuthnPreregistrationFactorsEx
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -942,7 +859,6 @@ func (a *WebAuthnPreregistrationAPIService) ListWebAuthnPreregistrationFactorsEx
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebAuthnPreregistrationAPIService.ListWebAuthnPreregistrationFactors")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -970,7 +886,6 @@ func (a *WebAuthnPreregistrationAPIService) ListWebAuthnPreregistrationFactorsEx
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -987,13 +902,11 @@ func (a *WebAuthnPreregistrationAPIService) ListWebAuthnPreregistrationFactorsEx
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1002,7 +915,6 @@ func (a *WebAuthnPreregistrationAPIService) ListWebAuthnPreregistrationFactorsEx
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1017,12 +929,10 @@ func (a *WebAuthnPreregistrationAPIService) ListWebAuthnPreregistrationFactorsEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1031,12 +941,10 @@ func (a *WebAuthnPreregistrationAPIService) ListWebAuthnPreregistrationFactorsEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1045,13 +953,11 @@ func (a *WebAuthnPreregistrationAPIService) ListWebAuthnPreregistrationFactorsEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1060,10 +966,9 @@ func (a *WebAuthnPreregistrationAPIService) ListWebAuthnPreregistrationFactorsEx
 }
 
 type ApiSendPinRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService WebAuthnPreregistrationAPI
-	body *PinRequest
-	// TODU
+	body       *PinRequest
 	data       interface{}
 	retryCount int32
 }
@@ -1074,14 +979,11 @@ func (r ApiSendPinRequest) Body(body PinRequest) ApiSendPinRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiSendPinRequest) Data (data interface{}) ApiSendPinRequest {
+func (r ApiSendPinRequest) Data(data interface{}) ApiSendPinRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiSendPinRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.SendPinExecute(r)
 }
@@ -1094,12 +996,11 @@ Sends the decoded PIN for the specified WebAuthn Preregistration Enrollment. PIN
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiSendPinRequest
 */
-// TODU
 
 func (a *WebAuthnPreregistrationAPIService) SendPin(ctx context.Context) ApiSendPinRequest {
 	return ApiSendPinRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1113,7 +1014,7 @@ func (a *WebAuthnPreregistrationAPIService) SendPinExecute(r ApiSendPinRequest) 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1123,7 +1024,6 @@ func (a *WebAuthnPreregistrationAPIService) SendPinExecute(r ApiSendPinRequest) 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebAuthnPreregistrationAPIService.SendPin")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1150,7 +1050,6 @@ func (a *WebAuthnPreregistrationAPIService) SendPinExecute(r ApiSendPinRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -1170,13 +1069,11 @@ func (a *WebAuthnPreregistrationAPIService) SendPinExecute(r ApiSendPinRequest) 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1185,7 +1082,6 @@ func (a *WebAuthnPreregistrationAPIService) SendPinExecute(r ApiSendPinRequest) 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1200,12 +1096,10 @@ func (a *WebAuthnPreregistrationAPIService) SendPinExecute(r ApiSendPinRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1214,12 +1108,10 @@ func (a *WebAuthnPreregistrationAPIService) SendPinExecute(r ApiSendPinRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1228,13 +1120,11 @@ func (a *WebAuthnPreregistrationAPIService) SendPinExecute(r ApiSendPinRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

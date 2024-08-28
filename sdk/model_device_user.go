@@ -22,8 +22,8 @@ type DeviceUser struct {
 	// The management status of the device
 	ManagementStatus *string `json:"managementStatus,omitempty"`
 	// Screen lock type of the device
-	ScreenLockType *string `json:"screenLockType,omitempty"`
-	User *User `json:"user,omitempty"`
+	ScreenLockType       *string `json:"screenLockType,omitempty"`
+	User                 *User   `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -257,4 +257,3 @@ func (v *NullableDeviceUser) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

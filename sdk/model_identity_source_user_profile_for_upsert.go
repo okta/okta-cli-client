@@ -17,13 +17,13 @@ import (
 
 // IdentitySourceUserProfileForUpsert struct for IdentitySourceUserProfileForUpsert
 type IdentitySourceUserProfileForUpsert struct {
-	Email *string `json:"email,omitempty"`
-	FirstName NullableString `json:"firstName,omitempty"`
-	HomeAddress NullableString `json:"homeAddress,omitempty"`
-	LastName NullableString `json:"lastName,omitempty"`
-	MobilePhone NullableString `json:"mobilePhone,omitempty"`
-	SecondEmail *string `json:"secondEmail,omitempty"`
-	UserName *string `json:"userName,omitempty"`
+	Email                *string        `json:"email,omitempty"`
+	FirstName            NullableString `json:"firstName,omitempty"`
+	HomeAddress          NullableString `json:"homeAddress,omitempty"`
+	LastName             NullableString `json:"lastName,omitempty"`
+	MobilePhone          NullableString `json:"mobilePhone,omitempty"`
+	SecondEmail          *string        `json:"secondEmail,omitempty"`
+	UserName             *string        `json:"userName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -110,6 +110,7 @@ func (o *IdentitySourceUserProfileForUpsert) HasFirstName() bool {
 func (o *IdentitySourceUserProfileForUpsert) SetFirstName(v string) {
 	o.FirstName.Set(&v)
 }
+
 // SetFirstNameNil sets the value for FirstName to be an explicit nil
 func (o *IdentitySourceUserProfileForUpsert) SetFirstNameNil() {
 	o.FirstName.Set(nil)
@@ -152,6 +153,7 @@ func (o *IdentitySourceUserProfileForUpsert) HasHomeAddress() bool {
 func (o *IdentitySourceUserProfileForUpsert) SetHomeAddress(v string) {
 	o.HomeAddress.Set(&v)
 }
+
 // SetHomeAddressNil sets the value for HomeAddress to be an explicit nil
 func (o *IdentitySourceUserProfileForUpsert) SetHomeAddressNil() {
 	o.HomeAddress.Set(nil)
@@ -194,6 +196,7 @@ func (o *IdentitySourceUserProfileForUpsert) HasLastName() bool {
 func (o *IdentitySourceUserProfileForUpsert) SetLastName(v string) {
 	o.LastName.Set(&v)
 }
+
 // SetLastNameNil sets the value for LastName to be an explicit nil
 func (o *IdentitySourceUserProfileForUpsert) SetLastNameNil() {
 	o.LastName.Set(nil)
@@ -236,6 +239,7 @@ func (o *IdentitySourceUserProfileForUpsert) HasMobilePhone() bool {
 func (o *IdentitySourceUserProfileForUpsert) SetMobilePhone(v string) {
 	o.MobilePhone.Set(&v)
 }
+
 // SetMobilePhoneNil sets the value for MobilePhone to be an explicit nil
 func (o *IdentitySourceUserProfileForUpsert) SetMobilePhoneNil() {
 	o.MobilePhone.Set(nil)
@@ -405,4 +409,3 @@ func (v *NullableIdentitySourceUserProfileForUpsert) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

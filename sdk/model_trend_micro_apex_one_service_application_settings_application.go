@@ -18,7 +18,7 @@ import (
 // TrendMicroApexOneServiceApplicationSettingsApplication Trend Micro Apex One as a Service app instance properties
 type TrendMicroApexOneServiceApplicationSettingsApplication struct {
 	// Base Trend Micro Apex One Service URL
-	BaseURL string `json:"baseURL"`
+	BaseURL              string `json:"baseURL"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -137,4 +137,3 @@ func (v *NullableTrendMicroApexOneServiceApplicationSettingsApplication) Unmarsh
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -17,275 +17,210 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthenticatorAPI interface {
 
 	/*
-	ActivateAuthenticator Activate an Authenticator
+		ActivateAuthenticator Activate an Authenticator
 
-	Activates an authenticator by `authenticatorId`
+		Activates an authenticator by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiActivateAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@return ApiActivateAuthenticatorRequest
 	*/
 	ActivateAuthenticator(ctx context.Context, authenticatorId string) ApiActivateAuthenticatorRequest
 
 	// ActivateAuthenticatorExecute executes the request
 	//  @return Authenticator
-	// TODU
 	ActivateAuthenticatorExecute(r ApiActivateAuthenticatorRequest) (*APIResponse, error)
 
 	/*
-	ActivateAuthenticatorMethod Activate an Authenticator Method
+		ActivateAuthenticatorMethod Activate an Authenticator Method
 
-	Activates a Method for an Authenticator identified by `authenticatorId` and `methodType`
+		Activates a Method for an Authenticator identified by `authenticatorId` and `methodType`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@param methodType Type of the authenticator method
-	@return ApiActivateAuthenticatorMethodRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@param methodType Type of the authenticator method
+		@return ApiActivateAuthenticatorMethodRequest
 	*/
 	ActivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiActivateAuthenticatorMethodRequest
 
 	// ActivateAuthenticatorMethodExecute executes the request
 	//  @return ListAuthenticatorMethods200ResponseInner
-	// TODU
 	ActivateAuthenticatorMethodExecute(r ApiActivateAuthenticatorMethodRequest) (*APIResponse, error)
 
 	/*
-	CreateAuthenticator Create an Authenticator
+		CreateAuthenticator Create an Authenticator
 
-	Creates an authenticator
+		Creates an authenticator
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateAuthenticatorRequest
 	*/
 	CreateAuthenticator(ctx context.Context) ApiCreateAuthenticatorRequest
 
 	// CreateAuthenticatorExecute executes the request
 	//  @return Authenticator
-	// TODU
 	CreateAuthenticatorExecute(r ApiCreateAuthenticatorRequest) (*APIResponse, error)
 
 	/*
-	DeactivateAuthenticator Deactivate an Authenticator
+		DeactivateAuthenticator Deactivate an Authenticator
 
-	Deactivates an authenticator by `authenticatorId`
+		Deactivates an authenticator by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiDeactivateAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@return ApiDeactivateAuthenticatorRequest
 	*/
 	DeactivateAuthenticator(ctx context.Context, authenticatorId string) ApiDeactivateAuthenticatorRequest
 
 	// DeactivateAuthenticatorExecute executes the request
 	//  @return Authenticator
-	// TODU
 	DeactivateAuthenticatorExecute(r ApiDeactivateAuthenticatorRequest) (*APIResponse, error)
 
 	/*
-	DeactivateAuthenticatorMethod Deactivate an Authenticator Method
+		DeactivateAuthenticatorMethod Deactivate an Authenticator Method
 
-	Deactivates a Method for an Authenticator identified by `authenticatorId` and `methodType`
+		Deactivates a Method for an Authenticator identified by `authenticatorId` and `methodType`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@param methodType Type of the authenticator method
-	@return ApiDeactivateAuthenticatorMethodRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@param methodType Type of the authenticator method
+		@return ApiDeactivateAuthenticatorMethodRequest
 	*/
 	DeactivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiDeactivateAuthenticatorMethodRequest
 
 	// DeactivateAuthenticatorMethodExecute executes the request
 	//  @return ListAuthenticatorMethods200ResponseInner
-	// TODU
 	DeactivateAuthenticatorMethodExecute(r ApiDeactivateAuthenticatorMethodRequest) (*APIResponse, error)
 
 	/*
-	GetAuthenticator Retrieve an Authenticator
+		GetAuthenticator Retrieve an Authenticator
 
-	Retrieves an authenticator from your Okta organization by `authenticatorId`
+		Retrieves an authenticator from your Okta organization by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiGetAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@return ApiGetAuthenticatorRequest
 	*/
 	GetAuthenticator(ctx context.Context, authenticatorId string) ApiGetAuthenticatorRequest
 
 	// GetAuthenticatorExecute executes the request
 	//  @return Authenticator
-	// TODU
 	GetAuthenticatorExecute(r ApiGetAuthenticatorRequest) (*APIResponse, error)
 
 	/*
-	GetAuthenticatorMethod Retrieve a Method
+		GetAuthenticatorMethod Retrieve a Method
 
-	Retrieves a Method identified by `methodType` of an Authenticator identified by `authenticatorId`
+		Retrieves a Method identified by `methodType` of an Authenticator identified by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@param methodType Type of the authenticator method
-	@return ApiGetAuthenticatorMethodRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@param methodType Type of the authenticator method
+		@return ApiGetAuthenticatorMethodRequest
 	*/
 	GetAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiGetAuthenticatorMethodRequest
 
 	// GetAuthenticatorMethodExecute executes the request
 	//  @return ListAuthenticatorMethods200ResponseInner
-	// TODU
 	GetAuthenticatorMethodExecute(r ApiGetAuthenticatorMethodRequest) (*APIResponse, error)
 
 	/*
-	GetWellKnownAppAuthenticatorConfiguration Retrieve the Well-Known App Authenticator Configuration
+		GetWellKnownAppAuthenticatorConfiguration Retrieve the Well-Known App Authenticator Configuration
 
-	Retrieves the well-known app authenticator configuration, which includes an app authenticator's settings, supported methods and various other configuration details
+		Retrieves the well-known app authenticator configuration, which includes an app authenticator's settings, supported methods and various other configuration details
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetWellKnownAppAuthenticatorConfigurationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetWellKnownAppAuthenticatorConfigurationRequest
 	*/
 	GetWellKnownAppAuthenticatorConfiguration(ctx context.Context) ApiGetWellKnownAppAuthenticatorConfigurationRequest
 
 	// GetWellKnownAppAuthenticatorConfigurationExecute executes the request
 	//  @return []WellKnownAppAuthenticatorConfiguration
-	// TODU
 	GetWellKnownAppAuthenticatorConfigurationExecute(r ApiGetWellKnownAppAuthenticatorConfigurationRequest) (*APIResponse, error)
 
 	/*
-	ListAuthenticatorMethods List all Methods of an Authenticator
+		ListAuthenticatorMethods List all Methods of an Authenticator
 
-	Lists all Methods of an Authenticator identified by `authenticatorId`
+		Lists all Methods of an Authenticator identified by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiListAuthenticatorMethodsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@return ApiListAuthenticatorMethodsRequest
 	*/
 	ListAuthenticatorMethods(ctx context.Context, authenticatorId string) ApiListAuthenticatorMethodsRequest
 
 	// ListAuthenticatorMethodsExecute executes the request
 	//  @return []ListAuthenticatorMethods200ResponseInner
-	// TODU
 	ListAuthenticatorMethodsExecute(r ApiListAuthenticatorMethodsRequest) (*APIResponse, error)
 
 	/*
-	ListAuthenticatorPolicyMappings List all Policies mapped to this Authenticator
+		ListAuthenticators List all Authenticators
 
-	Lists all Policies mapped to this Authenticator
+		Lists all authenticators
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiListAuthenticatorPolicyMappingsRequest
-	*/
-	ListAuthenticatorPolicyMappings(ctx context.Context, authenticatorId string) ApiListAuthenticatorPolicyMappingsRequest
-
-	// ListAuthenticatorPolicyMappingsExecute executes the request
-	//  @return []PolicyMapping
-	// TODU
-	ListAuthenticatorPolicyMappingsExecute(r ApiListAuthenticatorPolicyMappingsRequest) (*APIResponse, error)
-
-	/*
-	ListAuthenticators List all Authenticators
-
-	Lists all authenticators
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAuthenticatorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListAuthenticatorsRequest
 	*/
 	ListAuthenticators(ctx context.Context) ApiListAuthenticatorsRequest
 
 	// ListAuthenticatorsExecute executes the request
 	//  @return []Authenticator
-	// TODU
 	ListAuthenticatorsExecute(r ApiListAuthenticatorsRequest) (*APIResponse, error)
 
 	/*
-	MapAuthenticatorPolicyMapping Map an Authenticator to a Policy
+		ReplaceAuthenticator Replace an Authenticator
 
-	Maps an Authenticator to a Policy
+		Replaces the properties for an Authenticator identified by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiMapAuthenticatorPolicyMappingRequest
-	*/
-	MapAuthenticatorPolicyMapping(ctx context.Context, authenticatorId string) ApiMapAuthenticatorPolicyMappingRequest
-
-	// MapAuthenticatorPolicyMappingExecute executes the request
-	//  @return PolicyMapping
-	// TODU
-	MapAuthenticatorPolicyMappingExecute(r ApiMapAuthenticatorPolicyMappingRequest) (*APIResponse, error)
-
-	/*
-	ReplaceAuthenticator Replace an Authenticator
-
-	Replaces the properties for an Authenticator identified by `authenticatorId`
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@return ApiReplaceAuthenticatorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@return ApiReplaceAuthenticatorRequest
 	*/
 	ReplaceAuthenticator(ctx context.Context, authenticatorId string) ApiReplaceAuthenticatorRequest
 
 	// ReplaceAuthenticatorExecute executes the request
 	//  @return Authenticator
-	// TODU
 	ReplaceAuthenticatorExecute(r ApiReplaceAuthenticatorRequest) (*APIResponse, error)
 
 	/*
-	ReplaceAuthenticatorMethod Replace a Method
+		ReplaceAuthenticatorMethod Replace a Method
 
-	Replaces a Method of `methodType` for an Authenticator identified by `authenticatorId`
+		Replaces a Method of `methodType` for an Authenticator identified by `authenticatorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@param methodType Type of the authenticator method
-	@return ApiReplaceAuthenticatorMethodRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authenticatorId `id` of the Authenticator
+		@param methodType Type of the authenticator method
+		@return ApiReplaceAuthenticatorMethodRequest
 	*/
 	ReplaceAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiReplaceAuthenticatorMethodRequest
 
 	// ReplaceAuthenticatorMethodExecute executes the request
 	//  @return ListAuthenticatorMethods200ResponseInner
-	// TODU
 	ReplaceAuthenticatorMethodExecute(r ApiReplaceAuthenticatorMethodRequest) (*APIResponse, error)
-
-	/*
-	UnmapAuthenticatorPolicyMapping Unmap an Authenticator from a Policy
-
-	Unmaps an Authenticator from a Policy
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authenticatorId `id` of the Authenticator
-	@param mappingId `id` of the policy resource Mapping
-	@return ApiUnmapAuthenticatorPolicyMappingRequest
-	*/
-	UnmapAuthenticatorPolicyMapping(ctx context.Context, authenticatorId string, mappingId string) ApiUnmapAuthenticatorPolicyMappingRequest
-
-	// UnmapAuthenticatorPolicyMappingExecute executes the request
-	// TODU
-	UnmapAuthenticatorPolicyMappingExecute(r ApiUnmapAuthenticatorPolicyMappingRequest) (*APIResponse, error)
 }
 
 // AuthenticatorAPIService AuthenticatorAPI service
 type AuthenticatorAPIService service
 
 type ApiActivateAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiActivateAuthenticatorRequest) Data (data interface{}) ApiActivateAuthenticatorRequest {
+func (r ApiActivateAuthenticatorRequest) Data(data interface{}) ApiActivateAuthenticatorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateAuthenticatorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateAuthenticatorExecute(r)
 }
@@ -299,14 +234,13 @@ Activates an authenticator by `authenticatorId`
  @param authenticatorId `id` of the Authenticator
  @return ApiActivateAuthenticatorRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) ActivateAuthenticator(ctx context.Context, authenticatorId string) ApiActivateAuthenticatorRequest {
 	return ApiActivateAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -318,10 +252,9 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -331,7 +264,6 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.ActivateAuthenticator")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -359,7 +291,6 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -376,13 +307,11 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -391,7 +320,6 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -406,12 +334,10 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -420,12 +346,10 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -434,13 +358,11 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -449,23 +371,19 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuth
 }
 
 type ApiActivateAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	methodType string
-	// TODU
-	data       interface{}
-	retryCount int32
+	methodType      string
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiActivateAuthenticatorMethodRequest) Data (data interface{}) ApiActivateAuthenticatorMethodRequest {
+func (r ApiActivateAuthenticatorMethodRequest) Data(data interface{}) ApiActivateAuthenticatorMethodRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateAuthenticatorMethodRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateAuthenticatorMethodExecute(r)
 }
@@ -480,15 +398,14 @@ Activates a Method for an Authenticator identified by `authenticatorId` and `met
  @param methodType Type of the authenticator method
  @return ApiActivateAuthenticatorMethodRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) ActivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiActivateAuthenticatorMethodRequest {
 	return ApiActivateAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
@@ -500,10 +417,9 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -513,7 +429,6 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.ActivateAuthenticatorMethod")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -542,7 +457,6 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -559,13 +473,11 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -574,7 +486,6 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -589,12 +500,10 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -603,12 +512,10 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -617,13 +524,11 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -632,13 +537,12 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 }
 
 type ApiCreateAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx           context.Context
+	ApiService    AuthenticatorAPI
 	authenticator *Authenticator
-	activate *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	activate      *bool
+	data          interface{}
+	retryCount    int32
 }
 
 func (r ApiCreateAuthenticatorRequest) Authenticator(authenticator Authenticator) ApiCreateAuthenticatorRequest {
@@ -652,14 +556,11 @@ func (r ApiCreateAuthenticatorRequest) Activate(activate bool) ApiCreateAuthenti
 	return r
 }
 
-
-// TODU
-func (r ApiCreateAuthenticatorRequest) Data (data interface{}) ApiCreateAuthenticatorRequest {
+func (r ApiCreateAuthenticatorRequest) Data(data interface{}) ApiCreateAuthenticatorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateAuthenticatorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateAuthenticatorExecute(r)
 }
@@ -672,12 +573,11 @@ Creates an authenticator
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateAuthenticatorRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) CreateAuthenticator(ctx context.Context) ApiCreateAuthenticatorRequest {
 	return ApiCreateAuthenticatorRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -690,10 +590,9 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -703,7 +602,6 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.CreateAuthenticator")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -733,7 +631,6 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.authenticator
 	localVarPostBody = r.data
@@ -753,13 +650,11 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -768,7 +663,6 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -783,12 +677,10 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -797,12 +689,10 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -811,13 +701,11 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -826,22 +714,18 @@ func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenti
 }
 
 type ApiDeactivateAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiDeactivateAuthenticatorRequest) Data (data interface{}) ApiDeactivateAuthenticatorRequest {
+func (r ApiDeactivateAuthenticatorRequest) Data(data interface{}) ApiDeactivateAuthenticatorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateAuthenticatorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateAuthenticatorExecute(r)
 }
@@ -855,14 +739,13 @@ Deactivates an authenticator by `authenticatorId`
  @param authenticatorId `id` of the Authenticator
  @return ApiDeactivateAuthenticatorRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) DeactivateAuthenticator(ctx context.Context, authenticatorId string) ApiDeactivateAuthenticatorRequest {
 	return ApiDeactivateAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -874,10 +757,9 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -887,7 +769,6 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.DeactivateAuthenticator")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -915,7 +796,6 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -932,13 +812,11 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -947,7 +825,6 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -962,12 +839,10 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -976,12 +851,10 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -990,13 +863,11 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1005,23 +876,19 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivate
 }
 
 type ApiDeactivateAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	methodType string
-	// TODU
-	data       interface{}
-	retryCount int32
+	methodType      string
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiDeactivateAuthenticatorMethodRequest) Data (data interface{}) ApiDeactivateAuthenticatorMethodRequest {
+func (r ApiDeactivateAuthenticatorMethodRequest) Data(data interface{}) ApiDeactivateAuthenticatorMethodRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateAuthenticatorMethodRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateAuthenticatorMethodExecute(r)
 }
@@ -1036,15 +903,14 @@ Deactivates a Method for an Authenticator identified by `authenticatorId` and `m
  @param methodType Type of the authenticator method
  @return ApiDeactivateAuthenticatorMethodRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiDeactivateAuthenticatorMethodRequest {
 	return ApiDeactivateAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
@@ -1056,10 +922,9 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1069,7 +934,6 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.DeactivateAuthenticatorMethod")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1098,7 +962,6 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1115,13 +978,11 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1130,7 +991,6 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1145,12 +1005,10 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1159,12 +1017,10 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1173,13 +1029,11 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1188,13 +1042,12 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticatorMethodExecute(r ApiDeac
 }
 
 type ApiGetAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	expand *[]string
-	// TODU
-	data       interface{}
-	retryCount int32
+	expand          *[]string
+	data            interface{}
+	retryCount      int32
 }
 
 // Specifies additional metadata for the response
@@ -1203,14 +1056,11 @@ func (r ApiGetAuthenticatorRequest) Expand(expand []string) ApiGetAuthenticatorR
 	return r
 }
 
-
-// TODU
-func (r ApiGetAuthenticatorRequest) Data (data interface{}) ApiGetAuthenticatorRequest {
+func (r ApiGetAuthenticatorRequest) Data(data interface{}) ApiGetAuthenticatorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetAuthenticatorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetAuthenticatorExecute(r)
 }
@@ -1224,14 +1074,13 @@ Retrieves an authenticator from your Okta organization by `authenticatorId`
  @param authenticatorId `id` of the Authenticator
  @return ApiGetAuthenticatorRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) GetAuthenticator(ctx context.Context, authenticatorId string) ApiGetAuthenticatorRequest {
 	return ApiGetAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -1243,10 +1092,9 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1256,7 +1104,6 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.GetAuthenticator")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1287,7 +1134,6 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1304,13 +1150,11 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1319,7 +1163,6 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1334,12 +1177,10 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1348,12 +1189,10 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1362,13 +1201,11 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1377,23 +1214,19 @@ func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorR
 }
 
 type ApiGetAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	methodType string
-	// TODU
-	data       interface{}
-	retryCount int32
+	methodType      string
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiGetAuthenticatorMethodRequest) Data (data interface{}) ApiGetAuthenticatorMethodRequest {
+func (r ApiGetAuthenticatorMethodRequest) Data(data interface{}) ApiGetAuthenticatorMethodRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetAuthenticatorMethodRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetAuthenticatorMethodExecute(r)
 }
@@ -1408,15 +1241,14 @@ Retrieves a Method identified by `methodType` of an Authenticator identified by 
  @param methodType Type of the authenticator method
  @return ApiGetAuthenticatorMethodRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) GetAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiGetAuthenticatorMethodRequest {
 	return ApiGetAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
@@ -1428,10 +1260,9 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1441,7 +1272,6 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.GetAuthenticatorMethod")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1470,7 +1300,6 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1487,13 +1316,11 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1502,7 +1329,6 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1517,12 +1343,10 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1531,12 +1355,10 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1545,13 +1367,11 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1560,12 +1380,11 @@ func (a *AuthenticatorAPIService) GetAuthenticatorMethodExecute(r ApiGetAuthenti
 }
 
 type ApiGetWellKnownAppAuthenticatorConfigurationRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx           context.Context
+	ApiService    AuthenticatorAPI
 	oauthClientId *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
 // Filters app authenticator configurations by &#x60;oauthClientId&#x60;
@@ -1574,14 +1393,11 @@ func (r ApiGetWellKnownAppAuthenticatorConfigurationRequest) OauthClientId(oauth
 	return r
 }
 
-
-// TODU
-func (r ApiGetWellKnownAppAuthenticatorConfigurationRequest) Data (data interface{}) ApiGetWellKnownAppAuthenticatorConfigurationRequest {
+func (r ApiGetWellKnownAppAuthenticatorConfigurationRequest) Data(data interface{}) ApiGetWellKnownAppAuthenticatorConfigurationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetWellKnownAppAuthenticatorConfigurationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetWellKnownAppAuthenticatorConfigurationExecute(r)
 }
@@ -1594,12 +1410,11 @@ Retrieves the well-known app authenticator configuration, which includes an app 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetWellKnownAppAuthenticatorConfigurationRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfiguration(ctx context.Context) ApiGetWellKnownAppAuthenticatorConfigurationRequest {
 	return ApiGetWellKnownAppAuthenticatorConfigurationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1612,10 +1427,9 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1625,7 +1439,6 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.GetWellKnownAppAuthenticatorConfiguration")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1653,16 +1466,13 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1671,7 +1481,6 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1686,12 +1495,10 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1700,13 +1507,11 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1715,22 +1520,18 @@ func (a *AuthenticatorAPIService) GetWellKnownAppAuthenticatorConfigurationExecu
 }
 
 type ApiListAuthenticatorMethodsRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiListAuthenticatorMethodsRequest) Data (data interface{}) ApiListAuthenticatorMethodsRequest {
+func (r ApiListAuthenticatorMethodsRequest) Data(data interface{}) ApiListAuthenticatorMethodsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListAuthenticatorMethodsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListAuthenticatorMethodsExecute(r)
 }
@@ -1744,14 +1545,13 @@ Lists all Methods of an Authenticator identified by `authenticatorId`
  @param authenticatorId `id` of the Authenticator
  @return ApiListAuthenticatorMethodsRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) ListAuthenticatorMethods(ctx context.Context, authenticatorId string) ApiListAuthenticatorMethodsRequest {
 	return ApiListAuthenticatorMethodsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -1763,10 +1563,9 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1776,7 +1575,6 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.ListAuthenticatorMethods")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1804,7 +1602,6 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1821,13 +1618,11 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1836,7 +1631,6 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1851,12 +1645,10 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1865,12 +1657,10 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1879,192 +1669,11 @@ func (a *AuthenticatorAPIService) ListAuthenticatorMethodsExecute(r ApiListAuthe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, newErr
-	}
-
-	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-	return localAPIResponse, nil
-}
-
-type ApiListAuthenticatorPolicyMappingsRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
-	authenticatorId string
-	// TODU
-	data       interface{}
-	retryCount int32
-}
-
-
-// TODU
-func (r ApiListAuthenticatorPolicyMappingsRequest) Data (data interface{}) ApiListAuthenticatorPolicyMappingsRequest {
-	r.data = data
-	return r
-}
-
-// TODU
-func (r ApiListAuthenticatorPolicyMappingsRequest) Execute() (*APIResponse, error) {
-	return r.ApiService.ListAuthenticatorPolicyMappingsExecute(r)
-}
-
-/*
-ListAuthenticatorPolicyMappings List all Policies mapped to this Authenticator
-
-Lists all Policies mapped to this Authenticator
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @return ApiListAuthenticatorPolicyMappingsRequest
-*/
-// TODU
-
-func (a *AuthenticatorAPIService) ListAuthenticatorPolicyMappings(ctx context.Context, authenticatorId string) ApiListAuthenticatorPolicyMappingsRequest {
-	return ApiListAuthenticatorPolicyMappingsRequest{
-		ApiService: a,
-		ctx: ctx,
-		authenticatorId: authenticatorId,
-		retryCount: 0,
-	}
-}
-
-// Execute executes the request
-//  @return []PolicyMapping
-
-func (a *AuthenticatorAPIService) ListAuthenticatorPolicyMappingsExecute(r ApiListAuthenticatorPolicyMappingsRequest) (*APIResponse, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		// TODU
-		localVarHTTPResponse *http.Response
-		localAPIResponse     *APIResponse
-		err 				 error
-	)
-
-	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
-		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
-		r.ctx = localctx
-		defer cancel()
-	}
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.ListAuthenticatorPolicyMappings")
-	if err != nil {
-		// TODU
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/authenticators/{authenticatorId}/policies"
-	localVarPath = strings.Replace(localVarPath, "{"+"authenticatorId"+"}", url.PathEscape(parameterToString(r.authenticatorId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-// TODU
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["apiToken"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		// TODU
-		return nil, err
-	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-		}
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2073,10 +1682,9 @@ func (a *AuthenticatorAPIService) ListAuthenticatorPolicyMappingsExecute(r ApiLi
 }
 
 type ApiListAuthenticatorsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AuthenticatorAPI
-	expand *[]string
-	// TODU
+	expand     *[]string
 	data       interface{}
 	retryCount int32
 }
@@ -2087,14 +1695,11 @@ func (r ApiListAuthenticatorsRequest) Expand(expand []string) ApiListAuthenticat
 	return r
 }
 
-
-// TODU
-func (r ApiListAuthenticatorsRequest) Data (data interface{}) ApiListAuthenticatorsRequest {
+func (r ApiListAuthenticatorsRequest) Data(data interface{}) ApiListAuthenticatorsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListAuthenticatorsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListAuthenticatorsExecute(r)
 }
@@ -2107,12 +1712,11 @@ Lists all authenticators
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListAuthenticatorsRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) ListAuthenticators(ctx context.Context) ApiListAuthenticatorsRequest {
 	return ApiListAuthenticatorsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -2125,10 +1729,9 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2138,7 +1741,6 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.ListAuthenticators")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2168,7 +1770,6 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2185,13 +1786,11 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2200,7 +1799,6 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2215,12 +1813,10 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2229,201 +1825,11 @@ func (a *AuthenticatorAPIService) ListAuthenticatorsExecute(r ApiListAuthenticat
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, newErr
-	}
-
-	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-	return localAPIResponse, nil
-}
-
-type ApiMapAuthenticatorPolicyMappingRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
-	authenticatorId string
-	mapAuthenticatorPolicyMappingRequest *MapAuthenticatorPolicyMappingRequest
-	// TODU
-	data       interface{}
-	retryCount int32
-}
-
-func (r ApiMapAuthenticatorPolicyMappingRequest) MapAuthenticatorPolicyMappingRequest(mapAuthenticatorPolicyMappingRequest MapAuthenticatorPolicyMappingRequest) ApiMapAuthenticatorPolicyMappingRequest {
-	r.mapAuthenticatorPolicyMappingRequest = &mapAuthenticatorPolicyMappingRequest
-	return r
-}
-
-
-// TODU
-func (r ApiMapAuthenticatorPolicyMappingRequest) Data (data interface{}) ApiMapAuthenticatorPolicyMappingRequest {
-	r.data = data
-	return r
-}
-
-// TODU
-func (r ApiMapAuthenticatorPolicyMappingRequest) Execute() (*APIResponse, error) {
-	return r.ApiService.MapAuthenticatorPolicyMappingExecute(r)
-}
-
-/*
-MapAuthenticatorPolicyMapping Map an Authenticator to a Policy
-
-Maps an Authenticator to a Policy
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @return ApiMapAuthenticatorPolicyMappingRequest
-*/
-// TODU
-
-func (a *AuthenticatorAPIService) MapAuthenticatorPolicyMapping(ctx context.Context, authenticatorId string) ApiMapAuthenticatorPolicyMappingRequest {
-	return ApiMapAuthenticatorPolicyMappingRequest{
-		ApiService: a,
-		ctx: ctx,
-		authenticatorId: authenticatorId,
-		retryCount: 0,
-	}
-}
-
-// Execute executes the request
-//  @return PolicyMapping
-
-func (a *AuthenticatorAPIService) MapAuthenticatorPolicyMappingExecute(r ApiMapAuthenticatorPolicyMappingRequest) (*APIResponse, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		// TODU
-		localVarHTTPResponse *http.Response
-		localAPIResponse     *APIResponse
-		err 				 error
-	)
-
-	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
-		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
-		r.ctx = localctx
-		defer cancel()
-	}
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.MapAuthenticatorPolicyMapping")
-	if err != nil {
-		// TODU
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/authenticators/{authenticatorId}/policies"
-	localVarPath = strings.Replace(localVarPath, "{"+"authenticatorId"+"}", url.PathEscape(parameterToString(r.authenticatorId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-// TODU
-	// body params
-	// localVarPostBody = r.mapAuthenticatorPolicyMappingRequest
-	localVarPostBody = r.data
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["apiToken"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		// TODU
-		return nil, err
-	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-		}
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2432,13 +1838,12 @@ func (a *AuthenticatorAPIService) MapAuthenticatorPolicyMappingExecute(r ApiMapA
 }
 
 type ApiReplaceAuthenticatorRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
+	ctx             context.Context
+	ApiService      AuthenticatorAPI
 	authenticatorId string
-	authenticator *Authenticator
-	// TODU
-	data       interface{}
-	retryCount int32
+	authenticator   *Authenticator
+	data            interface{}
+	retryCount      int32
 }
 
 func (r ApiReplaceAuthenticatorRequest) Authenticator(authenticator Authenticator) ApiReplaceAuthenticatorRequest {
@@ -2446,14 +1851,11 @@ func (r ApiReplaceAuthenticatorRequest) Authenticator(authenticator Authenticato
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceAuthenticatorRequest) Data (data interface{}) ApiReplaceAuthenticatorRequest {
+func (r ApiReplaceAuthenticatorRequest) Data(data interface{}) ApiReplaceAuthenticatorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceAuthenticatorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceAuthenticatorExecute(r)
 }
@@ -2467,14 +1869,13 @@ Replaces the properties for an Authenticator identified by `authenticatorId`
  @param authenticatorId `id` of the Authenticator
  @return ApiReplaceAuthenticatorRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) ReplaceAuthenticator(ctx context.Context, authenticatorId string) ApiReplaceAuthenticatorRequest {
 	return ApiReplaceAuthenticatorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -2486,10 +1887,9 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2499,7 +1899,6 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.ReplaceAuthenticator")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2527,7 +1926,6 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.authenticator
 	localVarPostBody = r.data
@@ -2547,13 +1945,11 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2562,7 +1958,6 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2577,12 +1972,10 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2591,12 +1984,10 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2605,12 +1996,10 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2619,13 +2008,11 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2634,14 +2021,13 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthen
 }
 
 type ApiReplaceAuthenticatorMethodRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
-	authenticatorId string
-	methodType string
+	ctx                                      context.Context
+	ApiService                               AuthenticatorAPI
+	authenticatorId                          string
+	methodType                               string
 	listAuthenticatorMethods200ResponseInner *ListAuthenticatorMethods200ResponseInner
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                                     interface{}
+	retryCount                               int32
 }
 
 func (r ApiReplaceAuthenticatorMethodRequest) ListAuthenticatorMethods200ResponseInner(listAuthenticatorMethods200ResponseInner ListAuthenticatorMethods200ResponseInner) ApiReplaceAuthenticatorMethodRequest {
@@ -2649,14 +2035,11 @@ func (r ApiReplaceAuthenticatorMethodRequest) ListAuthenticatorMethods200Respons
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceAuthenticatorMethodRequest) Data (data interface{}) ApiReplaceAuthenticatorMethodRequest {
+func (r ApiReplaceAuthenticatorMethodRequest) Data(data interface{}) ApiReplaceAuthenticatorMethodRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceAuthenticatorMethodRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceAuthenticatorMethodExecute(r)
 }
@@ -2671,15 +2054,14 @@ Replaces a Method of `methodType` for an Authenticator identified by `authentica
  @param methodType Type of the authenticator method
  @return ApiReplaceAuthenticatorMethodRequest
 */
-// TODU
 
 func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethod(ctx context.Context, authenticatorId string, methodType string) ApiReplaceAuthenticatorMethodRequest {
 	return ApiReplaceAuthenticatorMethodRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		authenticatorId: authenticatorId,
-		methodType: methodType,
-		retryCount: 0,
+		methodType:      methodType,
+		retryCount:      0,
 	}
 }
 
@@ -2691,10 +2073,9 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2704,7 +2085,6 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.ReplaceAuthenticatorMethod")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2733,7 +2113,6 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.listAuthenticatorMethods200ResponseInner
 	localVarPostBody = r.data
@@ -2753,13 +2132,11 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2768,7 +2145,6 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2783,12 +2159,10 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2797,12 +2171,10 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2811,12 +2183,10 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2825,194 +2195,11 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticatorMethodExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, newErr
-	}
-
-	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-	return localAPIResponse, nil
-}
-
-type ApiUnmapAuthenticatorPolicyMappingRequest struct {
-	ctx context.Context
-	ApiService AuthenticatorAPI
-	authenticatorId string
-	mappingId string
-	// TODU
-	data       interface{}
-	retryCount int32
-}
-
-
-// TODU
-func (r ApiUnmapAuthenticatorPolicyMappingRequest) Data (data interface{}) ApiUnmapAuthenticatorPolicyMappingRequest {
-	r.data = data
-	return r
-}
-
-// TODU
-func (r ApiUnmapAuthenticatorPolicyMappingRequest) Execute() (*APIResponse, error) {
-	return r.ApiService.UnmapAuthenticatorPolicyMappingExecute(r)
-}
-
-/*
-UnmapAuthenticatorPolicyMapping Unmap an Authenticator from a Policy
-
-Unmaps an Authenticator from a Policy
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param authenticatorId `id` of the Authenticator
- @param mappingId `id` of the policy resource Mapping
- @return ApiUnmapAuthenticatorPolicyMappingRequest
-*/
-// TODU
-
-func (a *AuthenticatorAPIService) UnmapAuthenticatorPolicyMapping(ctx context.Context, authenticatorId string, mappingId string) ApiUnmapAuthenticatorPolicyMappingRequest {
-	return ApiUnmapAuthenticatorPolicyMappingRequest{
-		ApiService: a,
-		ctx: ctx,
-		authenticatorId: authenticatorId,
-		mappingId: mappingId,
-		retryCount: 0,
-	}
-}
-
-// Execute executes the request
-
-func (a *AuthenticatorAPIService) UnmapAuthenticatorPolicyMappingExecute(r ApiUnmapAuthenticatorPolicyMappingRequest) (*APIResponse, error) {
-	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarHTTPResponse *http.Response
-		localAPIResponse     *APIResponse
-		err 				 error
-	)
-
-	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
-		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
-		r.ctx = localctx
-		defer cancel()
-	}
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthenticatorAPIService.UnmapAuthenticatorPolicyMapping")
-	if err != nil {
-		// TODU
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/authenticators/{authenticatorId}/policies/{mappingId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"authenticatorId"+"}", url.PathEscape(parameterToString(r.authenticatorId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"mappingId"+"}", url.PathEscape(parameterToString(r.mappingId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-// TODU
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["apiToken"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		// TODU
-		return nil, err
-	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-		}
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

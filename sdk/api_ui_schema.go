@@ -17,88 +17,82 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UISchemaAPI interface {
 
 	/*
-	CreateUISchema Create a UI Schema
+		CreateUISchema Create a UI Schema
 
-	Creates an input for an enrollment form
+		Creates an input for an enrollment form
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateUISchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateUISchemaRequest
 	*/
 	CreateUISchema(ctx context.Context) ApiCreateUISchemaRequest
 
 	// CreateUISchemaExecute executes the request
 	//  @return UISchemasResponseObject
-	// TODU
 	CreateUISchemaExecute(r ApiCreateUISchemaRequest) (*APIResponse, error)
 
 	/*
-	DeleteUISchemas Delete a UI Schema
+		DeleteUISchemas Delete a UI Schema
 
-	Deletes a UI Schema by `id`
+		Deletes a UI Schema by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The unique ID of the UI Schema
-	@return ApiDeleteUISchemasRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id The unique ID of the UI Schema
+		@return ApiDeleteUISchemasRequest
 	*/
 	DeleteUISchemas(ctx context.Context, id string) ApiDeleteUISchemasRequest
 
 	// DeleteUISchemasExecute executes the request
-	// TODU
 	DeleteUISchemasExecute(r ApiDeleteUISchemasRequest) (*APIResponse, error)
 
 	/*
-	GetUISchema Retrieve a UI Schema
+		GetUISchema Retrieve a UI Schema
 
-	Retrieves a UI Schema by `id`
+		Retrieves a UI Schema by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The unique ID of the UI Schema
-	@return ApiGetUISchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id The unique ID of the UI Schema
+		@return ApiGetUISchemaRequest
 	*/
 	GetUISchema(ctx context.Context, id string) ApiGetUISchemaRequest
 
 	// GetUISchemaExecute executes the request
 	//  @return UISchemasResponseObject
-	// TODU
 	GetUISchemaExecute(r ApiGetUISchemaRequest) (*APIResponse, error)
 
 	/*
-	ListUISchemas List all UI Schemas
+		ListUISchemas List all UI Schemas
 
-	Lists all UI Schemas in your org
+		Lists all UI Schemas in your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListUISchemasRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListUISchemasRequest
 	*/
 	ListUISchemas(ctx context.Context) ApiListUISchemasRequest
 
 	// ListUISchemasExecute executes the request
 	//  @return []UISchemasResponseObject
-	// TODU
 	ListUISchemasExecute(r ApiListUISchemasRequest) (*APIResponse, error)
 
 	/*
-	ReplaceUISchemas Replace a UI Schema
+		ReplaceUISchemas Replace a UI Schema
 
-	Replaces a UI Schema by `id`
+		Replaces a UI Schema by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The unique ID of the UI Schema
-	@return ApiReplaceUISchemasRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id The unique ID of the UI Schema
+		@return ApiReplaceUISchemasRequest
 	*/
 	ReplaceUISchemas(ctx context.Context, id string) ApiReplaceUISchemasRequest
 
 	// ReplaceUISchemasExecute executes the request
 	//  @return UISchemasResponseObject
-	// TODU
 	ReplaceUISchemasExecute(r ApiReplaceUISchemasRequest) (*APIResponse, error)
 }
 
@@ -106,12 +100,11 @@ type UISchemaAPI interface {
 type UISchemaAPIService service
 
 type ApiCreateUISchemaRequest struct {
-	ctx context.Context
-	ApiService UISchemaAPI
+	ctx          context.Context
+	ApiService   UISchemaAPI
 	uischemabody *CreateUISchema
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiCreateUISchemaRequest) Uischemabody(uischemabody CreateUISchema) ApiCreateUISchemaRequest {
@@ -119,14 +112,11 @@ func (r ApiCreateUISchemaRequest) Uischemabody(uischemabody CreateUISchema) ApiC
 	return r
 }
 
-
-// TODU
-func (r ApiCreateUISchemaRequest) Data (data interface{}) ApiCreateUISchemaRequest {
+func (r ApiCreateUISchemaRequest) Data(data interface{}) ApiCreateUISchemaRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateUISchemaRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateUISchemaExecute(r)
 }
@@ -139,12 +129,11 @@ Creates an input for an enrollment form
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateUISchemaRequest
 */
-// TODU
 
 func (a *UISchemaAPIService) CreateUISchema(ctx context.Context) ApiCreateUISchemaRequest {
 	return ApiCreateUISchemaRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -157,10 +146,9 @@ func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -170,7 +158,6 @@ func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UISchemaAPIService.CreateUISchema")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -197,7 +184,6 @@ func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.uischemabody
 	localVarPostBody = r.data
@@ -217,13 +203,11 @@ func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -232,7 +216,6 @@ func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -247,12 +230,10 @@ func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -261,12 +242,10 @@ func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -275,13 +254,11 @@ func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -290,22 +267,18 @@ func (a *UISchemaAPIService) CreateUISchemaExecute(r ApiCreateUISchemaRequest) (
 }
 
 type ApiDeleteUISchemasRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UISchemaAPI
-	id string
-	// TODU
+	id         string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteUISchemasRequest) Data (data interface{}) ApiDeleteUISchemasRequest {
+func (r ApiDeleteUISchemasRequest) Data(data interface{}) ApiDeleteUISchemasRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteUISchemasRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteUISchemasExecute(r)
 }
@@ -319,13 +292,12 @@ Deletes a UI Schema by `id`
  @param id The unique ID of the UI Schema
  @return ApiDeleteUISchemasRequest
 */
-// TODU
 
 func (a *UISchemaAPIService) DeleteUISchemas(ctx context.Context, id string) ApiDeleteUISchemasRequest {
 	return ApiDeleteUISchemasRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -339,7 +311,7 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -349,7 +321,6 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UISchemaAPIService.DeleteUISchemas")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -377,7 +348,6 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -394,13 +364,11 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -409,7 +377,6 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -424,12 +391,10 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -438,12 +403,10 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -452,12 +415,10 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -466,13 +427,11 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -481,22 +440,18 @@ func (a *UISchemaAPIService) DeleteUISchemasExecute(r ApiDeleteUISchemasRequest)
 }
 
 type ApiGetUISchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UISchemaAPI
-	id string
-	// TODU
+	id         string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetUISchemaRequest) Data (data interface{}) ApiGetUISchemaRequest {
+func (r ApiGetUISchemaRequest) Data(data interface{}) ApiGetUISchemaRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetUISchemaRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetUISchemaExecute(r)
 }
@@ -510,13 +465,12 @@ Retrieves a UI Schema by `id`
  @param id The unique ID of the UI Schema
  @return ApiGetUISchemaRequest
 */
-// TODU
 
 func (a *UISchemaAPIService) GetUISchema(ctx context.Context, id string) ApiGetUISchemaRequest {
 	return ApiGetUISchemaRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -529,10 +483,9 @@ func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*APIRe
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -542,7 +495,6 @@ func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*APIRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UISchemaAPIService.GetUISchema")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -570,7 +522,6 @@ func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*APIRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -587,13 +538,11 @@ func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*APIRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -602,7 +551,6 @@ func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*APIRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -617,12 +565,10 @@ func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -631,12 +577,10 @@ func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -645,13 +589,11 @@ func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -660,21 +602,17 @@ func (a *UISchemaAPIService) GetUISchemaExecute(r ApiGetUISchemaRequest) (*APIRe
 }
 
 type ApiListUISchemasRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UISchemaAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListUISchemasRequest) Data (data interface{}) ApiListUISchemasRequest {
+func (r ApiListUISchemasRequest) Data(data interface{}) ApiListUISchemasRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListUISchemasRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListUISchemasExecute(r)
 }
@@ -687,12 +625,11 @@ Lists all UI Schemas in your org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListUISchemasRequest
 */
-// TODU
 
 func (a *UISchemaAPIService) ListUISchemas(ctx context.Context) ApiListUISchemasRequest {
 	return ApiListUISchemasRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -705,10 +642,9 @@ func (a *UISchemaAPIService) ListUISchemasExecute(r ApiListUISchemasRequest) (*A
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -718,7 +654,6 @@ func (a *UISchemaAPIService) ListUISchemasExecute(r ApiListUISchemasRequest) (*A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UISchemaAPIService.ListUISchemas")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -745,7 +680,6 @@ func (a *UISchemaAPIService) ListUISchemasExecute(r ApiListUISchemasRequest) (*A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -762,13 +696,11 @@ func (a *UISchemaAPIService) ListUISchemasExecute(r ApiListUISchemasRequest) (*A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -777,7 +709,6 @@ func (a *UISchemaAPIService) ListUISchemasExecute(r ApiListUISchemasRequest) (*A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -792,12 +723,10 @@ func (a *UISchemaAPIService) ListUISchemasExecute(r ApiListUISchemasRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -806,13 +735,11 @@ func (a *UISchemaAPIService) ListUISchemasExecute(r ApiListUISchemasRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -821,13 +748,12 @@ func (a *UISchemaAPIService) ListUISchemasExecute(r ApiListUISchemasRequest) (*A
 }
 
 type ApiReplaceUISchemasRequest struct {
-	ctx context.Context
-	ApiService UISchemaAPI
-	id string
+	ctx                context.Context
+	ApiService         UISchemaAPI
+	id                 string
 	updateUISchemaBody *UpdateUISchema
-	// TODU
-	data       interface{}
-	retryCount int32
+	data               interface{}
+	retryCount         int32
 }
 
 func (r ApiReplaceUISchemasRequest) UpdateUISchemaBody(updateUISchemaBody UpdateUISchema) ApiReplaceUISchemasRequest {
@@ -835,14 +761,11 @@ func (r ApiReplaceUISchemasRequest) UpdateUISchemaBody(updateUISchemaBody Update
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceUISchemasRequest) Data (data interface{}) ApiReplaceUISchemasRequest {
+func (r ApiReplaceUISchemasRequest) Data(data interface{}) ApiReplaceUISchemasRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceUISchemasRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceUISchemasExecute(r)
 }
@@ -856,13 +779,12 @@ Replaces a UI Schema by `id`
  @param id The unique ID of the UI Schema
  @return ApiReplaceUISchemasRequest
 */
-// TODU
 
 func (a *UISchemaAPIService) ReplaceUISchemas(ctx context.Context, id string) ApiReplaceUISchemasRequest {
 	return ApiReplaceUISchemasRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -875,10 +797,9 @@ func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasReques
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -888,7 +809,6 @@ func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasReques
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UISchemaAPIService.ReplaceUISchemas")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -916,7 +836,6 @@ func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.updateUISchemaBody
 	localVarPostBody = r.data
@@ -936,13 +855,11 @@ func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -951,7 +868,6 @@ func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasReques
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -966,12 +882,10 @@ func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -980,12 +894,10 @@ func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -994,12 +906,10 @@ func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1008,13 +918,11 @@ func (a *UISchemaAPIService) ReplaceUISchemasExecute(r ApiReplaceUISchemasReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

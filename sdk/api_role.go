@@ -17,170 +17,159 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RoleAPI interface {
 
 	/*
-	CreateRole Create a Role
+		CreateRole Create a Role
 
-	Creates a new role
+		Creates a new role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateRoleRequest
 	*/
 	CreateRole(ctx context.Context) ApiCreateRoleRequest
 
 	// CreateRoleExecute executes the request
 	//  @return IamRole
-	// TODU
 	CreateRoleExecute(r ApiCreateRoleRequest) (*APIResponse, error)
 
 	/*
-	CreateRolePermission Create a Permission
+		CreateRolePermission Create a Permission
 
-	Creates a permission specified by `permissionType` to the role
+		Creates a permission specified by `permissionType` to the role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@param permissionType An okta permission type
-	@return ApiCreateRolePermissionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@param permissionType An okta permission type
+		@return ApiCreateRolePermissionRequest
 	*/
 	CreateRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiCreateRolePermissionRequest
 
 	// CreateRolePermissionExecute executes the request
-	// TODU
 	CreateRolePermissionExecute(r ApiCreateRolePermissionRequest) (*APIResponse, error)
 
 	/*
-	DeleteRole Delete a Role
+		DeleteRole Delete a Role
 
-	Deletes a role by `roleIdOrLabel`
+		Deletes a role by `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiDeleteRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiDeleteRoleRequest
 	*/
 	DeleteRole(ctx context.Context, roleIdOrLabel string) ApiDeleteRoleRequest
 
 	// DeleteRoleExecute executes the request
-	// TODU
 	DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse, error)
 
 	/*
-	DeleteRolePermission Delete a Permission
+		DeleteRolePermission Delete a Permission
 
-	Deletes a permission from a role by `permissionType`
+		Deletes a permission from a role by `permissionType`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@param permissionType An okta permission type
-	@return ApiDeleteRolePermissionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@param permissionType An okta permission type
+		@return ApiDeleteRolePermissionRequest
 	*/
 	DeleteRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiDeleteRolePermissionRequest
 
 	// DeleteRolePermissionExecute executes the request
-	// TODU
 	DeleteRolePermissionExecute(r ApiDeleteRolePermissionRequest) (*APIResponse, error)
 
 	/*
-	GetRole Retrieve a Role
+		GetRole Retrieve a Role
 
-	Retrieves a role by `roleIdOrLabel`
+		Retrieves a role by `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiGetRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiGetRoleRequest
 	*/
 	GetRole(ctx context.Context, roleIdOrLabel string) ApiGetRoleRequest
 
 	// GetRoleExecute executes the request
 	//  @return IamRole
-	// TODU
 	GetRoleExecute(r ApiGetRoleRequest) (*APIResponse, error)
 
 	/*
-	GetRolePermission Retrieve a Permission
+		GetRolePermission Retrieve a Permission
 
-	Retrieves a permission by `permissionType`
+		Retrieves a permission by `permissionType`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@param permissionType An okta permission type
-	@return ApiGetRolePermissionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@param permissionType An okta permission type
+		@return ApiGetRolePermissionRequest
 	*/
 	GetRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiGetRolePermissionRequest
 
 	// GetRolePermissionExecute executes the request
 	//  @return Permission
-	// TODU
 	GetRolePermissionExecute(r ApiGetRolePermissionRequest) (*APIResponse, error)
 
 	/*
-	ListRolePermissions List all Permissions
+		ListRolePermissions List all Permissions
 
-	Lists all permissions of the role by `roleIdOrLabel`
+		Lists all permissions of the role by `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiListRolePermissionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiListRolePermissionsRequest
 	*/
 	ListRolePermissions(ctx context.Context, roleIdOrLabel string) ApiListRolePermissionsRequest
 
 	// ListRolePermissionsExecute executes the request
 	//  @return Permissions
-	// TODU
 	ListRolePermissionsExecute(r ApiListRolePermissionsRequest) (*APIResponse, error)
 
 	/*
-	ListRoles List all Roles
+		ListRoles List all Roles
 
-	Lists all roles with pagination support
+		Lists all roles with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRolesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListRolesRequest
 	*/
 	ListRoles(ctx context.Context) ApiListRolesRequest
 
 	// ListRolesExecute executes the request
 	//  @return IamRoles
-	// TODU
 	ListRolesExecute(r ApiListRolesRequest) (*APIResponse, error)
 
 	/*
-	ReplaceRole Replace a Role
+		ReplaceRole Replace a Role
 
-	Replaces a role by `roleIdOrLabel`
+		Replaces a role by `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiReplaceRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiReplaceRoleRequest
 	*/
 	ReplaceRole(ctx context.Context, roleIdOrLabel string) ApiReplaceRoleRequest
 
 	// ReplaceRoleExecute executes the request
 	//  @return IamRole
-	// TODU
 	ReplaceRoleExecute(r ApiReplaceRoleRequest) (*APIResponse, error)
 
 	/*
-	ReplaceRolePermission Replace a Permission
+		ReplaceRolePermission Replace a Permission
 
-	Replaces a permission specified by `permissionType` in the role
+		Replaces a permission specified by `permissionType` in the role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleIdOrLabel `id` or `label` of the role
-	@param permissionType An okta permission type
-	@return ApiReplaceRolePermissionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleIdOrLabel `id` or `label` of the role
+		@param permissionType An okta permission type
+		@return ApiReplaceRolePermissionRequest
 	*/
 	ReplaceRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiReplaceRolePermissionRequest
 
 	// ReplaceRolePermissionExecute executes the request
 	//  @return Permission
-	// TODU
 	ReplaceRolePermissionExecute(r ApiReplaceRolePermissionRequest) (*APIResponse, error)
 }
 
@@ -188,10 +177,9 @@ type RoleAPI interface {
 type RoleAPIService service
 
 type ApiCreateRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAPI
-	instance *CreateIamRoleRequest
-	// TODU
+	instance   *CreateIamRoleRequest
 	data       interface{}
 	retryCount int32
 }
@@ -201,14 +189,11 @@ func (r ApiCreateRoleRequest) Instance(instance CreateIamRoleRequest) ApiCreateR
 	return r
 }
 
-
-// TODU
-func (r ApiCreateRoleRequest) Data (data interface{}) ApiCreateRoleRequest {
+func (r ApiCreateRoleRequest) Data(data interface{}) ApiCreateRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateRoleExecute(r)
 }
@@ -221,12 +206,11 @@ Creates a new role
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateRoleRequest
 */
-// TODU
 
 func (a *RoleAPIService) CreateRole(ctx context.Context) ApiCreateRoleRequest {
 	return ApiCreateRoleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -239,10 +223,9 @@ func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*APIResponse
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -252,7 +235,6 @@ func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*APIResponse
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAPIService.CreateRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -279,7 +261,6 @@ func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*APIResponse
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -299,13 +280,11 @@ func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*APIResponse
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -314,7 +293,6 @@ func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*APIResponse
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -329,12 +307,10 @@ func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -343,12 +319,10 @@ func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -357,13 +331,11 @@ func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -372,14 +344,13 @@ func (a *RoleAPIService) CreateRoleExecute(r ApiCreateRoleRequest) (*APIResponse
 }
 
 type ApiCreateRolePermissionRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
-	roleIdOrLabel string
+	ctx            context.Context
+	ApiService     RoleAPI
+	roleIdOrLabel  string
 	permissionType string
-	instance *CreateUpdateIamRolePermissionRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	instance       *CreateUpdateIamRolePermissionRequest
+	data           interface{}
+	retryCount     int32
 }
 
 func (r ApiCreateRolePermissionRequest) Instance(instance CreateUpdateIamRolePermissionRequest) ApiCreateRolePermissionRequest {
@@ -387,14 +358,11 @@ func (r ApiCreateRolePermissionRequest) Instance(instance CreateUpdateIamRolePer
 	return r
 }
 
-
-// TODU
-func (r ApiCreateRolePermissionRequest) Data (data interface{}) ApiCreateRolePermissionRequest {
+func (r ApiCreateRolePermissionRequest) Data(data interface{}) ApiCreateRolePermissionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateRolePermissionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateRolePermissionExecute(r)
 }
@@ -409,15 +377,14 @@ Creates a permission specified by `permissionType` to the role
  @param permissionType An okta permission type
  @return ApiCreateRolePermissionRequest
 */
-// TODU
 
 func (a *RoleAPIService) CreateRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiCreateRolePermissionRequest {
 	return ApiCreateRolePermissionRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleIdOrLabel: roleIdOrLabel,
+		ApiService:     a,
+		ctx:            ctx,
+		roleIdOrLabel:  roleIdOrLabel,
 		permissionType: permissionType,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
@@ -430,7 +397,7 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -440,7 +407,6 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAPIService.CreateRolePermission")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -469,7 +435,6 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -489,13 +454,11 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -504,7 +467,6 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -519,12 +481,10 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -533,12 +493,10 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -547,12 +505,10 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -561,13 +517,11 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -576,22 +530,18 @@ func (a *RoleAPIService) CreateRolePermissionExecute(r ApiCreateRolePermissionRe
 }
 
 type ApiDeleteRoleRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
+	ctx           context.Context
+	ApiService    RoleAPI
 	roleIdOrLabel string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiDeleteRoleRequest) Data (data interface{}) ApiDeleteRoleRequest {
+func (r ApiDeleteRoleRequest) Data(data interface{}) ApiDeleteRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteRoleExecute(r)
 }
@@ -605,14 +555,13 @@ Deletes a role by `roleIdOrLabel`
  @param roleIdOrLabel `id` or `label` of the role
  @return ApiDeleteRoleRequest
 */
-// TODU
 
 func (a *RoleAPIService) DeleteRole(ctx context.Context, roleIdOrLabel string) ApiDeleteRoleRequest {
 	return ApiDeleteRoleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -625,7 +574,7 @@ func (a *RoleAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -635,7 +584,6 @@ func (a *RoleAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAPIService.DeleteRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -663,7 +611,6 @@ func (a *RoleAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -680,13 +627,11 @@ func (a *RoleAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -695,7 +640,6 @@ func (a *RoleAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -710,12 +654,10 @@ func (a *RoleAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -724,12 +666,10 @@ func (a *RoleAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -738,13 +678,11 @@ func (a *RoleAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -753,23 +691,19 @@ func (a *RoleAPIService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*APIResponse
 }
 
 type ApiDeleteRolePermissionRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
-	roleIdOrLabel string
+	ctx            context.Context
+	ApiService     RoleAPI
+	roleIdOrLabel  string
 	permissionType string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data           interface{}
+	retryCount     int32
 }
 
-
-// TODU
-func (r ApiDeleteRolePermissionRequest) Data (data interface{}) ApiDeleteRolePermissionRequest {
+func (r ApiDeleteRolePermissionRequest) Data(data interface{}) ApiDeleteRolePermissionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteRolePermissionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteRolePermissionExecute(r)
 }
@@ -784,15 +718,14 @@ Deletes a permission from a role by `permissionType`
  @param permissionType An okta permission type
  @return ApiDeleteRolePermissionRequest
 */
-// TODU
 
 func (a *RoleAPIService) DeleteRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiDeleteRolePermissionRequest {
 	return ApiDeleteRolePermissionRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleIdOrLabel: roleIdOrLabel,
+		ApiService:     a,
+		ctx:            ctx,
+		roleIdOrLabel:  roleIdOrLabel,
 		permissionType: permissionType,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
@@ -805,7 +738,7 @@ func (a *RoleAPIService) DeleteRolePermissionExecute(r ApiDeleteRolePermissionRe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -815,7 +748,6 @@ func (a *RoleAPIService) DeleteRolePermissionExecute(r ApiDeleteRolePermissionRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAPIService.DeleteRolePermission")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -844,7 +776,6 @@ func (a *RoleAPIService) DeleteRolePermissionExecute(r ApiDeleteRolePermissionRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -861,13 +792,11 @@ func (a *RoleAPIService) DeleteRolePermissionExecute(r ApiDeleteRolePermissionRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -876,7 +805,6 @@ func (a *RoleAPIService) DeleteRolePermissionExecute(r ApiDeleteRolePermissionRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -891,12 +819,10 @@ func (a *RoleAPIService) DeleteRolePermissionExecute(r ApiDeleteRolePermissionRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -905,12 +831,10 @@ func (a *RoleAPIService) DeleteRolePermissionExecute(r ApiDeleteRolePermissionRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -919,13 +843,11 @@ func (a *RoleAPIService) DeleteRolePermissionExecute(r ApiDeleteRolePermissionRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -934,22 +856,18 @@ func (a *RoleAPIService) DeleteRolePermissionExecute(r ApiDeleteRolePermissionRe
 }
 
 type ApiGetRoleRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
+	ctx           context.Context
+	ApiService    RoleAPI
 	roleIdOrLabel string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiGetRoleRequest) Data (data interface{}) ApiGetRoleRequest {
+func (r ApiGetRoleRequest) Data(data interface{}) ApiGetRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetRoleExecute(r)
 }
@@ -963,14 +881,13 @@ Retrieves a role by `roleIdOrLabel`
  @param roleIdOrLabel `id` or `label` of the role
  @return ApiGetRoleRequest
 */
-// TODU
 
 func (a *RoleAPIService) GetRole(ctx context.Context, roleIdOrLabel string) ApiGetRoleRequest {
 	return ApiGetRoleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -982,10 +899,9 @@ func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*APIResponse, erro
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -995,7 +911,6 @@ func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*APIResponse, erro
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAPIService.GetRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1023,7 +938,6 @@ func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*APIResponse, erro
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1040,13 +954,11 @@ func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*APIResponse, erro
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1055,7 +967,6 @@ func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*APIResponse, erro
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1070,12 +981,10 @@ func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*APIResponse, erro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1084,12 +993,10 @@ func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*APIResponse, erro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1098,13 +1005,11 @@ func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*APIResponse, erro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1113,23 +1018,19 @@ func (a *RoleAPIService) GetRoleExecute(r ApiGetRoleRequest) (*APIResponse, erro
 }
 
 type ApiGetRolePermissionRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
-	roleIdOrLabel string
+	ctx            context.Context
+	ApiService     RoleAPI
+	roleIdOrLabel  string
 	permissionType string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data           interface{}
+	retryCount     int32
 }
 
-
-// TODU
-func (r ApiGetRolePermissionRequest) Data (data interface{}) ApiGetRolePermissionRequest {
+func (r ApiGetRolePermissionRequest) Data(data interface{}) ApiGetRolePermissionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetRolePermissionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetRolePermissionExecute(r)
 }
@@ -1144,15 +1045,14 @@ Retrieves a permission by `permissionType`
  @param permissionType An okta permission type
  @return ApiGetRolePermissionRequest
 */
-// TODU
 
 func (a *RoleAPIService) GetRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiGetRolePermissionRequest {
 	return ApiGetRolePermissionRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleIdOrLabel: roleIdOrLabel,
+		ApiService:     a,
+		ctx:            ctx,
+		roleIdOrLabel:  roleIdOrLabel,
 		permissionType: permissionType,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
@@ -1164,10 +1064,9 @@ func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest)
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1177,7 +1076,6 @@ func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest)
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAPIService.GetRolePermission")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1206,7 +1104,6 @@ func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1223,13 +1120,11 @@ func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1238,7 +1133,6 @@ func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest)
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1253,12 +1147,10 @@ func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1267,12 +1159,10 @@ func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1281,13 +1171,11 @@ func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1296,22 +1184,18 @@ func (a *RoleAPIService) GetRolePermissionExecute(r ApiGetRolePermissionRequest)
 }
 
 type ApiListRolePermissionsRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
+	ctx           context.Context
+	ApiService    RoleAPI
 	roleIdOrLabel string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiListRolePermissionsRequest) Data (data interface{}) ApiListRolePermissionsRequest {
+func (r ApiListRolePermissionsRequest) Data(data interface{}) ApiListRolePermissionsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListRolePermissionsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListRolePermissionsExecute(r)
 }
@@ -1325,14 +1209,13 @@ Lists all permissions of the role by `roleIdOrLabel`
  @param roleIdOrLabel `id` or `label` of the role
  @return ApiListRolePermissionsRequest
 */
-// TODU
 
 func (a *RoleAPIService) ListRolePermissions(ctx context.Context, roleIdOrLabel string) ApiListRolePermissionsRequest {
 	return ApiListRolePermissionsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -1344,10 +1227,9 @@ func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequ
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1357,7 +1239,6 @@ func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAPIService.ListRolePermissions")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1385,7 +1266,6 @@ func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1402,13 +1282,11 @@ func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1417,7 +1295,6 @@ func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1432,12 +1309,10 @@ func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1446,12 +1321,10 @@ func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1460,13 +1333,11 @@ func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1475,10 +1346,9 @@ func (a *RoleAPIService) ListRolePermissionsExecute(r ApiListRolePermissionsRequ
 }
 
 type ApiListRolesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleAPI
-	after *string
-	// TODU
+	after      *string
 	data       interface{}
 	retryCount int32
 }
@@ -1489,14 +1359,11 @@ func (r ApiListRolesRequest) After(after string) ApiListRolesRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiListRolesRequest) Data (data interface{}) ApiListRolesRequest {
+func (r ApiListRolesRequest) Data(data interface{}) ApiListRolesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListRolesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListRolesExecute(r)
 }
@@ -1509,12 +1376,11 @@ Lists all roles with pagination support
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListRolesRequest
 */
-// TODU
 
 func (a *RoleAPIService) ListRoles(ctx context.Context) ApiListRolesRequest {
 	return ApiListRolesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1527,10 +1393,9 @@ func (a *RoleAPIService) ListRolesExecute(r ApiListRolesRequest) (*APIResponse, 
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1540,7 +1405,6 @@ func (a *RoleAPIService) ListRolesExecute(r ApiListRolesRequest) (*APIResponse, 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAPIService.ListRoles")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1570,7 +1434,6 @@ func (a *RoleAPIService) ListRolesExecute(r ApiListRolesRequest) (*APIResponse, 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1587,13 +1450,11 @@ func (a *RoleAPIService) ListRolesExecute(r ApiListRolesRequest) (*APIResponse, 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1602,7 +1463,6 @@ func (a *RoleAPIService) ListRolesExecute(r ApiListRolesRequest) (*APIResponse, 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1617,12 +1477,10 @@ func (a *RoleAPIService) ListRolesExecute(r ApiListRolesRequest) (*APIResponse, 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1631,13 +1489,11 @@ func (a *RoleAPIService) ListRolesExecute(r ApiListRolesRequest) (*APIResponse, 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1646,13 +1502,12 @@ func (a *RoleAPIService) ListRolesExecute(r ApiListRolesRequest) (*APIResponse, 
 }
 
 type ApiReplaceRoleRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
+	ctx           context.Context
+	ApiService    RoleAPI
 	roleIdOrLabel string
-	instance *UpdateIamRoleRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	instance      *UpdateIamRoleRequest
+	data          interface{}
+	retryCount    int32
 }
 
 func (r ApiReplaceRoleRequest) Instance(instance UpdateIamRoleRequest) ApiReplaceRoleRequest {
@@ -1660,14 +1515,11 @@ func (r ApiReplaceRoleRequest) Instance(instance UpdateIamRoleRequest) ApiReplac
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceRoleRequest) Data (data interface{}) ApiReplaceRoleRequest {
+func (r ApiReplaceRoleRequest) Data(data interface{}) ApiReplaceRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceRoleExecute(r)
 }
@@ -1681,14 +1533,13 @@ Replaces a role by `roleIdOrLabel`
  @param roleIdOrLabel `id` or `label` of the role
  @return ApiReplaceRoleRequest
 */
-// TODU
 
 func (a *RoleAPIService) ReplaceRole(ctx context.Context, roleIdOrLabel string) ApiReplaceRoleRequest {
 	return ApiReplaceRoleRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -1700,10 +1551,9 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*APIRespon
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1713,7 +1563,6 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*APIRespon
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAPIService.ReplaceRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1741,7 +1590,6 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*APIRespon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -1761,13 +1609,11 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*APIRespon
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1776,7 +1622,6 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*APIRespon
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1791,12 +1636,10 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*APIRespon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1805,12 +1648,10 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*APIRespon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1819,12 +1660,10 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*APIRespon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1833,13 +1672,11 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*APIRespon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1848,14 +1685,13 @@ func (a *RoleAPIService) ReplaceRoleExecute(r ApiReplaceRoleRequest) (*APIRespon
 }
 
 type ApiReplaceRolePermissionRequest struct {
-	ctx context.Context
-	ApiService RoleAPI
-	roleIdOrLabel string
+	ctx            context.Context
+	ApiService     RoleAPI
+	roleIdOrLabel  string
 	permissionType string
-	instance *CreateUpdateIamRolePermissionRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	instance       *CreateUpdateIamRolePermissionRequest
+	data           interface{}
+	retryCount     int32
 }
 
 func (r ApiReplaceRolePermissionRequest) Instance(instance CreateUpdateIamRolePermissionRequest) ApiReplaceRolePermissionRequest {
@@ -1863,14 +1699,11 @@ func (r ApiReplaceRolePermissionRequest) Instance(instance CreateUpdateIamRolePe
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceRolePermissionRequest) Data (data interface{}) ApiReplaceRolePermissionRequest {
+func (r ApiReplaceRolePermissionRequest) Data(data interface{}) ApiReplaceRolePermissionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceRolePermissionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceRolePermissionExecute(r)
 }
@@ -1885,15 +1718,14 @@ Replaces a permission specified by `permissionType` in the role
  @param permissionType An okta permission type
  @return ApiReplaceRolePermissionRequest
 */
-// TODU
 
 func (a *RoleAPIService) ReplaceRolePermission(ctx context.Context, roleIdOrLabel string, permissionType string) ApiReplaceRolePermissionRequest {
 	return ApiReplaceRolePermissionRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleIdOrLabel: roleIdOrLabel,
+		ApiService:     a,
+		ctx:            ctx,
+		roleIdOrLabel:  roleIdOrLabel,
 		permissionType: permissionType,
-		retryCount: 0,
+		retryCount:     0,
 	}
 }
 
@@ -1905,10 +1737,9 @@ func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermission
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1918,7 +1749,6 @@ func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermission
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleAPIService.ReplaceRolePermission")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1947,7 +1777,6 @@ func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermission
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -1967,13 +1796,11 @@ func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermission
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1982,7 +1809,6 @@ func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermission
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1997,12 +1823,10 @@ func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermission
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2011,12 +1835,10 @@ func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermission
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2025,12 +1847,10 @@ func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermission
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2039,13 +1859,11 @@ func (a *RoleAPIService) ReplaceRolePermissionExecute(r ApiReplaceRolePermission
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

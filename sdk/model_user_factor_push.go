@@ -13,9 +13,9 @@ package sdk
 
 import (
 	"encoding/json"
-	"time"
 	"reflect"
 	"strings"
+	"time"
 )
 
 // UserFactorPush struct for UserFactorPush
@@ -24,8 +24,8 @@ type UserFactorPush struct {
 	// Timestamp indicating when the Factor verification attempt expires
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 	// Result of a Factor verification attempt
-	FactorResult *string `json:"factorResult,omitempty"`
-	Profile *UserFactorPushProfile `json:"profile,omitempty"`
+	FactorResult         *string                `json:"factorResult,omitempty"`
+	Profile              *UserFactorPushProfile `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -176,8 +176,8 @@ func (o *UserFactorPush) UnmarshalJSON(bytes []byte) (err error) {
 		// Timestamp indicating when the Factor verification attempt expires
 		ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 		// Result of a Factor verification attempt
-		FactorResult *string `json:"factorResult,omitempty"`
-		Profile *UserFactorPushProfile `json:"profile,omitempty"`
+		FactorResult *string                `json:"factorResult,omitempty"`
+		Profile      *UserFactorPushProfile `json:"profile,omitempty"`
 	}
 
 	varUserFactorPushWithoutEmbeddedStruct := UserFactorPushWithoutEmbeddedStruct{}
@@ -271,4 +271,3 @@ func (v *NullableUserFactorPush) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

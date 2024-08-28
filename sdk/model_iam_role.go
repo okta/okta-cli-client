@@ -27,8 +27,8 @@ type IamRole struct {
 	// Unique label for the role
 	Label string `json:"label"`
 	// Timestamp when the role was last updated
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Links *IamRoleLinks `json:"_links,omitempty"`
+	LastUpdated          *time.Time    `json:"lastUpdated,omitempty"`
+	Links                *IamRoleLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -320,4 +320,3 @@ func (v *NullableIamRole) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

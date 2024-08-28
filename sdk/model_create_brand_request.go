@@ -17,7 +17,7 @@ import (
 
 // CreateBrandRequest struct for CreateBrandRequest
 type CreateBrandRequest struct {
-	Name string `json:"name"`
+	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -136,4 +136,3 @@ func (v *NullableCreateBrandRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

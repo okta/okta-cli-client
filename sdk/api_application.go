@@ -17,118 +17,110 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationAPI interface {
 
 	/*
-	ActivateApplication Activate an Application
+		ActivateApplication Activate an Application
 
-	Activates an inactive application
+		Activates an inactive application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiActivateApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiActivateApplicationRequest
 	*/
 	ActivateApplication(ctx context.Context, appId string) ApiActivateApplicationRequest
 
 	// ActivateApplicationExecute executes the request
-	// TODU
 	ActivateApplicationExecute(r ApiActivateApplicationRequest) (*APIResponse, error)
 
 	/*
-	CreateApplication Create an Application
+		CreateApplication Create an Application
 
-	Creates a new application to your Okta organization
+		Creates a new application to your Okta organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateApplicationRequest
 	*/
 	CreateApplication(ctx context.Context) ApiCreateApplicationRequest
 
 	// CreateApplicationExecute executes the request
 	//  @return ListApplications200ResponseInner
-	// TODU
 	CreateApplicationExecute(r ApiCreateApplicationRequest) (*APIResponse, error)
 
 	/*
-	DeactivateApplication Deactivate an Application
+		DeactivateApplication Deactivate an Application
 
-	Deactivates an active application
+		Deactivates an active application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiDeactivateApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiDeactivateApplicationRequest
 	*/
 	DeactivateApplication(ctx context.Context, appId string) ApiDeactivateApplicationRequest
 
 	// DeactivateApplicationExecute executes the request
-	// TODU
 	DeactivateApplicationExecute(r ApiDeactivateApplicationRequest) (*APIResponse, error)
 
 	/*
-	DeleteApplication Delete an Application
+		DeleteApplication Delete an Application
 
-	Deletes an inactive application
+		Deletes an inactive application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiDeleteApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiDeleteApplicationRequest
 	*/
 	DeleteApplication(ctx context.Context, appId string) ApiDeleteApplicationRequest
 
 	// DeleteApplicationExecute executes the request
-	// TODU
 	DeleteApplicationExecute(r ApiDeleteApplicationRequest) (*APIResponse, error)
 
 	/*
-	GetApplication Retrieve an Application
+		GetApplication Retrieve an Application
 
-	Retrieves an application from your Okta organization by `id`
+		Retrieves an application from your Okta organization by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGetApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiGetApplicationRequest
 	*/
 	GetApplication(ctx context.Context, appId string) ApiGetApplicationRequest
 
 	// GetApplicationExecute executes the request
 	//  @return ListApplications200ResponseInner
-	// TODU
 	GetApplicationExecute(r ApiGetApplicationRequest) (*APIResponse, error)
 
 	/*
-	ListApplications List all Applications
+		ListApplications List all Applications
 
-	Lists all applications with pagination. A subset of apps can be returned that match a supported filter expression or query.
+		Lists all applications with pagination. A subset of apps can be returned that match a supported filter expression or query.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListApplicationsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListApplicationsRequest
 	*/
 	ListApplications(ctx context.Context) ApiListApplicationsRequest
 
 	// ListApplicationsExecute executes the request
 	//  @return []ListApplications200ResponseInner
-	// TODU
 	ListApplicationsExecute(r ApiListApplicationsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceApplication Replace an Application
+		ReplaceApplication Replace an Application
 
-	Replaces an application
+		Replaces an application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiReplaceApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiReplaceApplicationRequest
 	*/
 	ReplaceApplication(ctx context.Context, appId string) ApiReplaceApplicationRequest
 
 	// ReplaceApplicationExecute executes the request
 	//  @return ListApplications200ResponseInner
-	// TODU
 	ReplaceApplicationExecute(r ApiReplaceApplicationRequest) (*APIResponse, error)
 }
 
@@ -136,22 +128,18 @@ type ApplicationAPI interface {
 type ApplicationAPIService service
 
 type ApiActivateApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationAPI
-	appId string
-	// TODU
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiActivateApplicationRequest) Data (data interface{}) ApiActivateApplicationRequest {
+func (r ApiActivateApplicationRequest) Data(data interface{}) ApiActivateApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateApplicationExecute(r)
 }
@@ -165,13 +153,12 @@ Activates an inactive application
  @param appId Application ID
  @return ApiActivateApplicationRequest
 */
-// TODU
 
 func (a *ApplicationAPIService) ActivateApplication(ctx context.Context, appId string) ApiActivateApplicationRequest {
 	return ApiActivateApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -185,7 +172,7 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -195,7 +182,6 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationAPIService.ActivateApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -223,7 +209,6 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -240,13 +225,11 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -255,7 +238,6 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -270,12 +252,10 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -284,12 +264,10 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -298,13 +276,11 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -313,14 +289,13 @@ func (a *ApplicationAPIService) ActivateApplicationExecute(r ApiActivateApplicat
 }
 
 type ApiCreateApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationAPI
-	application *ListApplications200ResponseInner
-	activate *bool
+	ctx                    context.Context
+	ApiService             ApplicationAPI
+	application            *ListApplications200ResponseInner
+	activate               *bool
 	oktaAccessGatewayAgent *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                   interface{}
+	retryCount             int32
 }
 
 func (r ApiCreateApplicationRequest) Application(application ListApplications200ResponseInner) ApiCreateApplicationRequest {
@@ -339,14 +314,11 @@ func (r ApiCreateApplicationRequest) OktaAccessGatewayAgent(oktaAccessGatewayAge
 	return r
 }
 
-
-// TODU
-func (r ApiCreateApplicationRequest) Data (data interface{}) ApiCreateApplicationRequest {
+func (r ApiCreateApplicationRequest) Data(data interface{}) ApiCreateApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateApplicationExecute(r)
 }
@@ -359,12 +331,11 @@ Creates a new application to your Okta organization
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateApplicationRequest
 */
-// TODU
 
 func (a *ApplicationAPIService) CreateApplication(ctx context.Context) ApiCreateApplicationRequest {
 	return ApiCreateApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -377,10 +348,9 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -390,7 +360,6 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationAPIService.CreateApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -423,7 +392,6 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 	if r.oktaAccessGatewayAgent != nil {
 		localVarHeaderParams["OktaAccessGateway-Agent"] = parameterToString(*r.oktaAccessGatewayAgent, "")
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.application
 	localVarPostBody = r.data
@@ -443,13 +411,11 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -458,7 +424,6 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -473,12 +438,10 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -487,12 +450,10 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -501,13 +462,11 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -516,22 +475,18 @@ func (a *ApplicationAPIService) CreateApplicationExecute(r ApiCreateApplicationR
 }
 
 type ApiDeactivateApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationAPI
-	appId string
-	// TODU
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeactivateApplicationRequest) Data (data interface{}) ApiDeactivateApplicationRequest {
+func (r ApiDeactivateApplicationRequest) Data(data interface{}) ApiDeactivateApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateApplicationExecute(r)
 }
@@ -545,13 +500,12 @@ Deactivates an active application
  @param appId Application ID
  @return ApiDeactivateApplicationRequest
 */
-// TODU
 
 func (a *ApplicationAPIService) DeactivateApplication(ctx context.Context, appId string) ApiDeactivateApplicationRequest {
 	return ApiDeactivateApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -565,7 +519,7 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -575,7 +529,6 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationAPIService.DeactivateApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -603,7 +556,6 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -620,13 +572,11 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -635,7 +585,6 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -650,12 +599,10 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -664,12 +611,10 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -678,13 +623,11 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -693,22 +636,18 @@ func (a *ApplicationAPIService) DeactivateApplicationExecute(r ApiDeactivateAppl
 }
 
 type ApiDeleteApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationAPI
-	appId string
-	// TODU
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteApplicationRequest) Data (data interface{}) ApiDeleteApplicationRequest {
+func (r ApiDeleteApplicationRequest) Data(data interface{}) ApiDeleteApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteApplicationExecute(r)
 }
@@ -722,13 +661,12 @@ Deletes an inactive application
  @param appId Application ID
  @return ApiDeleteApplicationRequest
 */
-// TODU
 
 func (a *ApplicationAPIService) DeleteApplication(ctx context.Context, appId string) ApiDeleteApplicationRequest {
 	return ApiDeleteApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -742,7 +680,7 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -752,7 +690,6 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationAPIService.DeleteApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -780,7 +717,6 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -797,13 +733,11 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -812,7 +746,6 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -827,12 +760,10 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -841,12 +772,10 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -855,13 +784,11 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -870,11 +797,10 @@ func (a *ApplicationAPIService) DeleteApplicationExecute(r ApiDeleteApplicationR
 }
 
 type ApiGetApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationAPI
-	appId string
-	expand *string
-	// TODU
+	appId      string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -884,14 +810,11 @@ func (r ApiGetApplicationRequest) Expand(expand string) ApiGetApplicationRequest
 	return r
 }
 
-
-// TODU
-func (r ApiGetApplicationRequest) Data (data interface{}) ApiGetApplicationRequest {
+func (r ApiGetApplicationRequest) Data(data interface{}) ApiGetApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetApplicationExecute(r)
 }
@@ -905,13 +828,12 @@ Retrieves an application from your Okta organization by `id`
  @param appId Application ID
  @return ApiGetApplicationRequest
 */
-// TODU
 
 func (a *ApplicationAPIService) GetApplication(ctx context.Context, appId string) ApiGetApplicationRequest {
 	return ApiGetApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -924,10 +846,9 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -937,7 +858,6 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationAPIService.GetApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -968,7 +888,6 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -985,13 +904,11 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1000,7 +917,6 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1015,12 +931,10 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1029,12 +943,10 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1043,13 +955,11 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1058,17 +968,16 @@ func (a *ApplicationAPIService) GetApplicationExecute(r ApiGetApplicationRequest
 }
 
 type ApiListApplicationsRequest struct {
-	ctx context.Context
-	ApiService ApplicationAPI
-	q *string
-	after *string
-	limit *int32
-	filter *string
-	expand *string
+	ctx               context.Context
+	ApiService        ApplicationAPI
+	q                 *string
+	after             *string
+	limit             *int32
+	filter            *string
+	expand            *string
 	includeNonDeleted *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	data              interface{}
+	retryCount        int32
 }
 
 func (r ApiListApplicationsRequest) Q(q string) ApiListApplicationsRequest {
@@ -1105,14 +1014,11 @@ func (r ApiListApplicationsRequest) IncludeNonDeleted(includeNonDeleted bool) Ap
 	return r
 }
 
-
-// TODU
-func (r ApiListApplicationsRequest) Data (data interface{}) ApiListApplicationsRequest {
+func (r ApiListApplicationsRequest) Data(data interface{}) ApiListApplicationsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListApplicationsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListApplicationsExecute(r)
 }
@@ -1125,12 +1031,11 @@ Lists all applications with pagination. A subset of apps can be returned that ma
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListApplicationsRequest
 */
-// TODU
 
 func (a *ApplicationAPIService) ListApplications(ctx context.Context) ApiListApplicationsRequest {
 	return ApiListApplicationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1143,10 +1048,9 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1156,7 +1060,6 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationAPIService.ListApplications")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1201,7 +1104,6 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1218,13 +1120,11 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1233,7 +1133,6 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1248,12 +1147,10 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1262,13 +1159,11 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1277,13 +1172,12 @@ func (a *ApplicationAPIService) ListApplicationsExecute(r ApiListApplicationsReq
 }
 
 type ApiReplaceApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationAPI
-	appId string
+	ctx         context.Context
+	ApiService  ApplicationAPI
+	appId       string
 	application *ListApplications200ResponseInner
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
 func (r ApiReplaceApplicationRequest) Application(application ListApplications200ResponseInner) ApiReplaceApplicationRequest {
@@ -1291,14 +1185,11 @@ func (r ApiReplaceApplicationRequest) Application(application ListApplications20
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceApplicationRequest) Data (data interface{}) ApiReplaceApplicationRequest {
+func (r ApiReplaceApplicationRequest) Data(data interface{}) ApiReplaceApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceApplicationExecute(r)
 }
@@ -1312,13 +1203,12 @@ Replaces an application
  @param appId Application ID
  @return ApiReplaceApplicationRequest
 */
-// TODU
 
 func (a *ApplicationAPIService) ReplaceApplication(ctx context.Context, appId string) ApiReplaceApplicationRequest {
 	return ApiReplaceApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -1331,10 +1221,9 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1344,7 +1233,6 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationAPIService.ReplaceApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1372,7 +1260,6 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.application
 	localVarPostBody = r.data
@@ -1392,13 +1279,11 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1407,7 +1292,6 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1422,12 +1306,10 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1436,12 +1318,10 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1450,12 +1330,10 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1464,13 +1342,11 @@ func (a *ApplicationAPIService) ReplaceApplicationExecute(r ApiReplaceApplicatio
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

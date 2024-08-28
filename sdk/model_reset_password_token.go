@@ -17,7 +17,7 @@ import (
 
 // ResetPasswordToken struct for ResetPasswordToken
 type ResetPasswordToken struct {
-	ResetPasswordUrl *string `json:"resetPasswordUrl,omitempty"`
+	ResetPasswordUrl     *string `json:"resetPasswordUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableResetPasswordToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

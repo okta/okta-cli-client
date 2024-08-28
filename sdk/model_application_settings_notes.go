@@ -17,8 +17,8 @@ import (
 
 // ApplicationSettingsNotes struct for ApplicationSettingsNotes
 type ApplicationSettingsNotes struct {
-	Admin *string `json:"admin,omitempty"`
-	Enduser *string `json:"enduser,omitempty"`
+	Admin                *string `json:"admin,omitempty"`
+	Enduser              *string `json:"enduser,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableApplicationSettingsNotes) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

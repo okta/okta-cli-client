@@ -17,10 +17,10 @@ import (
 
 // Provisioning struct for Provisioning
 type Provisioning struct {
-	Action *string `json:"action,omitempty"`
-	Conditions *ProvisioningConditions `json:"conditions,omitempty"`
-	Groups *ProvisioningGroups `json:"groups,omitempty"`
-	ProfileMaster *bool `json:"profileMaster,omitempty"`
+	Action               *string                 `json:"action,omitempty"`
+	Conditions           *ProvisioningConditions `json:"conditions,omitempty"`
+	Groups               *ProvisioningGroups     `json:"groups,omitempty"`
+	ProfileMaster        *bool                   `json:"profileMaster,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -254,4 +254,3 @@ func (v *NullableProvisioning) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

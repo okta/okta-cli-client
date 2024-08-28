@@ -23,9 +23,9 @@ type UserFactorVerifyResponse struct {
 	// Result of a Factor verification
 	FactorResult *string `json:"factorResult,omitempty"`
 	// A message for Factor verification
-	FactorResultMessage *string `json:"factorResultMessage,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	FactorResultMessage  *string                           `json:"factorResultMessage,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *LinksSelf                        `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -295,4 +295,3 @@ func (v *NullableUserFactorVerifyResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

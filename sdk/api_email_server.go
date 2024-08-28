@@ -17,103 +17,96 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type EmailServerAPI interface {
 
 	/*
-	CreateEmailServer Create a custom SMTP server
+		CreateEmailServer Create a custom SMTP server
 
-	Creates a custom email SMTP server configuration for your org
+		Creates a custom email SMTP server configuration for your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateEmailServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateEmailServerRequest
 	*/
 	CreateEmailServer(ctx context.Context) ApiCreateEmailServerRequest
 
 	// CreateEmailServerExecute executes the request
 	//  @return EmailServerResponse
-	// TODU
 	CreateEmailServerExecute(r ApiCreateEmailServerRequest) (*APIResponse, error)
 
 	/*
-	DeleteEmailServer Delete an SMTP Server configuration
+		DeleteEmailServer Delete an SMTP Server configuration
 
-	Deletes the specified custom SMTP server configuration
+		Deletes the specified custom SMTP server configuration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailServerId
-	@return ApiDeleteEmailServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailServerId
+		@return ApiDeleteEmailServerRequest
 	*/
 	DeleteEmailServer(ctx context.Context, emailServerId string) ApiDeleteEmailServerRequest
 
 	// DeleteEmailServerExecute executes the request
-	// TODU
 	DeleteEmailServerExecute(r ApiDeleteEmailServerRequest) (*APIResponse, error)
 
 	/*
-	GetEmailServer Retrieve an SMTP Server configuration
+		GetEmailServer Retrieve an SMTP Server configuration
 
-	Retrieves the specified custom SMTP server configuration
+		Retrieves the specified custom SMTP server configuration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailServerId
-	@return ApiGetEmailServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailServerId
+		@return ApiGetEmailServerRequest
 	*/
 	GetEmailServer(ctx context.Context, emailServerId string) ApiGetEmailServerRequest
 
 	// GetEmailServerExecute executes the request
 	//  @return EmailServerListResponse
-	// TODU
 	GetEmailServerExecute(r ApiGetEmailServerRequest) (*APIResponse, error)
 
 	/*
-	ListEmailServers List all enrolled SMTP servers
+		ListEmailServers List all enrolled SMTP servers
 
-	Lists all the enrolled custom SMTP server configurations
+		Lists all the enrolled custom SMTP server configurations
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListEmailServersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListEmailServersRequest
 	*/
 	ListEmailServers(ctx context.Context) ApiListEmailServersRequest
 
 	// ListEmailServersExecute executes the request
 	//  @return EmailServerListResponse
-	// TODU
 	ListEmailServersExecute(r ApiListEmailServersRequest) (*APIResponse, error)
 
 	/*
-	TestEmailServer Test an SMTP Server configuration
+		TestEmailServer Test an SMTP Server configuration
 
-	Tests the specified custom SMTP Server configuration
+		Tests the specified custom SMTP Server configuration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailServerId
-	@return ApiTestEmailServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailServerId
+		@return ApiTestEmailServerRequest
 	*/
 	TestEmailServer(ctx context.Context, emailServerId string) ApiTestEmailServerRequest
 
 	// TestEmailServerExecute executes the request
-	// TODU
 	TestEmailServerExecute(r ApiTestEmailServerRequest) (*APIResponse, error)
 
 	/*
-	UpdateEmailServer Update an SMTP Server configuration
+		UpdateEmailServer Update an SMTP Server configuration
 
-	Updates the specified custom SMTP server configuration
+		Updates the specified custom SMTP server configuration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param emailServerId
-	@return ApiUpdateEmailServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param emailServerId
+		@return ApiUpdateEmailServerRequest
 	*/
 	UpdateEmailServer(ctx context.Context, emailServerId string) ApiUpdateEmailServerRequest
 
 	// UpdateEmailServerExecute executes the request
 	//  @return EmailServerResponse
-	// TODU
 	UpdateEmailServerExecute(r ApiUpdateEmailServerRequest) (*APIResponse, error)
 }
 
@@ -121,12 +114,11 @@ type EmailServerAPI interface {
 type EmailServerAPIService service
 
 type ApiCreateEmailServerRequest struct {
-	ctx context.Context
-	ApiService EmailServerAPI
+	ctx             context.Context
+	ApiService      EmailServerAPI
 	emailServerPost *EmailServerPost
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
 func (r ApiCreateEmailServerRequest) EmailServerPost(emailServerPost EmailServerPost) ApiCreateEmailServerRequest {
@@ -134,14 +126,11 @@ func (r ApiCreateEmailServerRequest) EmailServerPost(emailServerPost EmailServer
 	return r
 }
 
-
-// TODU
-func (r ApiCreateEmailServerRequest) Data (data interface{}) ApiCreateEmailServerRequest {
+func (r ApiCreateEmailServerRequest) Data(data interface{}) ApiCreateEmailServerRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateEmailServerRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateEmailServerExecute(r)
 }
@@ -154,12 +143,11 @@ Creates a custom email SMTP server configuration for your org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateEmailServerRequest
 */
-// TODU
 
 func (a *EmailServerAPIService) CreateEmailServer(ctx context.Context) ApiCreateEmailServerRequest {
 	return ApiCreateEmailServerRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -172,10 +160,9 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -185,7 +172,6 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmailServerAPIService.CreateEmailServer")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -212,7 +198,6 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.emailServerPost
 	localVarPostBody = r.data
@@ -232,13 +217,11 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -247,7 +230,6 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -262,12 +244,10 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -276,12 +256,10 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -290,13 +268,11 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -305,22 +281,18 @@ func (a *EmailServerAPIService) CreateEmailServerExecute(r ApiCreateEmailServerR
 }
 
 type ApiDeleteEmailServerRequest struct {
-	ctx context.Context
-	ApiService EmailServerAPI
+	ctx           context.Context
+	ApiService    EmailServerAPI
 	emailServerId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiDeleteEmailServerRequest) Data (data interface{}) ApiDeleteEmailServerRequest {
+func (r ApiDeleteEmailServerRequest) Data(data interface{}) ApiDeleteEmailServerRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteEmailServerRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteEmailServerExecute(r)
 }
@@ -334,14 +306,13 @@ Deletes the specified custom SMTP server configuration
  @param emailServerId
  @return ApiDeleteEmailServerRequest
 */
-// TODU
 
 func (a *EmailServerAPIService) DeleteEmailServer(ctx context.Context, emailServerId string) ApiDeleteEmailServerRequest {
 	return ApiDeleteEmailServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailServerId: emailServerId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -354,7 +325,7 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -364,7 +335,6 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmailServerAPIService.DeleteEmailServer")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -392,7 +362,6 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -409,13 +378,11 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -424,7 +391,6 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -439,12 +405,10 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -453,12 +417,10 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -467,13 +429,11 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -482,22 +442,18 @@ func (a *EmailServerAPIService) DeleteEmailServerExecute(r ApiDeleteEmailServerR
 }
 
 type ApiGetEmailServerRequest struct {
-	ctx context.Context
-	ApiService EmailServerAPI
+	ctx           context.Context
+	ApiService    EmailServerAPI
 	emailServerId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiGetEmailServerRequest) Data (data interface{}) ApiGetEmailServerRequest {
+func (r ApiGetEmailServerRequest) Data(data interface{}) ApiGetEmailServerRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetEmailServerRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetEmailServerExecute(r)
 }
@@ -511,14 +467,13 @@ Retrieves the specified custom SMTP server configuration
  @param emailServerId
  @return ApiGetEmailServerRequest
 */
-// TODU
 
 func (a *EmailServerAPIService) GetEmailServer(ctx context.Context, emailServerId string) ApiGetEmailServerRequest {
 	return ApiGetEmailServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailServerId: emailServerId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -530,10 +485,9 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -543,7 +497,6 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmailServerAPIService.GetEmailServer")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -571,7 +524,6 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -588,13 +540,11 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -603,7 +553,6 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -618,12 +567,10 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -632,12 +579,10 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -646,13 +591,11 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -661,21 +604,17 @@ func (a *EmailServerAPIService) GetEmailServerExecute(r ApiGetEmailServerRequest
 }
 
 type ApiListEmailServersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService EmailServerAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListEmailServersRequest) Data (data interface{}) ApiListEmailServersRequest {
+func (r ApiListEmailServersRequest) Data(data interface{}) ApiListEmailServersRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListEmailServersRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListEmailServersExecute(r)
 }
@@ -688,12 +627,11 @@ Lists all the enrolled custom SMTP server configurations
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListEmailServersRequest
 */
-// TODU
 
 func (a *EmailServerAPIService) ListEmailServers(ctx context.Context) ApiListEmailServersRequest {
 	return ApiListEmailServersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -706,10 +644,9 @@ func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersReq
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -719,7 +656,6 @@ func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersReq
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmailServerAPIService.ListEmailServers")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -746,7 +682,6 @@ func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -763,13 +698,11 @@ func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -778,7 +711,6 @@ func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersReq
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -793,12 +725,10 @@ func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -807,13 +737,11 @@ func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -822,13 +750,12 @@ func (a *EmailServerAPIService) ListEmailServersExecute(r ApiListEmailServersReq
 }
 
 type ApiTestEmailServerRequest struct {
-	ctx context.Context
-	ApiService EmailServerAPI
-	emailServerId string
+	ctx                context.Context
+	ApiService         EmailServerAPI
+	emailServerId      string
 	emailTestAddresses *EmailTestAddresses
-	// TODU
-	data       interface{}
-	retryCount int32
+	data               interface{}
+	retryCount         int32
 }
 
 func (r ApiTestEmailServerRequest) EmailTestAddresses(emailTestAddresses EmailTestAddresses) ApiTestEmailServerRequest {
@@ -836,14 +763,11 @@ func (r ApiTestEmailServerRequest) EmailTestAddresses(emailTestAddresses EmailTe
 	return r
 }
 
-
-// TODU
-func (r ApiTestEmailServerRequest) Data (data interface{}) ApiTestEmailServerRequest {
+func (r ApiTestEmailServerRequest) Data(data interface{}) ApiTestEmailServerRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiTestEmailServerRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.TestEmailServerExecute(r)
 }
@@ -857,14 +781,13 @@ Tests the specified custom SMTP Server configuration
  @param emailServerId
  @return ApiTestEmailServerRequest
 */
-// TODU
 
 func (a *EmailServerAPIService) TestEmailServer(ctx context.Context, emailServerId string) ApiTestEmailServerRequest {
 	return ApiTestEmailServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailServerId: emailServerId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -877,7 +800,7 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -887,7 +810,6 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmailServerAPIService.TestEmailServer")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -915,7 +837,6 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.emailTestAddresses
 	localVarPostBody = r.data
@@ -935,13 +856,11 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -950,7 +869,6 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -965,12 +883,10 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -979,12 +895,10 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -993,12 +907,10 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1007,13 +919,11 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1022,13 +932,12 @@ func (a *EmailServerAPIService) TestEmailServerExecute(r ApiTestEmailServerReque
 }
 
 type ApiUpdateEmailServerRequest struct {
-	ctx context.Context
-	ApiService EmailServerAPI
-	emailServerId string
+	ctx                context.Context
+	ApiService         EmailServerAPI
+	emailServerId      string
 	emailServerRequest *EmailServerRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	data               interface{}
+	retryCount         int32
 }
 
 func (r ApiUpdateEmailServerRequest) EmailServerRequest(emailServerRequest EmailServerRequest) ApiUpdateEmailServerRequest {
@@ -1036,14 +945,11 @@ func (r ApiUpdateEmailServerRequest) EmailServerRequest(emailServerRequest Email
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateEmailServerRequest) Data (data interface{}) ApiUpdateEmailServerRequest {
+func (r ApiUpdateEmailServerRequest) Data(data interface{}) ApiUpdateEmailServerRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateEmailServerRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateEmailServerExecute(r)
 }
@@ -1057,14 +963,13 @@ Updates the specified custom SMTP server configuration
  @param emailServerId
  @return ApiUpdateEmailServerRequest
 */
-// TODU
 
 func (a *EmailServerAPIService) UpdateEmailServer(ctx context.Context, emailServerId string) ApiUpdateEmailServerRequest {
 	return ApiUpdateEmailServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		emailServerId: emailServerId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -1076,10 +981,9 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1089,7 +993,6 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EmailServerAPIService.UpdateEmailServer")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1117,7 +1020,6 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.emailServerRequest
 	localVarPostBody = r.data
@@ -1137,13 +1039,11 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1152,7 +1052,6 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1167,12 +1066,10 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1181,12 +1078,10 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1195,12 +1090,10 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1209,13 +1102,11 @@ func (a *EmailServerAPIService) UpdateEmailServerExecute(r ApiUpdateEmailServerR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

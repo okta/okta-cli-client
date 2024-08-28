@@ -17,21 +17,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type PrivilegedResourceAPI interface {
 
 	/*
-	ClaimPrivilegedResource Claim a privileged resource for management
+		ClaimPrivilegedResource Claim a privileged resource for management
 
-	Claims a specified privileged resource for management. This also marks the `status` as `ACTIVE`.
+		Claims a specified privileged resource for management. This also marks the `status` as `ACTIVE`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID of an existing privileged resource
-	@return ApiClaimPrivilegedResourceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id ID of an existing privileged resource
+		@return ApiClaimPrivilegedResourceRequest
 	*/
 	ClaimPrivilegedResource(ctx context.Context, id string) ApiClaimPrivilegedResourceRequest
 
@@ -41,12 +40,12 @@ type PrivilegedResourceAPI interface {
 	ClaimPrivilegedResourceExecute(r ApiClaimPrivilegedResourceRequest) (*APIResponse, error)
 
 	/*
-	CreatePrivilegedResource Create a privileged resource
+		CreatePrivilegedResource Create a privileged resource
 
-	Creates a privileged resource either in Okta or for a specified external app. After creation, the `status` param is set to `CREATED` and the `credentialLastSyncState` param is set to `NOT_SYNCED`.
+		Creates a privileged resource either in Okta or for a specified external app. After creation, the `status` param is set to `CREATED` and the `credentialLastSyncState` param is set to `NOT_SYNCED`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreatePrivilegedResourceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreatePrivilegedResourceRequest
 	*/
 	CreatePrivilegedResource(ctx context.Context) ApiCreatePrivilegedResourceRequest
 
@@ -56,13 +55,13 @@ type PrivilegedResourceAPI interface {
 	CreatePrivilegedResourceExecute(r ApiCreatePrivilegedResourceRequest) (*APIResponse, error)
 
 	/*
-	DeletePrivilegedResource Delete a privileged resource
+		DeletePrivilegedResource Delete a privileged resource
 
-	Deletes a privileged resource specified by ID. This also marks the `status` as `INACTIVE`.
+		Deletes a privileged resource specified by ID. This also marks the `status` as `INACTIVE`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID of an existing privileged resource
-	@return ApiDeletePrivilegedResourceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id ID of an existing privileged resource
+		@return ApiDeletePrivilegedResourceRequest
 	*/
 	DeletePrivilegedResource(ctx context.Context, id string) ApiDeletePrivilegedResourceRequest
 
@@ -72,13 +71,13 @@ type PrivilegedResourceAPI interface {
 	DeletePrivilegedResourceExecute(r ApiDeletePrivilegedResourceRequest) (*APIResponse, error)
 
 	/*
-	GetPrivilegedResource Retrieve a privileged resource
+		GetPrivilegedResource Retrieve a privileged resource
 
-	Retrieves a privileged resource specified by ID
+		Retrieves a privileged resource specified by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID of an existing privileged resource
-	@return ApiGetPrivilegedResourceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id ID of an existing privileged resource
+		@return ApiGetPrivilegedResourceRequest
 	*/
 	GetPrivilegedResource(ctx context.Context, id string) ApiGetPrivilegedResourceRequest
 
@@ -88,13 +87,13 @@ type PrivilegedResourceAPI interface {
 	GetPrivilegedResourceExecute(r ApiGetPrivilegedResourceRequest) (*APIResponse, error)
 
 	/*
-	ReplacePrivilegedResource Replace a privileged resource
+		ReplacePrivilegedResource Replace a privileged resource
 
-	Replaces a privileged resource specified by ID
+		Replaces a privileged resource specified by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id ID of an existing privileged resource
-	@return ApiReplacePrivilegedResourceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param id ID of an existing privileged resource
+		@return ApiReplacePrivilegedResourceRequest
 	*/
 	ReplacePrivilegedResource(ctx context.Context, id string) ApiReplacePrivilegedResourceRequest
 
@@ -108,17 +107,16 @@ type PrivilegedResourceAPI interface {
 type PrivilegedResourceAPIService service
 
 type ApiClaimPrivilegedResourceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PrivilegedResourceAPI
-	id string
+	id         string
 	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
 // TODU
-func (r ApiClaimPrivilegedResourceRequest) Data (data interface{}) ApiClaimPrivilegedResourceRequest {
+func (r ApiClaimPrivilegedResourceRequest) Data(data interface{}) ApiClaimPrivilegedResourceRequest {
 	r.data = data
 	return r
 }
@@ -142,8 +140,8 @@ Claims a specified privileged resource for management. This also marks the `stat
 func (a *PrivilegedResourceAPIService) ClaimPrivilegedResource(ctx context.Context, id string) ApiClaimPrivilegedResourceRequest {
 	return ApiClaimPrivilegedResourceRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -153,13 +151,13 @@ func (a *PrivilegedResourceAPIService) ClaimPrivilegedResource(ctx context.Conte
 
 func (a *PrivilegedResourceAPIService) ClaimPrivilegedResourceExecute(r ApiClaimPrivilegedResourceRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -197,7 +195,7 @@ func (a *PrivilegedResourceAPIService) ClaimPrivilegedResourceExecute(r ApiClaim
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -301,9 +299,9 @@ func (a *PrivilegedResourceAPIService) ClaimPrivilegedResourceExecute(r ApiClaim
 }
 
 type ApiCreatePrivilegedResourceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PrivilegedResourceAPI
-	body *CreatePrivilegedResourceRequest
+	body       *CreatePrivilegedResourceRequest
 	// TODU
 	data       interface{}
 	retryCount int32
@@ -314,9 +312,8 @@ func (r ApiCreatePrivilegedResourceRequest) Body(body CreatePrivilegedResourceRe
 	return r
 }
 
-
 // TODU
-func (r ApiCreatePrivilegedResourceRequest) Data (data interface{}) ApiCreatePrivilegedResourceRequest {
+func (r ApiCreatePrivilegedResourceRequest) Data(data interface{}) ApiCreatePrivilegedResourceRequest {
 	r.data = data
 	return r
 }
@@ -339,7 +336,7 @@ Creates a privileged resource either in Okta or for a specified external app. Af
 func (a *PrivilegedResourceAPIService) CreatePrivilegedResource(ctx context.Context) ApiCreatePrivilegedResourceRequest {
 	return ApiCreatePrivilegedResourceRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -349,13 +346,13 @@ func (a *PrivilegedResourceAPIService) CreatePrivilegedResource(ctx context.Cont
 
 func (a *PrivilegedResourceAPIService) CreatePrivilegedResourceExecute(r ApiCreatePrivilegedResourceRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -392,7 +389,7 @@ func (a *PrivilegedResourceAPIService) CreatePrivilegedResourceExecute(r ApiCrea
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -499,17 +496,16 @@ func (a *PrivilegedResourceAPIService) CreatePrivilegedResourceExecute(r ApiCrea
 }
 
 type ApiDeletePrivilegedResourceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PrivilegedResourceAPI
-	id string
+	id         string
 	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
 // TODU
-func (r ApiDeletePrivilegedResourceRequest) Data (data interface{}) ApiDeletePrivilegedResourceRequest {
+func (r ApiDeletePrivilegedResourceRequest) Data(data interface{}) ApiDeletePrivilegedResourceRequest {
 	r.data = data
 	return r
 }
@@ -533,8 +529,8 @@ Deletes a privileged resource specified by ID. This also marks the `status` as `
 func (a *PrivilegedResourceAPIService) DeletePrivilegedResource(ctx context.Context, id string) ApiDeletePrivilegedResourceRequest {
 	return ApiDeletePrivilegedResourceRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -544,13 +540,13 @@ func (a *PrivilegedResourceAPIService) DeletePrivilegedResource(ctx context.Cont
 
 func (a *PrivilegedResourceAPIService) DeletePrivilegedResourceExecute(r ApiDeletePrivilegedResourceRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -588,7 +584,7 @@ func (a *PrivilegedResourceAPIService) DeletePrivilegedResourceExecute(r ApiDele
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -692,17 +688,16 @@ func (a *PrivilegedResourceAPIService) DeletePrivilegedResourceExecute(r ApiDele
 }
 
 type ApiGetPrivilegedResourceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PrivilegedResourceAPI
-	id string
+	id         string
 	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
 // TODU
-func (r ApiGetPrivilegedResourceRequest) Data (data interface{}) ApiGetPrivilegedResourceRequest {
+func (r ApiGetPrivilegedResourceRequest) Data(data interface{}) ApiGetPrivilegedResourceRequest {
 	r.data = data
 	return r
 }
@@ -726,8 +721,8 @@ Retrieves a privileged resource specified by ID
 func (a *PrivilegedResourceAPIService) GetPrivilegedResource(ctx context.Context, id string) ApiGetPrivilegedResourceRequest {
 	return ApiGetPrivilegedResourceRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -737,13 +732,13 @@ func (a *PrivilegedResourceAPIService) GetPrivilegedResource(ctx context.Context
 
 func (a *PrivilegedResourceAPIService) GetPrivilegedResourceExecute(r ApiGetPrivilegedResourceRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -781,7 +776,7 @@ func (a *PrivilegedResourceAPIService) GetPrivilegedResourceExecute(r ApiGetPriv
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -885,10 +880,10 @@ func (a *PrivilegedResourceAPIService) GetPrivilegedResourceExecute(r ApiGetPriv
 }
 
 type ApiReplacePrivilegedResourceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PrivilegedResourceAPI
-	id string
-	body *PrivilegedResourceCredentials
+	id         string
+	body       *PrivilegedResourceCredentials
 	// TODU
 	data       interface{}
 	retryCount int32
@@ -899,9 +894,8 @@ func (r ApiReplacePrivilegedResourceRequest) Body(body PrivilegedResourceCredent
 	return r
 }
 
-
 // TODU
-func (r ApiReplacePrivilegedResourceRequest) Data (data interface{}) ApiReplacePrivilegedResourceRequest {
+func (r ApiReplacePrivilegedResourceRequest) Data(data interface{}) ApiReplacePrivilegedResourceRequest {
 	r.data = data
 	return r
 }
@@ -925,8 +919,8 @@ Replaces a privileged resource specified by ID
 func (a *PrivilegedResourceAPIService) ReplacePrivilegedResource(ctx context.Context, id string) ApiReplacePrivilegedResourceRequest {
 	return ApiReplacePrivilegedResourceRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 		retryCount: 0,
 	}
 }
@@ -936,13 +930,13 @@ func (a *PrivilegedResourceAPIService) ReplacePrivilegedResource(ctx context.Con
 
 func (a *PrivilegedResourceAPIService) ReplacePrivilegedResourceExecute(r ApiReplacePrivilegedResourceRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -980,7 +974,7 @@ func (a *PrivilegedResourceAPIService) ReplacePrivilegedResourceExecute(r ApiRep
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data

@@ -17,8 +17,8 @@ import (
 
 // PlatformPolicyRuleCondition struct for PlatformPolicyRuleCondition
 type PlatformPolicyRuleCondition struct {
-	Exclude []PlatformConditionEvaluatorPlatform `json:"exclude,omitempty"`
-	Include []PlatformConditionEvaluatorPlatform `json:"include,omitempty"`
+	Exclude              []PlatformConditionEvaluatorPlatform `json:"exclude,omitempty"`
+	Include              []PlatformConditionEvaluatorPlatform `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullablePlatformPolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

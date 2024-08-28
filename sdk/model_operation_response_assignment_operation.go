@@ -17,7 +17,7 @@ import (
 
 // OperationResponseAssignmentOperation struct for OperationResponseAssignmentOperation
 type OperationResponseAssignmentOperation struct {
-	Configuration *OperationResponseAssignmentOperationConfiguration `json:"configuration,omitempty"`
+	Configuration        *OperationResponseAssignmentOperationConfiguration `json:"configuration,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableOperationResponseAssignmentOperation) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -17,8 +17,8 @@ import (
 
 // BouncesRemoveListError struct for BouncesRemoveListError
 type BouncesRemoveListError struct {
-	EmailAddress *string `json:"emailAddress,omitempty"`
-	Reason *string `json:"reason,omitempty"`
+	EmailAddress         *string `json:"emailAddress,omitempty"`
+	Reason               *string `json:"reason,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableBouncesRemoveListError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

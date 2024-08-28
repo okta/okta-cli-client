@@ -12,14 +12,6 @@ var {{ .name }}Cmd = &cobra.Command{
 	Long:  "Manage {{ .name }}API",
 }
 
-func New{{ .name }}Cmd() *cobra.Command {
-    cmd := &cobra.Command{
-		Use:   "{{ .nameLowerCase }}",
-		Long:  "Manage {{ .name }}API",
-	}
-	return cmd
-}
-
 func init() {
     rootCmd.AddCommand({{ .name }}Cmd)
 }

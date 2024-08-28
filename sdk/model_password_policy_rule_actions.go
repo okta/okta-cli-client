@@ -17,10 +17,10 @@ import (
 
 // PasswordPolicyRuleActions struct for PasswordPolicyRuleActions
 type PasswordPolicyRuleActions struct {
-	PasswordChange *PasswordPolicyRuleAction `json:"passwordChange,omitempty"`
+	PasswordChange           *PasswordPolicyRuleAction       `json:"passwordChange,omitempty"`
 	SelfServicePasswordReset *SelfServicePasswordResetAction `json:"selfServicePasswordReset,omitempty"`
-	SelfServiceUnlock *PasswordPolicyRuleAction `json:"selfServiceUnlock,omitempty"`
-	AdditionalProperties map[string]interface{}
+	SelfServiceUnlock        *PasswordPolicyRuleAction       `json:"selfServiceUnlock,omitempty"`
+	AdditionalProperties     map[string]interface{}
 }
 
 type _PasswordPolicyRuleActions PasswordPolicyRuleActions
@@ -217,4 +217,3 @@ func (v *NullablePasswordPolicyRuleActions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

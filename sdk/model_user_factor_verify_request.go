@@ -29,8 +29,8 @@ type UserFactorVerifyRequest struct {
 	// OTP for the current time window
 	PassCode *string `json:"passCode,omitempty"`
 	// Base64-encoded registration data from the U2F JavaScript call
-	RegistrationData *string `json:"registrationData,omitempty"`
-	StateToken *string `json:"stateToken,omitempty"`
+	RegistrationData     *string `json:"registrationData,omitempty"`
+	StateToken           *string `json:"stateToken,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -408,4 +408,3 @@ func (v *NullableUserFactorVerifyRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

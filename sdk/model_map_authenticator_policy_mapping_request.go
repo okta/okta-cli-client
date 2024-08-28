@@ -17,7 +17,7 @@ import (
 
 // MapAuthenticatorPolicyMappingRequest struct for MapAuthenticatorPolicyMappingRequest
 type MapAuthenticatorPolicyMappingRequest struct {
-	PolicyId *string `json:"policyId,omitempty"`
+	PolicyId             *string `json:"policyId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableMapAuthenticatorPolicyMappingRequest) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

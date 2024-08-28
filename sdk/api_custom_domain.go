@@ -17,119 +17,111 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type CustomDomainAPI interface {
 
 	/*
-	CreateCustomDomain Create a Custom Domain
+		CreateCustomDomain Create a Custom Domain
 
-	Creates your custom domain
+		Creates your custom domain
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateCustomDomainRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateCustomDomainRequest
 	*/
 	CreateCustomDomain(ctx context.Context) ApiCreateCustomDomainRequest
 
 	// CreateCustomDomainExecute executes the request
 	//  @return DomainResponse
-	// TODU
 	CreateCustomDomainExecute(r ApiCreateCustomDomainRequest) (*APIResponse, error)
 
 	/*
-	DeleteCustomDomain Delete a Custom Domain
+		DeleteCustomDomain Delete a Custom Domain
 
-	Deletes a custom domain by `domainId`
+		Deletes a custom domain by `domainId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param domainId `id` of the Domain
-	@return ApiDeleteCustomDomainRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param domainId `id` of the Domain
+		@return ApiDeleteCustomDomainRequest
 	*/
 	DeleteCustomDomain(ctx context.Context, domainId string) ApiDeleteCustomDomainRequest
 
 	// DeleteCustomDomainExecute executes the request
-	// TODU
 	DeleteCustomDomainExecute(r ApiDeleteCustomDomainRequest) (*APIResponse, error)
 
 	/*
-	GetCustomDomain Retrieve a Custom Domain
+		GetCustomDomain Retrieve a Custom Domain
 
-	Retrieves a custom domain by `domainId`
+		Retrieves a custom domain by `domainId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param domainId `id` of the Domain
-	@return ApiGetCustomDomainRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param domainId `id` of the Domain
+		@return ApiGetCustomDomainRequest
 	*/
 	GetCustomDomain(ctx context.Context, domainId string) ApiGetCustomDomainRequest
 
 	// GetCustomDomainExecute executes the request
 	//  @return DomainResponse
-	// TODU
 	GetCustomDomainExecute(r ApiGetCustomDomainRequest) (*APIResponse, error)
 
 	/*
-	ListCustomDomains List all Custom Domains
+		ListCustomDomains List all Custom Domains
 
-	Lists all verified custom domains for the org
+		Lists all verified custom domains for the org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListCustomDomainsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListCustomDomainsRequest
 	*/
 	ListCustomDomains(ctx context.Context) ApiListCustomDomainsRequest
 
 	// ListCustomDomainsExecute executes the request
 	//  @return DomainListResponse
-	// TODU
 	ListCustomDomainsExecute(r ApiListCustomDomainsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceCustomDomain Replace a Custom Domain's Brand
+		ReplaceCustomDomain Replace a Custom Domain's Brand
 
-	Replaces a custom domain's brand
+		Replaces a custom domain's brand
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param domainId `id` of the Domain
-	@return ApiReplaceCustomDomainRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param domainId `id` of the Domain
+		@return ApiReplaceCustomDomainRequest
 	*/
 	ReplaceCustomDomain(ctx context.Context, domainId string) ApiReplaceCustomDomainRequest
 
 	// ReplaceCustomDomainExecute executes the request
 	//  @return DomainResponse
-	// TODU
 	ReplaceCustomDomainExecute(r ApiReplaceCustomDomainRequest) (*APIResponse, error)
 
 	/*
-	UpsertCertificate Upsert the Custom Domain's Certificate
+		UpsertCertificate Upsert the Custom Domain's Certificate
 
-	Upserts (creates or renews) the `MANUAL` certificate for the custom domain. If the `certificateSourceType` in the domain is `OKTA_MANAGED`, it becomes `MANUAL` and Okta no longer manages and renews certificates for this domain since a user-managed certificate has been provided.
+		Upserts (creates or renews) the `MANUAL` certificate for the custom domain. If the `certificateSourceType` in the domain is `OKTA_MANAGED`, it becomes `MANUAL` and Okta no longer manages and renews certificates for this domain since a user-managed certificate has been provided.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param domainId `id` of the Domain
-	@return ApiUpsertCertificateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param domainId `id` of the Domain
+		@return ApiUpsertCertificateRequest
 	*/
 	UpsertCertificate(ctx context.Context, domainId string) ApiUpsertCertificateRequest
 
 	// UpsertCertificateExecute executes the request
-	// TODU
 	UpsertCertificateExecute(r ApiUpsertCertificateRequest) (*APIResponse, error)
 
 	/*
-	VerifyDomain Verify a Custom Domain
+		VerifyDomain Verify a Custom Domain
 
-	Verifies the custom domain and validity of DNS records by `domainId`. Furthermore, if the `certificateSourceType` in the domain is `OKTA_MANAGED`, then an attempt is made to obtain and install a certificate. After a certificate is obtained and installed by Okta, Okta manages the certificate including certificate renewal.
+		Verifies the custom domain and validity of DNS records by `domainId`. Furthermore, if the `certificateSourceType` in the domain is `OKTA_MANAGED`, then an attempt is made to obtain and install a certificate. After a certificate is obtained and installed by Okta, Okta manages the certificate including certificate renewal.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param domainId `id` of the Domain
-	@return ApiVerifyDomainRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param domainId `id` of the Domain
+		@return ApiVerifyDomainRequest
 	*/
 	VerifyDomain(ctx context.Context, domainId string) ApiVerifyDomainRequest
 
 	// VerifyDomainExecute executes the request
 	//  @return DomainResponse
-	// TODU
 	VerifyDomainExecute(r ApiVerifyDomainRequest) (*APIResponse, error)
 }
 
@@ -137,10 +129,9 @@ type CustomDomainAPI interface {
 type CustomDomainAPIService service
 
 type ApiCreateCustomDomainRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomDomainAPI
-	domain *DomainRequest
-	// TODU
+	domain     *DomainRequest
 	data       interface{}
 	retryCount int32
 }
@@ -150,14 +141,11 @@ func (r ApiCreateCustomDomainRequest) Domain(domain DomainRequest) ApiCreateCust
 	return r
 }
 
-
-// TODU
-func (r ApiCreateCustomDomainRequest) Data (data interface{}) ApiCreateCustomDomainRequest {
+func (r ApiCreateCustomDomainRequest) Data(data interface{}) ApiCreateCustomDomainRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateCustomDomainRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateCustomDomainExecute(r)
 }
@@ -170,12 +158,11 @@ Creates your custom domain
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateCustomDomainRequest
 */
-// TODU
 
 func (a *CustomDomainAPIService) CreateCustomDomain(ctx context.Context) ApiCreateCustomDomainRequest {
 	return ApiCreateCustomDomainRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -188,10 +175,9 @@ func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDoma
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -201,7 +187,6 @@ func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDoma
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomDomainAPIService.CreateCustomDomain")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -228,7 +213,6 @@ func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDoma
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.domain
 	localVarPostBody = r.data
@@ -248,13 +232,11 @@ func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDoma
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -263,7 +245,6 @@ func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDoma
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -278,12 +259,10 @@ func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDoma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -292,12 +271,10 @@ func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDoma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -306,13 +283,11 @@ func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDoma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -321,22 +296,18 @@ func (a *CustomDomainAPIService) CreateCustomDomainExecute(r ApiCreateCustomDoma
 }
 
 type ApiDeleteCustomDomainRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomDomainAPI
-	domainId string
-	// TODU
+	domainId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteCustomDomainRequest) Data (data interface{}) ApiDeleteCustomDomainRequest {
+func (r ApiDeleteCustomDomainRequest) Data(data interface{}) ApiDeleteCustomDomainRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteCustomDomainRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteCustomDomainExecute(r)
 }
@@ -350,13 +321,12 @@ Deletes a custom domain by `domainId`
  @param domainId `id` of the Domain
  @return ApiDeleteCustomDomainRequest
 */
-// TODU
 
 func (a *CustomDomainAPIService) DeleteCustomDomain(ctx context.Context, domainId string) ApiDeleteCustomDomainRequest {
 	return ApiDeleteCustomDomainRequest{
 		ApiService: a,
-		ctx: ctx,
-		domainId: domainId,
+		ctx:        ctx,
+		domainId:   domainId,
 		retryCount: 0,
 	}
 }
@@ -370,7 +340,7 @@ func (a *CustomDomainAPIService) DeleteCustomDomainExecute(r ApiDeleteCustomDoma
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -380,7 +350,6 @@ func (a *CustomDomainAPIService) DeleteCustomDomainExecute(r ApiDeleteCustomDoma
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomDomainAPIService.DeleteCustomDomain")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -408,7 +377,6 @@ func (a *CustomDomainAPIService) DeleteCustomDomainExecute(r ApiDeleteCustomDoma
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -425,13 +393,11 @@ func (a *CustomDomainAPIService) DeleteCustomDomainExecute(r ApiDeleteCustomDoma
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -440,7 +406,6 @@ func (a *CustomDomainAPIService) DeleteCustomDomainExecute(r ApiDeleteCustomDoma
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -455,12 +420,10 @@ func (a *CustomDomainAPIService) DeleteCustomDomainExecute(r ApiDeleteCustomDoma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -469,12 +432,10 @@ func (a *CustomDomainAPIService) DeleteCustomDomainExecute(r ApiDeleteCustomDoma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -483,13 +444,11 @@ func (a *CustomDomainAPIService) DeleteCustomDomainExecute(r ApiDeleteCustomDoma
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -498,22 +457,18 @@ func (a *CustomDomainAPIService) DeleteCustomDomainExecute(r ApiDeleteCustomDoma
 }
 
 type ApiGetCustomDomainRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomDomainAPI
-	domainId string
-	// TODU
+	domainId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetCustomDomainRequest) Data (data interface{}) ApiGetCustomDomainRequest {
+func (r ApiGetCustomDomainRequest) Data(data interface{}) ApiGetCustomDomainRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetCustomDomainRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetCustomDomainExecute(r)
 }
@@ -527,13 +482,12 @@ Retrieves a custom domain by `domainId`
  @param domainId `id` of the Domain
  @return ApiGetCustomDomainRequest
 */
-// TODU
 
 func (a *CustomDomainAPIService) GetCustomDomain(ctx context.Context, domainId string) ApiGetCustomDomainRequest {
 	return ApiGetCustomDomainRequest{
 		ApiService: a,
-		ctx: ctx,
-		domainId: domainId,
+		ctx:        ctx,
+		domainId:   domainId,
 		retryCount: 0,
 	}
 }
@@ -546,10 +500,9 @@ func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequ
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -559,7 +512,6 @@ func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomDomainAPIService.GetCustomDomain")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -587,7 +539,6 @@ func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -604,13 +555,11 @@ func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -619,7 +568,6 @@ func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -634,12 +582,10 @@ func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -648,12 +594,10 @@ func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -662,13 +606,11 @@ func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -677,21 +619,17 @@ func (a *CustomDomainAPIService) GetCustomDomainExecute(r ApiGetCustomDomainRequ
 }
 
 type ApiListCustomDomainsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomDomainAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListCustomDomainsRequest) Data (data interface{}) ApiListCustomDomainsRequest {
+func (r ApiListCustomDomainsRequest) Data(data interface{}) ApiListCustomDomainsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListCustomDomainsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListCustomDomainsExecute(r)
 }
@@ -704,12 +642,11 @@ Lists all verified custom domains for the org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListCustomDomainsRequest
 */
-// TODU
 
 func (a *CustomDomainAPIService) ListCustomDomains(ctx context.Context) ApiListCustomDomainsRequest {
 	return ApiListCustomDomainsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -722,10 +659,9 @@ func (a *CustomDomainAPIService) ListCustomDomainsExecute(r ApiListCustomDomains
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -735,7 +671,6 @@ func (a *CustomDomainAPIService) ListCustomDomainsExecute(r ApiListCustomDomains
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomDomainAPIService.ListCustomDomains")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -762,7 +697,6 @@ func (a *CustomDomainAPIService) ListCustomDomainsExecute(r ApiListCustomDomains
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -779,13 +713,11 @@ func (a *CustomDomainAPIService) ListCustomDomainsExecute(r ApiListCustomDomains
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -794,7 +726,6 @@ func (a *CustomDomainAPIService) ListCustomDomainsExecute(r ApiListCustomDomains
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -809,12 +740,10 @@ func (a *CustomDomainAPIService) ListCustomDomainsExecute(r ApiListCustomDomains
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -823,13 +752,11 @@ func (a *CustomDomainAPIService) ListCustomDomainsExecute(r ApiListCustomDomains
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -838,13 +765,12 @@ func (a *CustomDomainAPIService) ListCustomDomainsExecute(r ApiListCustomDomains
 }
 
 type ApiReplaceCustomDomainRequest struct {
-	ctx context.Context
-	ApiService CustomDomainAPI
-	domainId string
+	ctx          context.Context
+	ApiService   CustomDomainAPI
+	domainId     string
 	updateDomain *UpdateDomain
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiReplaceCustomDomainRequest) UpdateDomain(updateDomain UpdateDomain) ApiReplaceCustomDomainRequest {
@@ -852,14 +778,11 @@ func (r ApiReplaceCustomDomainRequest) UpdateDomain(updateDomain UpdateDomain) A
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceCustomDomainRequest) Data (data interface{}) ApiReplaceCustomDomainRequest {
+func (r ApiReplaceCustomDomainRequest) Data(data interface{}) ApiReplaceCustomDomainRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceCustomDomainRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceCustomDomainExecute(r)
 }
@@ -873,13 +796,12 @@ Replaces a custom domain's brand
  @param domainId `id` of the Domain
  @return ApiReplaceCustomDomainRequest
 */
-// TODU
 
 func (a *CustomDomainAPIService) ReplaceCustomDomain(ctx context.Context, domainId string) ApiReplaceCustomDomainRequest {
 	return ApiReplaceCustomDomainRequest{
 		ApiService: a,
-		ctx: ctx,
-		domainId: domainId,
+		ctx:        ctx,
+		domainId:   domainId,
 		retryCount: 0,
 	}
 }
@@ -892,10 +814,9 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -905,7 +826,6 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomDomainAPIService.ReplaceCustomDomain")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -933,7 +853,6 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.updateDomain
 	localVarPostBody = r.data
@@ -953,13 +872,11 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -968,7 +885,6 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -983,12 +899,10 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -997,12 +911,10 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1011,12 +923,10 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1025,13 +935,11 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1040,13 +948,12 @@ func (a *CustomDomainAPIService) ReplaceCustomDomainExecute(r ApiReplaceCustomDo
 }
 
 type ApiUpsertCertificateRequest struct {
-	ctx context.Context
-	ApiService CustomDomainAPI
-	domainId string
+	ctx         context.Context
+	ApiService  CustomDomainAPI
+	domainId    string
 	certificate *DomainCertificate
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
 func (r ApiUpsertCertificateRequest) Certificate(certificate DomainCertificate) ApiUpsertCertificateRequest {
@@ -1054,14 +961,11 @@ func (r ApiUpsertCertificateRequest) Certificate(certificate DomainCertificate) 
 	return r
 }
 
-
-// TODU
-func (r ApiUpsertCertificateRequest) Data (data interface{}) ApiUpsertCertificateRequest {
+func (r ApiUpsertCertificateRequest) Data(data interface{}) ApiUpsertCertificateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpsertCertificateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpsertCertificateExecute(r)
 }
@@ -1075,13 +979,12 @@ Upserts (creates or renews) the `MANUAL` certificate for the custom domain. If t
  @param domainId `id` of the Domain
  @return ApiUpsertCertificateRequest
 */
-// TODU
 
 func (a *CustomDomainAPIService) UpsertCertificate(ctx context.Context, domainId string) ApiUpsertCertificateRequest {
 	return ApiUpsertCertificateRequest{
 		ApiService: a,
-		ctx: ctx,
-		domainId: domainId,
+		ctx:        ctx,
+		domainId:   domainId,
 		retryCount: 0,
 	}
 }
@@ -1095,7 +998,7 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1105,7 +1008,6 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomDomainAPIService.UpsertCertificate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1133,7 +1035,6 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.certificate
 	localVarPostBody = r.data
@@ -1153,13 +1054,11 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1168,7 +1067,6 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1183,12 +1081,10 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1197,12 +1093,10 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1211,12 +1105,10 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1225,13 +1117,11 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1240,22 +1130,18 @@ func (a *CustomDomainAPIService) UpsertCertificateExecute(r ApiUpsertCertificate
 }
 
 type ApiVerifyDomainRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService CustomDomainAPI
-	domainId string
-	// TODU
+	domainId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiVerifyDomainRequest) Data (data interface{}) ApiVerifyDomainRequest {
+func (r ApiVerifyDomainRequest) Data(data interface{}) ApiVerifyDomainRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiVerifyDomainRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.VerifyDomainExecute(r)
 }
@@ -1269,13 +1155,12 @@ Verifies the custom domain and validity of DNS records by `domainId`. Furthermor
  @param domainId `id` of the Domain
  @return ApiVerifyDomainRequest
 */
-// TODU
 
 func (a *CustomDomainAPIService) VerifyDomain(ctx context.Context, domainId string) ApiVerifyDomainRequest {
 	return ApiVerifyDomainRequest{
 		ApiService: a,
-		ctx: ctx,
-		domainId: domainId,
+		ctx:        ctx,
+		domainId:   domainId,
 		retryCount: 0,
 	}
 }
@@ -1288,10 +1173,9 @@ func (a *CustomDomainAPIService) VerifyDomainExecute(r ApiVerifyDomainRequest) (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1301,7 +1185,6 @@ func (a *CustomDomainAPIService) VerifyDomainExecute(r ApiVerifyDomainRequest) (
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomDomainAPIService.VerifyDomain")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1329,7 +1212,6 @@ func (a *CustomDomainAPIService) VerifyDomainExecute(r ApiVerifyDomainRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1346,13 +1228,11 @@ func (a *CustomDomainAPIService) VerifyDomainExecute(r ApiVerifyDomainRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1361,7 +1241,6 @@ func (a *CustomDomainAPIService) VerifyDomainExecute(r ApiVerifyDomainRequest) (
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1376,12 +1255,10 @@ func (a *CustomDomainAPIService) VerifyDomainExecute(r ApiVerifyDomainRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1390,12 +1267,10 @@ func (a *CustomDomainAPIService) VerifyDomainExecute(r ApiVerifyDomainRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1404,13 +1279,11 @@ func (a *CustomDomainAPIService) VerifyDomainExecute(r ApiVerifyDomainRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

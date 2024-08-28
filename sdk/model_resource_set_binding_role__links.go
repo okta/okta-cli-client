@@ -17,8 +17,8 @@ import (
 
 // ResourceSetBindingRoleLinks struct for ResourceSetBindingRoleLinks
 type ResourceSetBindingRoleLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Members *HrefObject `json:"members,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Members              *HrefObject         `json:"members,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableResourceSetBindingRoleLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

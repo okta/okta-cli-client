@@ -20,67 +20,62 @@ import (
 	"time"
 )
 
-
 type AttackProtectionAPI interface {
 
 	/*
-	GetAuthenticatorSettings Retrieve the Authenticator Settings
+		GetAuthenticatorSettings Retrieve the Authenticator Settings
 
-	Retrieves the Authenticator Settings for an org
+		Retrieves the Authenticator Settings for an org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetAuthenticatorSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetAuthenticatorSettingsRequest
 	*/
 	GetAuthenticatorSettings(ctx context.Context) ApiGetAuthenticatorSettingsRequest
 
 	// GetAuthenticatorSettingsExecute executes the request
 	//  @return []AttackProtectionAuthenticatorSettings
-	// TODU
 	GetAuthenticatorSettingsExecute(r ApiGetAuthenticatorSettingsRequest) (*APIResponse, error)
 
 	/*
-	GetUserLockoutSettings Retrieve the User Lockout Settings
+		GetUserLockoutSettings Retrieve the User Lockout Settings
 
-	Retrieves the User Lockout Settings for an org
+		Retrieves the User Lockout Settings for an org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetUserLockoutSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetUserLockoutSettingsRequest
 	*/
 	GetUserLockoutSettings(ctx context.Context) ApiGetUserLockoutSettingsRequest
 
 	// GetUserLockoutSettingsExecute executes the request
 	//  @return []UserLockoutSettings
-	// TODU
 	GetUserLockoutSettingsExecute(r ApiGetUserLockoutSettingsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceAuthenticatorSettings Replace the Authenticator Settings
+		ReplaceAuthenticatorSettings Replace the Authenticator Settings
 
-	Replaces the Authenticator Settings for an org
+		Replaces the Authenticator Settings for an org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceAuthenticatorSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceAuthenticatorSettingsRequest
 	*/
 	ReplaceAuthenticatorSettings(ctx context.Context) ApiReplaceAuthenticatorSettingsRequest
 
 	// ReplaceAuthenticatorSettingsExecute executes the request
 	//  @return AttackProtectionAuthenticatorSettings
-	// TODU
 	ReplaceAuthenticatorSettingsExecute(r ApiReplaceAuthenticatorSettingsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceUserLockoutSettings Replace the User Lockout Settings
+		ReplaceUserLockoutSettings Replace the User Lockout Settings
 
-	Replaces the User Lockout Settings for an org
+		Replaces the User Lockout Settings for an org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceUserLockoutSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceUserLockoutSettingsRequest
 	*/
 	ReplaceUserLockoutSettings(ctx context.Context) ApiReplaceUserLockoutSettingsRequest
 
 	// ReplaceUserLockoutSettingsExecute executes the request
 	//  @return UserLockoutSettings
-	// TODU
 	ReplaceUserLockoutSettingsExecute(r ApiReplaceUserLockoutSettingsRequest) (*APIResponse, error)
 }
 
@@ -88,21 +83,17 @@ type AttackProtectionAPI interface {
 type AttackProtectionAPIService service
 
 type ApiGetAuthenticatorSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AttackProtectionAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetAuthenticatorSettingsRequest) Data (data interface{}) ApiGetAuthenticatorSettingsRequest {
+func (r ApiGetAuthenticatorSettingsRequest) Data(data interface{}) ApiGetAuthenticatorSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetAuthenticatorSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetAuthenticatorSettingsExecute(r)
 }
@@ -115,12 +106,11 @@ Retrieves the Authenticator Settings for an org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetAuthenticatorSettingsRequest
 */
-// TODU
 
 func (a *AttackProtectionAPIService) GetAuthenticatorSettings(ctx context.Context) ApiGetAuthenticatorSettingsRequest {
 	return ApiGetAuthenticatorSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -133,10 +123,9 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAut
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -146,7 +135,6 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAut
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttackProtectionAPIService.GetAuthenticatorSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -173,7 +161,6 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAut
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -190,13 +177,11 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAut
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -205,7 +190,6 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAut
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -220,12 +204,10 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAut
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -234,13 +216,11 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAut
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -249,21 +229,17 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAut
 }
 
 type ApiGetUserLockoutSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AttackProtectionAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetUserLockoutSettingsRequest) Data (data interface{}) ApiGetUserLockoutSettingsRequest {
+func (r ApiGetUserLockoutSettingsRequest) Data(data interface{}) ApiGetUserLockoutSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetUserLockoutSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetUserLockoutSettingsExecute(r)
 }
@@ -276,12 +252,11 @@ Retrieves the User Lockout Settings for an org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetUserLockoutSettingsRequest
 */
-// TODU
 
 func (a *AttackProtectionAPIService) GetUserLockoutSettings(ctx context.Context) ApiGetUserLockoutSettingsRequest {
 	return ApiGetUserLockoutSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -294,10 +269,9 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserL
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -307,7 +281,6 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserL
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttackProtectionAPIService.GetUserLockoutSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -334,7 +307,6 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserL
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -351,13 +323,11 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserL
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -366,7 +336,6 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserL
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -381,12 +350,10 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserL
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -395,13 +362,11 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserL
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -410,12 +375,11 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserL
 }
 
 type ApiReplaceAuthenticatorSettingsRequest struct {
-	ctx context.Context
-	ApiService AttackProtectionAPI
+	ctx                   context.Context
+	ApiService            AttackProtectionAPI
 	authenticatorSettings *AttackProtectionAuthenticatorSettings
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                  interface{}
+	retryCount            int32
 }
 
 func (r ApiReplaceAuthenticatorSettingsRequest) AuthenticatorSettings(authenticatorSettings AttackProtectionAuthenticatorSettings) ApiReplaceAuthenticatorSettingsRequest {
@@ -423,14 +387,11 @@ func (r ApiReplaceAuthenticatorSettingsRequest) AuthenticatorSettings(authentica
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceAuthenticatorSettingsRequest) Data (data interface{}) ApiReplaceAuthenticatorSettingsRequest {
+func (r ApiReplaceAuthenticatorSettingsRequest) Data(data interface{}) ApiReplaceAuthenticatorSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceAuthenticatorSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceAuthenticatorSettingsExecute(r)
 }
@@ -443,12 +404,11 @@ Replaces the Authenticator Settings for an org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiReplaceAuthenticatorSettingsRequest
 */
-// TODU
 
 func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettings(ctx context.Context) ApiReplaceAuthenticatorSettingsRequest {
 	return ApiReplaceAuthenticatorSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -461,10 +421,9 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -474,7 +433,6 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttackProtectionAPIService.ReplaceAuthenticatorSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -501,7 +459,6 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.authenticatorSettings
 	localVarPostBody = r.data
@@ -521,13 +478,11 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -536,7 +491,6 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -551,12 +505,10 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -565,12 +517,10 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -579,13 +529,11 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -594,12 +542,11 @@ func (a *AttackProtectionAPIService) ReplaceAuthenticatorSettingsExecute(r ApiRe
 }
 
 type ApiReplaceUserLockoutSettingsRequest struct {
-	ctx context.Context
-	ApiService AttackProtectionAPI
+	ctx             context.Context
+	ApiService      AttackProtectionAPI
 	lockoutSettings *UserLockoutSettings
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
 func (r ApiReplaceUserLockoutSettingsRequest) LockoutSettings(lockoutSettings UserLockoutSettings) ApiReplaceUserLockoutSettingsRequest {
@@ -607,14 +554,11 @@ func (r ApiReplaceUserLockoutSettingsRequest) LockoutSettings(lockoutSettings Us
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceUserLockoutSettingsRequest) Data (data interface{}) ApiReplaceUserLockoutSettingsRequest {
+func (r ApiReplaceUserLockoutSettingsRequest) Data(data interface{}) ApiReplaceUserLockoutSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceUserLockoutSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceUserLockoutSettingsExecute(r)
 }
@@ -627,12 +571,11 @@ Replaces the User Lockout Settings for an org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiReplaceUserLockoutSettingsRequest
 */
-// TODU
 
 func (a *AttackProtectionAPIService) ReplaceUserLockoutSettings(ctx context.Context) ApiReplaceUserLockoutSettingsRequest {
 	return ApiReplaceUserLockoutSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -645,10 +588,9 @@ func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiRepl
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -658,7 +600,6 @@ func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiRepl
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AttackProtectionAPIService.ReplaceUserLockoutSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -685,7 +626,6 @@ func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiRepl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.lockoutSettings
 	localVarPostBody = r.data
@@ -705,13 +645,11 @@ func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiRepl
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -720,7 +658,6 @@ func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiRepl
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -735,12 +672,10 @@ func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiRepl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -749,12 +684,10 @@ func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiRepl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -763,13 +696,11 @@ func (a *AttackProtectionAPIService) ReplaceUserLockoutSettingsExecute(r ApiRepl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

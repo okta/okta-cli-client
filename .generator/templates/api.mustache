@@ -40,7 +40,6 @@ type {{classname}} interface {
 	{{#isDeprecated}}
 	// Deprecated
 	{{/isDeprecated}}
-	// TODU
 	{{nickname}}Execute(r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) (*APIResponse, error)
 	{{/operation}}
 }
@@ -59,7 +58,6 @@ type {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/stru
 {{#allParams}}
 	{{paramName}} {{^isPathParam}}*{{/isPathParam}}{{{dataType}}}
 {{/allParams}}
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -80,13 +78,11 @@ func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/s
 {{/isPathParam}}
 {{/allParams}}
 
-// TODU
 func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) Data (data interface{}) {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request) Execute() (*APIResponse, error) {
 	return r.ApiService.{{nickname}}Execute(r)
 }
@@ -106,7 +102,6 @@ func (r {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/s
 Deprecated
 {{/isDeprecated}}
 */
-// TODU
 
 func (a *{{{classname}}}Service) {{{nickname}}}(ctx context.Context{{#pathParams}}, {{paramName}} {{{dataType}}}{{/pathParams}}) {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request {
 	return {{#structPrefix}}{{&classname}}{{/structPrefix}}{{^structPrefix}}Api{{/structPrefix}}{{operationId}}Request{
@@ -131,7 +126,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 		localVarPostBody     interface{}
 		formFiles            []formFile
 		{{#returnType}}
-		// TODU
 		{{/returnType}}
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
@@ -145,7 +139,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "{{{classname}}}Service.{{{nickname}}}")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -159,25 +152,21 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 	{{#required}}
 	{{#minItems}}
 	if len({{^isPathParam}}*{{/isPathParam}}r.{{paramName}}) < {{minItems}} {
-		// TODU
 		return nil, reportError("{{paramName}} must have at least {{minItems}} elements")
 	}
 	{{/minItems}}
 	{{#maxItems}}
 	if len({{^isPathParam}}*{{/isPathParam}}r.{{paramName}}) > {{maxItems}} {
-		// TODU
 		return nil, reportError("{{paramName}} must have less than {{maxItems}} elements")
 	}
 	{{/maxItems}}
 	{{#minLength}}
 	if strlen({{^isPathParam}}*{{/isPathParam}}r.{{paramName}}) < {{minLength}} {
-		// TODU
 		return nil, reportError("{{paramName}} must have at least {{minLength}} elements")
 	}
 	{{/minLength}}
 	{{#maxLength}}
 	if strlen({{^isPathParam}}*{{/isPathParam}}r.{{paramName}}) > {{maxLength}} {
-		// TODU
 		return nil, reportError("{{paramName}} must have less than {{maxLength}} elements")
 	}
 	{{/maxLength}}
@@ -189,7 +178,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 	{{^isString}}
 	if {{^isPathParam}}*{{/isPathParam}}r.{{paramName}} < {{minimum}} {
 	{{/isString}}
-		// TODU
 		return nil, reportError("{{paramName}} must be greater than {{minimum}}")
 	}
 	{{/minimum}}
@@ -201,7 +189,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 	{{^isString}}
 	if {{^isPathParam}}*{{/isPathParam}}r.{{paramName}} > {{maximum}} {
 	{{/isString}}
-		// TODU
 		return nil, reportError("{{paramName}} must be less than {{maximum}}")
 	}
 	{{/maximum}}
@@ -324,7 +311,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 {{/required}}
 {{/isFile}}
 {{/formParams}}
-// TODU
 {{#bodyParams}}
 	// body params
 	// localVarPostBody = r.{{paramName}}
@@ -368,7 +354,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 {{/authMethods}}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
@@ -379,7 +364,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 		{{^returnType}}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		{{/returnType}}
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -393,7 +377,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 		{{^returnType}}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		{{/returnType}}
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -432,7 +415,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 				{{^returnType}}
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 				{{/returnType}}
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
@@ -443,7 +425,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 			{{^returnType}}
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 			{{/returnType}}
-			// TODU
 			return localAPIResponse, newErr
 			{{/-last}}
 		{{^wildcard}}
@@ -459,7 +440,6 @@ func (a *{{{classname}}}Service) {{nickname}}Execute(r {{#structPrefix}}{{&class
 		{{^returnType}}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		{{/returnType}}
-		// TODU
 		return localAPIResponse, newErr
 	}
 

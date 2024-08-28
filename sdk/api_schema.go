@@ -17,170 +17,159 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type SchemaAPI interface {
 
 	/*
-	GetAppUISchema Retrieve the UI schema for a section
+		GetAppUISchema Retrieve the UI schema for a section
 
-	Retrieves the UI schema for an Application given `appName`, `section` and `operation`
+		Retrieves the UI schema for an Application given `appName`, `section` and `operation`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appName Application name for the app type
-	@param section
-	@param operation
-	@return ApiGetAppUISchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appName Application name for the app type
+		@param section
+		@param operation
+		@return ApiGetAppUISchemaRequest
 	*/
 	GetAppUISchema(ctx context.Context, appName string, section string, operation string) ApiGetAppUISchemaRequest
 
 	// GetAppUISchemaExecute executes the request
 	//  @return ApplicationLayout
-	// TODU
 	GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*APIResponse, error)
 
 	/*
-	GetAppUISchemaLinks Retrieve the links for UI schemas for an Application
+		GetAppUISchemaLinks Retrieve the links for UI schemas for an Application
 
-	Retrieves the links for UI schemas for an Application given `appName`
+		Retrieves the links for UI schemas for an Application given `appName`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appName Application name for the app type
-	@return ApiGetAppUISchemaLinksRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appName Application name for the app type
+		@return ApiGetAppUISchemaLinksRequest
 	*/
 	GetAppUISchemaLinks(ctx context.Context, appName string) ApiGetAppUISchemaLinksRequest
 
 	// GetAppUISchemaLinksExecute executes the request
 	//  @return ApplicationLayouts
-	// TODU
 	GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRequest) (*APIResponse, error)
 
 	/*
-	GetApplicationUserSchema Retrieve the default Application User Schema for an Application
+		GetApplicationUserSchema Retrieve the default Application User Schema for an Application
 
-	Retrieves the Schema for an App User
+		Retrieves the Schema for an App User
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGetApplicationUserSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiGetApplicationUserSchemaRequest
 	*/
 	GetApplicationUserSchema(ctx context.Context, appId string) ApiGetApplicationUserSchemaRequest
 
 	// GetApplicationUserSchemaExecute executes the request
 	//  @return UserSchema
-	// TODU
 	GetApplicationUserSchemaExecute(r ApiGetApplicationUserSchemaRequest) (*APIResponse, error)
 
 	/*
-	GetGroupSchema Retrieve the default Group Schema
+		GetGroupSchema Retrieve the default Group Schema
 
-	Retrieves the group schema
+		Retrieves the group schema
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetGroupSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetGroupSchemaRequest
 	*/
 	GetGroupSchema(ctx context.Context) ApiGetGroupSchemaRequest
 
 	// GetGroupSchemaExecute executes the request
 	//  @return GroupSchema
-	// TODU
 	GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*APIResponse, error)
 
 	/*
-	GetLogStreamSchema Retrieve the Log Stream Schema for the schema type
+		GetLogStreamSchema Retrieve the Log Stream Schema for the schema type
 
-	Retrieves the schema for a Log Stream type. The `logStreamType` element in the URL specifies the Log Stream type, which is either `aws_eventbridge` or `splunk_cloud_logstreaming`. Use the `aws_eventbridge` literal to retrieve the AWS EventBridge type schema, and use the `splunk_cloud_logstreaming` literal retrieve the Splunk Cloud type schema.
+		Retrieves the schema for a Log Stream type. The `logStreamType` element in the URL specifies the Log Stream type, which is either `aws_eventbridge` or `splunk_cloud_logstreaming`. Use the `aws_eventbridge` literal to retrieve the AWS EventBridge type schema, and use the `splunk_cloud_logstreaming` literal retrieve the Splunk Cloud type schema.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param logStreamType
-	@return ApiGetLogStreamSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param logStreamType
+		@return ApiGetLogStreamSchemaRequest
 	*/
 	GetLogStreamSchema(ctx context.Context, logStreamType string) ApiGetLogStreamSchemaRequest
 
 	// GetLogStreamSchemaExecute executes the request
 	//  @return LogStreamSchema
-	// TODU
 	GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequest) (*APIResponse, error)
 
 	/*
-	GetUserSchema Retrieve a User Schema
+		GetUserSchema Retrieve a User Schema
 
-	Retrieves the schema for a Schema Id
+		Retrieves the schema for a Schema Id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param schemaId
-	@return ApiGetUserSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param schemaId
+		@return ApiGetUserSchemaRequest
 	*/
 	GetUserSchema(ctx context.Context, schemaId string) ApiGetUserSchemaRequest
 
 	// GetUserSchemaExecute executes the request
 	//  @return UserSchema
-	// TODU
 	GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*APIResponse, error)
 
 	/*
-	ListLogStreamSchemas List the Log Stream Schemas
+		ListLogStreamSchemas List the Log Stream Schemas
 
-	Lists the schema for all log stream types visible for this org
+		Lists the schema for all log stream types visible for this org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListLogStreamSchemasRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListLogStreamSchemasRequest
 	*/
 	ListLogStreamSchemas(ctx context.Context) ApiListLogStreamSchemasRequest
 
 	// ListLogStreamSchemasExecute executes the request
 	//  @return []LogStreamSchema
-	// TODU
 	ListLogStreamSchemasExecute(r ApiListLogStreamSchemasRequest) (*APIResponse, error)
 
 	/*
-	UpdateApplicationUserProfile Update the default Application User Schema for an Application
+		UpdateApplicationUserProfile Update the default Application User Schema for an Application
 
-	Partially updates on the User Profile properties of the Application User Schema
+		Partially updates on the User Profile properties of the Application User Schema
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiUpdateApplicationUserProfileRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiUpdateApplicationUserProfileRequest
 	*/
 	UpdateApplicationUserProfile(ctx context.Context, appId string) ApiUpdateApplicationUserProfileRequest
 
 	// UpdateApplicationUserProfileExecute executes the request
 	//  @return UserSchema
-	// TODU
 	UpdateApplicationUserProfileExecute(r ApiUpdateApplicationUserProfileRequest) (*APIResponse, error)
 
 	/*
-	UpdateGroupSchema Update the default Group Schema
+		UpdateGroupSchema Update the default Group Schema
 
-	Updates the default group schema. This updates, adds, or removes one or more custom Group Profile properties in the schema.
+		Updates the default group schema. This updates, adds, or removes one or more custom Group Profile properties in the schema.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateGroupSchemaRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateGroupSchemaRequest
 	*/
 	UpdateGroupSchema(ctx context.Context) ApiUpdateGroupSchemaRequest
 
 	// UpdateGroupSchemaExecute executes the request
 	//  @return GroupSchema
-	// TODU
 	UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaRequest) (*APIResponse, error)
 
 	/*
-	UpdateUserProfile Update a User Schema
+		UpdateUserProfile Update a User Schema
 
-	Partially updates on the User Profile properties of the user schema
+		Partially updates on the User Profile properties of the user schema
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param schemaId
-	@return ApiUpdateUserProfileRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param schemaId
+		@return ApiUpdateUserProfileRequest
 	*/
 	UpdateUserProfile(ctx context.Context, schemaId string) ApiUpdateUserProfileRequest
 
 	// UpdateUserProfileExecute executes the request
 	//  @return UserSchema
-	// TODU
 	UpdateUserProfileExecute(r ApiUpdateUserProfileRequest) (*APIResponse, error)
 }
 
@@ -188,24 +177,20 @@ type SchemaAPI interface {
 type SchemaAPIService service
 
 type ApiGetAppUISchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	appName string
-	section string
-	operation string
-	// TODU
+	appName    string
+	section    string
+	operation  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetAppUISchemaRequest) Data (data interface{}) ApiGetAppUISchemaRequest {
+func (r ApiGetAppUISchemaRequest) Data(data interface{}) ApiGetAppUISchemaRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetAppUISchemaRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetAppUISchemaExecute(r)
 }
@@ -221,15 +206,14 @@ Retrieves the UI schema for an Application given `appName`, `section` and `opera
  @param operation
  @return ApiGetAppUISchemaRequest
 */
-// TODU
 
 func (a *SchemaAPIService) GetAppUISchema(ctx context.Context, appName string, section string, operation string) ApiGetAppUISchemaRequest {
 	return ApiGetAppUISchemaRequest{
 		ApiService: a,
-		ctx: ctx,
-		appName: appName,
-		section: section,
-		operation: operation,
+		ctx:        ctx,
+		appName:    appName,
+		section:    section,
+		operation:  operation,
 		retryCount: 0,
 	}
 }
@@ -242,10 +226,9 @@ func (a *SchemaAPIService) GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*A
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -255,7 +238,6 @@ func (a *SchemaAPIService) GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.GetAppUISchema")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -285,7 +267,6 @@ func (a *SchemaAPIService) GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -302,13 +283,11 @@ func (a *SchemaAPIService) GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -317,7 +296,6 @@ func (a *SchemaAPIService) GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -332,12 +310,10 @@ func (a *SchemaAPIService) GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -346,12 +322,10 @@ func (a *SchemaAPIService) GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -360,13 +334,11 @@ func (a *SchemaAPIService) GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -375,22 +347,18 @@ func (a *SchemaAPIService) GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*A
 }
 
 type ApiGetAppUISchemaLinksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	appName string
-	// TODU
+	appName    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetAppUISchemaLinksRequest) Data (data interface{}) ApiGetAppUISchemaLinksRequest {
+func (r ApiGetAppUISchemaLinksRequest) Data(data interface{}) ApiGetAppUISchemaLinksRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetAppUISchemaLinksRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetAppUISchemaLinksExecute(r)
 }
@@ -404,13 +372,12 @@ Retrieves the links for UI schemas for an Application given `appName`
  @param appName Application name for the app type
  @return ApiGetAppUISchemaLinksRequest
 */
-// TODU
 
 func (a *SchemaAPIService) GetAppUISchemaLinks(ctx context.Context, appName string) ApiGetAppUISchemaLinksRequest {
 	return ApiGetAppUISchemaLinksRequest{
 		ApiService: a,
-		ctx: ctx,
-		appName: appName,
+		ctx:        ctx,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -423,10 +390,9 @@ func (a *SchemaAPIService) GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRe
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -436,7 +402,6 @@ func (a *SchemaAPIService) GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.GetAppUISchemaLinks")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -464,7 +429,6 @@ func (a *SchemaAPIService) GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -481,13 +445,11 @@ func (a *SchemaAPIService) GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -496,7 +458,6 @@ func (a *SchemaAPIService) GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -511,12 +472,10 @@ func (a *SchemaAPIService) GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -525,12 +484,10 @@ func (a *SchemaAPIService) GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -539,13 +496,11 @@ func (a *SchemaAPIService) GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -554,22 +509,18 @@ func (a *SchemaAPIService) GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRe
 }
 
 type ApiGetApplicationUserSchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	appId string
-	// TODU
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetApplicationUserSchemaRequest) Data (data interface{}) ApiGetApplicationUserSchemaRequest {
+func (r ApiGetApplicationUserSchemaRequest) Data(data interface{}) ApiGetApplicationUserSchemaRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetApplicationUserSchemaRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetApplicationUserSchemaExecute(r)
 }
@@ -583,13 +534,12 @@ Retrieves the Schema for an App User
  @param appId Application ID
  @return ApiGetApplicationUserSchemaRequest
 */
-// TODU
 
 func (a *SchemaAPIService) GetApplicationUserSchema(ctx context.Context, appId string) ApiGetApplicationUserSchemaRequest {
 	return ApiGetApplicationUserSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -602,10 +552,9 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -615,7 +564,6 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.GetApplicationUserSchema")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -643,7 +591,6 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -660,13 +607,11 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -675,7 +620,6 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -690,12 +634,10 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -704,12 +646,10 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -718,13 +658,11 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -733,21 +671,17 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 }
 
 type ApiGetGroupSchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetGroupSchemaRequest) Data (data interface{}) ApiGetGroupSchemaRequest {
+func (r ApiGetGroupSchemaRequest) Data(data interface{}) ApiGetGroupSchemaRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetGroupSchemaRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetGroupSchemaExecute(r)
 }
@@ -760,12 +694,11 @@ Retrieves the group schema
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetGroupSchemaRequest
 */
-// TODU
 
 func (a *SchemaAPIService) GetGroupSchema(ctx context.Context) ApiGetGroupSchemaRequest {
 	return ApiGetGroupSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -778,10 +711,9 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*A
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -791,7 +723,6 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.GetGroupSchema")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -818,7 +749,6 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -835,13 +765,11 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -850,7 +778,6 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -865,12 +792,10 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -879,13 +804,11 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -894,22 +817,18 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*A
 }
 
 type ApiGetLogStreamSchemaRequest struct {
-	ctx context.Context
-	ApiService SchemaAPI
+	ctx           context.Context
+	ApiService    SchemaAPI
 	logStreamType string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiGetLogStreamSchemaRequest) Data (data interface{}) ApiGetLogStreamSchemaRequest {
+func (r ApiGetLogStreamSchemaRequest) Data(data interface{}) ApiGetLogStreamSchemaRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetLogStreamSchemaRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetLogStreamSchemaExecute(r)
 }
@@ -923,14 +842,13 @@ Retrieves the schema for a Log Stream type. The `logStreamType` element in the U
  @param logStreamType
  @return ApiGetLogStreamSchemaRequest
 */
-// TODU
 
 func (a *SchemaAPIService) GetLogStreamSchema(ctx context.Context, logStreamType string) ApiGetLogStreamSchemaRequest {
 	return ApiGetLogStreamSchemaRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		logStreamType: logStreamType,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -942,10 +860,9 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -955,7 +872,6 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.GetLogStreamSchema")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -983,7 +899,6 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1000,13 +915,11 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1015,7 +928,6 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1030,12 +942,10 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1044,12 +954,10 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1058,13 +966,11 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1073,22 +979,18 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 }
 
 type ApiGetUserSchemaRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	schemaId string
-	// TODU
+	schemaId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetUserSchemaRequest) Data (data interface{}) ApiGetUserSchemaRequest {
+func (r ApiGetUserSchemaRequest) Data(data interface{}) ApiGetUserSchemaRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetUserSchemaRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetUserSchemaExecute(r)
 }
@@ -1102,13 +1004,12 @@ Retrieves the schema for a Schema Id
  @param schemaId
  @return ApiGetUserSchemaRequest
 */
-// TODU
 
 func (a *SchemaAPIService) GetUserSchema(ctx context.Context, schemaId string) ApiGetUserSchemaRequest {
 	return ApiGetUserSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
-		schemaId: schemaId,
+		ctx:        ctx,
+		schemaId:   schemaId,
 		retryCount: 0,
 	}
 }
@@ -1121,10 +1022,9 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*API
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1134,7 +1034,6 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.GetUserSchema")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1162,7 +1061,6 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1179,13 +1077,11 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1194,7 +1090,6 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1209,12 +1104,10 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1223,12 +1116,10 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1237,13 +1128,11 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1252,21 +1141,17 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*API
 }
 
 type ApiListLogStreamSchemasRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListLogStreamSchemasRequest) Data (data interface{}) ApiListLogStreamSchemasRequest {
+func (r ApiListLogStreamSchemasRequest) Data(data interface{}) ApiListLogStreamSchemasRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListLogStreamSchemasRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListLogStreamSchemasExecute(r)
 }
@@ -1279,12 +1164,11 @@ Lists the schema for all log stream types visible for this org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListLogStreamSchemasRequest
 */
-// TODU
 
 func (a *SchemaAPIService) ListLogStreamSchemas(ctx context.Context) ApiListLogStreamSchemasRequest {
 	return ApiListLogStreamSchemasRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1297,10 +1181,9 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1310,7 +1193,6 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.ListLogStreamSchemas")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1337,7 +1219,6 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1354,13 +1235,11 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1369,7 +1248,6 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1384,12 +1262,10 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1398,13 +1274,11 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1413,11 +1287,10 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 }
 
 type ApiUpdateApplicationUserProfileRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	appId string
-	body *UserSchema
-	// TODU
+	appId      string
+	body       *UserSchema
 	data       interface{}
 	retryCount int32
 }
@@ -1427,14 +1300,11 @@ func (r ApiUpdateApplicationUserProfileRequest) Body(body UserSchema) ApiUpdateA
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateApplicationUserProfileRequest) Data (data interface{}) ApiUpdateApplicationUserProfileRequest {
+func (r ApiUpdateApplicationUserProfileRequest) Data(data interface{}) ApiUpdateApplicationUserProfileRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateApplicationUserProfileRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateApplicationUserProfileExecute(r)
 }
@@ -1448,13 +1318,12 @@ Partially updates on the User Profile properties of the Application User Schema
  @param appId Application ID
  @return ApiUpdateApplicationUserProfileRequest
 */
-// TODU
 
 func (a *SchemaAPIService) UpdateApplicationUserProfile(ctx context.Context, appId string) ApiUpdateApplicationUserProfileRequest {
 	return ApiUpdateApplicationUserProfileRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -1467,10 +1336,9 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1480,7 +1348,6 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.UpdateApplicationUserProfile")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1508,7 +1375,6 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -1528,13 +1394,11 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1543,7 +1407,6 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1558,12 +1421,10 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1572,12 +1433,10 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1586,12 +1445,10 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1600,13 +1457,11 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1615,12 +1470,11 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 }
 
 type ApiUpdateGroupSchemaRequest struct {
-	ctx context.Context
-	ApiService SchemaAPI
+	ctx         context.Context
+	ApiService  SchemaAPI
 	groupSchema *GroupSchema
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
 func (r ApiUpdateGroupSchemaRequest) GroupSchema(groupSchema GroupSchema) ApiUpdateGroupSchemaRequest {
@@ -1628,14 +1482,11 @@ func (r ApiUpdateGroupSchemaRequest) GroupSchema(groupSchema GroupSchema) ApiUpd
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateGroupSchemaRequest) Data (data interface{}) ApiUpdateGroupSchemaRequest {
+func (r ApiUpdateGroupSchemaRequest) Data(data interface{}) ApiUpdateGroupSchemaRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateGroupSchemaRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateGroupSchemaExecute(r)
 }
@@ -1648,12 +1499,11 @@ Updates the default group schema. This updates, adds, or removes one or more cus
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUpdateGroupSchemaRequest
 */
-// TODU
 
 func (a *SchemaAPIService) UpdateGroupSchema(ctx context.Context) ApiUpdateGroupSchemaRequest {
 	return ApiUpdateGroupSchemaRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1666,10 +1516,9 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1679,7 +1528,6 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.UpdateGroupSchema")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1706,7 +1554,6 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.groupSchema
 	localVarPostBody = r.data
@@ -1726,13 +1573,11 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1741,7 +1586,6 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1756,12 +1600,10 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1770,12 +1612,10 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1784,13 +1624,11 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1799,11 +1637,10 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 }
 
 type ApiUpdateUserProfileRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SchemaAPI
-	schemaId string
+	schemaId   string
 	userSchema *UserSchema
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -1813,14 +1650,11 @@ func (r ApiUpdateUserProfileRequest) UserSchema(userSchema UserSchema) ApiUpdate
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateUserProfileRequest) Data (data interface{}) ApiUpdateUserProfileRequest {
+func (r ApiUpdateUserProfileRequest) Data(data interface{}) ApiUpdateUserProfileRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateUserProfileRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateUserProfileExecute(r)
 }
@@ -1834,13 +1668,12 @@ Partially updates on the User Profile properties of the user schema
  @param schemaId
  @return ApiUpdateUserProfileRequest
 */
-// TODU
 
 func (a *SchemaAPIService) UpdateUserProfile(ctx context.Context, schemaId string) ApiUpdateUserProfileRequest {
 	return ApiUpdateUserProfileRequest{
 		ApiService: a,
-		ctx: ctx,
-		schemaId: schemaId,
+		ctx:        ctx,
+		schemaId:   schemaId,
 		retryCount: 0,
 	}
 }
@@ -1853,10 +1686,9 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1866,7 +1698,6 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.UpdateUserProfile")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1894,7 +1725,6 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.userSchema
 	localVarPostBody = r.data
@@ -1914,13 +1744,11 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1929,7 +1757,6 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1944,12 +1771,10 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1958,12 +1783,10 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1972,12 +1795,10 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1986,13 +1807,11 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

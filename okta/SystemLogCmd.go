@@ -8,62 +8,39 @@ import (
 )
 
 var SystemLogCmd = &cobra.Command{
-	Use:   "systemLog",
-	Long:  "Manage SystemLogAPI",
-}
-
-func NewSystemLogCmd() *cobra.Command {
-    cmd := &cobra.Command{
-		Use:   "systemLog",
-		Long:  "Manage SystemLogAPI",
-	}
-	return cmd
+	Use:  "systemLog",
+	Long: "Manage SystemLogAPI",
 }
 
 func init() {
-    rootCmd.AddCommand(SystemLogCmd)
+	rootCmd.AddCommand(SystemLogCmd)
 }
 
-var (
-    
-    
-    
-)
-
 func NewListLogEventsCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "listLogEvents",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.SystemLogAPI.ListLogEvents(apiClient.GetConfig().Context)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "listLogEvents",
 
-    
-    
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.SystemLogAPI.ListLogEvents(apiClient.GetConfig().Context)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
 
 	return cmd
 }
 
 func init() {
 	ListLogEventsCmd := NewListLogEventsCmd()
-    SystemLogCmd.AddCommand(ListLogEventsCmd)
+	SystemLogCmd.AddCommand(ListLogEventsCmd)
 }

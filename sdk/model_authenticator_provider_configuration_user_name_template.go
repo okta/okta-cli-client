@@ -17,7 +17,7 @@ import (
 
 // AuthenticatorProviderConfigurationUserNameTemplate struct for AuthenticatorProviderConfigurationUserNameTemplate
 type AuthenticatorProviderConfigurationUserNameTemplate struct {
-	Template *string `json:"template,omitempty"`
+	Template             *string `json:"template,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableAuthenticatorProviderConfigurationUserNameTemplate) UnmarshalJS
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

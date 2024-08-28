@@ -17,8 +17,8 @@ import (
 
 // WellKnownOrgMetadataLinks struct for WellKnownOrgMetadataLinks
 type WellKnownOrgMetadataLinks struct {
-	Alternate *HrefObject `json:"alternate,omitempty"`
-	Organization *HrefObject `json:"organization,omitempty"`
+	Alternate            *HrefObject `json:"alternate,omitempty"`
+	Organization         *HrefObject `json:"organization,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableWellKnownOrgMetadataLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -20,7 +20,7 @@ type SubmissionResponseConfigInner struct {
 	// Display name of the variable in the Admin Console
 	Label *string `json:"label,omitempty"`
 	// Name of the variable
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -182,4 +182,3 @@ func (v *NullableSubmissionResponseConfigInner) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

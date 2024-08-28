@@ -17,7 +17,7 @@ import (
 
 // IdentityProviderCredentialsSigning struct for IdentityProviderCredentialsSigning
 type IdentityProviderCredentialsSigning struct {
-	Kid *string `json:"kid,omitempty"`
+	Kid                  *string `json:"kid,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableIdentityProviderCredentialsSigning) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

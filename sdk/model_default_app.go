@@ -17,10 +17,10 @@ import (
 
 // DefaultApp struct for DefaultApp
 type DefaultApp struct {
-	AppInstanceId *string `json:"appInstanceId,omitempty"`
-	AppLinkName *string `json:"appLinkName,omitempty"`
+	AppInstanceId         *string `json:"appInstanceId,omitempty"`
+	AppLinkName           *string `json:"appLinkName,omitempty"`
 	ClassicApplicationUri *string `json:"classicApplicationUri,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties  map[string]interface{}
 }
 
 type _DefaultApp DefaultApp
@@ -217,4 +217,3 @@ func (v *NullableDefaultApp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

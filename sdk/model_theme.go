@@ -17,18 +17,18 @@ import (
 
 // Theme struct for Theme
 type Theme struct {
-	BackgroundImage *string `json:"backgroundImage,omitempty"`
-	EmailTemplateTouchPointVariant *string `json:"emailTemplateTouchPointVariant,omitempty"`
-	EndUserDashboardTouchPointVariant *string `json:"endUserDashboardTouchPointVariant,omitempty"`
-	ErrorPageTouchPointVariant *string `json:"errorPageTouchPointVariant,omitempty"`
-	LoadingPageTouchPointVariant *string `json:"loadingPageTouchPointVariant,omitempty"`
-	PrimaryColorContrastHex *string `json:"primaryColorContrastHex,omitempty"`
-	PrimaryColorHex *string `json:"primaryColorHex,omitempty"`
-	SecondaryColorContrastHex *string `json:"secondaryColorContrastHex,omitempty"`
-	SecondaryColorHex *string `json:"secondaryColorHex,omitempty"`
-	SignInPageTouchPointVariant *string `json:"signInPageTouchPointVariant,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
-	AdditionalProperties map[string]interface{}
+	BackgroundImage                   *string    `json:"backgroundImage,omitempty"`
+	EmailTemplateTouchPointVariant    *string    `json:"emailTemplateTouchPointVariant,omitempty"`
+	EndUserDashboardTouchPointVariant *string    `json:"endUserDashboardTouchPointVariant,omitempty"`
+	ErrorPageTouchPointVariant        *string    `json:"errorPageTouchPointVariant,omitempty"`
+	LoadingPageTouchPointVariant      *string    `json:"loadingPageTouchPointVariant,omitempty"`
+	PrimaryColorContrastHex           *string    `json:"primaryColorContrastHex,omitempty"`
+	PrimaryColorHex                   *string    `json:"primaryColorHex,omitempty"`
+	SecondaryColorContrastHex         *string    `json:"secondaryColorContrastHex,omitempty"`
+	SecondaryColorHex                 *string    `json:"secondaryColorHex,omitempty"`
+	SignInPageTouchPointVariant       *string    `json:"signInPageTouchPointVariant,omitempty"`
+	Links                             *LinksSelf `json:"_links,omitempty"`
+	AdditionalProperties              map[string]interface{}
 }
 
 type _Theme Theme
@@ -513,4 +513,3 @@ func (v *NullableTheme) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

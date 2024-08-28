@@ -21,9 +21,9 @@ import (
 type PrivilegedResourceAccountOkta struct {
 	PrivilegedResource
 	// The user ID associated with the Okta privileged resource
-	ResourceId string `json:"resourceId"`
-	Credentials *PrivilegedResourceAccountOktaAllOfCredentials `json:"credentials,omitempty"`
-	Links *UserLink `json:"_links,omitempty"`
+	ResourceId           string                                         `json:"resourceId"`
+	Credentials          *PrivilegedResourceAccountOktaAllOfCredentials `json:"credentials,omitempty"`
+	Links                *UserLink                                      `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -165,9 +165,9 @@ func (o PrivilegedResourceAccountOkta) MarshalJSON() ([]byte, error) {
 func (o *PrivilegedResourceAccountOkta) UnmarshalJSON(bytes []byte) (err error) {
 	type PrivilegedResourceAccountOktaWithoutEmbeddedStruct struct {
 		// The user ID associated with the Okta privileged resource
-		ResourceId string `json:"resourceId"`
+		ResourceId  string                                         `json:"resourceId"`
 		Credentials *PrivilegedResourceAccountOktaAllOfCredentials `json:"credentials,omitempty"`
-		Links *UserLink `json:"_links,omitempty"`
+		Links       *UserLink                                      `json:"_links,omitempty"`
 	}
 
 	varPrivilegedResourceAccountOktaWithoutEmbeddedStruct := PrivilegedResourceAccountOktaWithoutEmbeddedStruct{}
@@ -261,4 +261,3 @@ func (v *NullablePrivilegedResourceAccountOkta) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

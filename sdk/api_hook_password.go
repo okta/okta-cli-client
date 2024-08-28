@@ -20,22 +20,21 @@ import (
 	"time"
 )
 
-
 type HookPasswordAPI interface {
 
 	/*
-	CreatePasswordImportInlineHook Create an Okta Password Import Inline Hook
+			CreatePasswordImportInlineHook Create an Okta Password Import Inline Hook
 
-	Creates an Okta password import inline hook request. This is an automated request from Okta to your third-party service endpoint.
-The outbound call from Okta to your external service includes the following JSON body.
+			Creates an Okta password import inline hook request. This is an automated request from Okta to your third-party service endpoint.
+		The outbound call from Okta to your external service includes the following JSON body.
 
-The objects that you return in the JSON payload of your response to this Okta request are an array of one or more objects,
-which specify the Okta commands to execute.
+		The objects that you return in the JSON payload of your response to this Okta request are an array of one or more objects,
+		which specify the Okta commands to execute.
 
->**Note:** The size of your response payload must be less than 256 KB.
+		>**Note:** The size of your response payload must be less than 256 KB.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreatePasswordImportInlineHookRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreatePasswordImportInlineHookRequest
 	*/
 	CreatePasswordImportInlineHook(ctx context.Context) ApiCreatePasswordImportInlineHookRequest
 
@@ -49,8 +48,8 @@ which specify the Okta commands to execute.
 type HookPasswordAPIService service
 
 type ApiCreatePasswordImportInlineHookRequest struct {
-	ctx context.Context
-	ApiService HookPasswordAPI
+	ctx                                   context.Context
+	ApiService                            HookPasswordAPI
 	createPasswordImportInlineHookRequest *CreatePasswordImportInlineHookRequest
 	// TODU
 	data       interface{}
@@ -62,9 +61,8 @@ func (r ApiCreatePasswordImportInlineHookRequest) CreatePasswordImportInlineHook
 	return r
 }
 
-
 // TODU
-func (r ApiCreatePasswordImportInlineHookRequest) Data (data interface{}) ApiCreatePasswordImportInlineHookRequest {
+func (r ApiCreatePasswordImportInlineHookRequest) Data(data interface{}) ApiCreatePasswordImportInlineHookRequest {
 	r.data = data
 	return r
 }
@@ -93,7 +91,7 @@ which specify the Okta commands to execute.
 func (a *HookPasswordAPIService) CreatePasswordImportInlineHook(ctx context.Context) ApiCreatePasswordImportInlineHookRequest {
 	return ApiCreatePasswordImportInlineHookRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -103,13 +101,13 @@ func (a *HookPasswordAPIService) CreatePasswordImportInlineHook(ctx context.Cont
 
 func (a *HookPasswordAPIService) CreatePasswordImportInlineHookExecute(r ApiCreatePasswordImportInlineHookRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -146,7 +144,7 @@ func (a *HookPasswordAPIService) CreatePasswordImportInlineHookExecute(r ApiCrea
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	// body params
 	// localVarPostBody = r.createPasswordImportInlineHookRequest
 	localVarPostBody = r.data

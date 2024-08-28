@@ -18,9 +18,9 @@ import (
 // PolicyNetworkCondition struct for PolicyNetworkCondition
 type PolicyNetworkCondition struct {
 	// Network selection mode
-	Connection *string `json:"connection,omitempty"`
-	Exclude []string `json:"exclude,omitempty"`
-	Include []string `json:"include,omitempty"`
+	Connection           *string  `json:"connection,omitempty"`
+	Exclude              []string `json:"exclude,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -218,4 +218,3 @@ func (v *NullablePolicyNetworkCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

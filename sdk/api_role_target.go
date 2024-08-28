@@ -17,303 +17,285 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RoleTargetAPI interface {
 
 	/*
-	AssignAllAppsAsTargetToRoleForUser Assign all Apps as Target to Role
+		AssignAllAppsAsTargetToRoleForUser Assign all Apps as Target to Role
 
-	Assigns all Apps as Target to Role
+		Assigns all Apps as Target to Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@return ApiAssignAllAppsAsTargetToRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@return ApiAssignAllAppsAsTargetToRoleForUserRequest
 	*/
 	AssignAllAppsAsTargetToRoleForUser(ctx context.Context, userId string, roleId string) ApiAssignAllAppsAsTargetToRoleForUserRequest
 
 	// AssignAllAppsAsTargetToRoleForUserExecute executes the request
-	// TODU
 	AssignAllAppsAsTargetToRoleForUserExecute(r ApiAssignAllAppsAsTargetToRoleForUserRequest) (*APIResponse, error)
 
 	/*
-	AssignAppInstanceTargetToAppAdminRoleForGroup Assign an Application Instance Target to Application Administrator Role
+		AssignAppInstanceTargetToAppAdminRoleForGroup Assign an Application Instance Target to Application Administrator Role
 
-	Assigns App Instance Target to App Administrator Role given to a Group
+		Assigns App Instance Target to App Administrator Role given to a Group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@param appId Application ID
-	@return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@param appId Application ID
+		@return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
 	*/
 	AssignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string, appId string) ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
 
 	// AssignAppInstanceTargetToAppAdminRoleForGroupExecute executes the request
-	// TODU
 	AssignAppInstanceTargetToAppAdminRoleForGroupExecute(r ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	AssignAppInstanceTargetToAppAdminRoleForUser Assign an Application Instance Target to an Application Administrator Role
+		AssignAppInstanceTargetToAppAdminRoleForUser Assign an Application Instance Target to an Application Administrator Role
 
-	Assigns anapplication instance target to appplication administrator role
+		Assigns anapplication instance target to appplication administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@param appId Application ID
-	@return ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@param appId Application ID
+		@return ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest
 	*/
 	AssignAppInstanceTargetToAppAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string, appId string) ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest
 
 	// AssignAppInstanceTargetToAppAdminRoleForUserExecute executes the request
-	// TODU
 	AssignAppInstanceTargetToAppAdminRoleForUserExecute(r ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest) (*APIResponse, error)
 
 	/*
-	AssignAppTargetToAdminRoleForGroup Assign an Application Target to Administrator Role
+		AssignAppTargetToAdminRoleForGroup Assign an Application Target to Administrator Role
 
-	Assigns an application target to administrator role
+		Assigns an application target to administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@return ApiAssignAppTargetToAdminRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@return ApiAssignAppTargetToAdminRoleForGroupRequest
 	*/
 	AssignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string) ApiAssignAppTargetToAdminRoleForGroupRequest
 
 	// AssignAppTargetToAdminRoleForGroupExecute executes the request
-	// TODU
 	AssignAppTargetToAdminRoleForGroupExecute(r ApiAssignAppTargetToAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	AssignAppTargetToAdminRoleForUser Assign an Application Target to Administrator Role
+		AssignAppTargetToAdminRoleForUser Assign an Application Target to Administrator Role
 
-	Assigns an application target to administrator role
+		Assigns an application target to administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@return ApiAssignAppTargetToAdminRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@return ApiAssignAppTargetToAdminRoleForUserRequest
 	*/
 	AssignAppTargetToAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string) ApiAssignAppTargetToAdminRoleForUserRequest
 
 	// AssignAppTargetToAdminRoleForUserExecute executes the request
-	// TODU
 	AssignAppTargetToAdminRoleForUserExecute(r ApiAssignAppTargetToAdminRoleForUserRequest) (*APIResponse, error)
 
 	/*
-	AssignGroupTargetToGroupAdminRole Assign a Group Target to a Group Role
+		AssignGroupTargetToGroupAdminRole Assign a Group Target to a Group Role
 
-	Assigns a group target to a group role
+		Assigns a group target to a group role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param targetGroupId
-	@return ApiAssignGroupTargetToGroupAdminRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param targetGroupId
+		@return ApiAssignGroupTargetToGroupAdminRoleRequest
 	*/
 	AssignGroupTargetToGroupAdminRole(ctx context.Context, groupId string, roleId string, targetGroupId string) ApiAssignGroupTargetToGroupAdminRoleRequest
 
 	// AssignGroupTargetToGroupAdminRoleExecute executes the request
-	// TODU
 	AssignGroupTargetToGroupAdminRoleExecute(r ApiAssignGroupTargetToGroupAdminRoleRequest) (*APIResponse, error)
 
 	/*
-	AssignGroupTargetToUserRole Assign a Group Target to Role
+		AssignGroupTargetToUserRole Assign a Group Target to Role
 
-	Assigns a Group Target to Role
+		Assigns a Group Target to Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param groupId The `id` of the group
-	@return ApiAssignGroupTargetToUserRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param groupId The `id` of the group
+		@return ApiAssignGroupTargetToUserRoleRequest
 	*/
 	AssignGroupTargetToUserRole(ctx context.Context, userId string, roleId string, groupId string) ApiAssignGroupTargetToUserRoleRequest
 
 	// AssignGroupTargetToUserRoleExecute executes the request
-	// TODU
 	AssignGroupTargetToUserRoleExecute(r ApiAssignGroupTargetToUserRoleRequest) (*APIResponse, error)
 
 	/*
-	ListApplicationTargetsForApplicationAdministratorRoleForGroup List all Application Targets for an Application Administrator Role
+		ListApplicationTargetsForApplicationAdministratorRoleForGroup List all Application Targets for an Application Administrator Role
 
-	Lists all App targets for an `APP_ADMIN` Role assigned to a Group. This methods return list may include full Applications or Instances. The response for an instance will have an `ID` value, while Application will not have an ID.
+		Lists all App targets for an `APP_ADMIN` Role assigned to a Group. This methods return list may include full Applications or Instances. The response for an instance will have an `ID` value, while Application will not have an ID.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
 	*/
 	ListApplicationTargetsForApplicationAdministratorRoleForGroup(ctx context.Context, groupId string, roleId string) ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
 
 	// ListApplicationTargetsForApplicationAdministratorRoleForGroupExecute executes the request
 	//  @return []CatalogApplication
-	// TODU
 	ListApplicationTargetsForApplicationAdministratorRoleForGroupExecute(r ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	ListApplicationTargetsForApplicationAdministratorRoleForUser List all Application Targets for Application Administrator Role
+		ListApplicationTargetsForApplicationAdministratorRoleForUser List all Application Targets for Application Administrator Role
 
-	Lists all App targets for an `APP_ADMIN` Role assigned to a User. This methods return list may include full Applications or Instances. The response for an instance will have an `ID` value, while Application will not have an ID.
+		Lists all App targets for an `APP_ADMIN` Role assigned to a User. This methods return list may include full Applications or Instances. The response for an instance will have an `ID` value, while Application will not have an ID.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@return ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@return ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest
 	*/
 	ListApplicationTargetsForApplicationAdministratorRoleForUser(ctx context.Context, userId string, roleId string) ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest
 
 	// ListApplicationTargetsForApplicationAdministratorRoleForUserExecute executes the request
 	//  @return []CatalogApplication
-	// TODU
 	ListApplicationTargetsForApplicationAdministratorRoleForUserExecute(r ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest) (*APIResponse, error)
 
 	/*
-	ListGroupTargetsForGroupRole List all Group Targets for a Group Role
+		ListGroupTargetsForGroupRole List all Group Targets for a Group Role
 
-	Lists all group targets for a group role
+		Lists all group targets for a group role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@return ApiListGroupTargetsForGroupRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@return ApiListGroupTargetsForGroupRoleRequest
 	*/
 	ListGroupTargetsForGroupRole(ctx context.Context, groupId string, roleId string) ApiListGroupTargetsForGroupRoleRequest
 
 	// ListGroupTargetsForGroupRoleExecute executes the request
 	//  @return []Group
-	// TODU
 	ListGroupTargetsForGroupRoleExecute(r ApiListGroupTargetsForGroupRoleRequest) (*APIResponse, error)
 
 	/*
-	ListGroupTargetsForRole List all Group Targets for Role
+		ListGroupTargetsForRole List all Group Targets for Role
 
-	Lists all group targets for role
+		Lists all group targets for role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@return ApiListGroupTargetsForRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@return ApiListGroupTargetsForRoleRequest
 	*/
 	ListGroupTargetsForRole(ctx context.Context, userId string, roleId string) ApiListGroupTargetsForRoleRequest
 
 	// ListGroupTargetsForRoleExecute executes the request
 	//  @return []Group
-	// TODU
 	ListGroupTargetsForRoleExecute(r ApiListGroupTargetsForRoleRequest) (*APIResponse, error)
 
 	/*
-	UnassignAppInstanceTargetFromAdminRoleForUser Unassign an Application Instance Target from an Application Administrator Role
+		UnassignAppInstanceTargetFromAdminRoleForUser Unassign an Application Instance Target from an Application Administrator Role
 
-	Unassigns an application instance target from an application administrator role
+		Unassigns an application instance target from an application administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@param appId Application ID
-	@return ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@param appId Application ID
+		@return ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest
 	*/
 	UnassignAppInstanceTargetFromAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string, appId string) ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest
 
 	// UnassignAppInstanceTargetFromAdminRoleForUserExecute executes the request
-	// TODU
 	UnassignAppInstanceTargetFromAdminRoleForUserExecute(r ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest) (*APIResponse, error)
 
 	/*
-	UnassignAppInstanceTargetToAppAdminRoleForGroup Unassign an Application Instance Target from an Application Administrator Role
+		UnassignAppInstanceTargetToAppAdminRoleForGroup Unassign an Application Instance Target from an Application Administrator Role
 
-	Unassigns an application instance target from application administrator role
+		Unassigns an application instance target from application administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@param appId Application ID
-	@return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@param appId Application ID
+		@return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
 	*/
 	UnassignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string, appId string) ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
 
 	// UnassignAppInstanceTargetToAppAdminRoleForGroupExecute executes the request
-	// TODU
 	UnassignAppInstanceTargetToAppAdminRoleForGroupExecute(r ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	UnassignAppTargetFromAppAdminRoleForUser Unassign an Application Target from an Application Administrator Role
+		UnassignAppTargetFromAppAdminRoleForUser Unassign an Application Target from an Application Administrator Role
 
-	Unassigns an application target from application administrator role
+		Unassigns an application target from application administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@return ApiUnassignAppTargetFromAppAdminRoleForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@return ApiUnassignAppTargetFromAppAdminRoleForUserRequest
 	*/
 	UnassignAppTargetFromAppAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string) ApiUnassignAppTargetFromAppAdminRoleForUserRequest
 
 	// UnassignAppTargetFromAppAdminRoleForUserExecute executes the request
-	// TODU
 	UnassignAppTargetFromAppAdminRoleForUserExecute(r ApiUnassignAppTargetFromAppAdminRoleForUserRequest) (*APIResponse, error)
 
 	/*
-	UnassignAppTargetToAdminRoleForGroup Unassign an Application Target from Application Administrator Role
+		UnassignAppTargetToAdminRoleForGroup Unassign an Application Target from Application Administrator Role
 
-	Unassigns an application target from application administrator role
+		Unassigns an application target from application administrator role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param appName Application name for the app type
-	@return ApiUnassignAppTargetToAdminRoleForGroupRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param appName Application name for the app type
+		@return ApiUnassignAppTargetToAdminRoleForGroupRequest
 	*/
 	UnassignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string) ApiUnassignAppTargetToAdminRoleForGroupRequest
 
 	// UnassignAppTargetToAdminRoleForGroupExecute executes the request
-	// TODU
 	UnassignAppTargetToAdminRoleForGroupExecute(r ApiUnassignAppTargetToAdminRoleForGroupRequest) (*APIResponse, error)
 
 	/*
-	UnassignGroupTargetFromGroupAdminRole Unassign a Group Target from a Group Role
+		UnassignGroupTargetFromGroupAdminRole Unassign a Group Target from a Group Role
 
-	Unassigns a group target from a group role
+		Unassigns a group target from a group role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param roleId `id` of the Role
-	@param targetGroupId
-	@return ApiUnassignGroupTargetFromGroupAdminRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param roleId `id` of the Role
+		@param targetGroupId
+		@return ApiUnassignGroupTargetFromGroupAdminRoleRequest
 	*/
 	UnassignGroupTargetFromGroupAdminRole(ctx context.Context, groupId string, roleId string, targetGroupId string) ApiUnassignGroupTargetFromGroupAdminRoleRequest
 
 	// UnassignGroupTargetFromGroupAdminRoleExecute executes the request
-	// TODU
 	UnassignGroupTargetFromGroupAdminRoleExecute(r ApiUnassignGroupTargetFromGroupAdminRoleRequest) (*APIResponse, error)
 
 	/*
-	UnassignGroupTargetFromUserAdminRole Unassign a Group Target from Role
+		UnassignGroupTargetFromUserAdminRole Unassign a Group Target from Role
 
-	Unassigns a Group Target from Role
+		Unassigns a Group Target from Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param roleId `id` of the Role
-	@param groupId The `id` of the group
-	@return ApiUnassignGroupTargetFromUserAdminRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param roleId `id` of the Role
+		@param groupId The `id` of the group
+		@return ApiUnassignGroupTargetFromUserAdminRoleRequest
 	*/
 	UnassignGroupTargetFromUserAdminRole(ctx context.Context, userId string, roleId string, groupId string) ApiUnassignGroupTargetFromUserAdminRoleRequest
 
 	// UnassignGroupTargetFromUserAdminRoleExecute executes the request
-	// TODU
 	UnassignGroupTargetFromUserAdminRoleExecute(r ApiUnassignGroupTargetFromUserAdminRoleRequest) (*APIResponse, error)
 }
 
@@ -321,23 +303,19 @@ type RoleTargetAPI interface {
 type RoleTargetAPIService service
 
 type ApiAssignAllAppsAsTargetToRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	// TODU
+	userId     string
+	roleId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiAssignAllAppsAsTargetToRoleForUserRequest) Data (data interface{}) ApiAssignAllAppsAsTargetToRoleForUserRequest {
+func (r ApiAssignAllAppsAsTargetToRoleForUserRequest) Data(data interface{}) ApiAssignAllAppsAsTargetToRoleForUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignAllAppsAsTargetToRoleForUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignAllAppsAsTargetToRoleForUserExecute(r)
 }
@@ -352,14 +330,13 @@ Assigns all Apps as Target to Role
  @param roleId `id` of the Role
  @return ApiAssignAllAppsAsTargetToRoleForUserRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUser(ctx context.Context, userId string, roleId string) ApiAssignAllAppsAsTargetToRoleForUserRequest {
 	return ApiAssignAllAppsAsTargetToRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
@@ -373,7 +350,7 @@ func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUserExecute(r ApiAs
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -383,7 +360,6 @@ func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUserExecute(r ApiAs
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.AssignAllAppsAsTargetToRoleForUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -412,7 +388,6 @@ func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUserExecute(r ApiAs
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -429,13 +404,11 @@ func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUserExecute(r ApiAs
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -444,7 +417,6 @@ func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUserExecute(r ApiAs
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -459,12 +431,10 @@ func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUserExecute(r ApiAs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -473,12 +443,10 @@ func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUserExecute(r ApiAs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -487,13 +455,11 @@ func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUserExecute(r ApiAs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -502,25 +468,21 @@ func (a *RoleTargetAPIService) AssignAllAppsAsTargetToRoleForUserExecute(r ApiAs
 }
 
 type ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	appName string
-	appId string
-	// TODU
+	groupId    string
+	roleId     string
+	appName    string
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest) Data (data interface{}) ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest {
+func (r ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest) Data(data interface{}) ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignAppInstanceTargetToAppAdminRoleForGroupExecute(r)
 }
@@ -537,16 +499,15 @@ Assigns App Instance Target to App Administrator Role given to a Group
  @param appId Application ID
  @return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string, appId string) ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest {
 	return ApiAssignAppInstanceTargetToAppAdminRoleForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
-		appName: appName,
-		appId: appId,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
+		appName:    appName,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -560,7 +521,7 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroupExec
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -570,7 +531,6 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroupExec
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.AssignAppInstanceTargetToAppAdminRoleForGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -601,7 +561,6 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroupExec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -618,13 +577,11 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroupExec
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -633,7 +590,6 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroupExec
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -648,12 +604,10 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroupExec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -662,12 +616,10 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroupExec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -676,13 +628,11 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroupExec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -691,25 +641,21 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForGroupExec
 }
 
 type ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	appName string
-	appId string
-	// TODU
+	userId     string
+	roleId     string
+	appName    string
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest) Data (data interface{}) ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest {
+func (r ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest) Data(data interface{}) ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignAppInstanceTargetToAppAdminRoleForUserExecute(r)
 }
@@ -726,16 +672,15 @@ Assigns anapplication instance target to appplication administrator role
  @param appId Application ID
  @return ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string, appId string) ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest {
 	return ApiAssignAppInstanceTargetToAppAdminRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		appName: appName,
-		appId: appId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		appName:    appName,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -749,7 +694,7 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUserExecu
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -759,7 +704,6 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUserExecu
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.AssignAppInstanceTargetToAppAdminRoleForUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -790,7 +734,6 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUserExecu
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -807,13 +750,11 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUserExecu
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -822,7 +763,6 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUserExecu
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -837,12 +777,10 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUserExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -851,12 +789,10 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUserExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -865,13 +801,11 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUserExecu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -880,24 +814,20 @@ func (a *RoleTargetAPIService) AssignAppInstanceTargetToAppAdminRoleForUserExecu
 }
 
 type ApiAssignAppTargetToAdminRoleForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	appName string
-	// TODU
+	groupId    string
+	roleId     string
+	appName    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiAssignAppTargetToAdminRoleForGroupRequest) Data (data interface{}) ApiAssignAppTargetToAdminRoleForGroupRequest {
+func (r ApiAssignAppTargetToAdminRoleForGroupRequest) Data(data interface{}) ApiAssignAppTargetToAdminRoleForGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignAppTargetToAdminRoleForGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignAppTargetToAdminRoleForGroupExecute(r)
 }
@@ -913,15 +843,14 @@ Assigns an application target to administrator role
  @param appName Application name for the app type
  @return ApiAssignAppTargetToAdminRoleForGroupRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string) ApiAssignAppTargetToAdminRoleForGroupRequest {
 	return ApiAssignAppTargetToAdminRoleForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
-		appName: appName,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -935,7 +864,7 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroupExecute(r ApiAs
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -945,7 +874,6 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroupExecute(r ApiAs
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.AssignAppTargetToAdminRoleForGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -975,7 +903,6 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroupExecute(r ApiAs
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -992,13 +919,11 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroupExecute(r ApiAs
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1007,7 +932,6 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroupExecute(r ApiAs
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1022,12 +946,10 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroupExecute(r ApiAs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1036,12 +958,10 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroupExecute(r ApiAs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1050,13 +970,11 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroupExecute(r ApiAs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1065,24 +983,20 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForGroupExecute(r ApiAs
 }
 
 type ApiAssignAppTargetToAdminRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	appName string
-	// TODU
+	userId     string
+	roleId     string
+	appName    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiAssignAppTargetToAdminRoleForUserRequest) Data (data interface{}) ApiAssignAppTargetToAdminRoleForUserRequest {
+func (r ApiAssignAppTargetToAdminRoleForUserRequest) Data(data interface{}) ApiAssignAppTargetToAdminRoleForUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignAppTargetToAdminRoleForUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignAppTargetToAdminRoleForUserExecute(r)
 }
@@ -1098,15 +1012,14 @@ Assigns an application target to administrator role
  @param appName Application name for the app type
  @return ApiAssignAppTargetToAdminRoleForUserRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string) ApiAssignAppTargetToAdminRoleForUserRequest {
 	return ApiAssignAppTargetToAdminRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		appName: appName,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -1120,7 +1033,7 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUserExecute(r ApiAss
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1130,7 +1043,6 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUserExecute(r ApiAss
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.AssignAppTargetToAdminRoleForUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1160,7 +1072,6 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUserExecute(r ApiAss
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1177,13 +1088,11 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUserExecute(r ApiAss
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1192,7 +1101,6 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUserExecute(r ApiAss
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1207,12 +1115,10 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUserExecute(r ApiAss
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1221,12 +1127,10 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUserExecute(r ApiAss
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1235,13 +1139,11 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUserExecute(r ApiAss
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1250,24 +1152,20 @@ func (a *RoleTargetAPIService) AssignAppTargetToAdminRoleForUserExecute(r ApiAss
 }
 
 type ApiAssignGroupTargetToGroupAdminRoleRequest struct {
-	ctx context.Context
-	ApiService RoleTargetAPI
-	groupId string
-	roleId string
+	ctx           context.Context
+	ApiService    RoleTargetAPI
+	groupId       string
+	roleId        string
 	targetGroupId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiAssignGroupTargetToGroupAdminRoleRequest) Data (data interface{}) ApiAssignGroupTargetToGroupAdminRoleRequest {
+func (r ApiAssignGroupTargetToGroupAdminRoleRequest) Data(data interface{}) ApiAssignGroupTargetToGroupAdminRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignGroupTargetToGroupAdminRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignGroupTargetToGroupAdminRoleExecute(r)
 }
@@ -1283,16 +1181,15 @@ Assigns a group target to a group role
  @param targetGroupId
  @return ApiAssignGroupTargetToGroupAdminRoleRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRole(ctx context.Context, groupId string, roleId string, targetGroupId string) ApiAssignGroupTargetToGroupAdminRoleRequest {
 	return ApiAssignGroupTargetToGroupAdminRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
+		ApiService:    a,
+		ctx:           ctx,
+		groupId:       groupId,
+		roleId:        roleId,
 		targetGroupId: targetGroupId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -1305,7 +1202,7 @@ func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRoleExecute(r ApiAss
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1315,7 +1212,6 @@ func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRoleExecute(r ApiAss
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.AssignGroupTargetToGroupAdminRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1345,7 +1241,6 @@ func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRoleExecute(r ApiAss
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1362,13 +1257,11 @@ func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRoleExecute(r ApiAss
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1377,7 +1270,6 @@ func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRoleExecute(r ApiAss
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1392,12 +1284,10 @@ func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRoleExecute(r ApiAss
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1406,12 +1296,10 @@ func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRoleExecute(r ApiAss
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1420,13 +1308,11 @@ func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRoleExecute(r ApiAss
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1435,24 +1321,20 @@ func (a *RoleTargetAPIService) AssignGroupTargetToGroupAdminRoleExecute(r ApiAss
 }
 
 type ApiAssignGroupTargetToUserRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	groupId string
-	// TODU
+	userId     string
+	roleId     string
+	groupId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiAssignGroupTargetToUserRoleRequest) Data (data interface{}) ApiAssignGroupTargetToUserRoleRequest {
+func (r ApiAssignGroupTargetToUserRoleRequest) Data(data interface{}) ApiAssignGroupTargetToUserRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignGroupTargetToUserRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignGroupTargetToUserRoleExecute(r)
 }
@@ -1468,15 +1350,14 @@ Assigns a Group Target to Role
  @param groupId The `id` of the group
  @return ApiAssignGroupTargetToUserRoleRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) AssignGroupTargetToUserRole(ctx context.Context, userId string, roleId string, groupId string) ApiAssignGroupTargetToUserRoleRequest {
 	return ApiAssignGroupTargetToUserRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		groupId: groupId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -1490,7 +1371,7 @@ func (a *RoleTargetAPIService) AssignGroupTargetToUserRoleExecute(r ApiAssignGro
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1500,7 +1381,6 @@ func (a *RoleTargetAPIService) AssignGroupTargetToUserRoleExecute(r ApiAssignGro
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.AssignGroupTargetToUserRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1530,7 +1410,6 @@ func (a *RoleTargetAPIService) AssignGroupTargetToUserRoleExecute(r ApiAssignGro
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1547,13 +1426,11 @@ func (a *RoleTargetAPIService) AssignGroupTargetToUserRoleExecute(r ApiAssignGro
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1562,7 +1439,6 @@ func (a *RoleTargetAPIService) AssignGroupTargetToUserRoleExecute(r ApiAssignGro
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1577,12 +1453,10 @@ func (a *RoleTargetAPIService) AssignGroupTargetToUserRoleExecute(r ApiAssignGro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1591,12 +1465,10 @@ func (a *RoleTargetAPIService) AssignGroupTargetToUserRoleExecute(r ApiAssignGro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1605,13 +1477,11 @@ func (a *RoleTargetAPIService) AssignGroupTargetToUserRoleExecute(r ApiAssignGro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1620,13 +1490,12 @@ func (a *RoleTargetAPIService) AssignGroupTargetToUserRoleExecute(r ApiAssignGro
 }
 
 type ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	after *string
-	limit *int32
-	// TODU
+	groupId    string
+	roleId     string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -1641,14 +1510,11 @@ func (r ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest)
 	return r
 }
 
-
-// TODU
-func (r ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest) Data (data interface{}) ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest {
+func (r ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest) Data(data interface{}) ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListApplicationTargetsForApplicationAdministratorRoleForGroupExecute(r)
 }
@@ -1663,14 +1529,13 @@ Lists all App targets for an `APP_ADMIN` Role assigned to a Group. This methods 
  @param roleId `id` of the Role
  @return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministratorRoleForGroup(ctx context.Context, groupId string, roleId string) ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest {
 	return ApiListApplicationTargetsForApplicationAdministratorRoleForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
@@ -1683,10 +1548,9 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1696,7 +1560,6 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.ListApplicationTargetsForApplicationAdministratorRoleForGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1731,7 +1594,6 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1748,13 +1610,11 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1763,7 +1623,6 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1778,12 +1637,10 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1792,12 +1649,10 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1806,13 +1661,11 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1821,13 +1674,12 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 }
 
 type ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	after *string
-	limit *int32
-	// TODU
+	userId     string
+	roleId     string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -1842,14 +1694,11 @@ func (r ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest) 
 	return r
 }
 
-
-// TODU
-func (r ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest) Data (data interface{}) ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest {
+func (r ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest) Data(data interface{}) ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListApplicationTargetsForApplicationAdministratorRoleForUserExecute(r)
 }
@@ -1864,14 +1713,13 @@ Lists all App targets for an `APP_ADMIN` Role assigned to a User. This methods r
  @param roleId `id` of the Role
  @return ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministratorRoleForUser(ctx context.Context, userId string, roleId string) ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest {
 	return ApiListApplicationTargetsForApplicationAdministratorRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
@@ -1884,10 +1732,9 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1897,7 +1744,6 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.ListApplicationTargetsForApplicationAdministratorRoleForUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1932,7 +1778,6 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1949,13 +1794,11 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1964,7 +1807,6 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1979,12 +1821,10 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1993,12 +1833,10 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2007,13 +1845,11 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2022,13 +1858,12 @@ func (a *RoleTargetAPIService) ListApplicationTargetsForApplicationAdministrator
 }
 
 type ApiListGroupTargetsForGroupRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	after *string
-	limit *int32
-	// TODU
+	groupId    string
+	roleId     string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -2043,14 +1878,11 @@ func (r ApiListGroupTargetsForGroupRoleRequest) Limit(limit int32) ApiListGroupT
 	return r
 }
 
-
-// TODU
-func (r ApiListGroupTargetsForGroupRoleRequest) Data (data interface{}) ApiListGroupTargetsForGroupRoleRequest {
+func (r ApiListGroupTargetsForGroupRoleRequest) Data(data interface{}) ApiListGroupTargetsForGroupRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListGroupTargetsForGroupRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListGroupTargetsForGroupRoleExecute(r)
 }
@@ -2065,14 +1897,13 @@ Lists all group targets for a group role
  @param roleId `id` of the Role
  @return ApiListGroupTargetsForGroupRoleRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) ListGroupTargetsForGroupRole(ctx context.Context, groupId string, roleId string) ApiListGroupTargetsForGroupRoleRequest {
 	return ApiListGroupTargetsForGroupRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
@@ -2085,10 +1916,9 @@ func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGrou
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2098,7 +1928,6 @@ func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGrou
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.ListGroupTargetsForGroupRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2133,7 +1962,6 @@ func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGrou
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2150,13 +1978,11 @@ func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGrou
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2165,7 +1991,6 @@ func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGrou
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2180,12 +2005,10 @@ func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGrou
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2194,12 +2017,10 @@ func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGrou
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2208,13 +2029,11 @@ func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGrou
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2223,13 +2042,12 @@ func (a *RoleTargetAPIService) ListGroupTargetsForGroupRoleExecute(r ApiListGrou
 }
 
 type ApiListGroupTargetsForRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	after *string
-	limit *int32
-	// TODU
+	userId     string
+	roleId     string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -2244,14 +2062,11 @@ func (r ApiListGroupTargetsForRoleRequest) Limit(limit int32) ApiListGroupTarget
 	return r
 }
 
-
-// TODU
-func (r ApiListGroupTargetsForRoleRequest) Data (data interface{}) ApiListGroupTargetsForRoleRequest {
+func (r ApiListGroupTargetsForRoleRequest) Data(data interface{}) ApiListGroupTargetsForRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListGroupTargetsForRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListGroupTargetsForRoleExecute(r)
 }
@@ -2266,14 +2081,13 @@ Lists all group targets for role
  @param roleId `id` of the Role
  @return ApiListGroupTargetsForRoleRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) ListGroupTargetsForRole(ctx context.Context, userId string, roleId string) ApiListGroupTargetsForRoleRequest {
 	return ApiListGroupTargetsForRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
 		retryCount: 0,
 	}
 }
@@ -2286,10 +2100,9 @@ func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTarg
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2299,7 +2112,6 @@ func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTarg
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.ListGroupTargetsForRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2334,7 +2146,6 @@ func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTarg
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2351,13 +2162,11 @@ func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTarg
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2366,7 +2175,6 @@ func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTarg
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2381,12 +2189,10 @@ func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTarg
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2395,12 +2201,10 @@ func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTarg
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2409,13 +2213,11 @@ func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTarg
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2424,25 +2226,21 @@ func (a *RoleTargetAPIService) ListGroupTargetsForRoleExecute(r ApiListGroupTarg
 }
 
 type ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	appName string
-	appId string
-	// TODU
+	userId     string
+	roleId     string
+	appName    string
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest) Data (data interface{}) ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest {
+func (r ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest) Data(data interface{}) ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnassignAppInstanceTargetFromAdminRoleForUserExecute(r)
 }
@@ -2459,16 +2257,15 @@ Unassigns an application instance target from an application administrator role
  @param appId Application ID
  @return ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string, appId string) ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest {
 	return ApiUnassignAppInstanceTargetFromAdminRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		appName: appName,
-		appId: appId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		appName:    appName,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -2482,7 +2279,7 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUserExec
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2492,7 +2289,6 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUserExec
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.UnassignAppInstanceTargetFromAdminRoleForUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2523,7 +2319,6 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUserExec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2540,13 +2335,11 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUserExec
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2555,7 +2348,6 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUserExec
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2570,12 +2362,10 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUserExec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2584,12 +2374,10 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUserExec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2598,13 +2386,11 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUserExec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2613,25 +2399,21 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetFromAdminRoleForUserExec
 }
 
 type ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	appName string
-	appId string
-	// TODU
+	groupId    string
+	roleId     string
+	appName    string
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest) Data (data interface{}) ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest {
+func (r ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest) Data(data interface{}) ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnassignAppInstanceTargetToAppAdminRoleForGroupExecute(r)
 }
@@ -2648,16 +2430,15 @@ Unassigns an application instance target from application administrator role
  @param appId Application ID
  @return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string, appId string) ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest {
 	return ApiUnassignAppInstanceTargetToAppAdminRoleForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
-		appName: appName,
-		appId: appId,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
+		appName:    appName,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -2671,7 +2452,7 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroupEx
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2681,7 +2462,6 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroupEx
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.UnassignAppInstanceTargetToAppAdminRoleForGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2712,7 +2492,6 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroupEx
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2729,13 +2508,11 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroupEx
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2744,7 +2521,6 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroupEx
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2759,12 +2535,10 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroupEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2773,12 +2547,10 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroupEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2787,13 +2559,11 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroupEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2802,24 +2572,20 @@ func (a *RoleTargetAPIService) UnassignAppInstanceTargetToAppAdminRoleForGroupEx
 }
 
 type ApiUnassignAppTargetFromAppAdminRoleForUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	appName string
-	// TODU
+	userId     string
+	roleId     string
+	appName    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnassignAppTargetFromAppAdminRoleForUserRequest) Data (data interface{}) ApiUnassignAppTargetFromAppAdminRoleForUserRequest {
+func (r ApiUnassignAppTargetFromAppAdminRoleForUserRequest) Data(data interface{}) ApiUnassignAppTargetFromAppAdminRoleForUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnassignAppTargetFromAppAdminRoleForUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnassignAppTargetFromAppAdminRoleForUserExecute(r)
 }
@@ -2835,15 +2601,14 @@ Unassigns an application target from application administrator role
  @param appName Application name for the app type
  @return ApiUnassignAppTargetFromAppAdminRoleForUserRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUser(ctx context.Context, userId string, roleId string, appName string) ApiUnassignAppTargetFromAppAdminRoleForUserRequest {
 	return ApiUnassignAppTargetFromAppAdminRoleForUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		appName: appName,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -2857,7 +2622,7 @@ func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUserExecute(r
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2867,7 +2632,6 @@ func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUserExecute(r
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.UnassignAppTargetFromAppAdminRoleForUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2897,7 +2661,6 @@ func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUserExecute(r
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2914,13 +2677,11 @@ func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUserExecute(r
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2929,7 +2690,6 @@ func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUserExecute(r
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2944,12 +2704,10 @@ func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUserExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2958,12 +2716,10 @@ func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUserExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2972,13 +2728,11 @@ func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUserExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2987,24 +2741,20 @@ func (a *RoleTargetAPIService) UnassignAppTargetFromAppAdminRoleForUserExecute(r
 }
 
 type ApiUnassignAppTargetToAdminRoleForGroupRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	groupId string
-	roleId string
-	appName string
-	// TODU
+	groupId    string
+	roleId     string
+	appName    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnassignAppTargetToAdminRoleForGroupRequest) Data (data interface{}) ApiUnassignAppTargetToAdminRoleForGroupRequest {
+func (r ApiUnassignAppTargetToAdminRoleForGroupRequest) Data(data interface{}) ApiUnassignAppTargetToAdminRoleForGroupRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnassignAppTargetToAdminRoleForGroupRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnassignAppTargetToAdminRoleForGroupExecute(r)
 }
@@ -3020,15 +2770,14 @@ Unassigns an application target from application administrator role
  @param appName Application name for the app type
  @return ApiUnassignAppTargetToAdminRoleForGroupRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroup(ctx context.Context, groupId string, roleId string, appName string) ApiUnassignAppTargetToAdminRoleForGroupRequest {
 	return ApiUnassignAppTargetToAdminRoleForGroupRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
-		appName: appName,
+		ctx:        ctx,
+		groupId:    groupId,
+		roleId:     roleId,
+		appName:    appName,
 		retryCount: 0,
 	}
 }
@@ -3042,7 +2791,7 @@ func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroupExecute(r Api
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3052,7 +2801,6 @@ func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroupExecute(r Api
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.UnassignAppTargetToAdminRoleForGroup")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3082,7 +2830,6 @@ func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroupExecute(r Api
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3099,13 +2846,11 @@ func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroupExecute(r Api
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3114,7 +2859,6 @@ func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroupExecute(r Api
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3129,12 +2873,10 @@ func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroupExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3143,12 +2885,10 @@ func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroupExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3157,13 +2897,11 @@ func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroupExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3172,24 +2910,20 @@ func (a *RoleTargetAPIService) UnassignAppTargetToAdminRoleForGroupExecute(r Api
 }
 
 type ApiUnassignGroupTargetFromGroupAdminRoleRequest struct {
-	ctx context.Context
-	ApiService RoleTargetAPI
-	groupId string
-	roleId string
+	ctx           context.Context
+	ApiService    RoleTargetAPI
+	groupId       string
+	roleId        string
 	targetGroupId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiUnassignGroupTargetFromGroupAdminRoleRequest) Data (data interface{}) ApiUnassignGroupTargetFromGroupAdminRoleRequest {
+func (r ApiUnassignGroupTargetFromGroupAdminRoleRequest) Data(data interface{}) ApiUnassignGroupTargetFromGroupAdminRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnassignGroupTargetFromGroupAdminRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnassignGroupTargetFromGroupAdminRoleExecute(r)
 }
@@ -3205,16 +2939,15 @@ Unassigns a group target from a group role
  @param targetGroupId
  @return ApiUnassignGroupTargetFromGroupAdminRoleRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRole(ctx context.Context, groupId string, roleId string, targetGroupId string) ApiUnassignGroupTargetFromGroupAdminRoleRequest {
 	return ApiUnassignGroupTargetFromGroupAdminRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		roleId: roleId,
+		ApiService:    a,
+		ctx:           ctx,
+		groupId:       groupId,
+		roleId:        roleId,
 		targetGroupId: targetGroupId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -3227,7 +2960,7 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRoleExecute(r Ap
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3237,7 +2970,6 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRoleExecute(r Ap
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.UnassignGroupTargetFromGroupAdminRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3267,7 +2999,6 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRoleExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3284,13 +3015,11 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRoleExecute(r Ap
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3299,7 +3028,6 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRoleExecute(r Ap
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3314,12 +3042,10 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRoleExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3328,12 +3054,10 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRoleExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3342,13 +3066,11 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRoleExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3357,24 +3079,20 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromGroupAdminRoleExecute(r Ap
 }
 
 type ApiUnassignGroupTargetFromUserAdminRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RoleTargetAPI
-	userId string
-	roleId string
-	groupId string
-	// TODU
+	userId     string
+	roleId     string
+	groupId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnassignGroupTargetFromUserAdminRoleRequest) Data (data interface{}) ApiUnassignGroupTargetFromUserAdminRoleRequest {
+func (r ApiUnassignGroupTargetFromUserAdminRoleRequest) Data(data interface{}) ApiUnassignGroupTargetFromUserAdminRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnassignGroupTargetFromUserAdminRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnassignGroupTargetFromUserAdminRoleExecute(r)
 }
@@ -3390,15 +3108,14 @@ Unassigns a Group Target from Role
  @param groupId The `id` of the group
  @return ApiUnassignGroupTargetFromUserAdminRoleRequest
 */
-// TODU
 
 func (a *RoleTargetAPIService) UnassignGroupTargetFromUserAdminRole(ctx context.Context, userId string, roleId string, groupId string) ApiUnassignGroupTargetFromUserAdminRoleRequest {
 	return ApiUnassignGroupTargetFromUserAdminRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		roleId: roleId,
-		groupId: groupId,
+		ctx:        ctx,
+		userId:     userId,
+		roleId:     roleId,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -3412,7 +3129,7 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromUserAdminRoleExecute(r Api
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3422,7 +3139,6 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromUserAdminRoleExecute(r Api
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RoleTargetAPIService.UnassignGroupTargetFromUserAdminRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3452,7 +3168,6 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromUserAdminRoleExecute(r Api
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3469,13 +3184,11 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromUserAdminRoleExecute(r Api
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3484,7 +3197,6 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromUserAdminRoleExecute(r Api
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3499,12 +3211,10 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromUserAdminRoleExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3513,12 +3223,10 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromUserAdminRoleExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3527,13 +3235,11 @@ func (a *RoleTargetAPIService) UnassignGroupTargetFromUserAdminRoleExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

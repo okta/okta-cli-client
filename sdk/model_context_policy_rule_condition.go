@@ -17,11 +17,11 @@ import (
 
 // ContextPolicyRuleCondition struct for ContextPolicyRuleCondition
 type ContextPolicyRuleCondition struct {
-	Migrated *bool `json:"migrated,omitempty"`
-	Platform *DevicePolicyRuleConditionPlatform `json:"platform,omitempty"`
-	Rooted *bool `json:"rooted,omitempty"`
-	TrustLevel *string `json:"trustLevel,omitempty"`
-	Expression *string `json:"expression,omitempty"`
+	Migrated             *bool                              `json:"migrated,omitempty"`
+	Platform             *DevicePolicyRuleConditionPlatform `json:"platform,omitempty"`
+	Rooted               *bool                              `json:"rooted,omitempty"`
+	TrustLevel           *string                            `json:"trustLevel,omitempty"`
+	Expression           *string                            `json:"expression,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -291,4 +291,3 @@ func (v *NullableContextPolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -18,8 +18,8 @@ import (
 // AuthenticatorMethodWebAuthnAllOfSettings struct for AuthenticatorMethodWebAuthnAllOfSettings
 type AuthenticatorMethodWebAuthnAllOfSettings struct {
 	// User verification setting
-	UserVerification *string `json:"userVerification,omitempty"`
-	Attachment *string `json:"attachment,omitempty"`
+	UserVerification     *string `json:"userVerification,omitempty"`
+	Attachment           *string `json:"attachment,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -181,4 +181,3 @@ func (v *NullableAuthenticatorMethodWebAuthnAllOfSettings) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

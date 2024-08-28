@@ -33,9 +33,9 @@ type UserFactor struct {
 	// Status of the Factor
 	Status *string `json:"status,omitempty"`
 	// Name of the Factor vendor. This is usually the same as the provider except for On-Prem MFA where it depends on administrator settings.
-	VendorName *string `json:"vendorName,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	VendorName           *string                           `json:"vendorName,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *LinksSelf                        `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -485,4 +485,3 @@ func (v *NullableUserFactor) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

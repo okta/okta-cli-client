@@ -17,14 +17,14 @@ import (
 
 // ProtocolEndpoints struct for ProtocolEndpoints
 type ProtocolEndpoints struct {
-	Acs *ProtocolEndpoint `json:"acs,omitempty"`
-	Authorization *ProtocolEndpoint `json:"authorization,omitempty"`
-	Jwks *ProtocolEndpoint `json:"jwks,omitempty"`
-	Metadata *ProtocolEndpoint `json:"metadata,omitempty"`
-	Slo *ProtocolEndpoint `json:"slo,omitempty"`
-	Sso *ProtocolEndpoint `json:"sso,omitempty"`
-	Token *ProtocolEndpoint `json:"token,omitempty"`
-	UserInfo *ProtocolEndpoint `json:"userInfo,omitempty"`
+	Acs                  *ProtocolEndpoint `json:"acs,omitempty"`
+	Authorization        *ProtocolEndpoint `json:"authorization,omitempty"`
+	Jwks                 *ProtocolEndpoint `json:"jwks,omitempty"`
+	Metadata             *ProtocolEndpoint `json:"metadata,omitempty"`
+	Slo                  *ProtocolEndpoint `json:"slo,omitempty"`
+	Sso                  *ProtocolEndpoint `json:"sso,omitempty"`
+	Token                *ProtocolEndpoint `json:"token,omitempty"`
+	UserInfo             *ProtocolEndpoint `json:"userInfo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -402,4 +402,3 @@ func (v *NullableProtocolEndpoints) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

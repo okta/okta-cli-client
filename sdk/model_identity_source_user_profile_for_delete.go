@@ -17,7 +17,7 @@ import (
 
 // IdentitySourceUserProfileForDelete struct for IdentitySourceUserProfileForDelete
 type IdentitySourceUserProfileForDelete struct {
-	ExternalId *string `json:"externalId,omitempty"`
+	ExternalId           *string `json:"externalId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableIdentitySourceUserProfileForDelete) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

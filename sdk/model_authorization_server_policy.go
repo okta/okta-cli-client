@@ -17,7 +17,7 @@ import (
 
 // AuthorizationServerPolicy struct for AuthorizationServerPolicy
 type AuthorizationServerPolicy struct {
-	Conditions *AuthorizationServerPolicyConditions `json:"conditions,omitempty"`
+	Conditions           *AuthorizationServerPolicyConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableAuthorizationServerPolicy) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

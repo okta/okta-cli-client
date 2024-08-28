@@ -18,13 +18,13 @@ import (
 
 // SmsTemplate struct for SmsTemplate
 type SmsTemplate struct {
-	Created *time.Time `json:"created,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Template *string `json:"template,omitempty"`
-	Translations map[string]interface{} `json:"translations,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Created              *time.Time             `json:"created,omitempty"`
+	Id                   *string                `json:"id,omitempty"`
+	LastUpdated          *time.Time             `json:"lastUpdated,omitempty"`
+	Name                 *string                `json:"name,omitempty"`
+	Template             *string                `json:"template,omitempty"`
+	Translations         map[string]interface{} `json:"translations,omitempty"`
+	Type                 *string                `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -366,4 +366,3 @@ func (v *NullableSmsTemplate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

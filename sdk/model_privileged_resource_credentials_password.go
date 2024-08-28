@@ -18,7 +18,7 @@ import (
 // PrivilegedResourceCredentialsPassword struct for PrivilegedResourceCredentialsPassword
 type PrivilegedResourceCredentialsPassword struct {
 	// The password associated with the privileged resource
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -144,4 +144,3 @@ func (v *NullablePrivilegedResourceCredentialsPassword) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

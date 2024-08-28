@@ -17,8 +17,8 @@ import (
 
 // AuthenticatorProvider struct for AuthenticatorProvider
 type AuthenticatorProvider struct {
-	Configuration *AuthenticatorProviderConfiguration `json:"configuration,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Configuration        *AuthenticatorProviderConfiguration `json:"configuration,omitempty"`
+	Type                 *string                             `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableAuthenticatorProvider) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

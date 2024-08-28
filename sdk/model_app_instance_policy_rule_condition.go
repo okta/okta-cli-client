@@ -17,8 +17,8 @@ import (
 
 // AppInstancePolicyRuleCondition struct for AppInstancePolicyRuleCondition
 type AppInstancePolicyRuleCondition struct {
-	Exclude []string `json:"exclude,omitempty"`
-	Include []string `json:"include,omitempty"`
+	Exclude              []string `json:"exclude,omitempty"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableAppInstancePolicyRuleCondition) UnmarshalJSON(src []byte) error
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

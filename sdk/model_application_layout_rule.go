@@ -17,8 +17,8 @@ import (
 
 // ApplicationLayoutRule struct for ApplicationLayoutRule
 type ApplicationLayoutRule struct {
-	Effect *string `json:"effect,omitempty"`
-	Condition *ApplicationLayoutRuleCondition `json:"condition,omitempty"`
+	Effect               *string                         `json:"effect,omitempty"`
+	Condition            *ApplicationLayoutRuleCondition `json:"condition,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableApplicationLayoutRule) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -18,7 +18,7 @@ import (
 // ProvisioningConnectionResponseProfile struct for ProvisioningConnectionResponseProfile
 type ProvisioningConnectionResponseProfile struct {
 	// Defines the method of authentication
-	AuthScheme string `json:"authScheme"`
+	AuthScheme           string `json:"authScheme"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -137,4 +137,3 @@ func (v *NullableProvisioningConnectionResponseProfile) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

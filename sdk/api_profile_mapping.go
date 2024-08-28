@@ -17,62 +17,58 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ProfileMappingAPI interface {
 
 	/*
-	GetProfileMapping Retrieve a Profile Mapping
+		GetProfileMapping Retrieve a Profile Mapping
 
-	Retrieves a single Profile Mapping referenced by its ID
+		Retrieves a single Profile Mapping referenced by its ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param mappingId `id` of the Mapping
-	@return ApiGetProfileMappingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param mappingId `id` of the Mapping
+		@return ApiGetProfileMappingRequest
 	*/
 	GetProfileMapping(ctx context.Context, mappingId string) ApiGetProfileMappingRequest
 
 	// GetProfileMappingExecute executes the request
 	//  @return ProfileMapping
-	// TODU
 	GetProfileMappingExecute(r ApiGetProfileMappingRequest) (*APIResponse, error)
 
 	/*
-	ListProfileMappings List all Profile Mappings
+			ListProfileMappings List all Profile Mappings
 
-	Lists all profile mappings in your organization with [pagination](https://developer.okta.com/docs/api/#pagination). You can return a subset of profile mappings that match a supported `sourceId` and/or `targetId`.
-The results are [paginated](/#pagination) according to the limit parameter. If there are multiple pages of results, the Link header contains a `next` link that should be treated as an opaque value (follow it, don't parse it).
+			Lists all profile mappings in your organization with [pagination](https://developer.okta.com/docs/api/#pagination). You can return a subset of profile mappings that match a supported `sourceId` and/or `targetId`.
+		The results are [paginated](/#pagination) according to the limit parameter. If there are multiple pages of results, the Link header contains a `next` link that should be treated as an opaque value (follow it, don't parse it).
 
-The response is a collection of profile mappings that include a subset of the profile mapping object's parameters. The profile mapping object describes
-the properties mapping between an Okta User and an App User Profile using [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04).
+		The response is a collection of profile mappings that include a subset of the profile mapping object's parameters. The profile mapping object describes
+		the properties mapping between an Okta User and an App User Profile using [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListProfileMappingsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListProfileMappingsRequest
 	*/
 	ListProfileMappings(ctx context.Context) ApiListProfileMappingsRequest
 
 	// ListProfileMappingsExecute executes the request
 	//  @return []ListProfileMappings
-	// TODU
 	ListProfileMappingsExecute(r ApiListProfileMappingsRequest) (*APIResponse, error)
 
 	/*
-	UpdateProfileMapping Update a Profile Mapping
+		UpdateProfileMapping Update a Profile Mapping
 
-	Updates an existing profile mapping by adding, updating, or removing one or many property mappings
+		Updates an existing profile mapping by adding, updating, or removing one or many property mappings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param mappingId `id` of the Mapping
-	@return ApiUpdateProfileMappingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param mappingId `id` of the Mapping
+		@return ApiUpdateProfileMappingRequest
 	*/
 	UpdateProfileMapping(ctx context.Context, mappingId string) ApiUpdateProfileMappingRequest
 
 	// UpdateProfileMappingExecute executes the request
 	//  @return ProfileMapping
-	// TODU
 	UpdateProfileMappingExecute(r ApiUpdateProfileMappingRequest) (*APIResponse, error)
 }
 
@@ -80,22 +76,18 @@ the properties mapping between an Okta User and an App User Profile using [JSON 
 type ProfileMappingAPIService service
 
 type ApiGetProfileMappingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ProfileMappingAPI
-	mappingId string
-	// TODU
+	mappingId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetProfileMappingRequest) Data (data interface{}) ApiGetProfileMappingRequest {
+func (r ApiGetProfileMappingRequest) Data(data interface{}) ApiGetProfileMappingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetProfileMappingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetProfileMappingExecute(r)
 }
@@ -109,13 +101,12 @@ Retrieves a single Profile Mapping referenced by its ID
  @param mappingId `id` of the Mapping
  @return ApiGetProfileMappingRequest
 */
-// TODU
 
 func (a *ProfileMappingAPIService) GetProfileMapping(ctx context.Context, mappingId string) ApiGetProfileMappingRequest {
 	return ApiGetProfileMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		mappingId: mappingId,
+		ctx:        ctx,
+		mappingId:  mappingId,
 		retryCount: 0,
 	}
 }
@@ -128,10 +119,9 @@ func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappi
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -141,7 +131,6 @@ func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProfileMappingAPIService.GetProfileMapping")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -169,7 +158,6 @@ func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -186,13 +174,11 @@ func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -201,7 +187,6 @@ func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -216,12 +201,10 @@ func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -230,12 +213,10 @@ func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -244,13 +225,11 @@ func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -259,13 +238,12 @@ func (a *ProfileMappingAPIService) GetProfileMappingExecute(r ApiGetProfileMappi
 }
 
 type ApiListProfileMappingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ProfileMappingAPI
-	after *string
-	limit *int32
-	sourceId *string
-	targetId *string
-	// TODU
+	after      *string
+	limit      *int32
+	sourceId   *string
+	targetId   *string
 	data       interface{}
 	retryCount int32
 }
@@ -294,14 +272,11 @@ func (r ApiListProfileMappingsRequest) TargetId(targetId string) ApiListProfileM
 	return r
 }
 
-
-// TODU
-func (r ApiListProfileMappingsRequest) Data (data interface{}) ApiListProfileMappingsRequest {
+func (r ApiListProfileMappingsRequest) Data(data interface{}) ApiListProfileMappingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListProfileMappingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListProfileMappingsExecute(r)
 }
@@ -318,12 +293,11 @@ the properties mapping between an Okta User and an App User Profile using [JSON 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListProfileMappingsRequest
 */
-// TODU
 
 func (a *ProfileMappingAPIService) ListProfileMappings(ctx context.Context) ApiListProfileMappingsRequest {
 	return ApiListProfileMappingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -336,10 +310,9 @@ func (a *ProfileMappingAPIService) ListProfileMappingsExecute(r ApiListProfileMa
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -349,7 +322,6 @@ func (a *ProfileMappingAPIService) ListProfileMappingsExecute(r ApiListProfileMa
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProfileMappingAPIService.ListProfileMappings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -388,7 +360,6 @@ func (a *ProfileMappingAPIService) ListProfileMappingsExecute(r ApiListProfileMa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -405,13 +376,11 @@ func (a *ProfileMappingAPIService) ListProfileMappingsExecute(r ApiListProfileMa
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -420,7 +389,6 @@ func (a *ProfileMappingAPIService) ListProfileMappingsExecute(r ApiListProfileMa
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -435,12 +403,10 @@ func (a *ProfileMappingAPIService) ListProfileMappingsExecute(r ApiListProfileMa
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -449,13 +415,11 @@ func (a *ProfileMappingAPIService) ListProfileMappingsExecute(r ApiListProfileMa
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -464,13 +428,12 @@ func (a *ProfileMappingAPIService) ListProfileMappingsExecute(r ApiListProfileMa
 }
 
 type ApiUpdateProfileMappingRequest struct {
-	ctx context.Context
-	ApiService ProfileMappingAPI
-	mappingId string
+	ctx            context.Context
+	ApiService     ProfileMappingAPI
+	mappingId      string
 	profileMapping *ProfileMappingRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	data           interface{}
+	retryCount     int32
 }
 
 func (r ApiUpdateProfileMappingRequest) ProfileMapping(profileMapping ProfileMappingRequest) ApiUpdateProfileMappingRequest {
@@ -478,14 +441,11 @@ func (r ApiUpdateProfileMappingRequest) ProfileMapping(profileMapping ProfileMap
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateProfileMappingRequest) Data (data interface{}) ApiUpdateProfileMappingRequest {
+func (r ApiUpdateProfileMappingRequest) Data(data interface{}) ApiUpdateProfileMappingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateProfileMappingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateProfileMappingExecute(r)
 }
@@ -499,13 +459,12 @@ Updates an existing profile mapping by adding, updating, or removing one or many
  @param mappingId `id` of the Mapping
  @return ApiUpdateProfileMappingRequest
 */
-// TODU
 
 func (a *ProfileMappingAPIService) UpdateProfileMapping(ctx context.Context, mappingId string) ApiUpdateProfileMappingRequest {
 	return ApiUpdateProfileMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		mappingId: mappingId,
+		ctx:        ctx,
+		mappingId:  mappingId,
 		retryCount: 0,
 	}
 }
@@ -518,10 +477,9 @@ func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfil
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -531,7 +489,6 @@ func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfil
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProfileMappingAPIService.UpdateProfileMapping")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -559,7 +516,6 @@ func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfil
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.profileMapping
 	localVarPostBody = r.data
@@ -579,13 +535,11 @@ func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfil
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -594,7 +548,6 @@ func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfil
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -609,12 +562,10 @@ func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfil
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -623,12 +574,10 @@ func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfil
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -637,12 +586,10 @@ func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfil
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -651,13 +598,11 @@ func (a *ProfileMappingAPIService) UpdateProfileMappingExecute(r ApiUpdateProfil
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

@@ -17,104 +17,97 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type TemplateAPI interface {
 
 	/*
-	CreateSmsTemplate Create an SMS Template
+		CreateSmsTemplate Create an SMS Template
 
-	Creates a new custom SMS template
+		Creates a new custom SMS template
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateSmsTemplateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateSmsTemplateRequest
 	*/
 	CreateSmsTemplate(ctx context.Context) ApiCreateSmsTemplateRequest
 
 	// CreateSmsTemplateExecute executes the request
 	//  @return SmsTemplate
-	// TODU
 	CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequest) (*APIResponse, error)
 
 	/*
-	DeleteSmsTemplate Delete an SMS Template
+		DeleteSmsTemplate Delete an SMS Template
 
-	Deletes an SMS template
+		Deletes an SMS template
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param templateId `id` of the Template
-	@return ApiDeleteSmsTemplateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param templateId `id` of the Template
+		@return ApiDeleteSmsTemplateRequest
 	*/
 	DeleteSmsTemplate(ctx context.Context, templateId string) ApiDeleteSmsTemplateRequest
 
 	// DeleteSmsTemplateExecute executes the request
-	// TODU
 	DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequest) (*APIResponse, error)
 
 	/*
-	GetSmsTemplate Retrieve an SMS Template
+		GetSmsTemplate Retrieve an SMS Template
 
-	Retrieves a specific template by `id`
+		Retrieves a specific template by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param templateId `id` of the Template
-	@return ApiGetSmsTemplateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param templateId `id` of the Template
+		@return ApiGetSmsTemplateRequest
 	*/
 	GetSmsTemplate(ctx context.Context, templateId string) ApiGetSmsTemplateRequest
 
 	// GetSmsTemplateExecute executes the request
 	//  @return SmsTemplate
-	// TODU
 	GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (*APIResponse, error)
 
 	/*
-	ListSmsTemplates List all SMS Templates
+		ListSmsTemplates List all SMS Templates
 
-	Lists all custom SMS templates. A subset of templates can be returned that match a template type.
+		Lists all custom SMS templates. A subset of templates can be returned that match a template type.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSmsTemplatesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListSmsTemplatesRequest
 	*/
 	ListSmsTemplates(ctx context.Context) ApiListSmsTemplatesRequest
 
 	// ListSmsTemplatesExecute executes the request
 	//  @return []SmsTemplate
-	// TODU
 	ListSmsTemplatesExecute(r ApiListSmsTemplatesRequest) (*APIResponse, error)
 
 	/*
-	ReplaceSmsTemplate Replace an SMS Template
+		ReplaceSmsTemplate Replace an SMS Template
 
-	Replaces the SMS template
+		Replaces the SMS template
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param templateId `id` of the Template
-	@return ApiReplaceSmsTemplateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param templateId `id` of the Template
+		@return ApiReplaceSmsTemplateRequest
 	*/
 	ReplaceSmsTemplate(ctx context.Context, templateId string) ApiReplaceSmsTemplateRequest
 
 	// ReplaceSmsTemplateExecute executes the request
 	//  @return SmsTemplate
-	// TODU
 	ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRequest) (*APIResponse, error)
 
 	/*
-	UpdateSmsTemplate Update an SMS Template
+		UpdateSmsTemplate Update an SMS Template
 
-	Updates an SMS template
+		Updates an SMS template
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param templateId `id` of the Template
-	@return ApiUpdateSmsTemplateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param templateId `id` of the Template
+		@return ApiUpdateSmsTemplateRequest
 	*/
 	UpdateSmsTemplate(ctx context.Context, templateId string) ApiUpdateSmsTemplateRequest
 
 	// UpdateSmsTemplateExecute executes the request
 	//  @return SmsTemplate
-	// TODU
 	UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequest) (*APIResponse, error)
 }
 
@@ -122,12 +115,11 @@ type TemplateAPI interface {
 type TemplateAPIService service
 
 type ApiCreateSmsTemplateRequest struct {
-	ctx context.Context
-	ApiService TemplateAPI
+	ctx         context.Context
+	ApiService  TemplateAPI
 	smsTemplate *SmsTemplate
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
 func (r ApiCreateSmsTemplateRequest) SmsTemplate(smsTemplate SmsTemplate) ApiCreateSmsTemplateRequest {
@@ -135,14 +127,11 @@ func (r ApiCreateSmsTemplateRequest) SmsTemplate(smsTemplate SmsTemplate) ApiCre
 	return r
 }
 
-
-// TODU
-func (r ApiCreateSmsTemplateRequest) Data (data interface{}) ApiCreateSmsTemplateRequest {
+func (r ApiCreateSmsTemplateRequest) Data(data interface{}) ApiCreateSmsTemplateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateSmsTemplateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateSmsTemplateExecute(r)
 }
@@ -155,12 +144,11 @@ Creates a new custom SMS template
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateSmsTemplateRequest
 */
-// TODU
 
 func (a *TemplateAPIService) CreateSmsTemplate(ctx context.Context) ApiCreateSmsTemplateRequest {
 	return ApiCreateSmsTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -173,10 +161,9 @@ func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequ
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -186,7 +173,6 @@ func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateAPIService.CreateSmsTemplate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -213,7 +199,6 @@ func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.smsTemplate
 	localVarPostBody = r.data
@@ -233,13 +218,11 @@ func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -248,7 +231,6 @@ func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -263,12 +245,10 @@ func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -277,12 +257,10 @@ func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -291,13 +269,11 @@ func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -306,22 +282,18 @@ func (a *TemplateAPIService) CreateSmsTemplateExecute(r ApiCreateSmsTemplateRequ
 }
 
 type ApiDeleteSmsTemplateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService TemplateAPI
 	templateId string
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteSmsTemplateRequest) Data (data interface{}) ApiDeleteSmsTemplateRequest {
+func (r ApiDeleteSmsTemplateRequest) Data(data interface{}) ApiDeleteSmsTemplateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteSmsTemplateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteSmsTemplateExecute(r)
 }
@@ -335,12 +307,11 @@ Deletes an SMS template
  @param templateId `id` of the Template
  @return ApiDeleteSmsTemplateRequest
 */
-// TODU
 
 func (a *TemplateAPIService) DeleteSmsTemplate(ctx context.Context, templateId string) ApiDeleteSmsTemplateRequest {
 	return ApiDeleteSmsTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 		retryCount: 0,
 	}
@@ -355,7 +326,7 @@ func (a *TemplateAPIService) DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequ
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -365,7 +336,6 @@ func (a *TemplateAPIService) DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateAPIService.DeleteSmsTemplate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -393,7 +363,6 @@ func (a *TemplateAPIService) DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -410,13 +379,11 @@ func (a *TemplateAPIService) DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -425,7 +392,6 @@ func (a *TemplateAPIService) DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -440,12 +406,10 @@ func (a *TemplateAPIService) DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -454,12 +418,10 @@ func (a *TemplateAPIService) DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -468,13 +430,11 @@ func (a *TemplateAPIService) DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -483,22 +443,18 @@ func (a *TemplateAPIService) DeleteSmsTemplateExecute(r ApiDeleteSmsTemplateRequ
 }
 
 type ApiGetSmsTemplateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService TemplateAPI
 	templateId string
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetSmsTemplateRequest) Data (data interface{}) ApiGetSmsTemplateRequest {
+func (r ApiGetSmsTemplateRequest) Data(data interface{}) ApiGetSmsTemplateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetSmsTemplateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetSmsTemplateExecute(r)
 }
@@ -512,12 +468,11 @@ Retrieves a specific template by `id`
  @param templateId `id` of the Template
  @return ApiGetSmsTemplateRequest
 */
-// TODU
 
 func (a *TemplateAPIService) GetSmsTemplate(ctx context.Context, templateId string) ApiGetSmsTemplateRequest {
 	return ApiGetSmsTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 		retryCount: 0,
 	}
@@ -531,10 +486,9 @@ func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -544,7 +498,6 @@ func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateAPIService.GetSmsTemplate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -572,7 +525,6 @@ func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -589,13 +541,11 @@ func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -604,7 +554,6 @@ func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -619,12 +568,10 @@ func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -633,12 +580,10 @@ func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -647,13 +592,11 @@ func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -662,12 +605,11 @@ func (a *TemplateAPIService) GetSmsTemplateExecute(r ApiGetSmsTemplateRequest) (
 }
 
 type ApiListSmsTemplatesRequest struct {
-	ctx context.Context
-	ApiService TemplateAPI
+	ctx          context.Context
+	ApiService   TemplateAPI
 	templateType *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiListSmsTemplatesRequest) TemplateType(templateType string) ApiListSmsTemplatesRequest {
@@ -675,14 +617,11 @@ func (r ApiListSmsTemplatesRequest) TemplateType(templateType string) ApiListSms
 	return r
 }
 
-
-// TODU
-func (r ApiListSmsTemplatesRequest) Data (data interface{}) ApiListSmsTemplatesRequest {
+func (r ApiListSmsTemplatesRequest) Data(data interface{}) ApiListSmsTemplatesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListSmsTemplatesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListSmsTemplatesExecute(r)
 }
@@ -695,12 +634,11 @@ Lists all custom SMS templates. A subset of templates can be returned that match
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListSmsTemplatesRequest
 */
-// TODU
 
 func (a *TemplateAPIService) ListSmsTemplates(ctx context.Context) ApiListSmsTemplatesRequest {
 	return ApiListSmsTemplatesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -713,10 +651,9 @@ func (a *TemplateAPIService) ListSmsTemplatesExecute(r ApiListSmsTemplatesReques
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -726,7 +663,6 @@ func (a *TemplateAPIService) ListSmsTemplatesExecute(r ApiListSmsTemplatesReques
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateAPIService.ListSmsTemplates")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -756,7 +692,6 @@ func (a *TemplateAPIService) ListSmsTemplatesExecute(r ApiListSmsTemplatesReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -773,13 +708,11 @@ func (a *TemplateAPIService) ListSmsTemplatesExecute(r ApiListSmsTemplatesReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -788,7 +721,6 @@ func (a *TemplateAPIService) ListSmsTemplatesExecute(r ApiListSmsTemplatesReques
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -803,12 +735,10 @@ func (a *TemplateAPIService) ListSmsTemplatesExecute(r ApiListSmsTemplatesReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -817,13 +747,11 @@ func (a *TemplateAPIService) ListSmsTemplatesExecute(r ApiListSmsTemplatesReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -832,13 +760,12 @@ func (a *TemplateAPIService) ListSmsTemplatesExecute(r ApiListSmsTemplatesReques
 }
 
 type ApiReplaceSmsTemplateRequest struct {
-	ctx context.Context
-	ApiService TemplateAPI
-	templateId string
+	ctx         context.Context
+	ApiService  TemplateAPI
+	templateId  string
 	smsTemplate *SmsTemplate
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
 func (r ApiReplaceSmsTemplateRequest) SmsTemplate(smsTemplate SmsTemplate) ApiReplaceSmsTemplateRequest {
@@ -846,14 +773,11 @@ func (r ApiReplaceSmsTemplateRequest) SmsTemplate(smsTemplate SmsTemplate) ApiRe
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceSmsTemplateRequest) Data (data interface{}) ApiReplaceSmsTemplateRequest {
+func (r ApiReplaceSmsTemplateRequest) Data(data interface{}) ApiReplaceSmsTemplateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceSmsTemplateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceSmsTemplateExecute(r)
 }
@@ -867,12 +791,11 @@ Replaces the SMS template
  @param templateId `id` of the Template
  @return ApiReplaceSmsTemplateRequest
 */
-// TODU
 
 func (a *TemplateAPIService) ReplaceSmsTemplate(ctx context.Context, templateId string) ApiReplaceSmsTemplateRequest {
 	return ApiReplaceSmsTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 		retryCount: 0,
 	}
@@ -886,10 +809,9 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -899,7 +821,6 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateAPIService.ReplaceSmsTemplate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -927,7 +848,6 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.smsTemplate
 	localVarPostBody = r.data
@@ -947,13 +867,11 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -962,7 +880,6 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -977,12 +894,10 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -991,12 +906,10 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1005,12 +918,10 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1019,13 +930,11 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1034,13 +943,12 @@ func (a *TemplateAPIService) ReplaceSmsTemplateExecute(r ApiReplaceSmsTemplateRe
 }
 
 type ApiUpdateSmsTemplateRequest struct {
-	ctx context.Context
-	ApiService TemplateAPI
-	templateId string
+	ctx         context.Context
+	ApiService  TemplateAPI
+	templateId  string
 	smsTemplate *SmsTemplate
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
 func (r ApiUpdateSmsTemplateRequest) SmsTemplate(smsTemplate SmsTemplate) ApiUpdateSmsTemplateRequest {
@@ -1048,14 +956,11 @@ func (r ApiUpdateSmsTemplateRequest) SmsTemplate(smsTemplate SmsTemplate) ApiUpd
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateSmsTemplateRequest) Data (data interface{}) ApiUpdateSmsTemplateRequest {
+func (r ApiUpdateSmsTemplateRequest) Data(data interface{}) ApiUpdateSmsTemplateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateSmsTemplateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateSmsTemplateExecute(r)
 }
@@ -1069,12 +974,11 @@ Updates an SMS template
  @param templateId `id` of the Template
  @return ApiUpdateSmsTemplateRequest
 */
-// TODU
 
 func (a *TemplateAPIService) UpdateSmsTemplate(ctx context.Context, templateId string) ApiUpdateSmsTemplateRequest {
 	return ApiUpdateSmsTemplateRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		templateId: templateId,
 		retryCount: 0,
 	}
@@ -1088,10 +992,9 @@ func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequ
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1101,7 +1004,6 @@ func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TemplateAPIService.UpdateSmsTemplate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1129,7 +1031,6 @@ func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.smsTemplate
 	localVarPostBody = r.data
@@ -1149,13 +1050,11 @@ func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1164,7 +1063,6 @@ func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1179,12 +1077,10 @@ func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1193,12 +1089,10 @@ func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1207,12 +1101,10 @@ func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1221,13 +1113,11 @@ func (a *TemplateAPIService) UpdateSmsTemplateExecute(r ApiUpdateSmsTemplateRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

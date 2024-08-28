@@ -17,120 +17,112 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type TrustedOriginAPI interface {
 
 	/*
-	ActivateTrustedOrigin Activate a Trusted Origin
+		ActivateTrustedOrigin Activate a Trusted Origin
 
-	Activates a trusted origin
+		Activates a trusted origin
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param trustedOriginId `id` of the Trusted Origin
-	@return ApiActivateTrustedOriginRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param trustedOriginId `id` of the Trusted Origin
+		@return ApiActivateTrustedOriginRequest
 	*/
 	ActivateTrustedOrigin(ctx context.Context, trustedOriginId string) ApiActivateTrustedOriginRequest
 
 	// ActivateTrustedOriginExecute executes the request
 	//  @return TrustedOrigin
-	// TODU
 	ActivateTrustedOriginExecute(r ApiActivateTrustedOriginRequest) (*APIResponse, error)
 
 	/*
-	CreateTrustedOrigin Create a Trusted Origin
+		CreateTrustedOrigin Create a Trusted Origin
 
-	Creates a trusted origin
+		Creates a trusted origin
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateTrustedOriginRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateTrustedOriginRequest
 	*/
 	CreateTrustedOrigin(ctx context.Context) ApiCreateTrustedOriginRequest
 
 	// CreateTrustedOriginExecute executes the request
 	//  @return TrustedOrigin
-	// TODU
 	CreateTrustedOriginExecute(r ApiCreateTrustedOriginRequest) (*APIResponse, error)
 
 	/*
-	DeactivateTrustedOrigin Deactivate a Trusted Origin
+		DeactivateTrustedOrigin Deactivate a Trusted Origin
 
-	Deactivates a trusted origin
+		Deactivates a trusted origin
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param trustedOriginId `id` of the Trusted Origin
-	@return ApiDeactivateTrustedOriginRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param trustedOriginId `id` of the Trusted Origin
+		@return ApiDeactivateTrustedOriginRequest
 	*/
 	DeactivateTrustedOrigin(ctx context.Context, trustedOriginId string) ApiDeactivateTrustedOriginRequest
 
 	// DeactivateTrustedOriginExecute executes the request
 	//  @return TrustedOrigin
-	// TODU
 	DeactivateTrustedOriginExecute(r ApiDeactivateTrustedOriginRequest) (*APIResponse, error)
 
 	/*
-	DeleteTrustedOrigin Delete a Trusted Origin
+		DeleteTrustedOrigin Delete a Trusted Origin
 
-	Deletes a trusted origin
+		Deletes a trusted origin
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param trustedOriginId `id` of the Trusted Origin
-	@return ApiDeleteTrustedOriginRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param trustedOriginId `id` of the Trusted Origin
+		@return ApiDeleteTrustedOriginRequest
 	*/
 	DeleteTrustedOrigin(ctx context.Context, trustedOriginId string) ApiDeleteTrustedOriginRequest
 
 	// DeleteTrustedOriginExecute executes the request
-	// TODU
 	DeleteTrustedOriginExecute(r ApiDeleteTrustedOriginRequest) (*APIResponse, error)
 
 	/*
-	GetTrustedOrigin Retrieve a Trusted Origin
+		GetTrustedOrigin Retrieve a Trusted Origin
 
-	Retrieves a trusted origin
+		Retrieves a trusted origin
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param trustedOriginId `id` of the Trusted Origin
-	@return ApiGetTrustedOriginRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param trustedOriginId `id` of the Trusted Origin
+		@return ApiGetTrustedOriginRequest
 	*/
 	GetTrustedOrigin(ctx context.Context, trustedOriginId string) ApiGetTrustedOriginRequest
 
 	// GetTrustedOriginExecute executes the request
 	//  @return TrustedOrigin
-	// TODU
 	GetTrustedOriginExecute(r ApiGetTrustedOriginRequest) (*APIResponse, error)
 
 	/*
-	ListTrustedOrigins List all Trusted Origins
+		ListTrustedOrigins List all Trusted Origins
 
-	Lists all trusted origins
+		Lists all trusted origins
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListTrustedOriginsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListTrustedOriginsRequest
 	*/
 	ListTrustedOrigins(ctx context.Context) ApiListTrustedOriginsRequest
 
 	// ListTrustedOriginsExecute executes the request
 	//  @return []TrustedOrigin
-	// TODU
 	ListTrustedOriginsExecute(r ApiListTrustedOriginsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceTrustedOrigin Replace a Trusted Origin
+		ReplaceTrustedOrigin Replace a Trusted Origin
 
-	Replaces a trusted origin
+		Replaces a trusted origin
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param trustedOriginId `id` of the Trusted Origin
-	@return ApiReplaceTrustedOriginRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param trustedOriginId `id` of the Trusted Origin
+		@return ApiReplaceTrustedOriginRequest
 	*/
 	ReplaceTrustedOrigin(ctx context.Context, trustedOriginId string) ApiReplaceTrustedOriginRequest
 
 	// ReplaceTrustedOriginExecute executes the request
 	//  @return TrustedOrigin
-	// TODU
 	ReplaceTrustedOriginExecute(r ApiReplaceTrustedOriginRequest) (*APIResponse, error)
 }
 
@@ -138,22 +130,18 @@ type TrustedOriginAPI interface {
 type TrustedOriginAPIService service
 
 type ApiActivateTrustedOriginRequest struct {
-	ctx context.Context
-	ApiService TrustedOriginAPI
+	ctx             context.Context
+	ApiService      TrustedOriginAPI
 	trustedOriginId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiActivateTrustedOriginRequest) Data (data interface{}) ApiActivateTrustedOriginRequest {
+func (r ApiActivateTrustedOriginRequest) Data(data interface{}) ApiActivateTrustedOriginRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateTrustedOriginRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateTrustedOriginExecute(r)
 }
@@ -167,14 +155,13 @@ Activates a trusted origin
  @param trustedOriginId `id` of the Trusted Origin
  @return ApiActivateTrustedOriginRequest
 */
-// TODU
 
 func (a *TrustedOriginAPIService) ActivateTrustedOrigin(ctx context.Context, trustedOriginId string) ApiActivateTrustedOriginRequest {
 	return ApiActivateTrustedOriginRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		trustedOriginId: trustedOriginId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -186,10 +173,9 @@ func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrus
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -199,7 +185,6 @@ func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrus
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustedOriginAPIService.ActivateTrustedOrigin")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -227,7 +212,6 @@ func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrus
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -244,13 +228,11 @@ func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrus
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -259,7 +241,6 @@ func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrus
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -274,12 +255,10 @@ func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrus
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -288,12 +267,10 @@ func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrus
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -302,13 +279,11 @@ func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrus
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -317,12 +292,11 @@ func (a *TrustedOriginAPIService) ActivateTrustedOriginExecute(r ApiActivateTrus
 }
 
 type ApiCreateTrustedOriginRequest struct {
-	ctx context.Context
-	ApiService TrustedOriginAPI
+	ctx           context.Context
+	ApiService    TrustedOriginAPI
 	trustedOrigin *TrustedOrigin
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
 func (r ApiCreateTrustedOriginRequest) TrustedOrigin(trustedOrigin TrustedOrigin) ApiCreateTrustedOriginRequest {
@@ -330,14 +304,11 @@ func (r ApiCreateTrustedOriginRequest) TrustedOrigin(trustedOrigin TrustedOrigin
 	return r
 }
 
-
-// TODU
-func (r ApiCreateTrustedOriginRequest) Data (data interface{}) ApiCreateTrustedOriginRequest {
+func (r ApiCreateTrustedOriginRequest) Data(data interface{}) ApiCreateTrustedOriginRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateTrustedOriginRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateTrustedOriginExecute(r)
 }
@@ -350,12 +321,11 @@ Creates a trusted origin
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateTrustedOriginRequest
 */
-// TODU
 
 func (a *TrustedOriginAPIService) CreateTrustedOrigin(ctx context.Context) ApiCreateTrustedOriginRequest {
 	return ApiCreateTrustedOriginRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -368,10 +338,9 @@ func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedO
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -381,7 +350,6 @@ func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedO
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustedOriginAPIService.CreateTrustedOrigin")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -408,7 +376,6 @@ func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.trustedOrigin
 	localVarPostBody = r.data
@@ -428,13 +395,11 @@ func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -443,7 +408,6 @@ func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedO
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -458,12 +422,10 @@ func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -472,12 +434,10 @@ func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -486,13 +446,11 @@ func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -501,22 +459,18 @@ func (a *TrustedOriginAPIService) CreateTrustedOriginExecute(r ApiCreateTrustedO
 }
 
 type ApiDeactivateTrustedOriginRequest struct {
-	ctx context.Context
-	ApiService TrustedOriginAPI
+	ctx             context.Context
+	ApiService      TrustedOriginAPI
 	trustedOriginId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiDeactivateTrustedOriginRequest) Data (data interface{}) ApiDeactivateTrustedOriginRequest {
+func (r ApiDeactivateTrustedOriginRequest) Data(data interface{}) ApiDeactivateTrustedOriginRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateTrustedOriginRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateTrustedOriginExecute(r)
 }
@@ -530,14 +484,13 @@ Deactivates a trusted origin
  @param trustedOriginId `id` of the Trusted Origin
  @return ApiDeactivateTrustedOriginRequest
 */
-// TODU
 
 func (a *TrustedOriginAPIService) DeactivateTrustedOrigin(ctx context.Context, trustedOriginId string) ApiDeactivateTrustedOriginRequest {
 	return ApiDeactivateTrustedOriginRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		trustedOriginId: trustedOriginId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -549,10 +502,9 @@ func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivate
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -562,7 +514,6 @@ func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivate
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustedOriginAPIService.DeactivateTrustedOrigin")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -590,7 +541,6 @@ func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivate
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -607,13 +557,11 @@ func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivate
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -622,7 +570,6 @@ func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivate
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -637,12 +584,10 @@ func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -651,12 +596,10 @@ func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -665,13 +608,11 @@ func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -680,22 +621,18 @@ func (a *TrustedOriginAPIService) DeactivateTrustedOriginExecute(r ApiDeactivate
 }
 
 type ApiDeleteTrustedOriginRequest struct {
-	ctx context.Context
-	ApiService TrustedOriginAPI
+	ctx             context.Context
+	ApiService      TrustedOriginAPI
 	trustedOriginId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiDeleteTrustedOriginRequest) Data (data interface{}) ApiDeleteTrustedOriginRequest {
+func (r ApiDeleteTrustedOriginRequest) Data(data interface{}) ApiDeleteTrustedOriginRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteTrustedOriginRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteTrustedOriginExecute(r)
 }
@@ -709,14 +646,13 @@ Deletes a trusted origin
  @param trustedOriginId `id` of the Trusted Origin
  @return ApiDeleteTrustedOriginRequest
 */
-// TODU
 
 func (a *TrustedOriginAPIService) DeleteTrustedOrigin(ctx context.Context, trustedOriginId string) ApiDeleteTrustedOriginRequest {
 	return ApiDeleteTrustedOriginRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		trustedOriginId: trustedOriginId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -729,7 +665,7 @@ func (a *TrustedOriginAPIService) DeleteTrustedOriginExecute(r ApiDeleteTrustedO
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -739,7 +675,6 @@ func (a *TrustedOriginAPIService) DeleteTrustedOriginExecute(r ApiDeleteTrustedO
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustedOriginAPIService.DeleteTrustedOrigin")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -767,7 +702,6 @@ func (a *TrustedOriginAPIService) DeleteTrustedOriginExecute(r ApiDeleteTrustedO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -784,13 +718,11 @@ func (a *TrustedOriginAPIService) DeleteTrustedOriginExecute(r ApiDeleteTrustedO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -799,7 +731,6 @@ func (a *TrustedOriginAPIService) DeleteTrustedOriginExecute(r ApiDeleteTrustedO
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -814,12 +745,10 @@ func (a *TrustedOriginAPIService) DeleteTrustedOriginExecute(r ApiDeleteTrustedO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -828,12 +757,10 @@ func (a *TrustedOriginAPIService) DeleteTrustedOriginExecute(r ApiDeleteTrustedO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -842,13 +769,11 @@ func (a *TrustedOriginAPIService) DeleteTrustedOriginExecute(r ApiDeleteTrustedO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -857,22 +782,18 @@ func (a *TrustedOriginAPIService) DeleteTrustedOriginExecute(r ApiDeleteTrustedO
 }
 
 type ApiGetTrustedOriginRequest struct {
-	ctx context.Context
-	ApiService TrustedOriginAPI
+	ctx             context.Context
+	ApiService      TrustedOriginAPI
 	trustedOriginId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
-
-// TODU
-func (r ApiGetTrustedOriginRequest) Data (data interface{}) ApiGetTrustedOriginRequest {
+func (r ApiGetTrustedOriginRequest) Data(data interface{}) ApiGetTrustedOriginRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetTrustedOriginRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetTrustedOriginExecute(r)
 }
@@ -886,14 +807,13 @@ Retrieves a trusted origin
  @param trustedOriginId `id` of the Trusted Origin
  @return ApiGetTrustedOriginRequest
 */
-// TODU
 
 func (a *TrustedOriginAPIService) GetTrustedOrigin(ctx context.Context, trustedOriginId string) ApiGetTrustedOriginRequest {
 	return ApiGetTrustedOriginRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		trustedOriginId: trustedOriginId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -905,10 +825,9 @@ func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginR
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -918,7 +837,6 @@ func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustedOriginAPIService.GetTrustedOrigin")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -946,7 +864,6 @@ func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -963,13 +880,11 @@ func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -978,7 +893,6 @@ func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -993,12 +907,10 @@ func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1007,12 +919,10 @@ func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1021,13 +931,11 @@ func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1036,13 +944,12 @@ func (a *TrustedOriginAPIService) GetTrustedOriginExecute(r ApiGetTrustedOriginR
 }
 
 type ApiListTrustedOriginsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService TrustedOriginAPI
-	q *string
-	filter *string
-	after *string
-	limit *int32
-	// TODU
+	q          *string
+	filter     *string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -1067,14 +974,11 @@ func (r ApiListTrustedOriginsRequest) Limit(limit int32) ApiListTrustedOriginsRe
 	return r
 }
 
-
-// TODU
-func (r ApiListTrustedOriginsRequest) Data (data interface{}) ApiListTrustedOriginsRequest {
+func (r ApiListTrustedOriginsRequest) Data(data interface{}) ApiListTrustedOriginsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListTrustedOriginsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListTrustedOriginsExecute(r)
 }
@@ -1087,12 +991,11 @@ Lists all trusted origins
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListTrustedOriginsRequest
 */
-// TODU
 
 func (a *TrustedOriginAPIService) ListTrustedOrigins(ctx context.Context) ApiListTrustedOriginsRequest {
 	return ApiListTrustedOriginsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1105,10 +1008,9 @@ func (a *TrustedOriginAPIService) ListTrustedOriginsExecute(r ApiListTrustedOrig
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1118,7 +1020,6 @@ func (a *TrustedOriginAPIService) ListTrustedOriginsExecute(r ApiListTrustedOrig
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustedOriginAPIService.ListTrustedOrigins")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1157,7 +1058,6 @@ func (a *TrustedOriginAPIService) ListTrustedOriginsExecute(r ApiListTrustedOrig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1174,13 +1074,11 @@ func (a *TrustedOriginAPIService) ListTrustedOriginsExecute(r ApiListTrustedOrig
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1189,7 +1087,6 @@ func (a *TrustedOriginAPIService) ListTrustedOriginsExecute(r ApiListTrustedOrig
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1204,12 +1101,10 @@ func (a *TrustedOriginAPIService) ListTrustedOriginsExecute(r ApiListTrustedOrig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1218,13 +1113,11 @@ func (a *TrustedOriginAPIService) ListTrustedOriginsExecute(r ApiListTrustedOrig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1233,13 +1126,12 @@ func (a *TrustedOriginAPIService) ListTrustedOriginsExecute(r ApiListTrustedOrig
 }
 
 type ApiReplaceTrustedOriginRequest struct {
-	ctx context.Context
-	ApiService TrustedOriginAPI
+	ctx             context.Context
+	ApiService      TrustedOriginAPI
 	trustedOriginId string
-	trustedOrigin *TrustedOrigin
-	// TODU
-	data       interface{}
-	retryCount int32
+	trustedOrigin   *TrustedOrigin
+	data            interface{}
+	retryCount      int32
 }
 
 func (r ApiReplaceTrustedOriginRequest) TrustedOrigin(trustedOrigin TrustedOrigin) ApiReplaceTrustedOriginRequest {
@@ -1247,14 +1139,11 @@ func (r ApiReplaceTrustedOriginRequest) TrustedOrigin(trustedOrigin TrustedOrigi
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceTrustedOriginRequest) Data (data interface{}) ApiReplaceTrustedOriginRequest {
+func (r ApiReplaceTrustedOriginRequest) Data(data interface{}) ApiReplaceTrustedOriginRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceTrustedOriginRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceTrustedOriginExecute(r)
 }
@@ -1268,14 +1157,13 @@ Replaces a trusted origin
  @param trustedOriginId `id` of the Trusted Origin
  @return ApiReplaceTrustedOriginRequest
 */
-// TODU
 
 func (a *TrustedOriginAPIService) ReplaceTrustedOrigin(ctx context.Context, trustedOriginId string) ApiReplaceTrustedOriginRequest {
 	return ApiReplaceTrustedOriginRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		trustedOriginId: trustedOriginId,
-		retryCount: 0,
+		retryCount:      0,
 	}
 }
 
@@ -1287,10 +1175,9 @@ func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTruste
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1300,7 +1187,6 @@ func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTruste
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TrustedOriginAPIService.ReplaceTrustedOrigin")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1328,7 +1214,6 @@ func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTruste
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.trustedOrigin
 	localVarPostBody = r.data
@@ -1348,13 +1233,11 @@ func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTruste
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1363,7 +1246,6 @@ func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTruste
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1378,12 +1260,10 @@ func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTruste
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1392,12 +1272,10 @@ func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTruste
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1406,12 +1284,10 @@ func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTruste
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1420,13 +1296,11 @@ func (a *TrustedOriginAPIService) ReplaceTrustedOriginExecute(r ApiReplaceTruste
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
