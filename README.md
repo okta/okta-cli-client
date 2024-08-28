@@ -11,19 +11,19 @@ There are multiple resource that you can manage using the okta-cli
 
 Examples for group resource
 ```shell
-$ okta-cli group get --groupId groupId
+$ okta-cli-client group get --groupId groupId
 ```
 ```shell
-$ okta-cli group create --data '{ "profile": { "description": "test", "name": "Test" }, "type": "OKTA_GROUP"}'
+$ okta-cli-client group create --data '{ "profile": { "description": "test", "name": "Test" }, "type": "OKTA_GROUP"}'
 ```
 ```shell
-$ okta-cli group replace --groupId groupId --data '{ "profile": { "description": "test", "name": "Test2" }, "type": "OKTA_GROUP"}'
+$ okta-cli-client  group replace --groupId groupId --data '{ "profile": { "description": "test", "name": "Test2" }, "type": "OKTA_GROUP"}'
 ```
 ```shell
-$ okta-cli group delete --groupId groupId
+$ okta-cli-client  group delete --groupId groupId
 ```
 ```shell
-$ okta-cli group lists
+$ okta-cli-client  group lists
 ```
 
 ## Configuration
