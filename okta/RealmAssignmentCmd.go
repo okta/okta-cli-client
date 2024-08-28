@@ -8,479 +8,347 @@ import (
 )
 
 var RealmAssignmentCmd = &cobra.Command{
-	Use:   "realmAssignment",
-	Long:  "Manage RealmAssignmentAPI",
-}
-
-func NewRealmAssignmentCmd() *cobra.Command {
-    cmd := &cobra.Command{
-		Use:   "realmAssignment",
-		Long:  "Manage RealmAssignmentAPI",
-	}
-	return cmd
+	Use:  "realmAssignment",
+	Long: "Manage RealmAssignmentAPI",
 }
 
 func init() {
-    rootCmd.AddCommand(RealmAssignmentCmd)
+	rootCmd.AddCommand(RealmAssignmentCmd)
 }
 
-var (
-    
-    
-            CreateRealmAssignmentdata string
-        
-    
-)
+var CreateRealmAssignmentdata string
 
 func NewCreateRealmAssignmentCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "create",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.RealmAssignmentAPI.CreateRealmAssignment(apiClient.GetConfig().Context)
-            
-            
-            if CreateRealmAssignmentdata != "" {
-                req = req.Data(CreateRealmAssignmentdata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "create",
 
-    
-    
-        cmd.Flags().StringVarP(&CreateRealmAssignmentdata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.RealmAssignmentAPI.CreateRealmAssignment(apiClient.GetConfig().Context)
+
+			if CreateRealmAssignmentdata != "" {
+				req = req.Data(CreateRealmAssignmentdata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&CreateRealmAssignmentdata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	CreateRealmAssignmentCmd := NewCreateRealmAssignmentCmd()
-    RealmAssignmentCmd.AddCommand(CreateRealmAssignmentCmd)
+	RealmAssignmentCmd.AddCommand(CreateRealmAssignmentCmd)
 }
 
-var (
-    
-    
-    
-)
-
 func NewListRealmAssignmentsCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "lists",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.RealmAssignmentAPI.ListRealmAssignments(apiClient.GetConfig().Context)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "lists",
 
-    
-    
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.RealmAssignmentAPI.ListRealmAssignments(apiClient.GetConfig().Context)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
 
 	return cmd
 }
 
 func init() {
 	ListRealmAssignmentsCmd := NewListRealmAssignmentsCmd()
-    RealmAssignmentCmd.AddCommand(ListRealmAssignmentsCmd)
+	RealmAssignmentCmd.AddCommand(ListRealmAssignmentsCmd)
 }
 
-var (
-    
-    
-            ExecuteRealmAssignmentdata string
-        
-    
-)
+var ExecuteRealmAssignmentdata string
 
 func NewExecuteRealmAssignmentCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "execute",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.RealmAssignmentAPI.ExecuteRealmAssignment(apiClient.GetConfig().Context)
-            
-            
-            if ExecuteRealmAssignmentdata != "" {
-                req = req.Data(ExecuteRealmAssignmentdata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "execute",
 
-    
-    
-        cmd.Flags().StringVarP(&ExecuteRealmAssignmentdata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.RealmAssignmentAPI.ExecuteRealmAssignment(apiClient.GetConfig().Context)
+
+			if ExecuteRealmAssignmentdata != "" {
+				req = req.Data(ExecuteRealmAssignmentdata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&ExecuteRealmAssignmentdata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	ExecuteRealmAssignmentCmd := NewExecuteRealmAssignmentCmd()
-    RealmAssignmentCmd.AddCommand(ExecuteRealmAssignmentCmd)
+	RealmAssignmentCmd.AddCommand(ExecuteRealmAssignmentCmd)
 }
 
-var (
-    
-    
-    
-)
-
 func NewListRealmAssignmentOperationsCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "listOperations",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.RealmAssignmentAPI.ListRealmAssignmentOperations(apiClient.GetConfig().Context)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "listOperations",
 
-    
-    
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.RealmAssignmentAPI.ListRealmAssignmentOperations(apiClient.GetConfig().Context)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
 
 	return cmd
 }
 
 func init() {
 	ListRealmAssignmentOperationsCmd := NewListRealmAssignmentOperationsCmd()
-    RealmAssignmentCmd.AddCommand(ListRealmAssignmentOperationsCmd)
+	RealmAssignmentCmd.AddCommand(ListRealmAssignmentOperationsCmd)
 }
 
-var (
-    
-    
-            GetRealmAssignmentassignmentId string
-        
-    
-)
+var GetRealmAssignmentassignmentId string
 
 func NewGetRealmAssignmentCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "get",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.RealmAssignmentAPI.GetRealmAssignment(apiClient.GetConfig().Context, GetRealmAssignmentassignmentId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "get",
 
-    
-    
-        cmd.Flags().StringVarP(&GetRealmAssignmentassignmentId, "assignmentId", "", "", "")
-        cmd.MarkFlagRequired("assignmentId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.RealmAssignmentAPI.GetRealmAssignment(apiClient.GetConfig().Context, GetRealmAssignmentassignmentId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&GetRealmAssignmentassignmentId, "assignmentId", "", "", "")
+	cmd.MarkFlagRequired("assignmentId")
 
 	return cmd
 }
 
 func init() {
 	GetRealmAssignmentCmd := NewGetRealmAssignmentCmd()
-    RealmAssignmentCmd.AddCommand(GetRealmAssignmentCmd)
+	RealmAssignmentCmd.AddCommand(GetRealmAssignmentCmd)
 }
 
 var (
-    
-    
-            ReplaceRealmAssignmentassignmentId string
-        
-            ReplaceRealmAssignmentdata string
-        
-    
+	ReplaceRealmAssignmentassignmentId string
+
+	ReplaceRealmAssignmentdata string
 )
 
 func NewReplaceRealmAssignmentCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "replace",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.RealmAssignmentAPI.ReplaceRealmAssignment(apiClient.GetConfig().Context, ReplaceRealmAssignmentassignmentId)
-            
-            
-            if ReplaceRealmAssignmentdata != "" {
-                req = req.Data(ReplaceRealmAssignmentdata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "replace",
 
-    
-    
-        cmd.Flags().StringVarP(&ReplaceRealmAssignmentassignmentId, "assignmentId", "", "", "")
-        cmd.MarkFlagRequired("assignmentId")
-        
-        cmd.Flags().StringVarP(&ReplaceRealmAssignmentdata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.RealmAssignmentAPI.ReplaceRealmAssignment(apiClient.GetConfig().Context, ReplaceRealmAssignmentassignmentId)
+
+			if ReplaceRealmAssignmentdata != "" {
+				req = req.Data(ReplaceRealmAssignmentdata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&ReplaceRealmAssignmentassignmentId, "assignmentId", "", "", "")
+	cmd.MarkFlagRequired("assignmentId")
+
+	cmd.Flags().StringVarP(&ReplaceRealmAssignmentdata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	ReplaceRealmAssignmentCmd := NewReplaceRealmAssignmentCmd()
-    RealmAssignmentCmd.AddCommand(ReplaceRealmAssignmentCmd)
+	RealmAssignmentCmd.AddCommand(ReplaceRealmAssignmentCmd)
 }
 
-var (
-    
-    
-            DeleteRealmAssignmentassignmentId string
-        
-    
-)
+var DeleteRealmAssignmentassignmentId string
 
 func NewDeleteRealmAssignmentCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "delete",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.RealmAssignmentAPI.DeleteRealmAssignment(apiClient.GetConfig().Context, DeleteRealmAssignmentassignmentId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "delete",
 
-    
-    
-        cmd.Flags().StringVarP(&DeleteRealmAssignmentassignmentId, "assignmentId", "", "", "")
-        cmd.MarkFlagRequired("assignmentId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.RealmAssignmentAPI.DeleteRealmAssignment(apiClient.GetConfig().Context, DeleteRealmAssignmentassignmentId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&DeleteRealmAssignmentassignmentId, "assignmentId", "", "", "")
+	cmd.MarkFlagRequired("assignmentId")
 
 	return cmd
 }
 
 func init() {
 	DeleteRealmAssignmentCmd := NewDeleteRealmAssignmentCmd()
-    RealmAssignmentCmd.AddCommand(DeleteRealmAssignmentCmd)
+	RealmAssignmentCmd.AddCommand(DeleteRealmAssignmentCmd)
 }
 
 var (
-    
-    
-            ActivateRealmAssignmentassignmentId string
-        
-            ActivateRealmAssignmentdata string
-        
-    
+	ActivateRealmAssignmentassignmentId string
+
+	ActivateRealmAssignmentdata string
 )
 
 func NewActivateRealmAssignmentCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "activate",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.RealmAssignmentAPI.ActivateRealmAssignment(apiClient.GetConfig().Context, ActivateRealmAssignmentassignmentId)
-            
-            
-            if ActivateRealmAssignmentdata != "" {
-                req = req.Data(ActivateRealmAssignmentdata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "activate",
 
-    
-    
-        cmd.Flags().StringVarP(&ActivateRealmAssignmentassignmentId, "assignmentId", "", "", "")
-        cmd.MarkFlagRequired("assignmentId")
-        
-        cmd.Flags().StringVarP(&ActivateRealmAssignmentdata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.RealmAssignmentAPI.ActivateRealmAssignment(apiClient.GetConfig().Context, ActivateRealmAssignmentassignmentId)
+
+			if ActivateRealmAssignmentdata != "" {
+				req = req.Data(ActivateRealmAssignmentdata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&ActivateRealmAssignmentassignmentId, "assignmentId", "", "", "")
+	cmd.MarkFlagRequired("assignmentId")
+
+	cmd.Flags().StringVarP(&ActivateRealmAssignmentdata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	ActivateRealmAssignmentCmd := NewActivateRealmAssignmentCmd()
-    RealmAssignmentCmd.AddCommand(ActivateRealmAssignmentCmd)
+	RealmAssignmentCmd.AddCommand(ActivateRealmAssignmentCmd)
 }
 
 var (
-    
-    
-            DeactivateRealmAssignmentassignmentId string
-        
-            DeactivateRealmAssignmentdata string
-        
-    
+	DeactivateRealmAssignmentassignmentId string
+
+	DeactivateRealmAssignmentdata string
 )
 
 func NewDeactivateRealmAssignmentCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "deactivate",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.RealmAssignmentAPI.DeactivateRealmAssignment(apiClient.GetConfig().Context, DeactivateRealmAssignmentassignmentId)
-            
-            
-            if DeactivateRealmAssignmentdata != "" {
-                req = req.Data(DeactivateRealmAssignmentdata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "deactivate",
 
-    
-    
-        cmd.Flags().StringVarP(&DeactivateRealmAssignmentassignmentId, "assignmentId", "", "", "")
-        cmd.MarkFlagRequired("assignmentId")
-        
-        cmd.Flags().StringVarP(&DeactivateRealmAssignmentdata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.RealmAssignmentAPI.DeactivateRealmAssignment(apiClient.GetConfig().Context, DeactivateRealmAssignmentassignmentId)
+
+			if DeactivateRealmAssignmentdata != "" {
+				req = req.Data(DeactivateRealmAssignmentdata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&DeactivateRealmAssignmentassignmentId, "assignmentId", "", "", "")
+	cmd.MarkFlagRequired("assignmentId")
+
+	cmd.Flags().StringVarP(&DeactivateRealmAssignmentdata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	DeactivateRealmAssignmentCmd := NewDeactivateRealmAssignmentCmd()
-    RealmAssignmentCmd.AddCommand(DeactivateRealmAssignmentCmd)
+	RealmAssignmentCmd.AddCommand(DeactivateRealmAssignmentCmd)
 }

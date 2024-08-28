@@ -8,178 +8,130 @@ import (
 )
 
 var AuthorizationServerAssocCmd = &cobra.Command{
-	Use:   "authorizationServerAssoc",
-	Long:  "Manage AuthorizationServerAssocAPI",
-}
-
-func NewAuthorizationServerAssocCmd() *cobra.Command {
-    cmd := &cobra.Command{
-		Use:   "authorizationServerAssoc",
-		Long:  "Manage AuthorizationServerAssocAPI",
-	}
-	return cmd
+	Use:  "authorizationServerAssoc",
+	Long: "Manage AuthorizationServerAssocAPI",
 }
 
 func init() {
-    rootCmd.AddCommand(AuthorizationServerAssocCmd)
+	rootCmd.AddCommand(AuthorizationServerAssocCmd)
 }
 
 var (
-    
-    
-            CreateAssociatedServersauthServerId string
-        
-            CreateAssociatedServersdata string
-        
-    
+	CreateAssociatedServersauthServerId string
+
+	CreateAssociatedServersdata string
 )
 
 func NewCreateAssociatedServersCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "createAssociatedServers",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.AuthorizationServerAssocAPI.CreateAssociatedServers(apiClient.GetConfig().Context, CreateAssociatedServersauthServerId)
-            
-            
-            if CreateAssociatedServersdata != "" {
-                req = req.Data(CreateAssociatedServersdata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "createAssociatedServers",
 
-    
-    
-        cmd.Flags().StringVarP(&CreateAssociatedServersauthServerId, "authServerId", "", "", "")
-        cmd.MarkFlagRequired("authServerId")
-        
-        cmd.Flags().StringVarP(&CreateAssociatedServersdata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.AuthorizationServerAssocAPI.CreateAssociatedServers(apiClient.GetConfig().Context, CreateAssociatedServersauthServerId)
+
+			if CreateAssociatedServersdata != "" {
+				req = req.Data(CreateAssociatedServersdata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&CreateAssociatedServersauthServerId, "authServerId", "", "", "")
+	cmd.MarkFlagRequired("authServerId")
+
+	cmd.Flags().StringVarP(&CreateAssociatedServersdata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	CreateAssociatedServersCmd := NewCreateAssociatedServersCmd()
-    AuthorizationServerAssocCmd.AddCommand(CreateAssociatedServersCmd)
+	AuthorizationServerAssocCmd.AddCommand(CreateAssociatedServersCmd)
 }
 
-var (
-    
-    
-            ListAssociatedServersByTrustedTypeauthServerId string
-        
-    
-)
+var ListAssociatedServersByTrustedTypeauthServerId string
 
 func NewListAssociatedServersByTrustedTypeCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "listAssociatedServersByTrustedType",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.AuthorizationServerAssocAPI.ListAssociatedServersByTrustedType(apiClient.GetConfig().Context, ListAssociatedServersByTrustedTypeauthServerId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "listAssociatedServersByTrustedType",
 
-    
-    
-        cmd.Flags().StringVarP(&ListAssociatedServersByTrustedTypeauthServerId, "authServerId", "", "", "")
-        cmd.MarkFlagRequired("authServerId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.AuthorizationServerAssocAPI.ListAssociatedServersByTrustedType(apiClient.GetConfig().Context, ListAssociatedServersByTrustedTypeauthServerId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&ListAssociatedServersByTrustedTypeauthServerId, "authServerId", "", "", "")
+	cmd.MarkFlagRequired("authServerId")
 
 	return cmd
 }
 
 func init() {
 	ListAssociatedServersByTrustedTypeCmd := NewListAssociatedServersByTrustedTypeCmd()
-    AuthorizationServerAssocCmd.AddCommand(ListAssociatedServersByTrustedTypeCmd)
+	AuthorizationServerAssocCmd.AddCommand(ListAssociatedServersByTrustedTypeCmd)
 }
 
 var (
-    
-    
-            DeleteAssociatedServerauthServerId string
-        
-            DeleteAssociatedServerassociatedServerId string
-        
-    
+	DeleteAssociatedServerauthServerId string
+
+	DeleteAssociatedServerassociatedServerId string
 )
 
 func NewDeleteAssociatedServerCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "deleteAssociatedServer",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.AuthorizationServerAssocAPI.DeleteAssociatedServer(apiClient.GetConfig().Context, DeleteAssociatedServerauthServerId, DeleteAssociatedServerassociatedServerId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "deleteAssociatedServer",
 
-    
-    
-        cmd.Flags().StringVarP(&DeleteAssociatedServerauthServerId, "authServerId", "", "", "")
-        cmd.MarkFlagRequired("authServerId")
-        
-        cmd.Flags().StringVarP(&DeleteAssociatedServerassociatedServerId, "associatedServerId", "", "", "")
-        cmd.MarkFlagRequired("associatedServerId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.AuthorizationServerAssocAPI.DeleteAssociatedServer(apiClient.GetConfig().Context, DeleteAssociatedServerauthServerId, DeleteAssociatedServerassociatedServerId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&DeleteAssociatedServerauthServerId, "authServerId", "", "", "")
+	cmd.MarkFlagRequired("authServerId")
+
+	cmd.Flags().StringVarP(&DeleteAssociatedServerassociatedServerId, "associatedServerId", "", "", "")
+	cmd.MarkFlagRequired("associatedServerId")
 
 	return cmd
 }
 
 func init() {
 	DeleteAssociatedServerCmd := NewDeleteAssociatedServerCmd()
-    AuthorizationServerAssocCmd.AddCommand(DeleteAssociatedServerCmd)
+	AuthorizationServerAssocCmd.AddCommand(DeleteAssociatedServerCmd)
 }

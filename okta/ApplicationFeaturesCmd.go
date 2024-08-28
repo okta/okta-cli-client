@@ -8,183 +8,135 @@ import (
 )
 
 var ApplicationFeaturesCmd = &cobra.Command{
-	Use:   "applicationFeatures",
-	Long:  "Manage ApplicationFeaturesAPI",
-}
-
-func NewApplicationFeaturesCmd() *cobra.Command {
-    cmd := &cobra.Command{
-		Use:   "applicationFeatures",
-		Long:  "Manage ApplicationFeaturesAPI",
-	}
-	return cmd
+	Use:  "applicationFeatures",
+	Long: "Manage ApplicationFeaturesAPI",
 }
 
 func init() {
-    rootCmd.AddCommand(ApplicationFeaturesCmd)
+	rootCmd.AddCommand(ApplicationFeaturesCmd)
 }
 
-var (
-    
-    
-            ListFeaturesForApplicationappId string
-        
-    
-)
+var ListFeaturesForApplicationappId string
 
 func NewListFeaturesForApplicationCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "listFeaturesForApplication",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApplicationFeaturesAPI.ListFeaturesForApplication(apiClient.GetConfig().Context, ListFeaturesForApplicationappId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "listFeaturesForApplication",
 
-    
-    
-        cmd.Flags().StringVarP(&ListFeaturesForApplicationappId, "appId", "", "", "")
-        cmd.MarkFlagRequired("appId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApplicationFeaturesAPI.ListFeaturesForApplication(apiClient.GetConfig().Context, ListFeaturesForApplicationappId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&ListFeaturesForApplicationappId, "appId", "", "", "")
+	cmd.MarkFlagRequired("appId")
 
 	return cmd
 }
 
 func init() {
 	ListFeaturesForApplicationCmd := NewListFeaturesForApplicationCmd()
-    ApplicationFeaturesCmd.AddCommand(ListFeaturesForApplicationCmd)
+	ApplicationFeaturesCmd.AddCommand(ListFeaturesForApplicationCmd)
 }
 
 var (
-    
-    
-            GetFeatureForApplicationappId string
-        
-            GetFeatureForApplicationfeatureName string
-        
-    
+	GetFeatureForApplicationappId string
+
+	GetFeatureForApplicationfeatureName string
 )
 
 func NewGetFeatureForApplicationCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "getFeatureForApplication",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApplicationFeaturesAPI.GetFeatureForApplication(apiClient.GetConfig().Context, GetFeatureForApplicationappId, GetFeatureForApplicationfeatureName)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "getFeatureForApplication",
 
-    
-    
-        cmd.Flags().StringVarP(&GetFeatureForApplicationappId, "appId", "", "", "")
-        cmd.MarkFlagRequired("appId")
-        
-        cmd.Flags().StringVarP(&GetFeatureForApplicationfeatureName, "featureName", "", "", "")
-        cmd.MarkFlagRequired("featureName")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApplicationFeaturesAPI.GetFeatureForApplication(apiClient.GetConfig().Context, GetFeatureForApplicationappId, GetFeatureForApplicationfeatureName)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&GetFeatureForApplicationappId, "appId", "", "", "")
+	cmd.MarkFlagRequired("appId")
+
+	cmd.Flags().StringVarP(&GetFeatureForApplicationfeatureName, "featureName", "", "", "")
+	cmd.MarkFlagRequired("featureName")
 
 	return cmd
 }
 
 func init() {
 	GetFeatureForApplicationCmd := NewGetFeatureForApplicationCmd()
-    ApplicationFeaturesCmd.AddCommand(GetFeatureForApplicationCmd)
+	ApplicationFeaturesCmd.AddCommand(GetFeatureForApplicationCmd)
 }
 
 var (
-    
-    
-            UpdateFeatureForApplicationappId string
-        
-            UpdateFeatureForApplicationfeatureName string
-        
-            UpdateFeatureForApplicationdata string
-        
-    
+	UpdateFeatureForApplicationappId string
+
+	UpdateFeatureForApplicationfeatureName string
+
+	UpdateFeatureForApplicationdata string
 )
 
 func NewUpdateFeatureForApplicationCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "updateFeatureForApplication",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApplicationFeaturesAPI.UpdateFeatureForApplication(apiClient.GetConfig().Context, UpdateFeatureForApplicationappId, UpdateFeatureForApplicationfeatureName)
-            
-            
-            if UpdateFeatureForApplicationdata != "" {
-                req = req.Data(UpdateFeatureForApplicationdata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "updateFeatureForApplication",
 
-    
-    
-        cmd.Flags().StringVarP(&UpdateFeatureForApplicationappId, "appId", "", "", "")
-        cmd.MarkFlagRequired("appId")
-        
-        cmd.Flags().StringVarP(&UpdateFeatureForApplicationfeatureName, "featureName", "", "", "")
-        cmd.MarkFlagRequired("featureName")
-        
-        cmd.Flags().StringVarP(&UpdateFeatureForApplicationdata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApplicationFeaturesAPI.UpdateFeatureForApplication(apiClient.GetConfig().Context, UpdateFeatureForApplicationappId, UpdateFeatureForApplicationfeatureName)
+
+			if UpdateFeatureForApplicationdata != "" {
+				req = req.Data(UpdateFeatureForApplicationdata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&UpdateFeatureForApplicationappId, "appId", "", "", "")
+	cmd.MarkFlagRequired("appId")
+
+	cmd.Flags().StringVarP(&UpdateFeatureForApplicationfeatureName, "featureName", "", "", "")
+	cmd.MarkFlagRequired("featureName")
+
+	cmd.Flags().StringVarP(&UpdateFeatureForApplicationdata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	UpdateFeatureForApplicationCmd := NewUpdateFeatureForApplicationCmd()
-    ApplicationFeaturesCmd.AddCommand(UpdateFeatureForApplicationCmd)
+	ApplicationFeaturesCmd.AddCommand(UpdateFeatureForApplicationCmd)
 }

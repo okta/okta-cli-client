@@ -7,6 +7,7 @@ toolchain go1.21.3
 require (
 	github.com/cenkalti/backoff/v4 v4.3.0
 	github.com/go-jose/go-jose/v3 v3.0.3
+	github.com/google/uuid v1.6.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/lestrrat-go/jwx v1.2.30
 	github.com/patrickmn/go-cache v2.1.0+incompatible

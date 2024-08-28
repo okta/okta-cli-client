@@ -14,14 +14,6 @@ var rootCmd = &cobra.Command{
 	Long: "A command line tool for management API",
 }
 
-func NewRootCmd() *cobra.Command {
-	rootCmd := &cobra.Command{
-		Use:  "okta-cli-client",
-		Long: "A command line tool for management API",
-	}
-	return rootCmd
-}
-
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)

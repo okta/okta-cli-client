@@ -8,326 +8,235 @@ import (
 )
 
 var UserTypeCmd = &cobra.Command{
-	Use:   "userType",
-	Long:  "Manage UserTypeAPI",
-}
-
-func NewUserTypeCmd() *cobra.Command {
-    cmd := &cobra.Command{
-		Use:   "userType",
-		Long:  "Manage UserTypeAPI",
-	}
-	return cmd
+	Use:  "userType",
+	Long: "Manage UserTypeAPI",
 }
 
 func init() {
-    rootCmd.AddCommand(UserTypeCmd)
+	rootCmd.AddCommand(UserTypeCmd)
 }
 
-var (
-    
-    
-            CreateUserTypedata string
-        
-    
-)
+var CreateUserTypedata string
 
 func NewCreateUserTypeCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "create",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.UserTypeAPI.CreateUserType(apiClient.GetConfig().Context)
-            
-            
-            if CreateUserTypedata != "" {
-                req = req.Data(CreateUserTypedata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "create",
 
-    
-    
-        cmd.Flags().StringVarP(&CreateUserTypedata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.UserTypeAPI.CreateUserType(apiClient.GetConfig().Context)
+
+			if CreateUserTypedata != "" {
+				req = req.Data(CreateUserTypedata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&CreateUserTypedata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	CreateUserTypeCmd := NewCreateUserTypeCmd()
-    UserTypeCmd.AddCommand(CreateUserTypeCmd)
+	UserTypeCmd.AddCommand(CreateUserTypeCmd)
 }
 
-var (
-    
-    
-    
-)
-
 func NewListUserTypesCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "lists",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.UserTypeAPI.ListUserTypes(apiClient.GetConfig().Context)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "lists",
 
-    
-    
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.UserTypeAPI.ListUserTypes(apiClient.GetConfig().Context)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
 
 	return cmd
 }
 
 func init() {
 	ListUserTypesCmd := NewListUserTypesCmd()
-    UserTypeCmd.AddCommand(ListUserTypesCmd)
+	UserTypeCmd.AddCommand(ListUserTypesCmd)
 }
 
 var (
-    
-    
-            UpdateUserTypetypeId string
-        
-            UpdateUserTypedata string
-        
-    
+	UpdateUserTypetypeId string
+
+	UpdateUserTypedata string
 )
 
 func NewUpdateUserTypeCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "update",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.UserTypeAPI.UpdateUserType(apiClient.GetConfig().Context, UpdateUserTypetypeId)
-            
-            
-            if UpdateUserTypedata != "" {
-                req = req.Data(UpdateUserTypedata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "update",
 
-    
-    
-        cmd.Flags().StringVarP(&UpdateUserTypetypeId, "typeId", "", "", "")
-        cmd.MarkFlagRequired("typeId")
-        
-        cmd.Flags().StringVarP(&UpdateUserTypedata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.UserTypeAPI.UpdateUserType(apiClient.GetConfig().Context, UpdateUserTypetypeId)
+
+			if UpdateUserTypedata != "" {
+				req = req.Data(UpdateUserTypedata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&UpdateUserTypetypeId, "typeId", "", "", "")
+	cmd.MarkFlagRequired("typeId")
+
+	cmd.Flags().StringVarP(&UpdateUserTypedata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	UpdateUserTypeCmd := NewUpdateUserTypeCmd()
-    UserTypeCmd.AddCommand(UpdateUserTypeCmd)
+	UserTypeCmd.AddCommand(UpdateUserTypeCmd)
 }
 
-var (
-    
-    
-            GetUserTypetypeId string
-        
-    
-)
+var GetUserTypetypeId string
 
 func NewGetUserTypeCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "get",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.UserTypeAPI.GetUserType(apiClient.GetConfig().Context, GetUserTypetypeId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "get",
 
-    
-    
-        cmd.Flags().StringVarP(&GetUserTypetypeId, "typeId", "", "", "")
-        cmd.MarkFlagRequired("typeId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.UserTypeAPI.GetUserType(apiClient.GetConfig().Context, GetUserTypetypeId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&GetUserTypetypeId, "typeId", "", "", "")
+	cmd.MarkFlagRequired("typeId")
 
 	return cmd
 }
 
 func init() {
 	GetUserTypeCmd := NewGetUserTypeCmd()
-    UserTypeCmd.AddCommand(GetUserTypeCmd)
+	UserTypeCmd.AddCommand(GetUserTypeCmd)
 }
 
 var (
-    
-    
-            ReplaceUserTypetypeId string
-        
-            ReplaceUserTypedata string
-        
-    
+	ReplaceUserTypetypeId string
+
+	ReplaceUserTypedata string
 )
 
 func NewReplaceUserTypeCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "replace",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.UserTypeAPI.ReplaceUserType(apiClient.GetConfig().Context, ReplaceUserTypetypeId)
-            
-            
-            if ReplaceUserTypedata != "" {
-                req = req.Data(ReplaceUserTypedata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "replace",
 
-    
-    
-        cmd.Flags().StringVarP(&ReplaceUserTypetypeId, "typeId", "", "", "")
-        cmd.MarkFlagRequired("typeId")
-        
-        cmd.Flags().StringVarP(&ReplaceUserTypedata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.UserTypeAPI.ReplaceUserType(apiClient.GetConfig().Context, ReplaceUserTypetypeId)
+
+			if ReplaceUserTypedata != "" {
+				req = req.Data(ReplaceUserTypedata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&ReplaceUserTypetypeId, "typeId", "", "", "")
+	cmd.MarkFlagRequired("typeId")
+
+	cmd.Flags().StringVarP(&ReplaceUserTypedata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	ReplaceUserTypeCmd := NewReplaceUserTypeCmd()
-    UserTypeCmd.AddCommand(ReplaceUserTypeCmd)
+	UserTypeCmd.AddCommand(ReplaceUserTypeCmd)
 }
 
-var (
-    
-    
-            DeleteUserTypetypeId string
-        
-    
-)
+var DeleteUserTypetypeId string
 
 func NewDeleteUserTypeCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "delete",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.UserTypeAPI.DeleteUserType(apiClient.GetConfig().Context, DeleteUserTypetypeId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "delete",
 
-    
-    
-        cmd.Flags().StringVarP(&DeleteUserTypetypeId, "typeId", "", "", "")
-        cmd.MarkFlagRequired("typeId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.UserTypeAPI.DeleteUserType(apiClient.GetConfig().Context, DeleteUserTypetypeId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&DeleteUserTypetypeId, "typeId", "", "", "")
+	cmd.MarkFlagRequired("typeId")
 
 	return cmd
 }
 
 func init() {
 	DeleteUserTypeCmd := NewDeleteUserTypeCmd()
-    UserTypeCmd.AddCommand(DeleteUserTypeCmd)
+	UserTypeCmd.AddCommand(DeleteUserTypeCmd)
 }

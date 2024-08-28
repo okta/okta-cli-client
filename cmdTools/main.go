@@ -243,7 +243,7 @@ func buildCmdForHTTPMethod(methodName, description, endpoint, httpMethod string,
 	} else {
 		fileName = tags[0]
 	}
-	f, err := os.OpenFile(fmt.Sprintf("%v/%vCmd.go", packageName, fileName), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	f, err := os.OpenFile(fmt.Sprintf("%v/%vCmd.go", packageName, fileName), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
 	if err != nil {
 		return err
 	}

@@ -8,496 +8,365 @@ import (
 )
 
 var ApiServiceIntegrationsCmd = &cobra.Command{
-	Use:   "apiServiceIntegrations",
-	Long:  "Manage ApiServiceIntegrationsAPI",
-}
-
-func NewApiServiceIntegrationsCmd() *cobra.Command {
-    cmd := &cobra.Command{
-		Use:   "apiServiceIntegrations",
-		Long:  "Manage ApiServiceIntegrationsAPI",
-	}
-	return cmd
+	Use:  "apiServiceIntegrations",
+	Long: "Manage ApiServiceIntegrationsAPI",
 }
 
 func init() {
-    rootCmd.AddCommand(ApiServiceIntegrationsCmd)
+	rootCmd.AddCommand(ApiServiceIntegrationsCmd)
 }
 
-var (
-    
-    
-            CreateApiServiceIntegrationInstancedata string
-        
-    
-)
+var CreateApiServiceIntegrationInstancedata string
 
 func NewCreateApiServiceIntegrationInstanceCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "createApiServiceIntegrationInstance",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstance(apiClient.GetConfig().Context)
-            
-            
-            if CreateApiServiceIntegrationInstancedata != "" {
-                req = req.Data(CreateApiServiceIntegrationInstancedata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "createApiServiceIntegrationInstance",
 
-    
-    
-        cmd.Flags().StringVarP(&CreateApiServiceIntegrationInstancedata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstance(apiClient.GetConfig().Context)
+
+			if CreateApiServiceIntegrationInstancedata != "" {
+				req = req.Data(CreateApiServiceIntegrationInstancedata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&CreateApiServiceIntegrationInstancedata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	CreateApiServiceIntegrationInstanceCmd := NewCreateApiServiceIntegrationInstanceCmd()
-    ApiServiceIntegrationsCmd.AddCommand(CreateApiServiceIntegrationInstanceCmd)
+	ApiServiceIntegrationsCmd.AddCommand(CreateApiServiceIntegrationInstanceCmd)
 }
 
-var (
-    
-    
-    
-)
-
 func NewListApiServiceIntegrationInstancesCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "listApiServiceIntegrationInstances",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances(apiClient.GetConfig().Context)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "listApiServiceIntegrationInstances",
 
-    
-    
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances(apiClient.GetConfig().Context)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
 
 	return cmd
 }
 
 func init() {
 	ListApiServiceIntegrationInstancesCmd := NewListApiServiceIntegrationInstancesCmd()
-    ApiServiceIntegrationsCmd.AddCommand(ListApiServiceIntegrationInstancesCmd)
+	ApiServiceIntegrationsCmd.AddCommand(ListApiServiceIntegrationInstancesCmd)
 }
 
-var (
-    
-    
-            GetApiServiceIntegrationInstanceapiServiceId string
-        
-    
-)
+var GetApiServiceIntegrationInstanceapiServiceId string
 
 func NewGetApiServiceIntegrationInstanceCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "getApiServiceIntegrationInstance",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApiServiceIntegrationsAPI.GetApiServiceIntegrationInstance(apiClient.GetConfig().Context, GetApiServiceIntegrationInstanceapiServiceId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "getApiServiceIntegrationInstance",
 
-    
-    
-        cmd.Flags().StringVarP(&GetApiServiceIntegrationInstanceapiServiceId, "apiServiceId", "", "", "")
-        cmd.MarkFlagRequired("apiServiceId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApiServiceIntegrationsAPI.GetApiServiceIntegrationInstance(apiClient.GetConfig().Context, GetApiServiceIntegrationInstanceapiServiceId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&GetApiServiceIntegrationInstanceapiServiceId, "apiServiceId", "", "", "")
+	cmd.MarkFlagRequired("apiServiceId")
 
 	return cmd
 }
 
 func init() {
 	GetApiServiceIntegrationInstanceCmd := NewGetApiServiceIntegrationInstanceCmd()
-    ApiServiceIntegrationsCmd.AddCommand(GetApiServiceIntegrationInstanceCmd)
+	ApiServiceIntegrationsCmd.AddCommand(GetApiServiceIntegrationInstanceCmd)
 }
 
-var (
-    
-    
-            DeleteApiServiceIntegrationInstanceapiServiceId string
-        
-    
-)
+var DeleteApiServiceIntegrationInstanceapiServiceId string
 
 func NewDeleteApiServiceIntegrationInstanceCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "deleteApiServiceIntegrationInstance",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstance(apiClient.GetConfig().Context, DeleteApiServiceIntegrationInstanceapiServiceId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "deleteApiServiceIntegrationInstance",
 
-    
-    
-        cmd.Flags().StringVarP(&DeleteApiServiceIntegrationInstanceapiServiceId, "apiServiceId", "", "", "")
-        cmd.MarkFlagRequired("apiServiceId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstance(apiClient.GetConfig().Context, DeleteApiServiceIntegrationInstanceapiServiceId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&DeleteApiServiceIntegrationInstanceapiServiceId, "apiServiceId", "", "", "")
+	cmd.MarkFlagRequired("apiServiceId")
 
 	return cmd
 }
 
 func init() {
 	DeleteApiServiceIntegrationInstanceCmd := NewDeleteApiServiceIntegrationInstanceCmd()
-    ApiServiceIntegrationsCmd.AddCommand(DeleteApiServiceIntegrationInstanceCmd)
+	ApiServiceIntegrationsCmd.AddCommand(DeleteApiServiceIntegrationInstanceCmd)
 }
 
 var (
-    
-    
-            CreateApiServiceIntegrationInstanceSecretapiServiceId string
-        
-            CreateApiServiceIntegrationInstanceSecretdata string
-        
-    
+	CreateApiServiceIntegrationInstanceSecretapiServiceId string
+
+	CreateApiServiceIntegrationInstanceSecretdata string
 )
 
 func NewCreateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "createApiServiceIntegrationInstanceSecret",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, CreateApiServiceIntegrationInstanceSecretapiServiceId)
-            
-            
-            if CreateApiServiceIntegrationInstanceSecretdata != "" {
-                req = req.Data(CreateApiServiceIntegrationInstanceSecretdata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "createApiServiceIntegrationInstanceSecret",
 
-    
-    
-        cmd.Flags().StringVarP(&CreateApiServiceIntegrationInstanceSecretapiServiceId, "apiServiceId", "", "", "")
-        cmd.MarkFlagRequired("apiServiceId")
-        
-        cmd.Flags().StringVarP(&CreateApiServiceIntegrationInstanceSecretdata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, CreateApiServiceIntegrationInstanceSecretapiServiceId)
+
+			if CreateApiServiceIntegrationInstanceSecretdata != "" {
+				req = req.Data(CreateApiServiceIntegrationInstanceSecretdata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&CreateApiServiceIntegrationInstanceSecretapiServiceId, "apiServiceId", "", "", "")
+	cmd.MarkFlagRequired("apiServiceId")
+
+	cmd.Flags().StringVarP(&CreateApiServiceIntegrationInstanceSecretdata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	CreateApiServiceIntegrationInstanceSecretCmd := NewCreateApiServiceIntegrationInstanceSecretCmd()
-    ApiServiceIntegrationsCmd.AddCommand(CreateApiServiceIntegrationInstanceSecretCmd)
+	ApiServiceIntegrationsCmd.AddCommand(CreateApiServiceIntegrationInstanceSecretCmd)
 }
 
-var (
-    
-    
-            ListApiServiceIntegrationInstanceSecretsapiServiceId string
-        
-    
-)
+var ListApiServiceIntegrationInstanceSecretsapiServiceId string
 
 func NewListApiServiceIntegrationInstanceSecretsCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "listApiServiceIntegrationInstanceSecrets",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstanceSecrets(apiClient.GetConfig().Context, ListApiServiceIntegrationInstanceSecretsapiServiceId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "listApiServiceIntegrationInstanceSecrets",
 
-    
-    
-        cmd.Flags().StringVarP(&ListApiServiceIntegrationInstanceSecretsapiServiceId, "apiServiceId", "", "", "")
-        cmd.MarkFlagRequired("apiServiceId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstanceSecrets(apiClient.GetConfig().Context, ListApiServiceIntegrationInstanceSecretsapiServiceId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&ListApiServiceIntegrationInstanceSecretsapiServiceId, "apiServiceId", "", "", "")
+	cmd.MarkFlagRequired("apiServiceId")
 
 	return cmd
 }
 
 func init() {
 	ListApiServiceIntegrationInstanceSecretsCmd := NewListApiServiceIntegrationInstanceSecretsCmd()
-    ApiServiceIntegrationsCmd.AddCommand(ListApiServiceIntegrationInstanceSecretsCmd)
+	ApiServiceIntegrationsCmd.AddCommand(ListApiServiceIntegrationInstanceSecretsCmd)
 }
 
 var (
-    
-    
-            DeleteApiServiceIntegrationInstanceSecretapiServiceId string
-        
-            DeleteApiServiceIntegrationInstanceSecretsecretId string
-        
-    
+	DeleteApiServiceIntegrationInstanceSecretapiServiceId string
+
+	DeleteApiServiceIntegrationInstanceSecretsecretId string
 )
 
 func NewDeleteApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "deleteApiServiceIntegrationInstanceSecret",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, DeleteApiServiceIntegrationInstanceSecretapiServiceId, DeleteApiServiceIntegrationInstanceSecretsecretId)
-            
-            
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "deleteApiServiceIntegrationInstanceSecret",
 
-    
-    
-        cmd.Flags().StringVarP(&DeleteApiServiceIntegrationInstanceSecretapiServiceId, "apiServiceId", "", "", "")
-        cmd.MarkFlagRequired("apiServiceId")
-        
-        cmd.Flags().StringVarP(&DeleteApiServiceIntegrationInstanceSecretsecretId, "secretId", "", "", "")
-        cmd.MarkFlagRequired("secretId")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, DeleteApiServiceIntegrationInstanceSecretapiServiceId, DeleteApiServiceIntegrationInstanceSecretsecretId)
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&DeleteApiServiceIntegrationInstanceSecretapiServiceId, "apiServiceId", "", "", "")
+	cmd.MarkFlagRequired("apiServiceId")
+
+	cmd.Flags().StringVarP(&DeleteApiServiceIntegrationInstanceSecretsecretId, "secretId", "", "", "")
+	cmd.MarkFlagRequired("secretId")
 
 	return cmd
 }
 
 func init() {
 	DeleteApiServiceIntegrationInstanceSecretCmd := NewDeleteApiServiceIntegrationInstanceSecretCmd()
-    ApiServiceIntegrationsCmd.AddCommand(DeleteApiServiceIntegrationInstanceSecretCmd)
+	ApiServiceIntegrationsCmd.AddCommand(DeleteApiServiceIntegrationInstanceSecretCmd)
 }
 
 var (
-    
-    
-            ActivateApiServiceIntegrationInstanceSecretapiServiceId string
-        
-            ActivateApiServiceIntegrationInstanceSecretsecretId string
-        
-            ActivateApiServiceIntegrationInstanceSecretdata string
-        
-    
+	ActivateApiServiceIntegrationInstanceSecretapiServiceId string
+
+	ActivateApiServiceIntegrationInstanceSecretsecretId string
+
+	ActivateApiServiceIntegrationInstanceSecretdata string
 )
 
 func NewActivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "activateApiServiceIntegrationInstanceSecret",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApiServiceIntegrationsAPI.ActivateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, ActivateApiServiceIntegrationInstanceSecretapiServiceId, ActivateApiServiceIntegrationInstanceSecretsecretId)
-            
-            
-            if ActivateApiServiceIntegrationInstanceSecretdata != "" {
-                req = req.Data(ActivateApiServiceIntegrationInstanceSecretdata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "activateApiServiceIntegrationInstanceSecret",
 
-    
-    
-        cmd.Flags().StringVarP(&ActivateApiServiceIntegrationInstanceSecretapiServiceId, "apiServiceId", "", "", "")
-        cmd.MarkFlagRequired("apiServiceId")
-        
-        cmd.Flags().StringVarP(&ActivateApiServiceIntegrationInstanceSecretsecretId, "secretId", "", "", "")
-        cmd.MarkFlagRequired("secretId")
-        
-        cmd.Flags().StringVarP(&ActivateApiServiceIntegrationInstanceSecretdata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApiServiceIntegrationsAPI.ActivateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, ActivateApiServiceIntegrationInstanceSecretapiServiceId, ActivateApiServiceIntegrationInstanceSecretsecretId)
+
+			if ActivateApiServiceIntegrationInstanceSecretdata != "" {
+				req = req.Data(ActivateApiServiceIntegrationInstanceSecretdata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&ActivateApiServiceIntegrationInstanceSecretapiServiceId, "apiServiceId", "", "", "")
+	cmd.MarkFlagRequired("apiServiceId")
+
+	cmd.Flags().StringVarP(&ActivateApiServiceIntegrationInstanceSecretsecretId, "secretId", "", "", "")
+	cmd.MarkFlagRequired("secretId")
+
+	cmd.Flags().StringVarP(&ActivateApiServiceIntegrationInstanceSecretdata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	ActivateApiServiceIntegrationInstanceSecretCmd := NewActivateApiServiceIntegrationInstanceSecretCmd()
-    ApiServiceIntegrationsCmd.AddCommand(ActivateApiServiceIntegrationInstanceSecretCmd)
+	ApiServiceIntegrationsCmd.AddCommand(ActivateApiServiceIntegrationInstanceSecretCmd)
 }
 
 var (
-    
-    
-            DeactivateApiServiceIntegrationInstanceSecretapiServiceId string
-        
-            DeactivateApiServiceIntegrationInstanceSecretsecretId string
-        
-            DeactivateApiServiceIntegrationInstanceSecretdata string
-        
-    
+	DeactivateApiServiceIntegrationInstanceSecretapiServiceId string
+
+	DeactivateApiServiceIntegrationInstanceSecretsecretId string
+
+	DeactivateApiServiceIntegrationInstanceSecretdata string
 )
 
 func NewDeactivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
-    cmd := &cobra.Command{
-	    Use:   "deactivateApiServiceIntegrationInstanceSecret",
-	  
-        RunE: func(cmd *cobra.Command, args []string) error {
-            
-            
-            
-            req := apiClient.ApiServiceIntegrationsAPI.DeactivateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, DeactivateApiServiceIntegrationInstanceSecretapiServiceId, DeactivateApiServiceIntegrationInstanceSecretsecretId)
-            
-            
-            if DeactivateApiServiceIntegrationInstanceSecretdata != "" {
-                req = req.Data(DeactivateApiServiceIntegrationInstanceSecretdata)
-            }
-            
-            resp, err := req.Execute()
-            if err != nil {
-                return err
-            }
-		    d, err := io.ReadAll(resp.Body)
-		    if err != nil {
-			    return err
-		    }
-		    utils.PrettyPrintByte(d)
-            cmd.Println(string(d))
-		    return nil
-        },
-    }
+	cmd := &cobra.Command{
+		Use: "deactivateApiServiceIntegrationInstanceSecret",
 
-    
-    
-        cmd.Flags().StringVarP(&DeactivateApiServiceIntegrationInstanceSecretapiServiceId, "apiServiceId", "", "", "")
-        cmd.MarkFlagRequired("apiServiceId")
-        
-        cmd.Flags().StringVarP(&DeactivateApiServiceIntegrationInstanceSecretsecretId, "secretId", "", "", "")
-        cmd.MarkFlagRequired("secretId")
-        
-        cmd.Flags().StringVarP(&DeactivateApiServiceIntegrationInstanceSecretdata, "data", "", "", "")
-        cmd.MarkFlagRequired("data")
-        
-    
+		RunE: func(cmd *cobra.Command, args []string) error {
+			req := apiClient.ApiServiceIntegrationsAPI.DeactivateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, DeactivateApiServiceIntegrationInstanceSecretapiServiceId, DeactivateApiServiceIntegrationInstanceSecretsecretId)
+
+			if DeactivateApiServiceIntegrationInstanceSecretdata != "" {
+				req = req.Data(DeactivateApiServiceIntegrationInstanceSecretdata)
+			}
+
+			resp, err := req.Execute()
+			if err != nil {
+				return err
+			}
+			d, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			utils.PrettyPrintByte(d)
+			cmd.Println(string(d))
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVarP(&DeactivateApiServiceIntegrationInstanceSecretapiServiceId, "apiServiceId", "", "", "")
+	cmd.MarkFlagRequired("apiServiceId")
+
+	cmd.Flags().StringVarP(&DeactivateApiServiceIntegrationInstanceSecretsecretId, "secretId", "", "", "")
+	cmd.MarkFlagRequired("secretId")
+
+	cmd.Flags().StringVarP(&DeactivateApiServiceIntegrationInstanceSecretdata, "data", "", "", "")
+	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
 
 func init() {
 	DeactivateApiServiceIntegrationInstanceSecretCmd := NewDeactivateApiServiceIntegrationInstanceSecretCmd()
-    ApiServiceIntegrationsCmd.AddCommand(DeactivateApiServiceIntegrationInstanceSecretCmd)
+	ApiServiceIntegrationsCmd.AddCommand(DeactivateApiServiceIntegrationInstanceSecretCmd)
 }
