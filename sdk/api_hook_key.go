@@ -17,117 +17,110 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type HookKeyAPI interface {
 
 	/*
-	CreateHookKey Create a key
+			CreateHookKey Create a key
 
-	Creates a key for use with other parts of the application, such as inline hooks
+			Creates a key for use with other parts of the application, such as inline hooks
 
-Use the key name to access this key for inline hook operations.
+		Use the key name to access this key for inline hook operations.
 
-The total number of keys that you can create in an Okta org is limited to 50.
+		The total number of keys that you can create in an Okta org is limited to 50.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateHookKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateHookKeyRequest
 	*/
 	CreateHookKey(ctx context.Context) ApiCreateHookKeyRequest
 
 	// CreateHookKeyExecute executes the request
 	//  @return HookKey
-	// TODU
 	CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*APIResponse, error)
 
 	/*
-	DeleteHookKey Delete a key
+			DeleteHookKey Delete a key
 
-	Deletes a key by `hookKeyId`. After being deleted, the key is unrecoverable.
+			Deletes a key by `hookKeyId`. After being deleted, the key is unrecoverable.
 
-As a safety precaution, only keys that aren't being used are eligible for deletion.
+		As a safety precaution, only keys that aren't being used are eligible for deletion.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param hookKeyId `id` of the Hook Key
-	@return ApiDeleteHookKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param hookKeyId `id` of the Hook Key
+			@return ApiDeleteHookKeyRequest
 	*/
 	DeleteHookKey(ctx context.Context, hookKeyId string) ApiDeleteHookKeyRequest
 
 	// DeleteHookKeyExecute executes the request
-	// TODU
 	DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*APIResponse, error)
 
 	/*
-	GetHookKey Retrieve a key
+		GetHookKey Retrieve a key
 
-	Retrieves a key by `hookKeyId`
+		Retrieves a key by `hookKeyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param hookKeyId `id` of the Hook Key
-	@return ApiGetHookKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param hookKeyId `id` of the Hook Key
+		@return ApiGetHookKeyRequest
 	*/
 	GetHookKey(ctx context.Context, hookKeyId string) ApiGetHookKeyRequest
 
 	// GetHookKeyExecute executes the request
 	//  @return HookKey
-	// TODU
 	GetHookKeyExecute(r ApiGetHookKeyRequest) (*APIResponse, error)
 
 	/*
-	GetPublicKey Retrieve a public key
+		GetPublicKey Retrieve a public key
 
-	Retrieves a public key by `keyId`
+		Retrieves a public key by `keyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param publicKeyId `id` of the Public Key
-	@return ApiGetPublicKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param publicKeyId `id` of the Public Key
+		@return ApiGetPublicKeyRequest
 	*/
 	GetPublicKey(ctx context.Context, publicKeyId string) ApiGetPublicKeyRequest
 
 	// GetPublicKeyExecute executes the request
 	//  @return JsonWebKey
-	// TODU
 	GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*APIResponse, error)
 
 	/*
-	ListHookKeys List all keys
+		ListHookKeys List all keys
 
-	Lists all keys
+		Lists all keys
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListHookKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListHookKeysRequest
 	*/
 	ListHookKeys(ctx context.Context) ApiListHookKeysRequest
 
 	// ListHookKeysExecute executes the request
 	//  @return []HookKey
-	// TODU
 	ListHookKeysExecute(r ApiListHookKeysRequest) (*APIResponse, error)
 
 	/*
-	ReplaceHookKey Replace a key
+			ReplaceHookKey Replace a key
 
-	Replaces a key by `hookKeyId`
+			Replaces a key by `hookKeyId`
 
-This request replaces existing properties after passing validation.
+		This request replaces existing properties after passing validation.
 
-Note: The only parameter that you can update is the name of the key, which must be unique at all times.
+		Note: The only parameter that you can update is the name of the key, which must be unique at all times.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param hookKeyId `id` of the Hook Key
-	@return ApiReplaceHookKeyRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param hookKeyId `id` of the Hook Key
+			@return ApiReplaceHookKeyRequest
 	*/
 	ReplaceHookKey(ctx context.Context, hookKeyId string) ApiReplaceHookKeyRequest
 
 	// ReplaceHookKeyExecute executes the request
 	//  @return HookKey
-	// TODU
 	ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*APIResponse, error)
 }
 
@@ -135,10 +128,9 @@ Note: The only parameter that you can update is the name of the key, which must 
 type HookKeyAPIService service
 
 type ApiCreateHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
 	keyRequest *KeyRequest
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -148,14 +140,11 @@ func (r ApiCreateHookKeyRequest) KeyRequest(keyRequest KeyRequest) ApiCreateHook
 	return r
 }
 
-
-// TODU
-func (r ApiCreateHookKeyRequest) Data (data interface{}) ApiCreateHookKeyRequest {
+func (r ApiCreateHookKeyRequest) Data(data interface{}) ApiCreateHookKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateHookKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateHookKeyExecute(r)
 }
@@ -173,12 +162,11 @@ The total number of keys that you can create in an Okta org is limited to 50.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateHookKeyRequest
 */
-// TODU
 
 func (a *HookKeyAPIService) CreateHookKey(ctx context.Context) ApiCreateHookKeyRequest {
 	return ApiCreateHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -191,10 +179,9 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*AP
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -204,7 +191,6 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*AP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HookKeyAPIService.CreateHookKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -231,7 +217,6 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*AP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.keyRequest
 	localVarPostBody = r.data
@@ -251,13 +236,11 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*AP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -266,7 +249,6 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*AP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -281,12 +263,10 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -295,12 +275,10 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -309,13 +287,11 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -324,22 +300,18 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*AP
 }
 
 type ApiDeleteHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
-	hookKeyId string
-	// TODU
+	hookKeyId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteHookKeyRequest) Data (data interface{}) ApiDeleteHookKeyRequest {
+func (r ApiDeleteHookKeyRequest) Data(data interface{}) ApiDeleteHookKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteHookKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteHookKeyExecute(r)
 }
@@ -356,13 +328,12 @@ As a safety precaution, only keys that aren't being used are eligible for deleti
  @param hookKeyId `id` of the Hook Key
  @return ApiDeleteHookKeyRequest
 */
-// TODU
 
 func (a *HookKeyAPIService) DeleteHookKey(ctx context.Context, hookKeyId string) ApiDeleteHookKeyRequest {
 	return ApiDeleteHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		hookKeyId: hookKeyId,
+		ctx:        ctx,
+		hookKeyId:  hookKeyId,
 		retryCount: 0,
 	}
 }
@@ -376,7 +347,7 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -386,7 +357,6 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HookKeyAPIService.DeleteHookKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -414,7 +384,6 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -431,13 +400,11 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -446,7 +413,6 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -461,12 +427,10 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -475,12 +439,10 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -489,13 +451,11 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -504,22 +464,18 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 }
 
 type ApiGetHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
-	hookKeyId string
-	// TODU
+	hookKeyId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetHookKeyRequest) Data (data interface{}) ApiGetHookKeyRequest {
+func (r ApiGetHookKeyRequest) Data(data interface{}) ApiGetHookKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetHookKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetHookKeyExecute(r)
 }
@@ -533,13 +489,12 @@ Retrieves a key by `hookKeyId`
  @param hookKeyId `id` of the Hook Key
  @return ApiGetHookKeyRequest
 */
-// TODU
 
 func (a *HookKeyAPIService) GetHookKey(ctx context.Context, hookKeyId string) ApiGetHookKeyRequest {
 	return ApiGetHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		hookKeyId: hookKeyId,
+		ctx:        ctx,
+		hookKeyId:  hookKeyId,
 		retryCount: 0,
 	}
 }
@@ -552,10 +507,9 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*APIRespo
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -565,7 +519,6 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*APIRespo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HookKeyAPIService.GetHookKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -593,7 +546,6 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*APIRespo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -610,13 +562,11 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*APIRespo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -625,7 +575,6 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*APIRespo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -640,12 +589,10 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -654,12 +601,10 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -668,13 +613,11 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -683,22 +626,18 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*APIRespo
 }
 
 type ApiGetPublicKeyRequest struct {
-	ctx context.Context
-	ApiService HookKeyAPI
+	ctx         context.Context
+	ApiService  HookKeyAPI
 	publicKeyId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
-
-// TODU
-func (r ApiGetPublicKeyRequest) Data (data interface{}) ApiGetPublicKeyRequest {
+func (r ApiGetPublicKeyRequest) Data(data interface{}) ApiGetPublicKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetPublicKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetPublicKeyExecute(r)
 }
@@ -712,14 +651,13 @@ Retrieves a public key by `keyId`
  @param publicKeyId `id` of the Public Key
  @return ApiGetPublicKeyRequest
 */
-// TODU
 
 func (a *HookKeyAPIService) GetPublicKey(ctx context.Context, publicKeyId string) ApiGetPublicKeyRequest {
 	return ApiGetPublicKeyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		publicKeyId: publicKeyId,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -731,10 +669,9 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*APIR
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -744,7 +681,6 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*APIR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HookKeyAPIService.GetPublicKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -772,7 +708,6 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*APIR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -789,13 +724,11 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*APIR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -804,7 +737,6 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*APIR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -819,12 +751,10 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*APIR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -833,12 +763,10 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*APIR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -847,13 +775,11 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*APIR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -862,21 +788,17 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*APIR
 }
 
 type ApiListHookKeysRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListHookKeysRequest) Data (data interface{}) ApiListHookKeysRequest {
+func (r ApiListHookKeysRequest) Data(data interface{}) ApiListHookKeysRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListHookKeysRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListHookKeysExecute(r)
 }
@@ -889,12 +811,11 @@ Lists all keys
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListHookKeysRequest
 */
-// TODU
 
 func (a *HookKeyAPIService) ListHookKeys(ctx context.Context) ApiListHookKeysRequest {
 	return ApiListHookKeysRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -907,10 +828,9 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) (*APIR
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -920,7 +840,6 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) (*APIR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HookKeyAPIService.ListHookKeys")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -947,7 +866,6 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) (*APIR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -964,13 +882,11 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) (*APIR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -979,7 +895,6 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) (*APIR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -994,12 +909,10 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) (*APIR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1008,13 +921,11 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) (*APIR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1023,11 +934,10 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) (*APIR
 }
 
 type ApiReplaceHookKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService HookKeyAPI
-	hookKeyId string
+	hookKeyId  string
 	keyRequest *KeyRequest
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -1037,14 +947,11 @@ func (r ApiReplaceHookKeyRequest) KeyRequest(keyRequest KeyRequest) ApiReplaceHo
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceHookKeyRequest) Data (data interface{}) ApiReplaceHookKeyRequest {
+func (r ApiReplaceHookKeyRequest) Data(data interface{}) ApiReplaceHookKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceHookKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceHookKeyExecute(r)
 }
@@ -1063,13 +970,12 @@ Note: The only parameter that you can update is the name of the key, which must 
  @param hookKeyId `id` of the Hook Key
  @return ApiReplaceHookKeyRequest
 */
-// TODU
 
 func (a *HookKeyAPIService) ReplaceHookKey(ctx context.Context, hookKeyId string) ApiReplaceHookKeyRequest {
 	return ApiReplaceHookKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		hookKeyId: hookKeyId,
+		ctx:        ctx,
+		hookKeyId:  hookKeyId,
 		retryCount: 0,
 	}
 }
@@ -1082,10 +988,9 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1095,7 +1000,6 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "HookKeyAPIService.ReplaceHookKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1123,7 +1027,6 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.keyRequest
 	localVarPostBody = r.data
@@ -1143,13 +1046,11 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1158,7 +1059,6 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1173,12 +1073,10 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1187,12 +1085,10 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1201,12 +1097,10 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1215,13 +1109,11 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

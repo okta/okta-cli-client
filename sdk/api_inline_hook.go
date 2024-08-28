@@ -17,136 +17,127 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type InlineHookAPI interface {
 
 	/*
-	ActivateInlineHook Activate an Inline Hook
+		ActivateInlineHook Activate an Inline Hook
 
-	Activates the inline hook by `inlineHookId`
+		Activates the inline hook by `inlineHookId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiActivateInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param inlineHookId `id` of the Inline Hook
+		@return ApiActivateInlineHookRequest
 	*/
 	ActivateInlineHook(ctx context.Context, inlineHookId string) ApiActivateInlineHookRequest
 
 	// ActivateInlineHookExecute executes the request
 	//  @return InlineHook
-	// TODU
 	ActivateInlineHookExecute(r ApiActivateInlineHookRequest) (*APIResponse, error)
 
 	/*
-	CreateInlineHook Create an Inline Hook
+		CreateInlineHook Create an Inline Hook
 
-	Creates an inline hook
+		Creates an inline hook
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateInlineHookRequest
 	*/
 	CreateInlineHook(ctx context.Context) ApiCreateInlineHookRequest
 
 	// CreateInlineHookExecute executes the request
 	//  @return InlineHook
-	// TODU
 	CreateInlineHookExecute(r ApiCreateInlineHookRequest) (*APIResponse, error)
 
 	/*
-	DeactivateInlineHook Deactivate an Inline Hook
+		DeactivateInlineHook Deactivate an Inline Hook
 
-	Deactivates the inline hook by `inlineHookId`
+		Deactivates the inline hook by `inlineHookId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiDeactivateInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param inlineHookId `id` of the Inline Hook
+		@return ApiDeactivateInlineHookRequest
 	*/
 	DeactivateInlineHook(ctx context.Context, inlineHookId string) ApiDeactivateInlineHookRequest
 
 	// DeactivateInlineHookExecute executes the request
 	//  @return InlineHook
-	// TODU
 	DeactivateInlineHookExecute(r ApiDeactivateInlineHookRequest) (*APIResponse, error)
 
 	/*
-	DeleteInlineHook Delete an Inline Hook
+		DeleteInlineHook Delete an Inline Hook
 
-	Deletes an inline hook by `inlineHookId`. Once deleted, the Inline Hook is unrecoverable. As a safety precaution, only Inline Hooks with a status of INACTIVE are eligible for deletion.
+		Deletes an inline hook by `inlineHookId`. Once deleted, the Inline Hook is unrecoverable. As a safety precaution, only Inline Hooks with a status of INACTIVE are eligible for deletion.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiDeleteInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param inlineHookId `id` of the Inline Hook
+		@return ApiDeleteInlineHookRequest
 	*/
 	DeleteInlineHook(ctx context.Context, inlineHookId string) ApiDeleteInlineHookRequest
 
 	// DeleteInlineHookExecute executes the request
-	// TODU
 	DeleteInlineHookExecute(r ApiDeleteInlineHookRequest) (*APIResponse, error)
 
 	/*
-	ExecuteInlineHook Execute an Inline Hook
+		ExecuteInlineHook Execute an Inline Hook
 
-	Executes the inline hook by `inlineHookId` using the request body as the input. This will send the provided data through the Channel and return a response if it matches the correct data contract. This execution endpoint should only be used for testing purposes.
+		Executes the inline hook by `inlineHookId` using the request body as the input. This will send the provided data through the Channel and return a response if it matches the correct data contract. This execution endpoint should only be used for testing purposes.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiExecuteInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param inlineHookId `id` of the Inline Hook
+		@return ApiExecuteInlineHookRequest
 	*/
 	ExecuteInlineHook(ctx context.Context, inlineHookId string) ApiExecuteInlineHookRequest
 
 	// ExecuteInlineHookExecute executes the request
 	//  @return InlineHookResponse
-	// TODU
 	ExecuteInlineHookExecute(r ApiExecuteInlineHookRequest) (*APIResponse, error)
 
 	/*
-	GetInlineHook Retrieve an Inline Hook
+		GetInlineHook Retrieve an Inline Hook
 
-	Retrieves an inline hook by `inlineHookId`
+		Retrieves an inline hook by `inlineHookId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiGetInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param inlineHookId `id` of the Inline Hook
+		@return ApiGetInlineHookRequest
 	*/
 	GetInlineHook(ctx context.Context, inlineHookId string) ApiGetInlineHookRequest
 
 	// GetInlineHookExecute executes the request
 	//  @return InlineHook
-	// TODU
 	GetInlineHookExecute(r ApiGetInlineHookRequest) (*APIResponse, error)
 
 	/*
-	ListInlineHooks List all Inline Hooks
+		ListInlineHooks List all Inline Hooks
 
-	Lists all inline hooks
+		Lists all inline hooks
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListInlineHooksRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListInlineHooksRequest
 	*/
 	ListInlineHooks(ctx context.Context) ApiListInlineHooksRequest
 
 	// ListInlineHooksExecute executes the request
 	//  @return []InlineHook
-	// TODU
 	ListInlineHooksExecute(r ApiListInlineHooksRequest) (*APIResponse, error)
 
 	/*
-	ReplaceInlineHook Replace an Inline Hook
+		ReplaceInlineHook Replace an Inline Hook
 
-	Replaces an inline hook by `inlineHookId`
+		Replaces an inline hook by `inlineHookId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param inlineHookId `id` of the Inline Hook
-	@return ApiReplaceInlineHookRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param inlineHookId `id` of the Inline Hook
+		@return ApiReplaceInlineHookRequest
 	*/
 	ReplaceInlineHook(ctx context.Context, inlineHookId string) ApiReplaceInlineHookRequest
 
 	// ReplaceInlineHookExecute executes the request
 	//  @return InlineHook
-	// TODU
 	ReplaceInlineHookExecute(r ApiReplaceInlineHookRequest) (*APIResponse, error)
 }
 
@@ -154,22 +145,18 @@ type InlineHookAPI interface {
 type InlineHookAPIService service
 
 type ApiActivateInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiActivateInlineHookRequest) Data (data interface{}) ApiActivateInlineHookRequest {
+func (r ApiActivateInlineHookRequest) Data(data interface{}) ApiActivateInlineHookRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateInlineHookRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateInlineHookExecute(r)
 }
@@ -183,14 +170,13 @@ Activates the inline hook by `inlineHookId`
  @param inlineHookId `id` of the Inline Hook
  @return ApiActivateInlineHookRequest
 */
-// TODU
 
 func (a *InlineHookAPIService) ActivateInlineHook(ctx context.Context, inlineHookId string) ApiActivateInlineHookRequest {
 	return ApiActivateInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -202,10 +188,9 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -215,7 +200,6 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InlineHookAPIService.ActivateInlineHook")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -243,7 +227,6 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -260,13 +243,11 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -275,7 +256,6 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -290,12 +270,10 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -304,12 +282,10 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -318,13 +294,11 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -333,10 +307,9 @@ func (a *InlineHookAPIService) ActivateInlineHookExecute(r ApiActivateInlineHook
 }
 
 type ApiCreateInlineHookRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService InlineHookAPI
 	inlineHook *InlineHook
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -346,14 +319,11 @@ func (r ApiCreateInlineHookRequest) InlineHook(inlineHook InlineHook) ApiCreateI
 	return r
 }
 
-
-// TODU
-func (r ApiCreateInlineHookRequest) Data (data interface{}) ApiCreateInlineHookRequest {
+func (r ApiCreateInlineHookRequest) Data(data interface{}) ApiCreateInlineHookRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateInlineHookRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateInlineHookExecute(r)
 }
@@ -366,12 +336,11 @@ Creates an inline hook
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateInlineHookRequest
 */
-// TODU
 
 func (a *InlineHookAPIService) CreateInlineHook(ctx context.Context) ApiCreateInlineHookRequest {
 	return ApiCreateInlineHookRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -384,10 +353,9 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -397,7 +365,6 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InlineHookAPIService.CreateInlineHook")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -424,7 +391,6 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.inlineHook
 	localVarPostBody = r.data
@@ -444,13 +410,11 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -459,7 +423,6 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -474,12 +437,10 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -488,12 +449,10 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -502,13 +461,11 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -517,22 +474,18 @@ func (a *InlineHookAPIService) CreateInlineHookExecute(r ApiCreateInlineHookRequ
 }
 
 type ApiDeactivateInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeactivateInlineHookRequest) Data (data interface{}) ApiDeactivateInlineHookRequest {
+func (r ApiDeactivateInlineHookRequest) Data(data interface{}) ApiDeactivateInlineHookRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateInlineHookRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateInlineHookExecute(r)
 }
@@ -546,14 +499,13 @@ Deactivates the inline hook by `inlineHookId`
  @param inlineHookId `id` of the Inline Hook
  @return ApiDeactivateInlineHookRequest
 */
-// TODU
 
 func (a *InlineHookAPIService) DeactivateInlineHook(ctx context.Context, inlineHookId string) ApiDeactivateInlineHookRequest {
 	return ApiDeactivateInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -565,10 +517,9 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -578,7 +529,6 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InlineHookAPIService.DeactivateInlineHook")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -606,7 +556,6 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -623,13 +572,11 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -638,7 +585,6 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -653,12 +599,10 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -667,12 +611,10 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -681,13 +623,11 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -696,22 +636,18 @@ func (a *InlineHookAPIService) DeactivateInlineHookExecute(r ApiDeactivateInline
 }
 
 type ApiDeleteInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeleteInlineHookRequest) Data (data interface{}) ApiDeleteInlineHookRequest {
+func (r ApiDeleteInlineHookRequest) Data(data interface{}) ApiDeleteInlineHookRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteInlineHookRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteInlineHookExecute(r)
 }
@@ -725,14 +661,13 @@ Deletes an inline hook by `inlineHookId`. Once deleted, the Inline Hook is unrec
  @param inlineHookId `id` of the Inline Hook
  @return ApiDeleteInlineHookRequest
 */
-// TODU
 
 func (a *InlineHookAPIService) DeleteInlineHook(ctx context.Context, inlineHookId string) ApiDeleteInlineHookRequest {
 	return ApiDeleteInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -745,7 +680,7 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -755,7 +690,6 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InlineHookAPIService.DeleteInlineHook")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -783,7 +717,6 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -800,13 +733,11 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -815,7 +746,6 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -830,12 +760,10 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -844,12 +772,10 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -858,13 +784,11 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -873,13 +797,12 @@ func (a *InlineHookAPIService) DeleteInlineHookExecute(r ApiDeleteInlineHookRequ
 }
 
 type ApiExecuteInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	payloadData *map[string]interface{}
-	// TODU
-	data       interface{}
-	retryCount int32
+	payloadData  *map[string]interface{}
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiExecuteInlineHookRequest) PayloadData(payloadData map[string]interface{}) ApiExecuteInlineHookRequest {
@@ -887,14 +810,11 @@ func (r ApiExecuteInlineHookRequest) PayloadData(payloadData map[string]interfac
 	return r
 }
 
-
-// TODU
-func (r ApiExecuteInlineHookRequest) Data (data interface{}) ApiExecuteInlineHookRequest {
+func (r ApiExecuteInlineHookRequest) Data(data interface{}) ApiExecuteInlineHookRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiExecuteInlineHookRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ExecuteInlineHookExecute(r)
 }
@@ -908,14 +828,13 @@ Executes the inline hook by `inlineHookId` using the request body as the input. 
  @param inlineHookId `id` of the Inline Hook
  @return ApiExecuteInlineHookRequest
 */
-// TODU
 
 func (a *InlineHookAPIService) ExecuteInlineHook(ctx context.Context, inlineHookId string) ApiExecuteInlineHookRequest {
 	return ApiExecuteInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -927,10 +846,9 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -940,7 +858,6 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InlineHookAPIService.ExecuteInlineHook")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -968,7 +885,6 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.payloadData
 	localVarPostBody = r.data
@@ -988,13 +904,11 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1003,7 +917,6 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1018,12 +931,10 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1032,12 +943,10 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1046,12 +955,10 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1060,13 +967,11 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1075,22 +980,18 @@ func (a *InlineHookAPIService) ExecuteInlineHookExecute(r ApiExecuteInlineHookRe
 }
 
 type ApiGetInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiGetInlineHookRequest) Data (data interface{}) ApiGetInlineHookRequest {
+func (r ApiGetInlineHookRequest) Data(data interface{}) ApiGetInlineHookRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetInlineHookRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetInlineHookExecute(r)
 }
@@ -1104,14 +1005,13 @@ Retrieves an inline hook by `inlineHookId`
  @param inlineHookId `id` of the Inline Hook
  @return ApiGetInlineHookRequest
 */
-// TODU
 
 func (a *InlineHookAPIService) GetInlineHook(ctx context.Context, inlineHookId string) ApiGetInlineHookRequest {
 	return ApiGetInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1123,10 +1023,9 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1136,7 +1035,6 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InlineHookAPIService.GetInlineHook")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1164,7 +1062,6 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1181,13 +1078,11 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1196,7 +1091,6 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1211,12 +1105,10 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1225,12 +1117,10 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1239,13 +1129,11 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1254,10 +1142,9 @@ func (a *InlineHookAPIService) GetInlineHookExecute(r ApiGetInlineHookRequest) (
 }
 
 type ApiListInlineHooksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService InlineHookAPI
-	type_ *string
-	// TODU
+	type_      *string
 	data       interface{}
 	retryCount int32
 }
@@ -1267,14 +1154,11 @@ func (r ApiListInlineHooksRequest) Type_(type_ string) ApiListInlineHooksRequest
 	return r
 }
 
-
-// TODU
-func (r ApiListInlineHooksRequest) Data (data interface{}) ApiListInlineHooksRequest {
+func (r ApiListInlineHooksRequest) Data(data interface{}) ApiListInlineHooksRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListInlineHooksRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListInlineHooksExecute(r)
 }
@@ -1287,12 +1171,11 @@ Lists all inline hooks
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListInlineHooksRequest
 */
-// TODU
 
 func (a *InlineHookAPIService) ListInlineHooks(ctx context.Context) ApiListInlineHooksRequest {
 	return ApiListInlineHooksRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1305,10 +1188,9 @@ func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksReques
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1318,7 +1200,6 @@ func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksReques
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InlineHookAPIService.ListInlineHooks")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1348,7 +1229,6 @@ func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1365,13 +1245,11 @@ func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1380,7 +1258,6 @@ func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksReques
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1395,12 +1272,10 @@ func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1409,13 +1284,11 @@ func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1424,13 +1297,12 @@ func (a *InlineHookAPIService) ListInlineHooksExecute(r ApiListInlineHooksReques
 }
 
 type ApiReplaceInlineHookRequest struct {
-	ctx context.Context
-	ApiService InlineHookAPI
+	ctx          context.Context
+	ApiService   InlineHookAPI
 	inlineHookId string
-	inlineHook *InlineHook
-	// TODU
-	data       interface{}
-	retryCount int32
+	inlineHook   *InlineHook
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiReplaceInlineHookRequest) InlineHook(inlineHook InlineHook) ApiReplaceInlineHookRequest {
@@ -1438,14 +1310,11 @@ func (r ApiReplaceInlineHookRequest) InlineHook(inlineHook InlineHook) ApiReplac
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceInlineHookRequest) Data (data interface{}) ApiReplaceInlineHookRequest {
+func (r ApiReplaceInlineHookRequest) Data(data interface{}) ApiReplaceInlineHookRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceInlineHookRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceInlineHookExecute(r)
 }
@@ -1459,14 +1328,13 @@ Replaces an inline hook by `inlineHookId`
  @param inlineHookId `id` of the Inline Hook
  @return ApiReplaceInlineHookRequest
 */
-// TODU
 
 func (a *InlineHookAPIService) ReplaceInlineHook(ctx context.Context, inlineHookId string) ApiReplaceInlineHookRequest {
 	return ApiReplaceInlineHookRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		inlineHookId: inlineHookId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1478,10 +1346,9 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1491,7 +1358,6 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InlineHookAPIService.ReplaceInlineHook")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1519,7 +1385,6 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.inlineHook
 	localVarPostBody = r.data
@@ -1539,13 +1404,11 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1554,7 +1417,6 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1569,12 +1431,10 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1583,12 +1443,10 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1597,12 +1455,10 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1611,13 +1467,11 @@ func (a *InlineHookAPIService) ReplaceInlineHookExecute(r ApiReplaceInlineHookRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

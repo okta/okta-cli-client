@@ -17,120 +17,112 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type BehaviorAPI interface {
 
 	/*
-	ActivateBehaviorDetectionRule Activate a Behavior Detection Rule
+		ActivateBehaviorDetectionRule Activate a Behavior Detection Rule
 
-	Activates a behavior detection rule
+		Activates a behavior detection rule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param behaviorId id of the Behavior Detection Rule
-	@return ApiActivateBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param behaviorId id of the Behavior Detection Rule
+		@return ApiActivateBehaviorDetectionRuleRequest
 	*/
 	ActivateBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiActivateBehaviorDetectionRuleRequest
 
 	// ActivateBehaviorDetectionRuleExecute executes the request
 	//  @return ListBehaviorDetectionRules200ResponseInner
-	// TODU
 	ActivateBehaviorDetectionRuleExecute(r ApiActivateBehaviorDetectionRuleRequest) (*APIResponse, error)
 
 	/*
-	CreateBehaviorDetectionRule Create a Behavior Detection Rule
+		CreateBehaviorDetectionRule Create a Behavior Detection Rule
 
-	Creates a new behavior detection rule
+		Creates a new behavior detection rule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateBehaviorDetectionRuleRequest
 	*/
 	CreateBehaviorDetectionRule(ctx context.Context) ApiCreateBehaviorDetectionRuleRequest
 
 	// CreateBehaviorDetectionRuleExecute executes the request
 	//  @return BehaviorRule
-	// TODU
 	CreateBehaviorDetectionRuleExecute(r ApiCreateBehaviorDetectionRuleRequest) (*APIResponse, error)
 
 	/*
-	DeactivateBehaviorDetectionRule Deactivate a Behavior Detection Rule
+		DeactivateBehaviorDetectionRule Deactivate a Behavior Detection Rule
 
-	Deactivates a behavior detection rule
+		Deactivates a behavior detection rule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param behaviorId id of the Behavior Detection Rule
-	@return ApiDeactivateBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param behaviorId id of the Behavior Detection Rule
+		@return ApiDeactivateBehaviorDetectionRuleRequest
 	*/
 	DeactivateBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiDeactivateBehaviorDetectionRuleRequest
 
 	// DeactivateBehaviorDetectionRuleExecute executes the request
 	//  @return ListBehaviorDetectionRules200ResponseInner
-	// TODU
 	DeactivateBehaviorDetectionRuleExecute(r ApiDeactivateBehaviorDetectionRuleRequest) (*APIResponse, error)
 
 	/*
-	DeleteBehaviorDetectionRule Delete a Behavior Detection Rule
+		DeleteBehaviorDetectionRule Delete a Behavior Detection Rule
 
-	Deletes a Behavior Detection Rule by `behaviorId`
+		Deletes a Behavior Detection Rule by `behaviorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param behaviorId id of the Behavior Detection Rule
-	@return ApiDeleteBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param behaviorId id of the Behavior Detection Rule
+		@return ApiDeleteBehaviorDetectionRuleRequest
 	*/
 	DeleteBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiDeleteBehaviorDetectionRuleRequest
 
 	// DeleteBehaviorDetectionRuleExecute executes the request
-	// TODU
 	DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehaviorDetectionRuleRequest) (*APIResponse, error)
 
 	/*
-	GetBehaviorDetectionRule Retrieve a Behavior Detection Rule
+		GetBehaviorDetectionRule Retrieve a Behavior Detection Rule
 
-	Retrieves a Behavior Detection Rule by `behaviorId`
+		Retrieves a Behavior Detection Rule by `behaviorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param behaviorId id of the Behavior Detection Rule
-	@return ApiGetBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param behaviorId id of the Behavior Detection Rule
+		@return ApiGetBehaviorDetectionRuleRequest
 	*/
 	GetBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiGetBehaviorDetectionRuleRequest
 
 	// GetBehaviorDetectionRuleExecute executes the request
 	//  @return ListBehaviorDetectionRules200ResponseInner
-	// TODU
 	GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDetectionRuleRequest) (*APIResponse, error)
 
 	/*
-	ListBehaviorDetectionRules List all Behavior Detection Rules
+		ListBehaviorDetectionRules List all Behavior Detection Rules
 
-	Lists all behavior detection rules with pagination support
+		Lists all behavior detection rules with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListBehaviorDetectionRulesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListBehaviorDetectionRulesRequest
 	*/
 	ListBehaviorDetectionRules(ctx context.Context) ApiListBehaviorDetectionRulesRequest
 
 	// ListBehaviorDetectionRulesExecute executes the request
 	//  @return []ListBehaviorDetectionRules200ResponseInner
-	// TODU
 	ListBehaviorDetectionRulesExecute(r ApiListBehaviorDetectionRulesRequest) (*APIResponse, error)
 
 	/*
-	ReplaceBehaviorDetectionRule Replace a Behavior Detection Rule
+		ReplaceBehaviorDetectionRule Replace a Behavior Detection Rule
 
-	Replaces a Behavior Detection Rule by `behaviorId`
+		Replaces a Behavior Detection Rule by `behaviorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param behaviorId id of the Behavior Detection Rule
-	@return ApiReplaceBehaviorDetectionRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param behaviorId id of the Behavior Detection Rule
+		@return ApiReplaceBehaviorDetectionRuleRequest
 	*/
 	ReplaceBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiReplaceBehaviorDetectionRuleRequest
 
 	// ReplaceBehaviorDetectionRuleExecute executes the request
 	//  @return ListBehaviorDetectionRules200ResponseInner
-	// TODU
 	ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBehaviorDetectionRuleRequest) (*APIResponse, error)
 }
 
@@ -138,22 +130,18 @@ type BehaviorAPI interface {
 type BehaviorAPIService service
 
 type ApiActivateBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
 	behaviorId string
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiActivateBehaviorDetectionRuleRequest) Data (data interface{}) ApiActivateBehaviorDetectionRuleRequest {
+func (r ApiActivateBehaviorDetectionRuleRequest) Data(data interface{}) ApiActivateBehaviorDetectionRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateBehaviorDetectionRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateBehaviorDetectionRuleExecute(r)
 }
@@ -167,12 +155,11 @@ Activates a behavior detection rule
  @param behaviorId id of the Behavior Detection Rule
  @return ApiActivateBehaviorDetectionRuleRequest
 */
-// TODU
 
 func (a *BehaviorAPIService) ActivateBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiActivateBehaviorDetectionRuleRequest {
 	return ApiActivateBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		behaviorId: behaviorId,
 		retryCount: 0,
 	}
@@ -186,10 +173,9 @@ func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateB
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -199,7 +185,6 @@ func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateB
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehaviorAPIService.ActivateBehaviorDetectionRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -227,7 +212,6 @@ func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateB
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -244,13 +228,11 @@ func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateB
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -259,7 +241,6 @@ func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateB
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -274,12 +255,10 @@ func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateB
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -288,12 +267,10 @@ func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateB
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -302,13 +279,11 @@ func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateB
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -317,10 +292,9 @@ func (a *BehaviorAPIService) ActivateBehaviorDetectionRuleExecute(r ApiActivateB
 }
 
 type ApiCreateBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
-	rule *ListBehaviorDetectionRules200ResponseInner
-	// TODU
+	rule       *ListBehaviorDetectionRules200ResponseInner
 	data       interface{}
 	retryCount int32
 }
@@ -330,14 +304,11 @@ func (r ApiCreateBehaviorDetectionRuleRequest) Rule(rule ListBehaviorDetectionRu
 	return r
 }
 
-
-// TODU
-func (r ApiCreateBehaviorDetectionRuleRequest) Data (data interface{}) ApiCreateBehaviorDetectionRuleRequest {
+func (r ApiCreateBehaviorDetectionRuleRequest) Data(data interface{}) ApiCreateBehaviorDetectionRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateBehaviorDetectionRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateBehaviorDetectionRuleExecute(r)
 }
@@ -350,12 +321,11 @@ Creates a new behavior detection rule
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateBehaviorDetectionRuleRequest
 */
-// TODU
 
 func (a *BehaviorAPIService) CreateBehaviorDetectionRule(ctx context.Context) ApiCreateBehaviorDetectionRuleRequest {
 	return ApiCreateBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -368,10 +338,9 @@ func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehav
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -381,7 +350,6 @@ func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehav
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehaviorAPIService.CreateBehaviorDetectionRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -408,7 +376,6 @@ func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehav
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.rule
 	localVarPostBody = r.data
@@ -428,13 +395,11 @@ func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehav
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -443,7 +408,6 @@ func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehav
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -458,12 +422,10 @@ func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehav
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -472,12 +434,10 @@ func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehav
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -486,13 +446,11 @@ func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehav
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -501,22 +459,18 @@ func (a *BehaviorAPIService) CreateBehaviorDetectionRuleExecute(r ApiCreateBehav
 }
 
 type ApiDeactivateBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
 	behaviorId string
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeactivateBehaviorDetectionRuleRequest) Data (data interface{}) ApiDeactivateBehaviorDetectionRuleRequest {
+func (r ApiDeactivateBehaviorDetectionRuleRequest) Data(data interface{}) ApiDeactivateBehaviorDetectionRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateBehaviorDetectionRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateBehaviorDetectionRuleExecute(r)
 }
@@ -530,12 +484,11 @@ Deactivates a behavior detection rule
  @param behaviorId id of the Behavior Detection Rule
  @return ApiDeactivateBehaviorDetectionRuleRequest
 */
-// TODU
 
 func (a *BehaviorAPIService) DeactivateBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiDeactivateBehaviorDetectionRuleRequest {
 	return ApiDeactivateBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		behaviorId: behaviorId,
 		retryCount: 0,
 	}
@@ -549,10 +502,9 @@ func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactiv
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -562,7 +514,6 @@ func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactiv
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehaviorAPIService.DeactivateBehaviorDetectionRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -590,7 +541,6 @@ func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactiv
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -607,13 +557,11 @@ func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactiv
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -622,7 +570,6 @@ func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactiv
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -637,12 +584,10 @@ func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactiv
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -651,12 +596,10 @@ func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactiv
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -665,13 +608,11 @@ func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactiv
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -680,22 +621,18 @@ func (a *BehaviorAPIService) DeactivateBehaviorDetectionRuleExecute(r ApiDeactiv
 }
 
 type ApiDeleteBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
 	behaviorId string
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteBehaviorDetectionRuleRequest) Data (data interface{}) ApiDeleteBehaviorDetectionRuleRequest {
+func (r ApiDeleteBehaviorDetectionRuleRequest) Data(data interface{}) ApiDeleteBehaviorDetectionRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteBehaviorDetectionRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteBehaviorDetectionRuleExecute(r)
 }
@@ -709,12 +646,11 @@ Deletes a Behavior Detection Rule by `behaviorId`
  @param behaviorId id of the Behavior Detection Rule
  @return ApiDeleteBehaviorDetectionRuleRequest
 */
-// TODU
 
 func (a *BehaviorAPIService) DeleteBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiDeleteBehaviorDetectionRuleRequest {
 	return ApiDeleteBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		behaviorId: behaviorId,
 		retryCount: 0,
 	}
@@ -729,7 +665,7 @@ func (a *BehaviorAPIService) DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehav
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -739,7 +675,6 @@ func (a *BehaviorAPIService) DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehav
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehaviorAPIService.DeleteBehaviorDetectionRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -767,7 +702,6 @@ func (a *BehaviorAPIService) DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehav
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -784,13 +718,11 @@ func (a *BehaviorAPIService) DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehav
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -799,7 +731,6 @@ func (a *BehaviorAPIService) DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehav
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -814,12 +745,10 @@ func (a *BehaviorAPIService) DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehav
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -828,12 +757,10 @@ func (a *BehaviorAPIService) DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehav
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -842,13 +769,11 @@ func (a *BehaviorAPIService) DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehav
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -857,22 +782,18 @@ func (a *BehaviorAPIService) DeleteBehaviorDetectionRuleExecute(r ApiDeleteBehav
 }
 
 type ApiGetBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
 	behaviorId string
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetBehaviorDetectionRuleRequest) Data (data interface{}) ApiGetBehaviorDetectionRuleRequest {
+func (r ApiGetBehaviorDetectionRuleRequest) Data(data interface{}) ApiGetBehaviorDetectionRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetBehaviorDetectionRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetBehaviorDetectionRuleExecute(r)
 }
@@ -886,12 +807,11 @@ Retrieves a Behavior Detection Rule by `behaviorId`
  @param behaviorId id of the Behavior Detection Rule
  @return ApiGetBehaviorDetectionRuleRequest
 */
-// TODU
 
 func (a *BehaviorAPIService) GetBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiGetBehaviorDetectionRuleRequest {
 	return ApiGetBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		behaviorId: behaviorId,
 		retryCount: 0,
 	}
@@ -905,10 +825,9 @@ func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDet
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -918,7 +837,6 @@ func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDet
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehaviorAPIService.GetBehaviorDetectionRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -946,7 +864,6 @@ func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDet
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -963,13 +880,11 @@ func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDet
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -978,7 +893,6 @@ func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDet
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -993,12 +907,10 @@ func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDet
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1007,12 +919,10 @@ func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDet
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1021,13 +931,11 @@ func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDet
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1036,21 +944,17 @@ func (a *BehaviorAPIService) GetBehaviorDetectionRuleExecute(r ApiGetBehaviorDet
 }
 
 type ApiListBehaviorDetectionRulesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListBehaviorDetectionRulesRequest) Data (data interface{}) ApiListBehaviorDetectionRulesRequest {
+func (r ApiListBehaviorDetectionRulesRequest) Data(data interface{}) ApiListBehaviorDetectionRulesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListBehaviorDetectionRulesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListBehaviorDetectionRulesExecute(r)
 }
@@ -1063,12 +967,11 @@ Lists all behavior detection rules with pagination support
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListBehaviorDetectionRulesRequest
 */
-// TODU
 
 func (a *BehaviorAPIService) ListBehaviorDetectionRules(ctx context.Context) ApiListBehaviorDetectionRulesRequest {
 	return ApiListBehaviorDetectionRulesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1081,10 +984,9 @@ func (a *BehaviorAPIService) ListBehaviorDetectionRulesExecute(r ApiListBehavior
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1094,7 +996,6 @@ func (a *BehaviorAPIService) ListBehaviorDetectionRulesExecute(r ApiListBehavior
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehaviorAPIService.ListBehaviorDetectionRules")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1121,7 +1022,6 @@ func (a *BehaviorAPIService) ListBehaviorDetectionRulesExecute(r ApiListBehavior
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1138,13 +1038,11 @@ func (a *BehaviorAPIService) ListBehaviorDetectionRulesExecute(r ApiListBehavior
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1153,7 +1051,6 @@ func (a *BehaviorAPIService) ListBehaviorDetectionRulesExecute(r ApiListBehavior
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1168,12 +1065,10 @@ func (a *BehaviorAPIService) ListBehaviorDetectionRulesExecute(r ApiListBehavior
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1182,13 +1077,11 @@ func (a *BehaviorAPIService) ListBehaviorDetectionRulesExecute(r ApiListBehavior
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1197,11 +1090,10 @@ func (a *BehaviorAPIService) ListBehaviorDetectionRulesExecute(r ApiListBehavior
 }
 
 type ApiReplaceBehaviorDetectionRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService BehaviorAPI
 	behaviorId string
-	rule *ListBehaviorDetectionRules200ResponseInner
-	// TODU
+	rule       *ListBehaviorDetectionRules200ResponseInner
 	data       interface{}
 	retryCount int32
 }
@@ -1211,14 +1103,11 @@ func (r ApiReplaceBehaviorDetectionRuleRequest) Rule(rule ListBehaviorDetectionR
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceBehaviorDetectionRuleRequest) Data (data interface{}) ApiReplaceBehaviorDetectionRuleRequest {
+func (r ApiReplaceBehaviorDetectionRuleRequest) Data(data interface{}) ApiReplaceBehaviorDetectionRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceBehaviorDetectionRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceBehaviorDetectionRuleExecute(r)
 }
@@ -1232,12 +1121,11 @@ Replaces a Behavior Detection Rule by `behaviorId`
  @param behaviorId id of the Behavior Detection Rule
  @return ApiReplaceBehaviorDetectionRuleRequest
 */
-// TODU
 
 func (a *BehaviorAPIService) ReplaceBehaviorDetectionRule(ctx context.Context, behaviorId string) ApiReplaceBehaviorDetectionRuleRequest {
 	return ApiReplaceBehaviorDetectionRuleRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		behaviorId: behaviorId,
 		retryCount: 0,
 	}
@@ -1251,10 +1139,9 @@ func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBeh
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1264,7 +1151,6 @@ func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBeh
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BehaviorAPIService.ReplaceBehaviorDetectionRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1292,7 +1178,6 @@ func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBeh
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.rule
 	localVarPostBody = r.data
@@ -1312,13 +1197,11 @@ func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBeh
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1327,7 +1210,6 @@ func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBeh
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1342,12 +1224,10 @@ func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBeh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1356,12 +1236,10 @@ func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBeh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1370,12 +1248,10 @@ func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBeh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1384,13 +1260,11 @@ func (a *BehaviorAPIService) ReplaceBehaviorDetectionRuleExecute(r ApiReplaceBeh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

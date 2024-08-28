@@ -17,358 +17,334 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
-	"strings"
 	"os"
+	"strings"
+	"time"
 )
-
 
 type OrgSettingAPI interface {
 
 	/*
-	AssignClientPrivilegesSetting Assign the Super Admin role to a public client app
+		AssignClientPrivilegesSetting Assign the Super Admin role to a public client app
 
-	Assigns the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) by default to a public client app
+		Assigns the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) by default to a public client app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAssignClientPrivilegesSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiAssignClientPrivilegesSettingRequest
 	*/
 	AssignClientPrivilegesSetting(ctx context.Context) ApiAssignClientPrivilegesSettingRequest
 
 	// AssignClientPrivilegesSettingExecute executes the request
 	//  @return ClientPrivilegesSetting
-	// TODU
 	AssignClientPrivilegesSettingExecute(r ApiAssignClientPrivilegesSettingRequest) (*APIResponse, error)
 
 	/*
-	BulkRemoveEmailAddressBounces Remove Emails from Email Provider Bounce List
+		BulkRemoveEmailAddressBounces Remove Emails from Email Provider Bounce List
 
-	Removes a list of email addresses to be removed from the set of email addresses that are bounced
+		Removes a list of email addresses to be removed from the set of email addresses that are bounced
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiBulkRemoveEmailAddressBouncesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiBulkRemoveEmailAddressBouncesRequest
 	*/
 	BulkRemoveEmailAddressBounces(ctx context.Context) ApiBulkRemoveEmailAddressBouncesRequest
 
 	// BulkRemoveEmailAddressBouncesExecute executes the request
 	//  @return BouncesRemoveListResult
-	// TODU
 	BulkRemoveEmailAddressBouncesExecute(r ApiBulkRemoveEmailAddressBouncesRequest) (*APIResponse, error)
 
 	/*
-	ExtendOktaSupport Extend Okta Support Access
+		ExtendOktaSupport Extend Okta Support Access
 
-	Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
+		Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiExtendOktaSupportRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiExtendOktaSupportRequest
 	*/
 	ExtendOktaSupport(ctx context.Context) ApiExtendOktaSupportRequest
 
 	// ExtendOktaSupportExecute executes the request
 	//  @return OrgOktaSupportSettingsObj
-	// TODU
 	ExtendOktaSupportExecute(r ApiExtendOktaSupportRequest) (*APIResponse, error)
 
 	/*
-	GetClientPrivilegesSetting Retrieve the Org settings to assign the Super Admin role
+		GetClientPrivilegesSetting Retrieve the Org settings to assign the Super Admin role
 
-	Retrieves the Org settings to assign the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) by default to a public client app
+		Retrieves the Org settings to assign the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=ext_superadmin) by default to a public client app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetClientPrivilegesSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetClientPrivilegesSettingRequest
 	*/
 	GetClientPrivilegesSetting(ctx context.Context) ApiGetClientPrivilegesSettingRequest
 
 	// GetClientPrivilegesSettingExecute executes the request
 	//  @return ClientPrivilegesSetting
-	// TODU
 	GetClientPrivilegesSettingExecute(r ApiGetClientPrivilegesSettingRequest) (*APIResponse, error)
 
 	/*
-	GetOktaCommunicationSettings Retrieve the Okta Communication Settings
+		GetOktaCommunicationSettings Retrieve the Okta Communication Settings
 
-	Retrieves Okta Communication Settings of your organization
+		Retrieves Okta Communication Settings of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOktaCommunicationSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetOktaCommunicationSettingsRequest
 	*/
 	GetOktaCommunicationSettings(ctx context.Context) ApiGetOktaCommunicationSettingsRequest
 
 	// GetOktaCommunicationSettingsExecute executes the request
 	//  @return OrgOktaCommunicationSetting
-	// TODU
 	GetOktaCommunicationSettingsExecute(r ApiGetOktaCommunicationSettingsRequest) (*APIResponse, error)
 
 	/*
-	GetOrgContactTypes Retrieve the Org Contact Types
+		GetOrgContactTypes Retrieve the Org Contact Types
 
-	Retrieves Contact Types of your organization
+		Retrieves Contact Types of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgContactTypesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetOrgContactTypesRequest
 	*/
 	GetOrgContactTypes(ctx context.Context) ApiGetOrgContactTypesRequest
 
 	// GetOrgContactTypesExecute executes the request
 	//  @return []OrgContactTypeObj
-	// TODU
 	GetOrgContactTypesExecute(r ApiGetOrgContactTypesRequest) (*APIResponse, error)
 
 	/*
-	GetOrgContactUser Retrieve the User of the Contact Type
+		GetOrgContactUser Retrieve the User of the Contact Type
 
-	Retrieves the URL of the User associated with the specified Contact Type
+		Retrieves the URL of the User associated with the specified Contact Type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param contactType
-	@return ApiGetOrgContactUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param contactType
+		@return ApiGetOrgContactUserRequest
 	*/
 	GetOrgContactUser(ctx context.Context, contactType string) ApiGetOrgContactUserRequest
 
 	// GetOrgContactUserExecute executes the request
 	//  @return OrgContactUser
-	// TODU
 	GetOrgContactUserExecute(r ApiGetOrgContactUserRequest) (*APIResponse, error)
 
 	/*
-	GetOrgOktaSupportSettings Retrieve the Okta Support Settings
+		GetOrgOktaSupportSettings Retrieve the Okta Support Settings
 
-	Retrieves Okta Support Settings of your organization
+		Retrieves Okta Support Settings of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgOktaSupportSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetOrgOktaSupportSettingsRequest
 	*/
 	GetOrgOktaSupportSettings(ctx context.Context) ApiGetOrgOktaSupportSettingsRequest
 
 	// GetOrgOktaSupportSettingsExecute executes the request
 	//  @return OrgOktaSupportSettingsObj
-	// TODU
 	GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaSupportSettingsRequest) (*APIResponse, error)
 
 	/*
-	GetOrgPreferences Retrieve the Org Preferences
+		GetOrgPreferences Retrieve the Org Preferences
 
-	Retrieves preferences of your organization
+		Retrieves preferences of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgPreferencesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetOrgPreferencesRequest
 	*/
 	GetOrgPreferences(ctx context.Context) ApiGetOrgPreferencesRequest
 
 	// GetOrgPreferencesExecute executes the request
 	//  @return OrgPreferences
-	// TODU
 	GetOrgPreferencesExecute(r ApiGetOrgPreferencesRequest) (*APIResponse, error)
 
 	/*
-	GetOrgSettings Retrieve the Org Settings
+		GetOrgSettings Retrieve the Org Settings
 
-	Retrieves the org settings
+		Retrieves the org settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetOrgSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetOrgSettingsRequest
 	*/
 	GetOrgSettings(ctx context.Context) ApiGetOrgSettingsRequest
 
 	// GetOrgSettingsExecute executes the request
 	//  @return OrgSetting
-	// TODU
 	GetOrgSettingsExecute(r ApiGetOrgSettingsRequest) (*APIResponse, error)
 
 	/*
-	GetThirdPartyAdminSetting Retrieve the Org Third-Party Admin setting
+		GetThirdPartyAdminSetting Retrieve the Org Third-Party Admin setting
 
-	Retrieves the Third-Party Admin setting
+		Retrieves the Third-Party Admin setting
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetThirdPartyAdminSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetThirdPartyAdminSettingRequest
 	*/
 	GetThirdPartyAdminSetting(ctx context.Context) ApiGetThirdPartyAdminSettingRequest
 
 	// GetThirdPartyAdminSettingExecute executes the request
 	//  @return ThirdPartyAdminSetting
-	// TODU
 	GetThirdPartyAdminSettingExecute(r ApiGetThirdPartyAdminSettingRequest) (*APIResponse, error)
 
 	/*
-	GetWellknownOrgMetadata Retrieve the Well-Known Org Metadata
+		GetWellknownOrgMetadata Retrieve the Well-Known Org Metadata
 
-	Retrieves the well-known org metadata, which includes the id, configured custom domains, authentication pipeline, and various other org settings
+		Retrieves the well-known org metadata, which includes the id, configured custom domains, authentication pipeline, and various other org settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetWellknownOrgMetadataRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetWellknownOrgMetadataRequest
 	*/
 	GetWellknownOrgMetadata(ctx context.Context) ApiGetWellknownOrgMetadataRequest
 
 	// GetWellknownOrgMetadataExecute executes the request
 	//  @return WellKnownOrgMetadata
-	// TODU
 	GetWellknownOrgMetadataExecute(r ApiGetWellknownOrgMetadataRequest) (*APIResponse, error)
 
 	/*
-	GrantOktaSupport Grant Okta Support Access to your Org
+		GrantOktaSupport Grant Okta Support Access to your Org
 
-	Grants Okta Support temporary access your org as an administrator for eight hours
+		Grants Okta Support temporary access your org as an administrator for eight hours
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGrantOktaSupportRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGrantOktaSupportRequest
 	*/
 	GrantOktaSupport(ctx context.Context) ApiGrantOktaSupportRequest
 
 	// GrantOktaSupportExecute executes the request
 	//  @return OrgOktaSupportSettingsObj
-	// TODU
 	GrantOktaSupportExecute(r ApiGrantOktaSupportRequest) (*APIResponse, error)
 
 	/*
-	OptInUsersToOktaCommunicationEmails Opt in all Users to Okta Communication emails
+		OptInUsersToOktaCommunicationEmails Opt in all Users to Okta Communication emails
 
-	Opts in all users of this org to Okta Communication emails
+		Opts in all users of this org to Okta Communication emails
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiOptInUsersToOktaCommunicationEmailsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiOptInUsersToOktaCommunicationEmailsRequest
 	*/
 	OptInUsersToOktaCommunicationEmails(ctx context.Context) ApiOptInUsersToOktaCommunicationEmailsRequest
 
 	// OptInUsersToOktaCommunicationEmailsExecute executes the request
 	//  @return OrgOktaCommunicationSetting
-	// TODU
 	OptInUsersToOktaCommunicationEmailsExecute(r ApiOptInUsersToOktaCommunicationEmailsRequest) (*APIResponse, error)
 
 	/*
-	OptOutUsersFromOktaCommunicationEmails Opt out all Users from Okta Communication emails
+		OptOutUsersFromOktaCommunicationEmails Opt out all Users from Okta Communication emails
 
-	Opts out all users of this org from Okta Communication emails
+		Opts out all users of this org from Okta Communication emails
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiOptOutUsersFromOktaCommunicationEmailsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiOptOutUsersFromOktaCommunicationEmailsRequest
 	*/
 	OptOutUsersFromOktaCommunicationEmails(ctx context.Context) ApiOptOutUsersFromOktaCommunicationEmailsRequest
 
 	// OptOutUsersFromOktaCommunicationEmailsExecute executes the request
 	//  @return OrgOktaCommunicationSetting
-	// TODU
 	OptOutUsersFromOktaCommunicationEmailsExecute(r ApiOptOutUsersFromOktaCommunicationEmailsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceOrgContactUser Replace the User of the Contact Type
+		ReplaceOrgContactUser Replace the User of the Contact Type
 
-	Replaces the User associated with the specified Contact Type
+		Replaces the User associated with the specified Contact Type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param contactType
-	@return ApiReplaceOrgContactUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param contactType
+		@return ApiReplaceOrgContactUserRequest
 	*/
 	ReplaceOrgContactUser(ctx context.Context, contactType string) ApiReplaceOrgContactUserRequest
 
 	// ReplaceOrgContactUserExecute executes the request
 	//  @return OrgContactUser
-	// TODU
 	ReplaceOrgContactUserExecute(r ApiReplaceOrgContactUserRequest) (*APIResponse, error)
 
 	/*
-	ReplaceOrgSettings Replace the Org Settings
+		ReplaceOrgSettings Replace the Org Settings
 
-	Replaces the settings of your organization
+		Replaces the settings of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceOrgSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceOrgSettingsRequest
 	*/
 	ReplaceOrgSettings(ctx context.Context) ApiReplaceOrgSettingsRequest
 
 	// ReplaceOrgSettingsExecute executes the request
 	//  @return OrgSetting
-	// TODU
 	ReplaceOrgSettingsExecute(r ApiReplaceOrgSettingsRequest) (*APIResponse, error)
 
 	/*
-	RevokeOktaSupport Revoke Okta Support Access
+		RevokeOktaSupport Revoke Okta Support Access
 
-	Revokes Okta Support access to your organization
+		Revokes Okta Support access to your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiRevokeOktaSupportRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRevokeOktaSupportRequest
 	*/
 	RevokeOktaSupport(ctx context.Context) ApiRevokeOktaSupportRequest
 
 	// RevokeOktaSupportExecute executes the request
 	//  @return OrgOktaSupportSettingsObj
-	// TODU
 	RevokeOktaSupportExecute(r ApiRevokeOktaSupportRequest) (*APIResponse, error)
 
 	/*
-	UpdateOrgHideOktaUIFooter Update the Preference to Hide the Okta Dashboard Footer
+		UpdateOrgHideOktaUIFooter Update the Preference to Hide the Okta Dashboard Footer
 
-	Updates the preference hide the Okta UI footer for all end users of your organization
+		Updates the preference hide the Okta UI footer for all end users of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateOrgHideOktaUIFooterRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateOrgHideOktaUIFooterRequest
 	*/
 	UpdateOrgHideOktaUIFooter(ctx context.Context) ApiUpdateOrgHideOktaUIFooterRequest
 
 	// UpdateOrgHideOktaUIFooterExecute executes the request
 	//  @return OrgPreferences
-	// TODU
 	UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHideOktaUIFooterRequest) (*APIResponse, error)
 
 	/*
-	UpdateOrgSettings Update the Org Settings
+		UpdateOrgSettings Update the Org Settings
 
-	Partially updates the org settings depending on provided fields
+		Partially updates the org settings depending on provided fields
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateOrgSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateOrgSettingsRequest
 	*/
 	UpdateOrgSettings(ctx context.Context) ApiUpdateOrgSettingsRequest
 
 	// UpdateOrgSettingsExecute executes the request
 	//  @return OrgSetting
-	// TODU
 	UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRequest) (*APIResponse, error)
 
 	/*
-	UpdateOrgShowOktaUIFooter Update the Preference to Show the Okta Dashboard Footer
+		UpdateOrgShowOktaUIFooter Update the Preference to Show the Okta Dashboard Footer
 
-	Updates the preference to show the Okta UI footer for all end users of your organization
+		Updates the preference to show the Okta UI footer for all end users of your organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateOrgShowOktaUIFooterRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateOrgShowOktaUIFooterRequest
 	*/
 	UpdateOrgShowOktaUIFooter(ctx context.Context) ApiUpdateOrgShowOktaUIFooterRequest
 
 	// UpdateOrgShowOktaUIFooterExecute executes the request
 	//  @return OrgPreferences
-	// TODU
 	UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgShowOktaUIFooterRequest) (*APIResponse, error)
 
 	/*
-	UpdateThirdPartyAdminSetting Update the Org Third-Party Admin setting
+		UpdateThirdPartyAdminSetting Update the Org Third-Party Admin setting
 
-	Updates the Third-Party Admin setting
+		Updates the Third-Party Admin setting
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateThirdPartyAdminSettingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateThirdPartyAdminSettingRequest
 	*/
 	UpdateThirdPartyAdminSetting(ctx context.Context) ApiUpdateThirdPartyAdminSettingRequest
 
 	// UpdateThirdPartyAdminSettingExecute executes the request
 	//  @return ThirdPartyAdminSetting
-	// TODU
 	UpdateThirdPartyAdminSettingExecute(r ApiUpdateThirdPartyAdminSettingRequest) (*APIResponse, error)
 
 	/*
-	UploadOrgLogo Upload the Org Logo
+		UploadOrgLogo Upload the Org Logo
 
-	Uploads and replaces the logo for your organization. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
+		Uploads and replaces the logo for your organization. The file must be in PNG, JPG, or GIF format and less than 100kB in size. For best results use landscape orientation, a transparent background, and a minimum size of 300px by 50px to prevent upscaling.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUploadOrgLogoRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUploadOrgLogoRequest
 	*/
 	UploadOrgLogo(ctx context.Context) ApiUploadOrgLogoRequest
 
 	// UploadOrgLogoExecute executes the request
-	// TODU
 	UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (*APIResponse, error)
 }
 
@@ -376,12 +352,11 @@ type OrgSettingAPI interface {
 type OrgSettingAPIService service
 
 type ApiAssignClientPrivilegesSettingRequest struct {
-	ctx context.Context
-	ApiService OrgSettingAPI
+	ctx                     context.Context
+	ApiService              OrgSettingAPI
 	clientPrivilegesSetting *ClientPrivilegesSetting
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                    interface{}
+	retryCount              int32
 }
 
 func (r ApiAssignClientPrivilegesSettingRequest) ClientPrivilegesSetting(clientPrivilegesSetting ClientPrivilegesSetting) ApiAssignClientPrivilegesSettingRequest {
@@ -389,14 +364,11 @@ func (r ApiAssignClientPrivilegesSettingRequest) ClientPrivilegesSetting(clientP
 	return r
 }
 
-
-// TODU
-func (r ApiAssignClientPrivilegesSettingRequest) Data (data interface{}) ApiAssignClientPrivilegesSettingRequest {
+func (r ApiAssignClientPrivilegesSettingRequest) Data(data interface{}) ApiAssignClientPrivilegesSettingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignClientPrivilegesSettingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignClientPrivilegesSettingExecute(r)
 }
@@ -409,12 +381,11 @@ Assigns the [Super Admin role](https://help.okta.com/okta_help.htm?type=oie&id=e
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAssignClientPrivilegesSettingRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) AssignClientPrivilegesSetting(ctx context.Context) ApiAssignClientPrivilegesSettingRequest {
 	return ApiAssignClientPrivilegesSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -427,10 +398,9 @@ func (a *OrgSettingAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignC
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -440,7 +410,6 @@ func (a *OrgSettingAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignC
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.AssignClientPrivilegesSetting")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -467,7 +436,6 @@ func (a *OrgSettingAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignC
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.clientPrivilegesSetting
 	localVarPostBody = r.data
@@ -487,13 +455,11 @@ func (a *OrgSettingAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignC
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -502,7 +468,6 @@ func (a *OrgSettingAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignC
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -517,12 +482,10 @@ func (a *OrgSettingAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -531,13 +494,11 @@ func (a *OrgSettingAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -546,12 +507,11 @@ func (a *OrgSettingAPIService) AssignClientPrivilegesSettingExecute(r ApiAssignC
 }
 
 type ApiBulkRemoveEmailAddressBouncesRequest struct {
-	ctx context.Context
-	ApiService OrgSettingAPI
+	ctx                  context.Context
+	ApiService           OrgSettingAPI
 	bouncesRemoveListObj *BouncesRemoveListObj
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                 interface{}
+	retryCount           int32
 }
 
 func (r ApiBulkRemoveEmailAddressBouncesRequest) BouncesRemoveListObj(bouncesRemoveListObj BouncesRemoveListObj) ApiBulkRemoveEmailAddressBouncesRequest {
@@ -559,14 +519,11 @@ func (r ApiBulkRemoveEmailAddressBouncesRequest) BouncesRemoveListObj(bouncesRem
 	return r
 }
 
-
-// TODU
-func (r ApiBulkRemoveEmailAddressBouncesRequest) Data (data interface{}) ApiBulkRemoveEmailAddressBouncesRequest {
+func (r ApiBulkRemoveEmailAddressBouncesRequest) Data(data interface{}) ApiBulkRemoveEmailAddressBouncesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiBulkRemoveEmailAddressBouncesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.BulkRemoveEmailAddressBouncesExecute(r)
 }
@@ -579,12 +536,11 @@ Removes a list of email addresses to be removed from the set of email addresses 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiBulkRemoveEmailAddressBouncesRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) BulkRemoveEmailAddressBounces(ctx context.Context) ApiBulkRemoveEmailAddressBouncesRequest {
 	return ApiBulkRemoveEmailAddressBouncesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -597,10 +553,9 @@ func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRem
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -610,7 +565,6 @@ func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRem
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.BulkRemoveEmailAddressBounces")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -637,7 +591,6 @@ func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRem
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.bouncesRemoveListObj
 	localVarPostBody = r.data
@@ -657,13 +610,11 @@ func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRem
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -672,7 +623,6 @@ func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRem
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -687,12 +637,10 @@ func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRem
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -701,12 +649,10 @@ func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRem
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -715,13 +661,11 @@ func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRem
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -730,21 +674,17 @@ func (a *OrgSettingAPIService) BulkRemoveEmailAddressBouncesExecute(r ApiBulkRem
 }
 
 type ApiExtendOktaSupportRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiExtendOktaSupportRequest) Data (data interface{}) ApiExtendOktaSupportRequest {
+func (r ApiExtendOktaSupportRequest) Data(data interface{}) ApiExtendOktaSupportRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiExtendOktaSupportRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ExtendOktaSupportExecute(r)
 }
@@ -757,12 +697,11 @@ Extends the length of time that Okta Support can access your org by 24 hours. Th
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiExtendOktaSupportRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) ExtendOktaSupport(ctx context.Context) ApiExtendOktaSupportRequest {
 	return ApiExtendOktaSupportRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -775,10 +714,9 @@ func (a *OrgSettingAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSupportRe
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -788,7 +726,6 @@ func (a *OrgSettingAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSupportRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.ExtendOktaSupport")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -815,7 +752,6 @@ func (a *OrgSettingAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSupportRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -832,13 +768,11 @@ func (a *OrgSettingAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSupportRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -847,7 +781,6 @@ func (a *OrgSettingAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSupportRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -862,12 +795,10 @@ func (a *OrgSettingAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSupportRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -876,13 +807,11 @@ func (a *OrgSettingAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSupportRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -891,21 +820,17 @@ func (a *OrgSettingAPIService) ExtendOktaSupportExecute(r ApiExtendOktaSupportRe
 }
 
 type ApiGetClientPrivilegesSettingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetClientPrivilegesSettingRequest) Data (data interface{}) ApiGetClientPrivilegesSettingRequest {
+func (r ApiGetClientPrivilegesSettingRequest) Data(data interface{}) ApiGetClientPrivilegesSettingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetClientPrivilegesSettingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetClientPrivilegesSettingExecute(r)
 }
@@ -918,12 +843,11 @@ Retrieves the Org settings to assign the [Super Admin role](https://help.okta.co
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetClientPrivilegesSettingRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) GetClientPrivilegesSetting(ctx context.Context) ApiGetClientPrivilegesSettingRequest {
 	return ApiGetClientPrivilegesSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -936,10 +860,9 @@ func (a *OrgSettingAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientP
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -949,7 +872,6 @@ func (a *OrgSettingAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.GetClientPrivilegesSetting")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -976,7 +898,6 @@ func (a *OrgSettingAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -993,13 +914,11 @@ func (a *OrgSettingAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1008,7 +927,6 @@ func (a *OrgSettingAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1023,12 +941,10 @@ func (a *OrgSettingAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1037,13 +953,11 @@ func (a *OrgSettingAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1052,21 +966,17 @@ func (a *OrgSettingAPIService) GetClientPrivilegesSettingExecute(r ApiGetClientP
 }
 
 type ApiGetOktaCommunicationSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetOktaCommunicationSettingsRequest) Data (data interface{}) ApiGetOktaCommunicationSettingsRequest {
+func (r ApiGetOktaCommunicationSettingsRequest) Data(data interface{}) ApiGetOktaCommunicationSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetOktaCommunicationSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetOktaCommunicationSettingsExecute(r)
 }
@@ -1079,12 +989,11 @@ Retrieves Okta Communication Settings of your organization
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetOktaCommunicationSettingsRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) GetOktaCommunicationSettings(ctx context.Context) ApiGetOktaCommunicationSettingsRequest {
 	return ApiGetOktaCommunicationSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1097,10 +1006,9 @@ func (a *OrgSettingAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaC
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1110,7 +1018,6 @@ func (a *OrgSettingAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaC
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.GetOktaCommunicationSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1137,7 +1044,6 @@ func (a *OrgSettingAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaC
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1154,13 +1060,11 @@ func (a *OrgSettingAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaC
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1169,7 +1073,6 @@ func (a *OrgSettingAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaC
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1184,12 +1087,10 @@ func (a *OrgSettingAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1198,13 +1099,11 @@ func (a *OrgSettingAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1213,21 +1112,17 @@ func (a *OrgSettingAPIService) GetOktaCommunicationSettingsExecute(r ApiGetOktaC
 }
 
 type ApiGetOrgContactTypesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetOrgContactTypesRequest) Data (data interface{}) ApiGetOrgContactTypesRequest {
+func (r ApiGetOrgContactTypesRequest) Data(data interface{}) ApiGetOrgContactTypesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetOrgContactTypesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetOrgContactTypesExecute(r)
 }
@@ -1240,12 +1135,11 @@ Retrieves Contact Types of your organization
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetOrgContactTypesRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) GetOrgContactTypes(ctx context.Context) ApiGetOrgContactTypesRequest {
 	return ApiGetOrgContactTypesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1258,10 +1152,9 @@ func (a *OrgSettingAPIService) GetOrgContactTypesExecute(r ApiGetOrgContactTypes
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1271,7 +1164,6 @@ func (a *OrgSettingAPIService) GetOrgContactTypesExecute(r ApiGetOrgContactTypes
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.GetOrgContactTypes")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1298,7 +1190,6 @@ func (a *OrgSettingAPIService) GetOrgContactTypesExecute(r ApiGetOrgContactTypes
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1315,13 +1206,11 @@ func (a *OrgSettingAPIService) GetOrgContactTypesExecute(r ApiGetOrgContactTypes
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1330,7 +1219,6 @@ func (a *OrgSettingAPIService) GetOrgContactTypesExecute(r ApiGetOrgContactTypes
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1345,12 +1233,10 @@ func (a *OrgSettingAPIService) GetOrgContactTypesExecute(r ApiGetOrgContactTypes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1359,13 +1245,11 @@ func (a *OrgSettingAPIService) GetOrgContactTypesExecute(r ApiGetOrgContactTypes
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1374,22 +1258,18 @@ func (a *OrgSettingAPIService) GetOrgContactTypesExecute(r ApiGetOrgContactTypes
 }
 
 type ApiGetOrgContactUserRequest struct {
-	ctx context.Context
-	ApiService OrgSettingAPI
+	ctx         context.Context
+	ApiService  OrgSettingAPI
 	contactType string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
-
-// TODU
-func (r ApiGetOrgContactUserRequest) Data (data interface{}) ApiGetOrgContactUserRequest {
+func (r ApiGetOrgContactUserRequest) Data(data interface{}) ApiGetOrgContactUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetOrgContactUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetOrgContactUserExecute(r)
 }
@@ -1403,14 +1283,13 @@ Retrieves the URL of the User associated with the specified Contact Type
  @param contactType
  @return ApiGetOrgContactUserRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) GetOrgContactUser(ctx context.Context, contactType string) ApiGetOrgContactUserRequest {
 	return ApiGetOrgContactUserRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		contactType: contactType,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -1422,10 +1301,9 @@ func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRe
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1435,7 +1313,6 @@ func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.GetOrgContactUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1463,7 +1340,6 @@ func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1480,13 +1356,11 @@ func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1495,7 +1369,6 @@ func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1510,12 +1383,10 @@ func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1524,12 +1395,10 @@ func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1538,13 +1407,11 @@ func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1553,21 +1420,17 @@ func (a *OrgSettingAPIService) GetOrgContactUserExecute(r ApiGetOrgContactUserRe
 }
 
 type ApiGetOrgOktaSupportSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetOrgOktaSupportSettingsRequest) Data (data interface{}) ApiGetOrgOktaSupportSettingsRequest {
+func (r ApiGetOrgOktaSupportSettingsRequest) Data(data interface{}) ApiGetOrgOktaSupportSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetOrgOktaSupportSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetOrgOktaSupportSettingsExecute(r)
 }
@@ -1580,12 +1443,11 @@ Retrieves Okta Support Settings of your organization
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetOrgOktaSupportSettingsRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) GetOrgOktaSupportSettings(ctx context.Context) ApiGetOrgOktaSupportSettingsRequest {
 	return ApiGetOrgOktaSupportSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1598,10 +1460,9 @@ func (a *OrgSettingAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaS
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1611,7 +1472,6 @@ func (a *OrgSettingAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaS
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.GetOrgOktaSupportSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1638,7 +1498,6 @@ func (a *OrgSettingAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1655,13 +1514,11 @@ func (a *OrgSettingAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaS
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1670,7 +1527,6 @@ func (a *OrgSettingAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaS
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1685,12 +1541,10 @@ func (a *OrgSettingAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaS
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1699,13 +1553,11 @@ func (a *OrgSettingAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaS
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1714,21 +1566,17 @@ func (a *OrgSettingAPIService) GetOrgOktaSupportSettingsExecute(r ApiGetOrgOktaS
 }
 
 type ApiGetOrgPreferencesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetOrgPreferencesRequest) Data (data interface{}) ApiGetOrgPreferencesRequest {
+func (r ApiGetOrgPreferencesRequest) Data(data interface{}) ApiGetOrgPreferencesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetOrgPreferencesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetOrgPreferencesExecute(r)
 }
@@ -1741,12 +1589,11 @@ Retrieves preferences of your organization
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetOrgPreferencesRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) GetOrgPreferences(ctx context.Context) ApiGetOrgPreferencesRequest {
 	return ApiGetOrgPreferencesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1759,10 +1606,9 @@ func (a *OrgSettingAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRe
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1772,7 +1618,6 @@ func (a *OrgSettingAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.GetOrgPreferences")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1799,7 +1644,6 @@ func (a *OrgSettingAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1816,13 +1660,11 @@ func (a *OrgSettingAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1831,7 +1673,6 @@ func (a *OrgSettingAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1846,12 +1687,10 @@ func (a *OrgSettingAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1860,13 +1699,11 @@ func (a *OrgSettingAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1875,21 +1712,17 @@ func (a *OrgSettingAPIService) GetOrgPreferencesExecute(r ApiGetOrgPreferencesRe
 }
 
 type ApiGetOrgSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetOrgSettingsRequest) Data (data interface{}) ApiGetOrgSettingsRequest {
+func (r ApiGetOrgSettingsRequest) Data(data interface{}) ApiGetOrgSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetOrgSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetOrgSettingsExecute(r)
 }
@@ -1902,12 +1735,11 @@ Retrieves the org settings
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetOrgSettingsRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) GetOrgSettings(ctx context.Context) ApiGetOrgSettingsRequest {
 	return ApiGetOrgSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1920,10 +1752,9 @@ func (a *OrgSettingAPIService) GetOrgSettingsExecute(r ApiGetOrgSettingsRequest)
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1933,7 +1764,6 @@ func (a *OrgSettingAPIService) GetOrgSettingsExecute(r ApiGetOrgSettingsRequest)
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.GetOrgSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1960,7 +1790,6 @@ func (a *OrgSettingAPIService) GetOrgSettingsExecute(r ApiGetOrgSettingsRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1977,13 +1806,11 @@ func (a *OrgSettingAPIService) GetOrgSettingsExecute(r ApiGetOrgSettingsRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1992,7 +1819,6 @@ func (a *OrgSettingAPIService) GetOrgSettingsExecute(r ApiGetOrgSettingsRequest)
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2007,12 +1833,10 @@ func (a *OrgSettingAPIService) GetOrgSettingsExecute(r ApiGetOrgSettingsRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2021,13 +1845,11 @@ func (a *OrgSettingAPIService) GetOrgSettingsExecute(r ApiGetOrgSettingsRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2036,21 +1858,17 @@ func (a *OrgSettingAPIService) GetOrgSettingsExecute(r ApiGetOrgSettingsRequest)
 }
 
 type ApiGetThirdPartyAdminSettingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetThirdPartyAdminSettingRequest) Data (data interface{}) ApiGetThirdPartyAdminSettingRequest {
+func (r ApiGetThirdPartyAdminSettingRequest) Data(data interface{}) ApiGetThirdPartyAdminSettingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetThirdPartyAdminSettingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetThirdPartyAdminSettingExecute(r)
 }
@@ -2063,12 +1881,11 @@ Retrieves the Third-Party Admin setting
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetThirdPartyAdminSettingRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) GetThirdPartyAdminSetting(ctx context.Context) ApiGetThirdPartyAdminSettingRequest {
 	return ApiGetThirdPartyAdminSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -2081,10 +1898,9 @@ func (a *OrgSettingAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPar
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2094,7 +1910,6 @@ func (a *OrgSettingAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPar
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.GetThirdPartyAdminSetting")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2121,7 +1936,6 @@ func (a *OrgSettingAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPar
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2138,13 +1952,11 @@ func (a *OrgSettingAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPar
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2153,7 +1965,6 @@ func (a *OrgSettingAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPar
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2168,12 +1979,10 @@ func (a *OrgSettingAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPar
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2182,13 +1991,11 @@ func (a *OrgSettingAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPar
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2197,21 +2004,17 @@ func (a *OrgSettingAPIService) GetThirdPartyAdminSettingExecute(r ApiGetThirdPar
 }
 
 type ApiGetWellknownOrgMetadataRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetWellknownOrgMetadataRequest) Data (data interface{}) ApiGetWellknownOrgMetadataRequest {
+func (r ApiGetWellknownOrgMetadataRequest) Data(data interface{}) ApiGetWellknownOrgMetadataRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetWellknownOrgMetadataRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetWellknownOrgMetadataExecute(r)
 }
@@ -2224,12 +2027,11 @@ Retrieves the well-known org metadata, which includes the id, configured custom 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetWellknownOrgMetadataRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) GetWellknownOrgMetadata(ctx context.Context) ApiGetWellknownOrgMetadataRequest {
 	return ApiGetWellknownOrgMetadataRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -2242,10 +2044,9 @@ func (a *OrgSettingAPIService) GetWellknownOrgMetadataExecute(r ApiGetWellknownO
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2255,7 +2056,6 @@ func (a *OrgSettingAPIService) GetWellknownOrgMetadataExecute(r ApiGetWellknownO
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.GetWellknownOrgMetadata")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2282,16 +2082,13 @@ func (a *OrgSettingAPIService) GetWellknownOrgMetadataExecute(r ApiGetWellknownO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2300,7 +2097,6 @@ func (a *OrgSettingAPIService) GetWellknownOrgMetadataExecute(r ApiGetWellknownO
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2315,13 +2111,11 @@ func (a *OrgSettingAPIService) GetWellknownOrgMetadataExecute(r ApiGetWellknownO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2330,21 +2124,17 @@ func (a *OrgSettingAPIService) GetWellknownOrgMetadataExecute(r ApiGetWellknownO
 }
 
 type ApiGrantOktaSupportRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGrantOktaSupportRequest) Data (data interface{}) ApiGrantOktaSupportRequest {
+func (r ApiGrantOktaSupportRequest) Data(data interface{}) ApiGrantOktaSupportRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGrantOktaSupportRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GrantOktaSupportExecute(r)
 }
@@ -2357,12 +2147,11 @@ Grants Okta Support temporary access your org as an administrator for eight hour
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGrantOktaSupportRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) GrantOktaSupport(ctx context.Context) ApiGrantOktaSupportRequest {
 	return ApiGrantOktaSupportRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -2375,10 +2164,9 @@ func (a *OrgSettingAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupportRequ
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2388,7 +2176,6 @@ func (a *OrgSettingAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupportRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.GrantOktaSupport")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2415,7 +2202,6 @@ func (a *OrgSettingAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupportRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2432,13 +2218,11 @@ func (a *OrgSettingAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupportRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2447,7 +2231,6 @@ func (a *OrgSettingAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupportRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2462,12 +2245,10 @@ func (a *OrgSettingAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupportRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2476,13 +2257,11 @@ func (a *OrgSettingAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupportRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2491,21 +2270,17 @@ func (a *OrgSettingAPIService) GrantOktaSupportExecute(r ApiGrantOktaSupportRequ
 }
 
 type ApiOptInUsersToOktaCommunicationEmailsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiOptInUsersToOktaCommunicationEmailsRequest) Data (data interface{}) ApiOptInUsersToOktaCommunicationEmailsRequest {
+func (r ApiOptInUsersToOktaCommunicationEmailsRequest) Data(data interface{}) ApiOptInUsersToOktaCommunicationEmailsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiOptInUsersToOktaCommunicationEmailsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.OptInUsersToOktaCommunicationEmailsExecute(r)
 }
@@ -2518,12 +2293,11 @@ Opts in all users of this org to Okta Communication emails
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiOptInUsersToOktaCommunicationEmailsRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmails(ctx context.Context) ApiOptInUsersToOktaCommunicationEmailsRequest {
 	return ApiOptInUsersToOktaCommunicationEmailsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -2536,10 +2310,9 @@ func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiO
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2549,7 +2322,6 @@ func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiO
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.OptInUsersToOktaCommunicationEmails")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2576,7 +2348,6 @@ func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2593,13 +2364,11 @@ func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2608,7 +2377,6 @@ func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiO
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2623,12 +2391,10 @@ func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2637,13 +2403,11 @@ func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2652,21 +2416,17 @@ func (a *OrgSettingAPIService) OptInUsersToOktaCommunicationEmailsExecute(r ApiO
 }
 
 type ApiOptOutUsersFromOktaCommunicationEmailsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiOptOutUsersFromOktaCommunicationEmailsRequest) Data (data interface{}) ApiOptOutUsersFromOktaCommunicationEmailsRequest {
+func (r ApiOptOutUsersFromOktaCommunicationEmailsRequest) Data(data interface{}) ApiOptOutUsersFromOktaCommunicationEmailsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiOptOutUsersFromOktaCommunicationEmailsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.OptOutUsersFromOktaCommunicationEmailsExecute(r)
 }
@@ -2679,12 +2439,11 @@ Opts out all users of this org from Okta Communication emails
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiOptOutUsersFromOktaCommunicationEmailsRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmails(ctx context.Context) ApiOptOutUsersFromOktaCommunicationEmailsRequest {
 	return ApiOptOutUsersFromOktaCommunicationEmailsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -2697,10 +2456,9 @@ func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r A
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2710,7 +2468,6 @@ func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.OptOutUsersFromOktaCommunicationEmails")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2737,7 +2494,6 @@ func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2754,13 +2510,11 @@ func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2769,7 +2523,6 @@ func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2784,12 +2537,10 @@ func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2798,13 +2549,11 @@ func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2813,13 +2562,12 @@ func (a *OrgSettingAPIService) OptOutUsersFromOktaCommunicationEmailsExecute(r A
 }
 
 type ApiReplaceOrgContactUserRequest struct {
-	ctx context.Context
-	ApiService OrgSettingAPI
-	contactType string
+	ctx            context.Context
+	ApiService     OrgSettingAPI
+	contactType    string
 	orgContactUser *OrgContactUser
-	// TODU
-	data       interface{}
-	retryCount int32
+	data           interface{}
+	retryCount     int32
 }
 
 func (r ApiReplaceOrgContactUserRequest) OrgContactUser(orgContactUser OrgContactUser) ApiReplaceOrgContactUserRequest {
@@ -2827,14 +2575,11 @@ func (r ApiReplaceOrgContactUserRequest) OrgContactUser(orgContactUser OrgContac
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceOrgContactUserRequest) Data (data interface{}) ApiReplaceOrgContactUserRequest {
+func (r ApiReplaceOrgContactUserRequest) Data(data interface{}) ApiReplaceOrgContactUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceOrgContactUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceOrgContactUserExecute(r)
 }
@@ -2848,14 +2593,13 @@ Replaces the User associated with the specified Contact Type
  @param contactType
  @return ApiReplaceOrgContactUserRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) ReplaceOrgContactUser(ctx context.Context, contactType string) ApiReplaceOrgContactUserRequest {
 	return ApiReplaceOrgContactUserRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		contactType: contactType,
-		retryCount: 0,
+		retryCount:  0,
 	}
 }
 
@@ -2867,10 +2611,9 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2880,7 +2623,6 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.ReplaceOrgContactUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2908,7 +2650,6 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.orgContactUser
 	localVarPostBody = r.data
@@ -2928,13 +2669,11 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2943,7 +2682,6 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2958,12 +2696,10 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2972,12 +2708,10 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2986,12 +2720,10 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3000,13 +2732,11 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3015,10 +2745,9 @@ func (a *OrgSettingAPIService) ReplaceOrgContactUserExecute(r ApiReplaceOrgConta
 }
 
 type ApiReplaceOrgSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
 	orgSetting *OrgSetting
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -3028,14 +2757,11 @@ func (r ApiReplaceOrgSettingsRequest) OrgSetting(orgSetting OrgSetting) ApiRepla
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceOrgSettingsRequest) Data (data interface{}) ApiReplaceOrgSettingsRequest {
+func (r ApiReplaceOrgSettingsRequest) Data(data interface{}) ApiReplaceOrgSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceOrgSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceOrgSettingsExecute(r)
 }
@@ -3048,12 +2774,11 @@ Replaces the settings of your organization
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiReplaceOrgSettingsRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) ReplaceOrgSettings(ctx context.Context) ApiReplaceOrgSettingsRequest {
 	return ApiReplaceOrgSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -3066,10 +2791,9 @@ func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettings
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3079,7 +2803,6 @@ func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettings
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.ReplaceOrgSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3106,7 +2829,6 @@ func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettings
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.orgSetting
 	localVarPostBody = r.data
@@ -3126,13 +2848,11 @@ func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettings
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3141,7 +2861,6 @@ func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettings
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3156,12 +2875,10 @@ func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettings
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3170,12 +2887,10 @@ func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettings
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3184,13 +2899,11 @@ func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettings
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3199,21 +2912,17 @@ func (a *OrgSettingAPIService) ReplaceOrgSettingsExecute(r ApiReplaceOrgSettings
 }
 
 type ApiRevokeOktaSupportRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeOktaSupportRequest) Data (data interface{}) ApiRevokeOktaSupportRequest {
+func (r ApiRevokeOktaSupportRequest) Data(data interface{}) ApiRevokeOktaSupportRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeOktaSupportRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeOktaSupportExecute(r)
 }
@@ -3226,12 +2935,11 @@ Revokes Okta Support access to your organization
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiRevokeOktaSupportRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) RevokeOktaSupport(ctx context.Context) ApiRevokeOktaSupportRequest {
 	return ApiRevokeOktaSupportRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -3244,10 +2952,9 @@ func (a *OrgSettingAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSupportRe
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3257,7 +2964,6 @@ func (a *OrgSettingAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSupportRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.RevokeOktaSupport")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3284,7 +2990,6 @@ func (a *OrgSettingAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSupportRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3301,13 +3006,11 @@ func (a *OrgSettingAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSupportRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3316,7 +3019,6 @@ func (a *OrgSettingAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSupportRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3331,12 +3033,10 @@ func (a *OrgSettingAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSupportRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3345,13 +3045,11 @@ func (a *OrgSettingAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSupportRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3360,21 +3058,17 @@ func (a *OrgSettingAPIService) RevokeOktaSupportExecute(r ApiRevokeOktaSupportRe
 }
 
 type ApiUpdateOrgHideOktaUIFooterRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUpdateOrgHideOktaUIFooterRequest) Data (data interface{}) ApiUpdateOrgHideOktaUIFooterRequest {
+func (r ApiUpdateOrgHideOktaUIFooterRequest) Data(data interface{}) ApiUpdateOrgHideOktaUIFooterRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateOrgHideOktaUIFooterRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateOrgHideOktaUIFooterExecute(r)
 }
@@ -3387,12 +3081,11 @@ Updates the preference hide the Okta UI footer for all end users of your organiz
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUpdateOrgHideOktaUIFooterRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooter(ctx context.Context) ApiUpdateOrgHideOktaUIFooterRequest {
 	return ApiUpdateOrgHideOktaUIFooterRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -3405,10 +3098,9 @@ func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHi
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3418,7 +3110,6 @@ func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.UpdateOrgHideOktaUIFooter")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3445,7 +3136,6 @@ func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3462,13 +3152,11 @@ func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3477,7 +3165,6 @@ func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3492,12 +3179,10 @@ func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3506,13 +3191,11 @@ func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3521,10 +3204,9 @@ func (a *OrgSettingAPIService) UpdateOrgHideOktaUIFooterExecute(r ApiUpdateOrgHi
 }
 
 type ApiUpdateOrgSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
 	orgSetting *OrgSetting
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -3534,14 +3216,11 @@ func (r ApiUpdateOrgSettingsRequest) OrgSetting(orgSetting OrgSetting) ApiUpdate
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateOrgSettingsRequest) Data (data interface{}) ApiUpdateOrgSettingsRequest {
+func (r ApiUpdateOrgSettingsRequest) Data(data interface{}) ApiUpdateOrgSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateOrgSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateOrgSettingsExecute(r)
 }
@@ -3554,12 +3233,11 @@ Partially updates the org settings depending on provided fields
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUpdateOrgSettingsRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) UpdateOrgSettings(ctx context.Context) ApiUpdateOrgSettingsRequest {
 	return ApiUpdateOrgSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -3572,10 +3250,9 @@ func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRe
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3585,7 +3262,6 @@ func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.UpdateOrgSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3612,7 +3288,6 @@ func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.orgSetting
 	localVarPostBody = r.data
@@ -3632,13 +3307,11 @@ func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3647,7 +3320,6 @@ func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3662,12 +3334,10 @@ func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3676,12 +3346,10 @@ func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3690,13 +3358,11 @@ func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3705,21 +3371,17 @@ func (a *OrgSettingAPIService) UpdateOrgSettingsExecute(r ApiUpdateOrgSettingsRe
 }
 
 type ApiUpdateOrgShowOktaUIFooterRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUpdateOrgShowOktaUIFooterRequest) Data (data interface{}) ApiUpdateOrgShowOktaUIFooterRequest {
+func (r ApiUpdateOrgShowOktaUIFooterRequest) Data(data interface{}) ApiUpdateOrgShowOktaUIFooterRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateOrgShowOktaUIFooterRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateOrgShowOktaUIFooterExecute(r)
 }
@@ -3732,12 +3394,11 @@ Updates the preference to show the Okta UI footer for all end users of your orga
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUpdateOrgShowOktaUIFooterRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooter(ctx context.Context) ApiUpdateOrgShowOktaUIFooterRequest {
 	return ApiUpdateOrgShowOktaUIFooterRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -3750,10 +3411,9 @@ func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgSh
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3763,7 +3423,6 @@ func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgSh
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.UpdateOrgShowOktaUIFooter")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3790,7 +3449,6 @@ func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgSh
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3807,13 +3465,11 @@ func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgSh
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3822,7 +3478,6 @@ func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgSh
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3837,12 +3492,10 @@ func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgSh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3851,13 +3504,11 @@ func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgSh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3866,21 +3517,17 @@ func (a *OrgSettingAPIService) UpdateOrgShowOktaUIFooterExecute(r ApiUpdateOrgSh
 }
 
 type ApiUpdateThirdPartyAdminSettingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUpdateThirdPartyAdminSettingRequest) Data (data interface{}) ApiUpdateThirdPartyAdminSettingRequest {
+func (r ApiUpdateThirdPartyAdminSettingRequest) Data(data interface{}) ApiUpdateThirdPartyAdminSettingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateThirdPartyAdminSettingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateThirdPartyAdminSettingExecute(r)
 }
@@ -3893,12 +3540,11 @@ Updates the Third-Party Admin setting
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUpdateThirdPartyAdminSettingRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) UpdateThirdPartyAdminSetting(ctx context.Context) ApiUpdateThirdPartyAdminSettingRequest {
 	return ApiUpdateThirdPartyAdminSettingRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -3911,10 +3557,9 @@ func (a *OrgSettingAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateTh
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3924,7 +3569,6 @@ func (a *OrgSettingAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateTh
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.UpdateThirdPartyAdminSetting")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3951,7 +3595,6 @@ func (a *OrgSettingAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateTh
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3968,13 +3611,11 @@ func (a *OrgSettingAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateTh
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3983,7 +3624,6 @@ func (a *OrgSettingAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateTh
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3998,12 +3638,10 @@ func (a *OrgSettingAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateTh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4012,13 +3650,11 @@ func (a *OrgSettingAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateTh
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4027,10 +3663,9 @@ func (a *OrgSettingAPIService) UpdateThirdPartyAdminSettingExecute(r ApiUpdateTh
 }
 
 type ApiUploadOrgLogoRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService OrgSettingAPI
-	file **os.File
-	// TODU
+	file       **os.File
 	data       interface{}
 	retryCount int32
 }
@@ -4040,14 +3675,11 @@ func (r ApiUploadOrgLogoRequest) File(file *os.File) ApiUploadOrgLogoRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiUploadOrgLogoRequest) Data (data interface{}) ApiUploadOrgLogoRequest {
+func (r ApiUploadOrgLogoRequest) Data(data interface{}) ApiUploadOrgLogoRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUploadOrgLogoRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UploadOrgLogoExecute(r)
 }
@@ -4060,12 +3692,11 @@ Uploads and replaces the logo for your organization. The file must be in PNG, JP
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUploadOrgLogoRequest
 */
-// TODU
 
 func (a *OrgSettingAPIService) UploadOrgLogo(ctx context.Context) ApiUploadOrgLogoRequest {
 	return ApiUploadOrgLogoRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -4079,7 +3710,7 @@ func (a *OrgSettingAPIService) UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4089,7 +3720,6 @@ func (a *OrgSettingAPIService) UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrgSettingAPIService.UploadOrgLogo")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4117,8 +3747,8 @@ func (a *OrgSettingAPIService) UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileLocalVarFormFileName string
-	var fileLocalVarFileName     string
-	var fileLocalVarFileBytes    []byte
+	var fileLocalVarFileName string
+	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
 
@@ -4130,7 +3760,6 @@ func (a *OrgSettingAPIService) UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (
 		fileLocalVarFile.Close()
 	}
 	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4147,13 +3776,11 @@ func (a *OrgSettingAPIService) UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4162,7 +3789,6 @@ func (a *OrgSettingAPIService) UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4177,12 +3803,10 @@ func (a *OrgSettingAPIService) UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -4191,12 +3815,10 @@ func (a *OrgSettingAPIService) UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4205,13 +3827,11 @@ func (a *OrgSettingAPIService) UploadOrgLogoExecute(r ApiUploadOrgLogoRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

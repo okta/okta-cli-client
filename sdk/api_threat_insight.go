@@ -20,37 +20,34 @@ import (
 	"time"
 )
 
-
 type ThreatInsightAPI interface {
 
 	/*
-	GetCurrentConfiguration Retrieve the ThreatInsight Configuration
+		GetCurrentConfiguration Retrieve the ThreatInsight Configuration
 
-	Retrieves the ThreatInsight configuration for the org
+		Retrieves the ThreatInsight configuration for the org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetCurrentConfigurationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetCurrentConfigurationRequest
 	*/
 	GetCurrentConfiguration(ctx context.Context) ApiGetCurrentConfigurationRequest
 
 	// GetCurrentConfigurationExecute executes the request
 	//  @return ThreatInsightConfiguration
-	// TODU
 	GetCurrentConfigurationExecute(r ApiGetCurrentConfigurationRequest) (*APIResponse, error)
 
 	/*
-	UpdateConfiguration Update the ThreatInsight Configuration
+		UpdateConfiguration Update the ThreatInsight Configuration
 
-	Updates the ThreatInsight configuration for the org
+		Updates the ThreatInsight configuration for the org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUpdateConfigurationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUpdateConfigurationRequest
 	*/
 	UpdateConfiguration(ctx context.Context) ApiUpdateConfigurationRequest
 
 	// UpdateConfigurationExecute executes the request
 	//  @return ThreatInsightConfiguration
-	// TODU
 	UpdateConfigurationExecute(r ApiUpdateConfigurationRequest) (*APIResponse, error)
 }
 
@@ -58,21 +55,17 @@ type ThreatInsightAPI interface {
 type ThreatInsightAPIService service
 
 type ApiGetCurrentConfigurationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ThreatInsightAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetCurrentConfigurationRequest) Data (data interface{}) ApiGetCurrentConfigurationRequest {
+func (r ApiGetCurrentConfigurationRequest) Data(data interface{}) ApiGetCurrentConfigurationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetCurrentConfigurationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetCurrentConfigurationExecute(r)
 }
@@ -85,12 +78,11 @@ Retrieves the ThreatInsight configuration for the org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCurrentConfigurationRequest
 */
-// TODU
 
 func (a *ThreatInsightAPIService) GetCurrentConfiguration(ctx context.Context) ApiGetCurrentConfigurationRequest {
 	return ApiGetCurrentConfigurationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -103,10 +95,9 @@ func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrent
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -116,7 +107,6 @@ func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrent
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThreatInsightAPIService.GetCurrentConfiguration")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -143,7 +133,6 @@ func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrent
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -160,13 +149,11 @@ func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrent
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -175,7 +162,6 @@ func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrent
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -190,12 +176,10 @@ func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrent
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -204,13 +188,11 @@ func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrent
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -219,12 +201,11 @@ func (a *ThreatInsightAPIService) GetCurrentConfigurationExecute(r ApiGetCurrent
 }
 
 type ApiUpdateConfigurationRequest struct {
-	ctx context.Context
-	ApiService ThreatInsightAPI
+	ctx                        context.Context
+	ApiService                 ThreatInsightAPI
 	threatInsightConfiguration *ThreatInsightConfiguration
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                       interface{}
+	retryCount                 int32
 }
 
 func (r ApiUpdateConfigurationRequest) ThreatInsightConfiguration(threatInsightConfiguration ThreatInsightConfiguration) ApiUpdateConfigurationRequest {
@@ -232,14 +213,11 @@ func (r ApiUpdateConfigurationRequest) ThreatInsightConfiguration(threatInsightC
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateConfigurationRequest) Data (data interface{}) ApiUpdateConfigurationRequest {
+func (r ApiUpdateConfigurationRequest) Data(data interface{}) ApiUpdateConfigurationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateConfigurationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateConfigurationExecute(r)
 }
@@ -252,12 +230,11 @@ Updates the ThreatInsight configuration for the org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUpdateConfigurationRequest
 */
-// TODU
 
 func (a *ThreatInsightAPIService) UpdateConfiguration(ctx context.Context) ApiUpdateConfigurationRequest {
 	return ApiUpdateConfigurationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -270,10 +247,9 @@ func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigur
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -283,7 +259,6 @@ func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigur
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ThreatInsightAPIService.UpdateConfiguration")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -310,7 +285,6 @@ func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigur
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.threatInsightConfiguration
 	localVarPostBody = r.data
@@ -330,13 +304,11 @@ func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigur
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -345,7 +317,6 @@ func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigur
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -360,12 +331,10 @@ func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigur
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -374,12 +343,10 @@ func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigur
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -388,13 +355,11 @@ func (a *ThreatInsightAPIService) UpdateConfigurationExecute(r ApiUpdateConfigur
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

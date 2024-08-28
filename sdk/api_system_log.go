@@ -20,22 +20,20 @@ import (
 	"time"
 )
 
-
 type SystemLogAPI interface {
 
 	/*
-	ListLogEvents List all System Log Events
+		ListLogEvents List all System Log Events
 
-	Lists all system log events. The Okta System Log API provides read access to your organization’s system log. This API provides more functionality than the Events API
+		Lists all system log events. The Okta System Log API provides read access to your organization’s system log. This API provides more functionality than the Events API
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListLogEventsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListLogEventsRequest
 	*/
 	ListLogEvents(ctx context.Context) ApiListLogEventsRequest
 
 	// ListLogEventsExecute executes the request
 	//  @return []LogEvent
-	// TODU
 	ListLogEventsExecute(r ApiListLogEventsRequest) (*APIResponse, error)
 }
 
@@ -43,16 +41,15 @@ type SystemLogAPI interface {
 type SystemLogAPIService service
 
 type ApiListLogEventsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SystemLogAPI
-	since *time.Time
-	until *time.Time
-	filter *string
-	q *string
-	limit *int32
-	sortOrder *string
-	after *string
-	// TODU
+	since      *time.Time
+	until      *time.Time
+	filter     *string
+	q          *string
+	limit      *int32
+	sortOrder  *string
+	after      *string
 	data       interface{}
 	retryCount int32
 }
@@ -92,14 +89,11 @@ func (r ApiListLogEventsRequest) After(after string) ApiListLogEventsRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiListLogEventsRequest) Data (data interface{}) ApiListLogEventsRequest {
+func (r ApiListLogEventsRequest) Data(data interface{}) ApiListLogEventsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListLogEventsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListLogEventsExecute(r)
 }
@@ -112,12 +106,11 @@ Lists all system log events. The Okta System Log API provides read access to you
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListLogEventsRequest
 */
-// TODU
 
 func (a *SystemLogAPIService) ListLogEvents(ctx context.Context) ApiListLogEventsRequest {
 	return ApiListLogEventsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -130,10 +123,9 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) (*
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -143,7 +135,6 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) (*
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemLogAPIService.ListLogEvents")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -191,7 +182,6 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -208,13 +198,11 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) (*
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -223,7 +211,6 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) (*
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -238,12 +225,10 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -252,13 +237,11 @@ func (a *SystemLogAPIService) ListLogEventsExecute(r ApiListLogEventsRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

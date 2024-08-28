@@ -17,27 +17,25 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationSSOAPI interface {
 
 	/*
-	PreviewSAMLmetadataForApplication Preview the application SAML metadata
+		PreviewSAMLmetadataForApplication Preview the application SAML metadata
 
-	Previews the SSO SAML metadata for an application
+		Previews the SSO SAML metadata for an application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiPreviewSAMLmetadataForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiPreviewSAMLmetadataForApplicationRequest
 	*/
 	PreviewSAMLmetadataForApplication(ctx context.Context, appId string) ApiPreviewSAMLmetadataForApplicationRequest
 
 	// PreviewSAMLmetadataForApplicationExecute executes the request
 	//  @return string
-	// TODU
 	PreviewSAMLmetadataForApplicationExecute(r ApiPreviewSAMLmetadataForApplicationRequest) (*APIResponse, error)
 }
 
@@ -45,22 +43,18 @@ type ApplicationSSOAPI interface {
 type ApplicationSSOAPIService service
 
 type ApiPreviewSAMLmetadataForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationSSOAPI
-	appId string
-	// TODU
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiPreviewSAMLmetadataForApplicationRequest) Data (data interface{}) ApiPreviewSAMLmetadataForApplicationRequest {
+func (r ApiPreviewSAMLmetadataForApplicationRequest) Data(data interface{}) ApiPreviewSAMLmetadataForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiPreviewSAMLmetadataForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.PreviewSAMLmetadataForApplicationExecute(r)
 }
@@ -74,13 +68,12 @@ Previews the SSO SAML metadata for an application
  @param appId Application ID
  @return ApiPreviewSAMLmetadataForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplication(ctx context.Context, appId string) ApiPreviewSAMLmetadataForApplicationRequest {
 	return ApiPreviewSAMLmetadataForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -93,10 +86,9 @@ func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplicationExecute(r Ap
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -106,7 +98,6 @@ func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplicationExecute(r Ap
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationSSOAPIService.PreviewSAMLmetadataForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -134,7 +125,6 @@ func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplicationExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -151,13 +141,11 @@ func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplicationExecute(r Ap
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -166,7 +154,6 @@ func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplicationExecute(r Ap
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -181,12 +168,10 @@ func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -195,12 +180,10 @@ func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -209,13 +192,11 @@ func (a *ApplicationSSOAPIService) PreviewSAMLmetadataForApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

@@ -17,73 +17,68 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type PrincipalRateLimitAPI interface {
 
 	/*
-	CreatePrincipalRateLimitEntity Create a Principal Rate Limit
+		CreatePrincipalRateLimitEntity Create a Principal Rate Limit
 
-	Creates a new Principal Rate Limit entity. In the current release, we only allow one Principal Rate Limit entity per org and principal.
+		Creates a new Principal Rate Limit entity. In the current release, we only allow one Principal Rate Limit entity per org and principal.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreatePrincipalRateLimitEntityRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreatePrincipalRateLimitEntityRequest
 	*/
 	CreatePrincipalRateLimitEntity(ctx context.Context) ApiCreatePrincipalRateLimitEntityRequest
 
 	// CreatePrincipalRateLimitEntityExecute executes the request
 	//  @return PrincipalRateLimitEntity
-	// TODU
 	CreatePrincipalRateLimitEntityExecute(r ApiCreatePrincipalRateLimitEntityRequest) (*APIResponse, error)
 
 	/*
-	GetPrincipalRateLimitEntity Retrieve a Principal Rate Limit
+		GetPrincipalRateLimitEntity Retrieve a Principal Rate Limit
 
-	Retrieves a Principal Rate Limit entity by `principalRateLimitId`
+		Retrieves a Principal Rate Limit entity by `principalRateLimitId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param principalRateLimitId id of the Principal Rate Limit
-	@return ApiGetPrincipalRateLimitEntityRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param principalRateLimitId id of the Principal Rate Limit
+		@return ApiGetPrincipalRateLimitEntityRequest
 	*/
 	GetPrincipalRateLimitEntity(ctx context.Context, principalRateLimitId string) ApiGetPrincipalRateLimitEntityRequest
 
 	// GetPrincipalRateLimitEntityExecute executes the request
 	//  @return PrincipalRateLimitEntity
-	// TODU
 	GetPrincipalRateLimitEntityExecute(r ApiGetPrincipalRateLimitEntityRequest) (*APIResponse, error)
 
 	/*
-	ListPrincipalRateLimitEntities List all Principal Rate Limits
+		ListPrincipalRateLimitEntities List all Principal Rate Limits
 
-	Lists all Principal Rate Limit entities considering the provided parameters
+		Lists all Principal Rate Limit entities considering the provided parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListPrincipalRateLimitEntitiesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListPrincipalRateLimitEntitiesRequest
 	*/
 	ListPrincipalRateLimitEntities(ctx context.Context) ApiListPrincipalRateLimitEntitiesRequest
 
 	// ListPrincipalRateLimitEntitiesExecute executes the request
 	//  @return []PrincipalRateLimitEntity
-	// TODU
 	ListPrincipalRateLimitEntitiesExecute(r ApiListPrincipalRateLimitEntitiesRequest) (*APIResponse, error)
 
 	/*
-	ReplacePrincipalRateLimitEntity Replace a Principal Rate Limit
+		ReplacePrincipalRateLimitEntity Replace a Principal Rate Limit
 
-	Replaces a principal rate limit entity by `principalRateLimitId`
+		Replaces a principal rate limit entity by `principalRateLimitId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param principalRateLimitId id of the Principal Rate Limit
-	@return ApiReplacePrincipalRateLimitEntityRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param principalRateLimitId id of the Principal Rate Limit
+		@return ApiReplacePrincipalRateLimitEntityRequest
 	*/
 	ReplacePrincipalRateLimitEntity(ctx context.Context, principalRateLimitId string) ApiReplacePrincipalRateLimitEntityRequest
 
 	// ReplacePrincipalRateLimitEntityExecute executes the request
 	//  @return PrincipalRateLimitEntity
-	// TODU
 	ReplacePrincipalRateLimitEntityExecute(r ApiReplacePrincipalRateLimitEntityRequest) (*APIResponse, error)
 }
 
@@ -91,10 +86,9 @@ type PrincipalRateLimitAPI interface {
 type PrincipalRateLimitAPIService service
 
 type ApiCreatePrincipalRateLimitEntityRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PrincipalRateLimitAPI
-	entity *PrincipalRateLimitEntity
-	// TODU
+	entity     *PrincipalRateLimitEntity
 	data       interface{}
 	retryCount int32
 }
@@ -104,14 +98,11 @@ func (r ApiCreatePrincipalRateLimitEntityRequest) Entity(entity PrincipalRateLim
 	return r
 }
 
-
-// TODU
-func (r ApiCreatePrincipalRateLimitEntityRequest) Data (data interface{}) ApiCreatePrincipalRateLimitEntityRequest {
+func (r ApiCreatePrincipalRateLimitEntityRequest) Data(data interface{}) ApiCreatePrincipalRateLimitEntityRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreatePrincipalRateLimitEntityRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreatePrincipalRateLimitEntityExecute(r)
 }
@@ -124,12 +115,11 @@ Creates a new Principal Rate Limit entity. In the current release, we only allow
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreatePrincipalRateLimitEntityRequest
 */
-// TODU
 
 func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntity(ctx context.Context) ApiCreatePrincipalRateLimitEntityRequest {
 	return ApiCreatePrincipalRateLimitEntityRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -142,10 +132,9 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -155,7 +144,6 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrincipalRateLimitAPIService.CreatePrincipalRateLimitEntity")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -182,7 +170,6 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.entity
 	localVarPostBody = r.data
@@ -202,13 +189,11 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -217,7 +202,6 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -232,12 +216,10 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -246,12 +228,10 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -260,12 +240,10 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -274,13 +252,11 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -289,22 +265,18 @@ func (a *PrincipalRateLimitAPIService) CreatePrincipalRateLimitEntityExecute(r A
 }
 
 type ApiGetPrincipalRateLimitEntityRequest struct {
-	ctx context.Context
-	ApiService PrincipalRateLimitAPI
+	ctx                  context.Context
+	ApiService           PrincipalRateLimitAPI
 	principalRateLimitId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                 interface{}
+	retryCount           int32
 }
 
-
-// TODU
-func (r ApiGetPrincipalRateLimitEntityRequest) Data (data interface{}) ApiGetPrincipalRateLimitEntityRequest {
+func (r ApiGetPrincipalRateLimitEntityRequest) Data(data interface{}) ApiGetPrincipalRateLimitEntityRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetPrincipalRateLimitEntityRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetPrincipalRateLimitEntityExecute(r)
 }
@@ -318,14 +290,13 @@ Retrieves a Principal Rate Limit entity by `principalRateLimitId`
  @param principalRateLimitId id of the Principal Rate Limit
  @return ApiGetPrincipalRateLimitEntityRequest
 */
-// TODU
 
 func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntity(ctx context.Context, principalRateLimitId string) ApiGetPrincipalRateLimitEntityRequest {
 	return ApiGetPrincipalRateLimitEntityRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:           a,
+		ctx:                  ctx,
 		principalRateLimitId: principalRateLimitId,
-		retryCount: 0,
+		retryCount:           0,
 	}
 }
 
@@ -337,10 +308,9 @@ func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiG
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -350,7 +320,6 @@ func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiG
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrincipalRateLimitAPIService.GetPrincipalRateLimitEntity")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -378,7 +347,6 @@ func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -395,13 +363,11 @@ func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiG
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -410,7 +376,6 @@ func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiG
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -425,12 +390,10 @@ func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiG
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -439,12 +402,10 @@ func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiG
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -453,13 +414,11 @@ func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiG
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -468,12 +427,11 @@ func (a *PrincipalRateLimitAPIService) GetPrincipalRateLimitEntityExecute(r ApiG
 }
 
 type ApiListPrincipalRateLimitEntitiesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PrincipalRateLimitAPI
-	filter *string
-	after *string
-	limit *int32
-	// TODU
+	filter     *string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -493,14 +451,11 @@ func (r ApiListPrincipalRateLimitEntitiesRequest) Limit(limit int32) ApiListPrin
 	return r
 }
 
-
-// TODU
-func (r ApiListPrincipalRateLimitEntitiesRequest) Data (data interface{}) ApiListPrincipalRateLimitEntitiesRequest {
+func (r ApiListPrincipalRateLimitEntitiesRequest) Data(data interface{}) ApiListPrincipalRateLimitEntitiesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListPrincipalRateLimitEntitiesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListPrincipalRateLimitEntitiesExecute(r)
 }
@@ -513,12 +468,11 @@ Lists all Principal Rate Limit entities considering the provided parameters
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListPrincipalRateLimitEntitiesRequest
 */
-// TODU
 
 func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntities(ctx context.Context) ApiListPrincipalRateLimitEntitiesRequest {
 	return ApiListPrincipalRateLimitEntitiesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -531,10 +485,9 @@ func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r A
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -544,7 +497,6 @@ func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrincipalRateLimitAPIService.ListPrincipalRateLimitEntities")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -580,7 +532,6 @@ func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -597,13 +548,11 @@ func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -612,7 +561,6 @@ func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -627,12 +575,10 @@ func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -641,12 +587,10 @@ func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -655,13 +599,11 @@ func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -670,13 +612,12 @@ func (a *PrincipalRateLimitAPIService) ListPrincipalRateLimitEntitiesExecute(r A
 }
 
 type ApiReplacePrincipalRateLimitEntityRequest struct {
-	ctx context.Context
-	ApiService PrincipalRateLimitAPI
+	ctx                  context.Context
+	ApiService           PrincipalRateLimitAPI
 	principalRateLimitId string
-	entity *PrincipalRateLimitEntity
-	// TODU
-	data       interface{}
-	retryCount int32
+	entity               *PrincipalRateLimitEntity
+	data                 interface{}
+	retryCount           int32
 }
 
 func (r ApiReplacePrincipalRateLimitEntityRequest) Entity(entity PrincipalRateLimitEntity) ApiReplacePrincipalRateLimitEntityRequest {
@@ -684,14 +625,11 @@ func (r ApiReplacePrincipalRateLimitEntityRequest) Entity(entity PrincipalRateLi
 	return r
 }
 
-
-// TODU
-func (r ApiReplacePrincipalRateLimitEntityRequest) Data (data interface{}) ApiReplacePrincipalRateLimitEntityRequest {
+func (r ApiReplacePrincipalRateLimitEntityRequest) Data(data interface{}) ApiReplacePrincipalRateLimitEntityRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplacePrincipalRateLimitEntityRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplacePrincipalRateLimitEntityExecute(r)
 }
@@ -705,14 +643,13 @@ Replaces a principal rate limit entity by `principalRateLimitId`
  @param principalRateLimitId id of the Principal Rate Limit
  @return ApiReplacePrincipalRateLimitEntityRequest
 */
-// TODU
 
 func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntity(ctx context.Context, principalRateLimitId string) ApiReplacePrincipalRateLimitEntityRequest {
 	return ApiReplacePrincipalRateLimitEntityRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:           a,
+		ctx:                  ctx,
 		principalRateLimitId: principalRateLimitId,
-		retryCount: 0,
+		retryCount:           0,
 	}
 }
 
@@ -724,10 +661,9 @@ func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r 
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -737,7 +673,6 @@ func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PrincipalRateLimitAPIService.ReplacePrincipalRateLimitEntity")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -765,7 +700,6 @@ func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.entity
 	localVarPostBody = r.data
@@ -785,13 +719,11 @@ func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -800,7 +732,6 @@ func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -815,12 +746,10 @@ func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -829,12 +758,10 @@ func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -843,12 +770,10 @@ func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -857,13 +782,11 @@ func (a *PrincipalRateLimitAPIService) ReplacePrincipalRateLimitEntityExecute(r 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

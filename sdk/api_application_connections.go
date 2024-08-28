@@ -17,146 +17,104 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationConnectionsAPI interface {
 
 	/*
-	ActivateDefaultProvisioningConnectionForApplication Activate the default Provisioning Connection
+		ActivateDefaultProvisioningConnectionForApplication Activate the default Provisioning Connection
 
-	Activates the default Provisioning Connection for an app
+		Activates the default Provisioning Connection for an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiActivateDefaultProvisioningConnectionForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiActivateDefaultProvisioningConnectionForApplicationRequest
 	*/
 	ActivateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiActivateDefaultProvisioningConnectionForApplicationRequest
 
 	// ActivateDefaultProvisioningConnectionForApplicationExecute executes the request
-	// TODU
 	ActivateDefaultProvisioningConnectionForApplicationExecute(r ApiActivateDefaultProvisioningConnectionForApplicationRequest) (*APIResponse, error)
 
 	/*
-	DeactivateDefaultProvisioningConnectionForApplication Deactivate the default Provisioning Connection
+		DeactivateDefaultProvisioningConnectionForApplication Deactivate the default Provisioning Connection
 
-	Deactivates the default Provisioning Connection for an app
+		Deactivates the default Provisioning Connection for an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiDeactivateDefaultProvisioningConnectionForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiDeactivateDefaultProvisioningConnectionForApplicationRequest
 	*/
 	DeactivateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiDeactivateDefaultProvisioningConnectionForApplicationRequest
 
 	// DeactivateDefaultProvisioningConnectionForApplicationExecute executes the request
-	// TODU
 	DeactivateDefaultProvisioningConnectionForApplicationExecute(r ApiDeactivateDefaultProvisioningConnectionForApplicationRequest) (*APIResponse, error)
 
 	/*
-	GetDefaultProvisioningConnectionForApplication Retrieve the default Provisioning Connection
+		GetDefaultProvisioningConnectionForApplication Retrieve the default Provisioning Connection
 
-	Retrieves the default Provisioning Connection for an app
+		Retrieves the default Provisioning Connection for an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGetDefaultProvisioningConnectionForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiGetDefaultProvisioningConnectionForApplicationRequest
 	*/
 	GetDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiGetDefaultProvisioningConnectionForApplicationRequest
 
 	// GetDefaultProvisioningConnectionForApplicationExecute executes the request
 	//  @return ProvisioningConnectionResponse
-	// TODU
 	GetDefaultProvisioningConnectionForApplicationExecute(r ApiGetDefaultProvisioningConnectionForApplicationRequest) (*APIResponse, error)
 
 	/*
-	UpdateDefaultProvisioningConnectionForApplication Update the default Provisioning Connection
+		UpdateDefaultProvisioningConnectionForApplication Update the default Provisioning Connection
 
-	Updates the default Provisioning Connection for an app
+		Updates the default Provisioning Connection for an app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiUpdateDefaultProvisioningConnectionForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiUpdateDefaultProvisioningConnectionForApplicationRequest
 	*/
 	UpdateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiUpdateDefaultProvisioningConnectionForApplicationRequest
 
 	// UpdateDefaultProvisioningConnectionForApplicationExecute executes the request
 	//  @return ProvisioningConnectionResponse
-	// TODU
 	UpdateDefaultProvisioningConnectionForApplicationExecute(r ApiUpdateDefaultProvisioningConnectionForApplicationRequest) (*APIResponse, error)
 
 	/*
-	VerifyProvisioningConnectionForApplication Verify the Provisioning Connection
+			VerifyProvisioningConnectionForApplication Verify the Provisioning Connection
 
-	Verifies the OAuth 2.0-based connection as part of the OAuth 2.0 consent flow. The validation of the consent flow is the last step of the provisioning setup for an OAuth 2.0-based connection.
-Currently, this operation only supports `office365`,`google`, `zoomus`, and `slack` apps.
+			Verifies the OAuth 2.0-based connection as part of the OAuth 2.0 consent flow. The validation of the consent flow is the last step of the provisioning setup for an OAuth 2.0-based connection.
+		Currently, this operation only supports `office365`,`google`, `zoomus`, and `slack` apps.
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appName
-	@param appId Application ID
-	@return ApiVerifyProvisioningConnectionForApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appName
+			@param appId Application ID
+			@return ApiVerifyProvisioningConnectionForApplicationRequest
 	*/
 	VerifyProvisioningConnectionForApplication(ctx context.Context, appName string, appId string) ApiVerifyProvisioningConnectionForApplicationRequest
 
 	// VerifyProvisioningConnectionForApplicationExecute executes the request
-	// TODU
 	VerifyProvisioningConnectionForApplicationExecute(r ApiVerifyProvisioningConnectionForApplicationRequest) (*APIResponse, error)
-
-	/*
-	VerifyProvisioningConnectionForGoogleApplication Verify the Provisioning Connection for Google Workspace
-
-	Verifies the OAuth 2.0-based connection as part of the OAuth 2.0 consent flow. The validation of the consent flow is the last step of the provisioning setup for the Google Workspace (`google`) OAuth 2.0-based connection.
-
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiVerifyProvisioningConnectionForGoogleApplicationRequest
-	*/
-	VerifyProvisioningConnectionForGoogleApplication(ctx context.Context, appId string) ApiVerifyProvisioningConnectionForGoogleApplicationRequest
-
-	// VerifyProvisioningConnectionForGoogleApplicationExecute executes the request
-	// TODU
-	VerifyProvisioningConnectionForGoogleApplicationExecute(r ApiVerifyProvisioningConnectionForGoogleApplicationRequest) (*APIResponse, error)
-
-	/*
-	VerifyProvisioningConnectionForOfficeApplication Verify the Provisioning Connection for Microsoft Office 365
-
-	Verifies the OAuth 2.0-based connection as part of the OAuth 2.0 consent flow. The validation of the consent flow is the last step of the provisioning setup for the Microsoft Office 365 (`office365`) OAuth 2.0-based connection.
-
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiVerifyProvisioningConnectionForOfficeApplicationRequest
-	*/
-	VerifyProvisioningConnectionForOfficeApplication(ctx context.Context, appId string) ApiVerifyProvisioningConnectionForOfficeApplicationRequest
-
-	// VerifyProvisioningConnectionForOfficeApplicationExecute executes the request
-	// TODU
-	VerifyProvisioningConnectionForOfficeApplicationExecute(r ApiVerifyProvisioningConnectionForOfficeApplicationRequest) (*APIResponse, error)
 }
 
 // ApplicationConnectionsAPIService ApplicationConnectionsAPI service
 type ApplicationConnectionsAPIService service
 
 type ApiActivateDefaultProvisioningConnectionForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationConnectionsAPI
-	appId string
-	// TODU
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiActivateDefaultProvisioningConnectionForApplicationRequest) Data (data interface{}) ApiActivateDefaultProvisioningConnectionForApplicationRequest {
+func (r ApiActivateDefaultProvisioningConnectionForApplicationRequest) Data(data interface{}) ApiActivateDefaultProvisioningConnectionForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateDefaultProvisioningConnectionForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateDefaultProvisioningConnectionForApplicationExecute(r)
 }
@@ -170,13 +128,12 @@ Activates the default Provisioning Connection for an app
  @param appId Application ID
  @return ApiActivateDefaultProvisioningConnectionForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiActivateDefaultProvisioningConnectionForApplicationRequest {
 	return ApiActivateDefaultProvisioningConnectionForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -190,7 +147,7 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -200,7 +157,6 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationConnectionsAPIService.ActivateDefaultProvisioningConnectionForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -228,7 +184,6 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -245,13 +200,11 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -260,7 +213,6 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -275,12 +227,10 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -289,12 +239,10 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -303,13 +251,11 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -318,22 +264,18 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 }
 
 type ApiDeactivateDefaultProvisioningConnectionForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationConnectionsAPI
-	appId string
-	// TODU
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeactivateDefaultProvisioningConnectionForApplicationRequest) Data (data interface{}) ApiDeactivateDefaultProvisioningConnectionForApplicationRequest {
+func (r ApiDeactivateDefaultProvisioningConnectionForApplicationRequest) Data(data interface{}) ApiDeactivateDefaultProvisioningConnectionForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateDefaultProvisioningConnectionForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateDefaultProvisioningConnectionForApplicationExecute(r)
 }
@@ -347,13 +289,12 @@ Deactivates the default Provisioning Connection for an app
  @param appId Application ID
  @return ApiDeactivateDefaultProvisioningConnectionForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiDeactivateDefaultProvisioningConnectionForApplicationRequest {
 	return ApiDeactivateDefaultProvisioningConnectionForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -367,7 +308,7 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -377,7 +318,6 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationConnectionsAPIService.DeactivateDefaultProvisioningConnectionForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -405,7 +345,6 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -422,13 +361,11 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -437,7 +374,6 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -452,12 +388,10 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -466,12 +400,10 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -480,13 +412,11 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -495,22 +425,18 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 }
 
 type ApiGetDefaultProvisioningConnectionForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationConnectionsAPI
-	appId string
-	// TODU
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetDefaultProvisioningConnectionForApplicationRequest) Data (data interface{}) ApiGetDefaultProvisioningConnectionForApplicationRequest {
+func (r ApiGetDefaultProvisioningConnectionForApplicationRequest) Data(data interface{}) ApiGetDefaultProvisioningConnectionForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetDefaultProvisioningConnectionForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetDefaultProvisioningConnectionForApplicationExecute(r)
 }
@@ -524,13 +450,12 @@ Retrieves the default Provisioning Connection for an app
  @param appId Application ID
  @return ApiGetDefaultProvisioningConnectionForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiGetDefaultProvisioningConnectionForApplicationRequest {
 	return ApiGetDefaultProvisioningConnectionForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -543,10 +468,9 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -556,7 +480,6 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationConnectionsAPIService.GetDefaultProvisioningConnectionForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -584,7 +507,6 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -601,13 +523,11 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -616,7 +536,6 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -631,12 +550,10 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -645,12 +562,10 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -659,13 +574,11 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -674,14 +587,13 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 }
 
 type ApiUpdateDefaultProvisioningConnectionForApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationConnectionsAPI
-	appId string
+	ctx                                                      context.Context
+	ApiService                                               ApplicationConnectionsAPI
+	appId                                                    string
 	updateDefaultProvisioningConnectionForApplicationRequest *UpdateDefaultProvisioningConnectionForApplicationRequest
-	activate *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	activate                                                 *bool
+	data                                                     interface{}
+	retryCount                                               int32
 }
 
 func (r ApiUpdateDefaultProvisioningConnectionForApplicationRequest) UpdateDefaultProvisioningConnectionForApplicationRequest(updateDefaultProvisioningConnectionForApplicationRequest UpdateDefaultProvisioningConnectionForApplicationRequest) ApiUpdateDefaultProvisioningConnectionForApplicationRequest {
@@ -695,14 +607,11 @@ func (r ApiUpdateDefaultProvisioningConnectionForApplicationRequest) Activate(ac
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateDefaultProvisioningConnectionForApplicationRequest) Data (data interface{}) ApiUpdateDefaultProvisioningConnectionForApplicationRequest {
+func (r ApiUpdateDefaultProvisioningConnectionForApplicationRequest) Data(data interface{}) ApiUpdateDefaultProvisioningConnectionForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateDefaultProvisioningConnectionForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateDefaultProvisioningConnectionForApplicationExecute(r)
 }
@@ -716,13 +625,12 @@ Updates the default Provisioning Connection for an app
  @param appId Application ID
  @return ApiUpdateDefaultProvisioningConnectionForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionForApplication(ctx context.Context, appId string) ApiUpdateDefaultProvisioningConnectionForApplicationRequest {
 	return ApiUpdateDefaultProvisioningConnectionForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -735,10 +643,9 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -748,7 +655,6 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationConnectionsAPIService.UpdateDefaultProvisioningConnectionForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -779,7 +685,6 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.updateDefaultProvisioningConnectionForApplicationRequest
 	localVarPostBody = r.data
@@ -799,13 +704,11 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -814,7 +717,6 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -829,12 +731,10 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -843,12 +743,10 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -857,12 +755,10 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -871,13 +767,11 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -886,13 +780,12 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 }
 
 type ApiVerifyProvisioningConnectionForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationConnectionsAPI
-	appName string
-	appId string
-	code *string
-	state *string
-	// TODU
+	appName    string
+	appId      string
+	code       *string
+	state      *string
 	data       interface{}
 	retryCount int32
 }
@@ -907,14 +800,11 @@ func (r ApiVerifyProvisioningConnectionForApplicationRequest) State(state string
 	return r
 }
 
-
-// TODU
-func (r ApiVerifyProvisioningConnectionForApplicationRequest) Data (data interface{}) ApiVerifyProvisioningConnectionForApplicationRequest {
+func (r ApiVerifyProvisioningConnectionForApplicationRequest) Data(data interface{}) ApiVerifyProvisioningConnectionForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiVerifyProvisioningConnectionForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.VerifyProvisioningConnectionForApplicationExecute(r)
 }
@@ -931,14 +821,13 @@ Currently, this operation only supports `office365`,`google`, `zoomus`, and `sla
  @param appId Application ID
  @return ApiVerifyProvisioningConnectionForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplication(ctx context.Context, appName string, appId string) ApiVerifyProvisioningConnectionForApplicationRequest {
 	return ApiVerifyProvisioningConnectionForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appName: appName,
-		appId: appId,
+		ctx:        ctx,
+		appName:    appName,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -952,7 +841,7 @@ func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplic
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -962,7 +851,6 @@ func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplic
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationConnectionsAPIService.VerifyProvisioningConnectionForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -997,7 +885,6 @@ func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplic
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1014,13 +901,11 @@ func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplic
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1029,7 +914,6 @@ func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplic
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1044,12 +928,10 @@ func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplic
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1058,12 +940,10 @@ func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplic
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1072,405 +952,11 @@ func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplic
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, newErr
-	}
-
-	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-	return localAPIResponse, nil
-}
-
-type ApiVerifyProvisioningConnectionForGoogleApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationConnectionsAPI
-	appId string
-	code *string
-	state *string
-	// TODU
-	data       interface{}
-	retryCount int32
-}
-
-func (r ApiVerifyProvisioningConnectionForGoogleApplicationRequest) Code(code string) ApiVerifyProvisioningConnectionForGoogleApplicationRequest {
-	r.code = &code
-	return r
-}
-
-func (r ApiVerifyProvisioningConnectionForGoogleApplicationRequest) State(state string) ApiVerifyProvisioningConnectionForGoogleApplicationRequest {
-	r.state = &state
-	return r
-}
-
-
-// TODU
-func (r ApiVerifyProvisioningConnectionForGoogleApplicationRequest) Data (data interface{}) ApiVerifyProvisioningConnectionForGoogleApplicationRequest {
-	r.data = data
-	return r
-}
-
-// TODU
-func (r ApiVerifyProvisioningConnectionForGoogleApplicationRequest) Execute() (*APIResponse, error) {
-	return r.ApiService.VerifyProvisioningConnectionForGoogleApplicationExecute(r)
-}
-
-/*
-VerifyProvisioningConnectionForGoogleApplication Verify the Provisioning Connection for Google Workspace
-
-Verifies the OAuth 2.0-based connection as part of the OAuth 2.0 consent flow. The validation of the consent flow is the last step of the provisioning setup for the Google Workspace (`google`) OAuth 2.0-based connection.
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiVerifyProvisioningConnectionForGoogleApplicationRequest
-*/
-// TODU
-
-func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForGoogleApplication(ctx context.Context, appId string) ApiVerifyProvisioningConnectionForGoogleApplicationRequest {
-	return ApiVerifyProvisioningConnectionForGoogleApplicationRequest{
-		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		retryCount: 0,
-	}
-}
-
-// Execute executes the request
-
-func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForGoogleApplicationExecute(r ApiVerifyProvisioningConnectionForGoogleApplicationRequest) (*APIResponse, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarHTTPResponse *http.Response
-		localAPIResponse     *APIResponse
-		err 				 error
-	)
-
-	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
-		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
-		r.ctx = localctx
-		defer cancel()
-	}
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationConnectionsAPIService.VerifyProvisioningConnectionForGoogleApplication")
-	if err != nil {
-		// TODU
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/apps/google/{appId}/oauth2/callback"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.code != nil {
-		localVarQueryParams.Add("code", parameterToString(*r.code, ""))
-	}
-	if r.state != nil {
-		localVarQueryParams.Add("state", parameterToString(*r.state, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-// TODU
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["apiToken"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		// TODU
-		return nil, err
-	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-		}
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, newErr
-	}
-
-	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-	return localAPIResponse, nil
-}
-
-type ApiVerifyProvisioningConnectionForOfficeApplicationRequest struct {
-	ctx context.Context
-	ApiService ApplicationConnectionsAPI
-	appId string
-	code *string
-	state *string
-	// TODU
-	data       interface{}
-	retryCount int32
-}
-
-func (r ApiVerifyProvisioningConnectionForOfficeApplicationRequest) Code(code string) ApiVerifyProvisioningConnectionForOfficeApplicationRequest {
-	r.code = &code
-	return r
-}
-
-func (r ApiVerifyProvisioningConnectionForOfficeApplicationRequest) State(state string) ApiVerifyProvisioningConnectionForOfficeApplicationRequest {
-	r.state = &state
-	return r
-}
-
-
-// TODU
-func (r ApiVerifyProvisioningConnectionForOfficeApplicationRequest) Data (data interface{}) ApiVerifyProvisioningConnectionForOfficeApplicationRequest {
-	r.data = data
-	return r
-}
-
-// TODU
-func (r ApiVerifyProvisioningConnectionForOfficeApplicationRequest) Execute() (*APIResponse, error) {
-	return r.ApiService.VerifyProvisioningConnectionForOfficeApplicationExecute(r)
-}
-
-/*
-VerifyProvisioningConnectionForOfficeApplication Verify the Provisioning Connection for Microsoft Office 365
-
-Verifies the OAuth 2.0-based connection as part of the OAuth 2.0 consent flow. The validation of the consent flow is the last step of the provisioning setup for the Microsoft Office 365 (`office365`) OAuth 2.0-based connection.
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appId Application ID
- @return ApiVerifyProvisioningConnectionForOfficeApplicationRequest
-*/
-// TODU
-
-func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForOfficeApplication(ctx context.Context, appId string) ApiVerifyProvisioningConnectionForOfficeApplicationRequest {
-	return ApiVerifyProvisioningConnectionForOfficeApplicationRequest{
-		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		retryCount: 0,
-	}
-}
-
-// Execute executes the request
-
-func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForOfficeApplicationExecute(r ApiVerifyProvisioningConnectionForOfficeApplicationRequest) (*APIResponse, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarHTTPResponse *http.Response
-		localAPIResponse     *APIResponse
-		err 				 error
-	)
-
-	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
-		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
-		r.ctx = localctx
-		defer cancel()
-	}
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationConnectionsAPIService.VerifyProvisioningConnectionForOfficeApplication")
-	if err != nil {
-		// TODU
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/apps/office365/{appId}/oauth2/callback"
-	localVarPath = strings.Replace(localVarPath, "{"+"appId"+"}", url.PathEscape(parameterToString(r.appId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.code != nil {
-		localVarQueryParams.Add("code", parameterToString(*r.code, ""))
-	}
-	if r.state != nil {
-		localVarQueryParams.Add("state", parameterToString(*r.state, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-// TODU
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["apiToken"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		// TODU
-		return nil, err
-	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
-		return localAPIResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-		}
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

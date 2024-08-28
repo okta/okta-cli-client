@@ -17,105 +17,99 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type FeatureAPI interface {
 
 	/*
-	GetFeature Retrieve a Feature
+		GetFeature Retrieve a Feature
 
-	Retrieves a feature by ID
+		Retrieves a feature by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param featureId `id` of the feature
-	@return ApiGetFeatureRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param featureId `id` of the feature
+		@return ApiGetFeatureRequest
 	*/
 	GetFeature(ctx context.Context, featureId string) ApiGetFeatureRequest
 
 	// GetFeatureExecute executes the request
 	//  @return Feature
-	// TODU
 	GetFeatureExecute(r ApiGetFeatureRequest) (*APIResponse, error)
 
 	/*
-	ListFeatureDependencies List all dependencies
+			ListFeatureDependencies List all dependencies
 
-	Lists all feature dependencies for a specified feature.
+			Lists all feature dependencies for a specified feature.
 
-A feature's dependencies are the features that it requires to be enabled in order for itself to be enabled.
+		A feature's dependencies are the features that it requires to be enabled in order for itself to be enabled.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param featureId `id` of the feature
-	@return ApiListFeatureDependenciesRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param featureId `id` of the feature
+			@return ApiListFeatureDependenciesRequest
 	*/
 	ListFeatureDependencies(ctx context.Context, featureId string) ApiListFeatureDependenciesRequest
 
 	// ListFeatureDependenciesExecute executes the request
 	//  @return []Feature
-	// TODU
 	ListFeatureDependenciesExecute(r ApiListFeatureDependenciesRequest) (*APIResponse, error)
 
 	/*
-	ListFeatureDependents List all dependents
+			ListFeatureDependents List all dependents
 
-	Lists all feature dependents for the specified feature.
+			Lists all feature dependents for the specified feature.
 
-A feature's dependents are the features that need to be disabled in order for the feature itself to be disabled.
+		A feature's dependents are the features that need to be disabled in order for the feature itself to be disabled.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param featureId `id` of the feature
-	@return ApiListFeatureDependentsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param featureId `id` of the feature
+			@return ApiListFeatureDependentsRequest
 	*/
 	ListFeatureDependents(ctx context.Context, featureId string) ApiListFeatureDependentsRequest
 
 	// ListFeatureDependentsExecute executes the request
 	//  @return []Feature
-	// TODU
 	ListFeatureDependentsExecute(r ApiListFeatureDependentsRequest) (*APIResponse, error)
 
 	/*
-	ListFeatures List all Features
+		ListFeatures List all Features
 
-	Lists all self-service features for your org
+		Lists all self-service features for your org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListFeaturesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListFeaturesRequest
 	*/
 	ListFeatures(ctx context.Context) ApiListFeaturesRequest
 
 	// ListFeaturesExecute executes the request
 	//  @return []Feature
-	// TODU
 	ListFeaturesExecute(r ApiListFeaturesRequest) (*APIResponse, error)
 
 	/*
-	UpdateFeatureLifecycle Update a Feature lifecycle
+			UpdateFeatureLifecycle Update a Feature lifecycle
 
-	Updates a feature's lifecycle status. Use this endpoint to enable or disable a feature for your org.
+			Updates a feature's lifecycle status. Use this endpoint to enable or disable a feature for your org.
 
-Use the `mode=force` parameter to override dependency restrictions for a particular feature. Normally, you can't enable a feature if it has one or more dependencies that aren't enabled.
+		Use the `mode=force` parameter to override dependency restrictions for a particular feature. Normally, you can't enable a feature if it has one or more dependencies that aren't enabled.
 
-When you use the `mode=force` parameter while enabling a feature, Okta first tries to enable any disabled features that this feature may have as dependencies. If you don't pass the `mode=force` parameter and the feature has dependencies that need to be enabled before the feature is enabled, a 400 error is returned.
+		When you use the `mode=force` parameter while enabling a feature, Okta first tries to enable any disabled features that this feature may have as dependencies. If you don't pass the `mode=force` parameter and the feature has dependencies that need to be enabled before the feature is enabled, a 400 error is returned.
 
-When you use the `mode=force` parameter while disabling a feature, Okta first tries to disable any enabled features that this feature may have as dependents. If you don't pass the `mode=force` parameter and the feature has dependents that need to be disabled before the feature is disabled, a 400 error is returned.
+		When you use the `mode=force` parameter while disabling a feature, Okta first tries to disable any enabled features that this feature may have as dependents. If you don't pass the `mode=force` parameter and the feature has dependents that need to be disabled before the feature is disabled, a 400 error is returned.
 
-The following chart shows the different state transitions for a feature.
+		The following chart shows the different state transitions for a feature.
 
-![State transitions of a feature](../../../../../images/features/update-ssfeat-flowchart.png '#width=500px;')
+		![State transitions of a feature](../../../../../images/features/update-ssfeat-flowchart.png '#width=500px;')
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param featureId `id` of the feature
-	@param lifecycle Whether to `ENABLE` or `DISABLE` the feature
-	@return ApiUpdateFeatureLifecycleRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param featureId `id` of the feature
+			@param lifecycle Whether to `ENABLE` or `DISABLE` the feature
+			@return ApiUpdateFeatureLifecycleRequest
 	*/
 	UpdateFeatureLifecycle(ctx context.Context, featureId string, lifecycle string) ApiUpdateFeatureLifecycleRequest
 
 	// UpdateFeatureLifecycleExecute executes the request
 	//  @return Feature
-	// TODU
 	UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLifecycleRequest) (*APIResponse, error)
 }
 
@@ -123,22 +117,18 @@ The following chart shows the different state transitions for a feature.
 type FeatureAPIService service
 
 type ApiGetFeatureRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService FeatureAPI
-	featureId string
-	// TODU
+	featureId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetFeatureRequest) Data (data interface{}) ApiGetFeatureRequest {
+func (r ApiGetFeatureRequest) Data(data interface{}) ApiGetFeatureRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetFeatureRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetFeatureExecute(r)
 }
@@ -152,13 +142,12 @@ Retrieves a feature by ID
  @param featureId `id` of the feature
  @return ApiGetFeatureRequest
 */
-// TODU
 
 func (a *FeatureAPIService) GetFeature(ctx context.Context, featureId string) ApiGetFeatureRequest {
 	return ApiGetFeatureRequest{
 		ApiService: a,
-		ctx: ctx,
-		featureId: featureId,
+		ctx:        ctx,
+		featureId:  featureId,
 		retryCount: 0,
 	}
 }
@@ -171,10 +160,9 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*APIRespo
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -184,7 +172,6 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*APIRespo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureAPIService.GetFeature")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -212,7 +199,6 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*APIRespo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -229,13 +215,11 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*APIRespo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -244,7 +228,6 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*APIRespo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -259,12 +242,10 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -273,12 +254,10 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -287,13 +266,11 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -302,22 +279,18 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*APIRespo
 }
 
 type ApiListFeatureDependenciesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService FeatureAPI
-	featureId string
-	// TODU
+	featureId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListFeatureDependenciesRequest) Data (data interface{}) ApiListFeatureDependenciesRequest {
+func (r ApiListFeatureDependenciesRequest) Data(data interface{}) ApiListFeatureDependenciesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListFeatureDependenciesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListFeatureDependenciesExecute(r)
 }
@@ -333,13 +306,12 @@ A feature's dependencies are the features that it requires to be enabled in orde
  @param featureId `id` of the feature
  @return ApiListFeatureDependenciesRequest
 */
-// TODU
 
 func (a *FeatureAPIService) ListFeatureDependencies(ctx context.Context, featureId string) ApiListFeatureDependenciesRequest {
 	return ApiListFeatureDependenciesRequest{
 		ApiService: a,
-		ctx: ctx,
-		featureId: featureId,
+		ctx:        ctx,
+		featureId:  featureId,
 		retryCount: 0,
 	}
 }
@@ -352,10 +324,9 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -365,7 +336,6 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureAPIService.ListFeatureDependencies")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -393,7 +363,6 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -410,13 +379,11 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -425,7 +392,6 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -440,12 +406,10 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -454,12 +418,10 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -468,13 +430,11 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -483,22 +443,18 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 }
 
 type ApiListFeatureDependentsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService FeatureAPI
-	featureId string
-	// TODU
+	featureId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListFeatureDependentsRequest) Data (data interface{}) ApiListFeatureDependentsRequest {
+func (r ApiListFeatureDependentsRequest) Data(data interface{}) ApiListFeatureDependentsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListFeatureDependentsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListFeatureDependentsExecute(r)
 }
@@ -514,13 +470,12 @@ A feature's dependents are the features that need to be disabled in order for th
  @param featureId `id` of the feature
  @return ApiListFeatureDependentsRequest
 */
-// TODU
 
 func (a *FeatureAPIService) ListFeatureDependents(ctx context.Context, featureId string) ApiListFeatureDependentsRequest {
 	return ApiListFeatureDependentsRequest{
 		ApiService: a,
-		ctx: ctx,
-		featureId: featureId,
+		ctx:        ctx,
+		featureId:  featureId,
 		retryCount: 0,
 	}
 }
@@ -533,10 +488,9 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -546,7 +500,6 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureAPIService.ListFeatureDependents")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -574,7 +527,6 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -591,13 +543,11 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -606,7 +556,6 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -621,12 +570,10 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -635,12 +582,10 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -649,13 +594,11 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -664,21 +607,17 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 }
 
 type ApiListFeaturesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService FeatureAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListFeaturesRequest) Data (data interface{}) ApiListFeaturesRequest {
+func (r ApiListFeaturesRequest) Data(data interface{}) ApiListFeaturesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListFeaturesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListFeaturesExecute(r)
 }
@@ -691,12 +630,11 @@ Lists all self-service features for your org
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListFeaturesRequest
 */
-// TODU
 
 func (a *FeatureAPIService) ListFeatures(ctx context.Context) ApiListFeaturesRequest {
 	return ApiListFeaturesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -709,10 +647,9 @@ func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) (*APIR
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -722,7 +659,6 @@ func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) (*APIR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureAPIService.ListFeatures")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -749,7 +685,6 @@ func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) (*APIR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -766,13 +701,11 @@ func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) (*APIR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -781,7 +714,6 @@ func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) (*APIR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -796,12 +728,10 @@ func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) (*APIR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -810,13 +740,11 @@ func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) (*APIR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -825,12 +753,11 @@ func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) (*APIR
 }
 
 type ApiUpdateFeatureLifecycleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService FeatureAPI
-	featureId string
-	lifecycle string
-	mode *string
-	// TODU
+	featureId  string
+	lifecycle  string
+	mode       *string
 	data       interface{}
 	retryCount int32
 }
@@ -841,14 +768,11 @@ func (r ApiUpdateFeatureLifecycleRequest) Mode(mode string) ApiUpdateFeatureLife
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateFeatureLifecycleRequest) Data (data interface{}) ApiUpdateFeatureLifecycleRequest {
+func (r ApiUpdateFeatureLifecycleRequest) Data(data interface{}) ApiUpdateFeatureLifecycleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateFeatureLifecycleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateFeatureLifecycleExecute(r)
 }
@@ -873,14 +797,13 @@ The following chart shows the different state transitions for a feature.
  @param lifecycle Whether to `ENABLE` or `DISABLE` the feature
  @return ApiUpdateFeatureLifecycleRequest
 */
-// TODU
 
 func (a *FeatureAPIService) UpdateFeatureLifecycle(ctx context.Context, featureId string, lifecycle string) ApiUpdateFeatureLifecycleRequest {
 	return ApiUpdateFeatureLifecycleRequest{
 		ApiService: a,
-		ctx: ctx,
-		featureId: featureId,
-		lifecycle: lifecycle,
+		ctx:        ctx,
+		featureId:  featureId,
+		lifecycle:  lifecycle,
 		retryCount: 0,
 	}
 }
@@ -893,10 +816,9 @@ func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLife
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -906,7 +828,6 @@ func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLife
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureAPIService.UpdateFeatureLifecycle")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -938,7 +859,6 @@ func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLife
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -955,13 +875,11 @@ func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLife
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -970,7 +888,6 @@ func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLife
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -985,12 +902,10 @@ func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLife
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -999,12 +914,10 @@ func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLife
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1013,13 +926,11 @@ func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLife
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

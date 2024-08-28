@@ -17,141 +17,132 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type SubscriptionAPI interface {
 
 	/*
-	GetSubscriptionsNotificationTypeRole Retrieve a Subscription for a Role
+		GetSubscriptionsNotificationTypeRole Retrieve a Subscription for a Role
 
-	Retrieves a subscription by `notificationType` for a specified Role
+		Retrieves a subscription by `notificationType` for a specified Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Role Types](https://developer.okta.com/docs/concepts/role-assignment/#standard-role-types).
-	@param notificationType
-	@return ApiGetSubscriptionsNotificationTypeRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Role Types](https://developer.okta.com/docs/concepts/role-assignment/#standard-role-types).
+		@param notificationType
+		@return ApiGetSubscriptionsNotificationTypeRoleRequest
 	*/
 	GetSubscriptionsNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiGetSubscriptionsNotificationTypeRoleRequest
 
 	// GetSubscriptionsNotificationTypeRoleExecute executes the request
 	//  @return Subscription
-	// TODU
 	GetSubscriptionsNotificationTypeRoleExecute(r ApiGetSubscriptionsNotificationTypeRoleRequest) (*APIResponse, error)
 
 	/*
-	GetSubscriptionsNotificationTypeUser Retrieve a Subscription for a User
+		GetSubscriptionsNotificationTypeUser Retrieve a Subscription for a User
 
-	Retrieves a subscription by `notificationType` for a specified User. Returns an `AccessDeniedException` message if requests are made for another user.
+		Retrieves a subscription by `notificationType` for a specified User. Returns an `AccessDeniedException` message if requests are made for another user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param notificationType
-	@param userId ID of an existing Okta user
-	@return ApiGetSubscriptionsNotificationTypeUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param notificationType
+		@param userId ID of an existing Okta user
+		@return ApiGetSubscriptionsNotificationTypeUserRequest
 	*/
 	GetSubscriptionsNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiGetSubscriptionsNotificationTypeUserRequest
 
 	// GetSubscriptionsNotificationTypeUserExecute executes the request
 	//  @return Subscription
-	// TODU
 	GetSubscriptionsNotificationTypeUserExecute(r ApiGetSubscriptionsNotificationTypeUserRequest) (*APIResponse, error)
 
 	/*
-	ListSubscriptionsRole List all Subscriptions for a Role
+		ListSubscriptionsRole List all Subscriptions for a Role
 
-	Lists all subscriptions available to a specified Role
+		Lists all subscriptions available to a specified Role
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Role Types](https://developer.okta.com/docs/concepts/role-assignment/#standard-role-types).
-	@return ApiListSubscriptionsRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Role Types](https://developer.okta.com/docs/concepts/role-assignment/#standard-role-types).
+		@return ApiListSubscriptionsRoleRequest
 	*/
 	ListSubscriptionsRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter) ApiListSubscriptionsRoleRequest
 
 	// ListSubscriptionsRoleExecute executes the request
 	//  @return []Subscription
-	// TODU
 	ListSubscriptionsRoleExecute(r ApiListSubscriptionsRoleRequest) (*APIResponse, error)
 
 	/*
-	ListSubscriptionsUser List all Subscriptions for a User
+		ListSubscriptionsUser List all Subscriptions for a User
 
-	Lists all subscriptions available to a specified User. Returns an `AccessDeniedException` message if requests are made for another user.
+		Lists all subscriptions available to a specified User. Returns an `AccessDeniedException` message if requests are made for another user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListSubscriptionsUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListSubscriptionsUserRequest
 	*/
 	ListSubscriptionsUser(ctx context.Context, userId string) ApiListSubscriptionsUserRequest
 
 	// ListSubscriptionsUserExecute executes the request
 	//  @return []Subscription
-	// TODU
 	ListSubscriptionsUserExecute(r ApiListSubscriptionsUserRequest) (*APIResponse, error)
 
 	/*
-	SubscribeByNotificationTypeRole Subscribe a Role to a Specific Notification Type
+		SubscribeByNotificationTypeRole Subscribe a Role to a Specific Notification Type
 
-	Subscribes a Role to a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
+		Subscribes a Role to a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Role Types](https://developer.okta.com/docs/concepts/role-assignment/#standard-role-types).
-	@param notificationType
-	@return ApiSubscribeByNotificationTypeRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Role Types](https://developer.okta.com/docs/concepts/role-assignment/#standard-role-types).
+		@param notificationType
+		@return ApiSubscribeByNotificationTypeRoleRequest
 	*/
 	SubscribeByNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiSubscribeByNotificationTypeRoleRequest
 
 	// SubscribeByNotificationTypeRoleExecute executes the request
-	// TODU
 	SubscribeByNotificationTypeRoleExecute(r ApiSubscribeByNotificationTypeRoleRequest) (*APIResponse, error)
 
 	/*
-	SubscribeByNotificationTypeUser Subscribe a User to a Specific Notification Type
+		SubscribeByNotificationTypeUser Subscribe a User to a Specific Notification Type
 
-	Subscribes the current user to a specified notification type. Returns an `AccessDeniedException` message if requests are made for another user.
+		Subscribes the current user to a specified notification type. Returns an `AccessDeniedException` message if requests are made for another user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param notificationType
-	@param userId ID of an existing Okta user
-	@return ApiSubscribeByNotificationTypeUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param notificationType
+		@param userId ID of an existing Okta user
+		@return ApiSubscribeByNotificationTypeUserRequest
 	*/
 	SubscribeByNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiSubscribeByNotificationTypeUserRequest
 
 	// SubscribeByNotificationTypeUserExecute executes the request
-	// TODU
 	SubscribeByNotificationTypeUserExecute(r ApiSubscribeByNotificationTypeUserRequest) (*APIResponse, error)
 
 	/*
-	UnsubscribeByNotificationTypeRole Unsubscribe a Role from a Specific Notification Type
+		UnsubscribeByNotificationTypeRole Unsubscribe a Role from a Specific Notification Type
 
-	Unsubscribes a Role from a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
+		Unsubscribes a Role from a specified notification type. Changes to Role subscriptions override the subscription status of any individual users with the Role.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Role Types](https://developer.okta.com/docs/concepts/role-assignment/#standard-role-types).
-	@param notificationType
-	@return ApiUnsubscribeByNotificationTypeRoleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Role Types](https://developer.okta.com/docs/concepts/role-assignment/#standard-role-types).
+		@param notificationType
+		@return ApiUnsubscribeByNotificationTypeRoleRequest
 	*/
 	UnsubscribeByNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiUnsubscribeByNotificationTypeRoleRequest
 
 	// UnsubscribeByNotificationTypeRoleExecute executes the request
-	// TODU
 	UnsubscribeByNotificationTypeRoleExecute(r ApiUnsubscribeByNotificationTypeRoleRequest) (*APIResponse, error)
 
 	/*
-	UnsubscribeByNotificationTypeUser Unsubscribe a User from a Specific Notification Type
+		UnsubscribeByNotificationTypeUser Unsubscribe a User from a Specific Notification Type
 
-	Unsubscribes the current user from a specified notification type. Returns an `AccessDeniedException` message if requests are made for another user.
+		Unsubscribes the current user from a specified notification type. Returns an `AccessDeniedException` message if requests are made for another user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param notificationType
-	@param userId ID of an existing Okta user
-	@return ApiUnsubscribeByNotificationTypeUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param notificationType
+		@param userId ID of an existing Okta user
+		@return ApiUnsubscribeByNotificationTypeUserRequest
 	*/
 	UnsubscribeByNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiUnsubscribeByNotificationTypeUserRequest
 
 	// UnsubscribeByNotificationTypeUserExecute executes the request
-	// TODU
 	UnsubscribeByNotificationTypeUserExecute(r ApiUnsubscribeByNotificationTypeUserRequest) (*APIResponse, error)
 }
 
@@ -159,23 +150,19 @@ type SubscriptionAPI interface {
 type SubscriptionAPIService service
 
 type ApiGetSubscriptionsNotificationTypeRoleRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
-	roleRef ListSubscriptionsRoleRoleRefParameter
+	ctx              context.Context
+	ApiService       SubscriptionAPI
+	roleRef          ListSubscriptionsRoleRoleRefParameter
 	notificationType string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiGetSubscriptionsNotificationTypeRoleRequest) Data (data interface{}) ApiGetSubscriptionsNotificationTypeRoleRequest {
+func (r ApiGetSubscriptionsNotificationTypeRoleRequest) Data(data interface{}) ApiGetSubscriptionsNotificationTypeRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetSubscriptionsNotificationTypeRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetSubscriptionsNotificationTypeRoleExecute(r)
 }
@@ -190,15 +177,14 @@ Retrieves a subscription by `notificationType` for a specified Role
  @param notificationType
  @return ApiGetSubscriptionsNotificationTypeRoleRequest
 */
-// TODU
 
 func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiGetSubscriptionsNotificationTypeRoleRequest {
 	return ApiGetSubscriptionsNotificationTypeRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleRef: roleRef,
+		ApiService:       a,
+		ctx:              ctx,
+		roleRef:          roleRef,
 		notificationType: notificationType,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -210,10 +196,9 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRoleExecute(r A
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -223,7 +208,6 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRoleExecute(r A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionAPIService.GetSubscriptionsNotificationTypeRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -252,7 +236,6 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRoleExecute(r A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -269,13 +252,11 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRoleExecute(r A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -284,7 +265,6 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRoleExecute(r A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -299,12 +279,10 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRoleExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -313,13 +291,11 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRoleExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -328,23 +304,19 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeRoleExecute(r A
 }
 
 type ApiGetSubscriptionsNotificationTypeUserRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
+	ctx              context.Context
+	ApiService       SubscriptionAPI
 	notificationType string
-	userId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	userId           string
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiGetSubscriptionsNotificationTypeUserRequest) Data (data interface{}) ApiGetSubscriptionsNotificationTypeUserRequest {
+func (r ApiGetSubscriptionsNotificationTypeUserRequest) Data(data interface{}) ApiGetSubscriptionsNotificationTypeUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetSubscriptionsNotificationTypeUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetSubscriptionsNotificationTypeUserExecute(r)
 }
@@ -359,15 +331,14 @@ Retrieves a subscription by `notificationType` for a specified User. Returns an 
  @param userId ID of an existing Okta user
  @return ApiGetSubscriptionsNotificationTypeUserRequest
 */
-// TODU
 
 func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiGetSubscriptionsNotificationTypeUserRequest {
 	return ApiGetSubscriptionsNotificationTypeUserRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		notificationType: notificationType,
-		userId: userId,
-		retryCount: 0,
+		userId:           userId,
+		retryCount:       0,
 	}
 }
 
@@ -379,10 +350,9 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUserExecute(r A
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -392,7 +362,6 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUserExecute(r A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionAPIService.GetSubscriptionsNotificationTypeUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -421,7 +390,6 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUserExecute(r A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -438,13 +406,11 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUserExecute(r A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -453,7 +419,6 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUserExecute(r A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -468,12 +433,10 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUserExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -482,13 +445,11 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUserExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -497,22 +458,18 @@ func (a *SubscriptionAPIService) GetSubscriptionsNotificationTypeUserExecute(r A
 }
 
 type ApiListSubscriptionsRoleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SubscriptionAPI
-	roleRef ListSubscriptionsRoleRoleRefParameter
-	// TODU
+	roleRef    ListSubscriptionsRoleRoleRefParameter
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListSubscriptionsRoleRequest) Data (data interface{}) ApiListSubscriptionsRoleRequest {
+func (r ApiListSubscriptionsRoleRequest) Data(data interface{}) ApiListSubscriptionsRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListSubscriptionsRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListSubscriptionsRoleExecute(r)
 }
@@ -526,13 +483,12 @@ Lists all subscriptions available to a specified Role
  @param roleRef A reference to an existing role. Standard roles require a `roleType`, while Custom Roles require a `roleId`. See [Standard Role Types](https://developer.okta.com/docs/concepts/role-assignment/#standard-role-types).
  @return ApiListSubscriptionsRoleRequest
 */
-// TODU
 
 func (a *SubscriptionAPIService) ListSubscriptionsRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter) ApiListSubscriptionsRoleRequest {
 	return ApiListSubscriptionsRoleRequest{
 		ApiService: a,
-		ctx: ctx,
-		roleRef: roleRef,
+		ctx:        ctx,
+		roleRef:    roleRef,
 		retryCount: 0,
 	}
 }
@@ -545,10 +501,9 @@ func (a *SubscriptionAPIService) ListSubscriptionsRoleExecute(r ApiListSubscript
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -558,7 +513,6 @@ func (a *SubscriptionAPIService) ListSubscriptionsRoleExecute(r ApiListSubscript
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionAPIService.ListSubscriptionsRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -586,7 +540,6 @@ func (a *SubscriptionAPIService) ListSubscriptionsRoleExecute(r ApiListSubscript
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -603,13 +556,11 @@ func (a *SubscriptionAPIService) ListSubscriptionsRoleExecute(r ApiListSubscript
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -618,7 +569,6 @@ func (a *SubscriptionAPIService) ListSubscriptionsRoleExecute(r ApiListSubscript
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -633,12 +583,10 @@ func (a *SubscriptionAPIService) ListSubscriptionsRoleExecute(r ApiListSubscript
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -647,13 +595,11 @@ func (a *SubscriptionAPIService) ListSubscriptionsRoleExecute(r ApiListSubscript
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -662,22 +608,18 @@ func (a *SubscriptionAPIService) ListSubscriptionsRoleExecute(r ApiListSubscript
 }
 
 type ApiListSubscriptionsUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SubscriptionAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListSubscriptionsUserRequest) Data (data interface{}) ApiListSubscriptionsUserRequest {
+func (r ApiListSubscriptionsUserRequest) Data(data interface{}) ApiListSubscriptionsUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListSubscriptionsUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListSubscriptionsUserExecute(r)
 }
@@ -691,13 +633,12 @@ Lists all subscriptions available to a specified User. Returns an `AccessDeniedE
  @param userId ID of an existing Okta user
  @return ApiListSubscriptionsUserRequest
 */
-// TODU
 
 func (a *SubscriptionAPIService) ListSubscriptionsUser(ctx context.Context, userId string) ApiListSubscriptionsUserRequest {
 	return ApiListSubscriptionsUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -710,10 +651,9 @@ func (a *SubscriptionAPIService) ListSubscriptionsUserExecute(r ApiListSubscript
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -723,7 +663,6 @@ func (a *SubscriptionAPIService) ListSubscriptionsUserExecute(r ApiListSubscript
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionAPIService.ListSubscriptionsUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -751,7 +690,6 @@ func (a *SubscriptionAPIService) ListSubscriptionsUserExecute(r ApiListSubscript
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -768,13 +706,11 @@ func (a *SubscriptionAPIService) ListSubscriptionsUserExecute(r ApiListSubscript
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -783,7 +719,6 @@ func (a *SubscriptionAPIService) ListSubscriptionsUserExecute(r ApiListSubscript
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -798,12 +733,10 @@ func (a *SubscriptionAPIService) ListSubscriptionsUserExecute(r ApiListSubscript
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -812,13 +745,11 @@ func (a *SubscriptionAPIService) ListSubscriptionsUserExecute(r ApiListSubscript
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -827,23 +758,19 @@ func (a *SubscriptionAPIService) ListSubscriptionsUserExecute(r ApiListSubscript
 }
 
 type ApiSubscribeByNotificationTypeRoleRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
-	roleRef ListSubscriptionsRoleRoleRefParameter
+	ctx              context.Context
+	ApiService       SubscriptionAPI
+	roleRef          ListSubscriptionsRoleRoleRefParameter
 	notificationType string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiSubscribeByNotificationTypeRoleRequest) Data (data interface{}) ApiSubscribeByNotificationTypeRoleRequest {
+func (r ApiSubscribeByNotificationTypeRoleRequest) Data(data interface{}) ApiSubscribeByNotificationTypeRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiSubscribeByNotificationTypeRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.SubscribeByNotificationTypeRoleExecute(r)
 }
@@ -858,15 +785,14 @@ Subscribes a Role to a specified notification type. Changes to Role subscription
  @param notificationType
  @return ApiSubscribeByNotificationTypeRoleRequest
 */
-// TODU
 
 func (a *SubscriptionAPIService) SubscribeByNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiSubscribeByNotificationTypeRoleRequest {
 	return ApiSubscribeByNotificationTypeRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleRef: roleRef,
+		ApiService:       a,
+		ctx:              ctx,
+		roleRef:          roleRef,
 		notificationType: notificationType,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -879,7 +805,7 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeRoleExecute(r ApiSub
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -889,7 +815,6 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeRoleExecute(r ApiSub
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionAPIService.SubscribeByNotificationTypeRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -918,7 +843,6 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeRoleExecute(r ApiSub
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -935,13 +859,11 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeRoleExecute(r ApiSub
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -950,7 +872,6 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeRoleExecute(r ApiSub
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -965,12 +886,10 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeRoleExecute(r ApiSub
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -979,13 +898,11 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeRoleExecute(r ApiSub
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -994,23 +911,19 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeRoleExecute(r ApiSub
 }
 
 type ApiSubscribeByNotificationTypeUserRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
+	ctx              context.Context
+	ApiService       SubscriptionAPI
 	notificationType string
-	userId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	userId           string
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiSubscribeByNotificationTypeUserRequest) Data (data interface{}) ApiSubscribeByNotificationTypeUserRequest {
+func (r ApiSubscribeByNotificationTypeUserRequest) Data(data interface{}) ApiSubscribeByNotificationTypeUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiSubscribeByNotificationTypeUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.SubscribeByNotificationTypeUserExecute(r)
 }
@@ -1025,15 +938,14 @@ Subscribes the current user to a specified notification type. Returns an `Access
  @param userId ID of an existing Okta user
  @return ApiSubscribeByNotificationTypeUserRequest
 */
-// TODU
 
 func (a *SubscriptionAPIService) SubscribeByNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiSubscribeByNotificationTypeUserRequest {
 	return ApiSubscribeByNotificationTypeUserRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		notificationType: notificationType,
-		userId: userId,
-		retryCount: 0,
+		userId:           userId,
+		retryCount:       0,
 	}
 }
 
@@ -1046,7 +958,7 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeUserExecute(r ApiSub
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1056,7 +968,6 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeUserExecute(r ApiSub
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionAPIService.SubscribeByNotificationTypeUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1085,7 +996,6 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeUserExecute(r ApiSub
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1102,13 +1012,11 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeUserExecute(r ApiSub
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1117,7 +1025,6 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeUserExecute(r ApiSub
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1132,12 +1039,10 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeUserExecute(r ApiSub
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1146,13 +1051,11 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeUserExecute(r ApiSub
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1161,23 +1064,19 @@ func (a *SubscriptionAPIService) SubscribeByNotificationTypeUserExecute(r ApiSub
 }
 
 type ApiUnsubscribeByNotificationTypeRoleRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
-	roleRef ListSubscriptionsRoleRoleRefParameter
+	ctx              context.Context
+	ApiService       SubscriptionAPI
+	roleRef          ListSubscriptionsRoleRoleRefParameter
 	notificationType string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiUnsubscribeByNotificationTypeRoleRequest) Data (data interface{}) ApiUnsubscribeByNotificationTypeRoleRequest {
+func (r ApiUnsubscribeByNotificationTypeRoleRequest) Data(data interface{}) ApiUnsubscribeByNotificationTypeRoleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnsubscribeByNotificationTypeRoleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnsubscribeByNotificationTypeRoleExecute(r)
 }
@@ -1192,15 +1091,14 @@ Unsubscribes a Role from a specified notification type. Changes to Role subscrip
  @param notificationType
  @return ApiUnsubscribeByNotificationTypeRoleRequest
 */
-// TODU
 
 func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRole(ctx context.Context, roleRef ListSubscriptionsRoleRoleRefParameter, notificationType string) ApiUnsubscribeByNotificationTypeRoleRequest {
 	return ApiUnsubscribeByNotificationTypeRoleRequest{
-		ApiService: a,
-		ctx: ctx,
-		roleRef: roleRef,
+		ApiService:       a,
+		ctx:              ctx,
+		roleRef:          roleRef,
 		notificationType: notificationType,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -1213,7 +1111,7 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRoleExecute(r ApiU
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1223,7 +1121,6 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRoleExecute(r ApiU
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionAPIService.UnsubscribeByNotificationTypeRole")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1252,7 +1149,6 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRoleExecute(r ApiU
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1269,13 +1165,11 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRoleExecute(r ApiU
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1284,7 +1178,6 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRoleExecute(r ApiU
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1299,12 +1192,10 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRoleExecute(r ApiU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1313,13 +1204,11 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRoleExecute(r ApiU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1328,23 +1217,19 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeRoleExecute(r ApiU
 }
 
 type ApiUnsubscribeByNotificationTypeUserRequest struct {
-	ctx context.Context
-	ApiService SubscriptionAPI
+	ctx              context.Context
+	ApiService       SubscriptionAPI
 	notificationType string
-	userId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	userId           string
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiUnsubscribeByNotificationTypeUserRequest) Data (data interface{}) ApiUnsubscribeByNotificationTypeUserRequest {
+func (r ApiUnsubscribeByNotificationTypeUserRequest) Data(data interface{}) ApiUnsubscribeByNotificationTypeUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnsubscribeByNotificationTypeUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnsubscribeByNotificationTypeUserExecute(r)
 }
@@ -1359,15 +1244,14 @@ Unsubscribes the current user from a specified notification type. Returns an `Ac
  @param userId ID of an existing Okta user
  @return ApiUnsubscribeByNotificationTypeUserRequest
 */
-// TODU
 
 func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeUser(ctx context.Context, notificationType string, userId string) ApiUnsubscribeByNotificationTypeUserRequest {
 	return ApiUnsubscribeByNotificationTypeUserRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		notificationType: notificationType,
-		userId: userId,
-		retryCount: 0,
+		userId:           userId,
+		retryCount:       0,
 	}
 }
 
@@ -1380,7 +1264,7 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeUserExecute(r ApiU
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1390,7 +1274,6 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeUserExecute(r ApiU
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionAPIService.UnsubscribeByNotificationTypeUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1419,7 +1302,6 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeUserExecute(r ApiU
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1436,13 +1318,11 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeUserExecute(r ApiU
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1451,7 +1331,6 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeUserExecute(r ApiU
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1466,12 +1345,10 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeUserExecute(r ApiU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1480,13 +1357,11 @@ func (a *SubscriptionAPIService) UnsubscribeByNotificationTypeUserExecute(r ApiU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

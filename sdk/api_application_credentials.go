@@ -17,160 +17,150 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
-	"strings"
 	"os"
+	"strings"
+	"time"
 )
-
 
 type ApplicationCredentialsAPI interface {
 
 	/*
-	CloneApplicationKey Clone a Key Credential
+		CloneApplicationKey Clone a Key Credential
 
-	Clones a X.509 certificate for an application key credential from a source application to target application.
+		Clones a X.509 certificate for an application key credential from a source application to target application.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param keyId ID of the Key Credential for the application
-	@return ApiCloneApplicationKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param keyId ID of the Key Credential for the application
+		@return ApiCloneApplicationKeyRequest
 	*/
 	CloneApplicationKey(ctx context.Context, appId string, keyId string) ApiCloneApplicationKeyRequest
 
 	// CloneApplicationKeyExecute executes the request
 	//  @return JsonWebKey
-	// TODU
 	CloneApplicationKeyExecute(r ApiCloneApplicationKeyRequest) (*APIResponse, error)
 
 	/*
-	GenerateApplicationKey Generate a Key Credential
+		GenerateApplicationKey Generate a Key Credential
 
-	Generates a new X.509 certificate for an application key credential
+		Generates a new X.509 certificate for an application key credential
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGenerateApplicationKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiGenerateApplicationKeyRequest
 	*/
 	GenerateApplicationKey(ctx context.Context, appId string) ApiGenerateApplicationKeyRequest
 
 	// GenerateApplicationKeyExecute executes the request
 	//  @return JsonWebKey
-	// TODU
 	GenerateApplicationKeyExecute(r ApiGenerateApplicationKeyRequest) (*APIResponse, error)
 
 	/*
-	GenerateCsrForApplication Generate a Certificate Signing Request
+		GenerateCsrForApplication Generate a Certificate Signing Request
 
-	Generates a new key pair and returns the Certificate Signing Request for it
+		Generates a new key pair and returns the Certificate Signing Request for it
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGenerateCsrForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiGenerateCsrForApplicationRequest
 	*/
 	GenerateCsrForApplication(ctx context.Context, appId string) ApiGenerateCsrForApplicationRequest
 
 	// GenerateCsrForApplicationExecute executes the request
 	//  @return Csr
-	// TODU
 	GenerateCsrForApplicationExecute(r ApiGenerateCsrForApplicationRequest) (*APIResponse, error)
 
 	/*
-	GetApplicationKey Retrieve a Key Credential
+		GetApplicationKey Retrieve a Key Credential
 
-	Retrieves a specific application key credential by kid
+		Retrieves a specific application key credential by kid
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param keyId ID of the Key Credential for the application
-	@return ApiGetApplicationKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param keyId ID of the Key Credential for the application
+		@return ApiGetApplicationKeyRequest
 	*/
 	GetApplicationKey(ctx context.Context, appId string, keyId string) ApiGetApplicationKeyRequest
 
 	// GetApplicationKeyExecute executes the request
 	//  @return JsonWebKey
-	// TODU
 	GetApplicationKeyExecute(r ApiGetApplicationKeyRequest) (*APIResponse, error)
 
 	/*
-	GetCsrForApplication Retrieve a Certificate Signing Request
+		GetCsrForApplication Retrieve a Certificate Signing Request
 
-	Retrieves a certificate signing request for the app by `id`
+		Retrieves a certificate signing request for the app by `id`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param csrId `id` of the CSR
-	@return ApiGetCsrForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param csrId `id` of the CSR
+		@return ApiGetCsrForApplicationRequest
 	*/
 	GetCsrForApplication(ctx context.Context, appId string, csrId string) ApiGetCsrForApplicationRequest
 
 	// GetCsrForApplicationExecute executes the request
 	//  @return Csr
-	// TODU
 	GetCsrForApplicationExecute(r ApiGetCsrForApplicationRequest) (*APIResponse, error)
 
 	/*
-	ListApplicationKeys List all Key Credentials
+		ListApplicationKeys List all Key Credentials
 
-	Lists all key credentials for an application
+		Lists all key credentials for an application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListApplicationKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListApplicationKeysRequest
 	*/
 	ListApplicationKeys(ctx context.Context, appId string) ApiListApplicationKeysRequest
 
 	// ListApplicationKeysExecute executes the request
 	//  @return []JsonWebKey
-	// TODU
 	ListApplicationKeysExecute(r ApiListApplicationKeysRequest) (*APIResponse, error)
 
 	/*
-	ListCsrsForApplication List all Certificate Signing Requests
+		ListCsrsForApplication List all Certificate Signing Requests
 
-	Lists all Certificate Signing Requests for an application
+		Lists all Certificate Signing Requests for an application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListCsrsForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListCsrsForApplicationRequest
 	*/
 	ListCsrsForApplication(ctx context.Context, appId string) ApiListCsrsForApplicationRequest
 
 	// ListCsrsForApplicationExecute executes the request
 	//  @return []Csr
-	// TODU
 	ListCsrsForApplicationExecute(r ApiListCsrsForApplicationRequest) (*APIResponse, error)
 
 	/*
-	PublishCsrFromApplication Publish a Certificate Signing Request
+		PublishCsrFromApplication Publish a Certificate Signing Request
 
-	Publishes a certificate signing request for the app with a signed X.509 certificate and adds it into the application key credentials
+		Publishes a certificate signing request for the app with a signed X.509 certificate and adds it into the application key credentials
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param csrId `id` of the CSR
-	@return ApiPublishCsrFromApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param csrId `id` of the CSR
+		@return ApiPublishCsrFromApplicationRequest
 	*/
 	PublishCsrFromApplication(ctx context.Context, appId string, csrId string) ApiPublishCsrFromApplicationRequest
 
 	// PublishCsrFromApplicationExecute executes the request
 	//  @return JsonWebKey
-	// TODU
 	PublishCsrFromApplicationExecute(r ApiPublishCsrFromApplicationRequest) (*APIResponse, error)
 
 	/*
-	RevokeCsrFromApplication Revoke a Certificate Signing Request
+		RevokeCsrFromApplication Revoke a Certificate Signing Request
 
-	Revokes a certificate signing request and deletes the key pair from the application
+		Revokes a certificate signing request and deletes the key pair from the application
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param csrId `id` of the CSR
-	@return ApiRevokeCsrFromApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param csrId `id` of the CSR
+		@return ApiRevokeCsrFromApplicationRequest
 	*/
 	RevokeCsrFromApplication(ctx context.Context, appId string, csrId string) ApiRevokeCsrFromApplicationRequest
 
 	// RevokeCsrFromApplicationExecute executes the request
-	// TODU
 	RevokeCsrFromApplicationExecute(r ApiRevokeCsrFromApplicationRequest) (*APIResponse, error)
 }
 
@@ -178,12 +168,11 @@ type ApplicationCredentialsAPI interface {
 type ApplicationCredentialsAPIService service
 
 type ApiCloneApplicationKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationCredentialsAPI
-	appId string
-	keyId string
-	targetAid *string
-	// TODU
+	appId      string
+	keyId      string
+	targetAid  *string
 	data       interface{}
 	retryCount int32
 }
@@ -194,14 +183,11 @@ func (r ApiCloneApplicationKeyRequest) TargetAid(targetAid string) ApiCloneAppli
 	return r
 }
 
-
-// TODU
-func (r ApiCloneApplicationKeyRequest) Data (data interface{}) ApiCloneApplicationKeyRequest {
+func (r ApiCloneApplicationKeyRequest) Data(data interface{}) ApiCloneApplicationKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCloneApplicationKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CloneApplicationKeyExecute(r)
 }
@@ -216,14 +202,13 @@ Clones a X.509 certificate for an application key credential from a source appli
  @param keyId ID of the Key Credential for the application
  @return ApiCloneApplicationKeyRequest
 */
-// TODU
 
 func (a *ApplicationCredentialsAPIService) CloneApplicationKey(ctx context.Context, appId string, keyId string) ApiCloneApplicationKeyRequest {
 	return ApiCloneApplicationKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		keyId: keyId,
+		ctx:        ctx,
+		appId:      appId,
+		keyId:      keyId,
 		retryCount: 0,
 	}
 }
@@ -236,10 +221,9 @@ func (a *ApplicationCredentialsAPIService) CloneApplicationKeyExecute(r ApiClone
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -249,7 +233,6 @@ func (a *ApplicationCredentialsAPIService) CloneApplicationKeyExecute(r ApiClone
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationCredentialsAPIService.CloneApplicationKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -279,7 +262,6 @@ func (a *ApplicationCredentialsAPIService) CloneApplicationKeyExecute(r ApiClone
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -296,13 +278,11 @@ func (a *ApplicationCredentialsAPIService) CloneApplicationKeyExecute(r ApiClone
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -311,7 +291,6 @@ func (a *ApplicationCredentialsAPIService) CloneApplicationKeyExecute(r ApiClone
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -326,12 +305,10 @@ func (a *ApplicationCredentialsAPIService) CloneApplicationKeyExecute(r ApiClone
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -340,12 +317,10 @@ func (a *ApplicationCredentialsAPIService) CloneApplicationKeyExecute(r ApiClone
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -354,13 +329,11 @@ func (a *ApplicationCredentialsAPIService) CloneApplicationKeyExecute(r ApiClone
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -369,13 +342,12 @@ func (a *ApplicationCredentialsAPIService) CloneApplicationKeyExecute(r ApiClone
 }
 
 type ApiGenerateApplicationKeyRequest struct {
-	ctx context.Context
-	ApiService ApplicationCredentialsAPI
-	appId string
+	ctx           context.Context
+	ApiService    ApplicationCredentialsAPI
+	appId         string
 	validityYears *int32
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
 func (r ApiGenerateApplicationKeyRequest) ValidityYears(validityYears int32) ApiGenerateApplicationKeyRequest {
@@ -383,14 +355,11 @@ func (r ApiGenerateApplicationKeyRequest) ValidityYears(validityYears int32) Api
 	return r
 }
 
-
-// TODU
-func (r ApiGenerateApplicationKeyRequest) Data (data interface{}) ApiGenerateApplicationKeyRequest {
+func (r ApiGenerateApplicationKeyRequest) Data(data interface{}) ApiGenerateApplicationKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGenerateApplicationKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GenerateApplicationKeyExecute(r)
 }
@@ -404,13 +373,12 @@ Generates a new X.509 certificate for an application key credential
  @param appId Application ID
  @return ApiGenerateApplicationKeyRequest
 */
-// TODU
 
 func (a *ApplicationCredentialsAPIService) GenerateApplicationKey(ctx context.Context, appId string) ApiGenerateApplicationKeyRequest {
 	return ApiGenerateApplicationKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -423,10 +391,9 @@ func (a *ApplicationCredentialsAPIService) GenerateApplicationKeyExecute(r ApiGe
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -436,7 +403,6 @@ func (a *ApplicationCredentialsAPIService) GenerateApplicationKeyExecute(r ApiGe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationCredentialsAPIService.GenerateApplicationKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -467,7 +433,6 @@ func (a *ApplicationCredentialsAPIService) GenerateApplicationKeyExecute(r ApiGe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -484,13 +449,11 @@ func (a *ApplicationCredentialsAPIService) GenerateApplicationKeyExecute(r ApiGe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -499,7 +462,6 @@ func (a *ApplicationCredentialsAPIService) GenerateApplicationKeyExecute(r ApiGe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -514,12 +476,10 @@ func (a *ApplicationCredentialsAPIService) GenerateApplicationKeyExecute(r ApiGe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -528,12 +488,10 @@ func (a *ApplicationCredentialsAPIService) GenerateApplicationKeyExecute(r ApiGe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -542,13 +500,11 @@ func (a *ApplicationCredentialsAPIService) GenerateApplicationKeyExecute(r ApiGe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -557,11 +513,10 @@ func (a *ApplicationCredentialsAPIService) GenerateApplicationKeyExecute(r ApiGe
 }
 
 type ApiGenerateCsrForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationCredentialsAPI
-	appId string
-	metadata *CsrMetadata
-	// TODU
+	appId      string
+	metadata   *CsrMetadata
 	data       interface{}
 	retryCount int32
 }
@@ -571,14 +526,11 @@ func (r ApiGenerateCsrForApplicationRequest) Metadata(metadata CsrMetadata) ApiG
 	return r
 }
 
-
-// TODU
-func (r ApiGenerateCsrForApplicationRequest) Data (data interface{}) ApiGenerateCsrForApplicationRequest {
+func (r ApiGenerateCsrForApplicationRequest) Data(data interface{}) ApiGenerateCsrForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGenerateCsrForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GenerateCsrForApplicationExecute(r)
 }
@@ -592,13 +544,12 @@ Generates a new key pair and returns the Certificate Signing Request for it
  @param appId Application ID
  @return ApiGenerateCsrForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationCredentialsAPIService) GenerateCsrForApplication(ctx context.Context, appId string) ApiGenerateCsrForApplicationRequest {
 	return ApiGenerateCsrForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -611,10 +562,9 @@ func (a *ApplicationCredentialsAPIService) GenerateCsrForApplicationExecute(r Ap
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -624,7 +574,6 @@ func (a *ApplicationCredentialsAPIService) GenerateCsrForApplicationExecute(r Ap
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationCredentialsAPIService.GenerateCsrForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -652,7 +601,6 @@ func (a *ApplicationCredentialsAPIService) GenerateCsrForApplicationExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.metadata
 	localVarPostBody = r.data
@@ -672,13 +620,11 @@ func (a *ApplicationCredentialsAPIService) GenerateCsrForApplicationExecute(r Ap
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -687,7 +633,6 @@ func (a *ApplicationCredentialsAPIService) GenerateCsrForApplicationExecute(r Ap
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -702,12 +647,10 @@ func (a *ApplicationCredentialsAPIService) GenerateCsrForApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -716,12 +659,10 @@ func (a *ApplicationCredentialsAPIService) GenerateCsrForApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -730,12 +671,10 @@ func (a *ApplicationCredentialsAPIService) GenerateCsrForApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -744,13 +683,11 @@ func (a *ApplicationCredentialsAPIService) GenerateCsrForApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -759,23 +696,19 @@ func (a *ApplicationCredentialsAPIService) GenerateCsrForApplicationExecute(r Ap
 }
 
 type ApiGetApplicationKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationCredentialsAPI
-	appId string
-	keyId string
-	// TODU
+	appId      string
+	keyId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetApplicationKeyRequest) Data (data interface{}) ApiGetApplicationKeyRequest {
+func (r ApiGetApplicationKeyRequest) Data(data interface{}) ApiGetApplicationKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetApplicationKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetApplicationKeyExecute(r)
 }
@@ -790,14 +723,13 @@ Retrieves a specific application key credential by kid
  @param keyId ID of the Key Credential for the application
  @return ApiGetApplicationKeyRequest
 */
-// TODU
 
 func (a *ApplicationCredentialsAPIService) GetApplicationKey(ctx context.Context, appId string, keyId string) ApiGetApplicationKeyRequest {
 	return ApiGetApplicationKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		keyId: keyId,
+		ctx:        ctx,
+		appId:      appId,
+		keyId:      keyId,
 		retryCount: 0,
 	}
 }
@@ -810,10 +742,9 @@ func (a *ApplicationCredentialsAPIService) GetApplicationKeyExecute(r ApiGetAppl
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -823,7 +754,6 @@ func (a *ApplicationCredentialsAPIService) GetApplicationKeyExecute(r ApiGetAppl
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationCredentialsAPIService.GetApplicationKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -852,7 +782,6 @@ func (a *ApplicationCredentialsAPIService) GetApplicationKeyExecute(r ApiGetAppl
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -869,13 +798,11 @@ func (a *ApplicationCredentialsAPIService) GetApplicationKeyExecute(r ApiGetAppl
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -884,7 +811,6 @@ func (a *ApplicationCredentialsAPIService) GetApplicationKeyExecute(r ApiGetAppl
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -899,12 +825,10 @@ func (a *ApplicationCredentialsAPIService) GetApplicationKeyExecute(r ApiGetAppl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -913,12 +837,10 @@ func (a *ApplicationCredentialsAPIService) GetApplicationKeyExecute(r ApiGetAppl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -927,13 +849,11 @@ func (a *ApplicationCredentialsAPIService) GetApplicationKeyExecute(r ApiGetAppl
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -942,23 +862,19 @@ func (a *ApplicationCredentialsAPIService) GetApplicationKeyExecute(r ApiGetAppl
 }
 
 type ApiGetCsrForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationCredentialsAPI
-	appId string
-	csrId string
-	// TODU
+	appId      string
+	csrId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetCsrForApplicationRequest) Data (data interface{}) ApiGetCsrForApplicationRequest {
+func (r ApiGetCsrForApplicationRequest) Data(data interface{}) ApiGetCsrForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetCsrForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetCsrForApplicationExecute(r)
 }
@@ -973,14 +889,13 @@ Retrieves a certificate signing request for the app by `id`
  @param csrId `id` of the CSR
  @return ApiGetCsrForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationCredentialsAPIService) GetCsrForApplication(ctx context.Context, appId string, csrId string) ApiGetCsrForApplicationRequest {
 	return ApiGetCsrForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		csrId: csrId,
+		ctx:        ctx,
+		appId:      appId,
+		csrId:      csrId,
 		retryCount: 0,
 	}
 }
@@ -993,10 +908,9 @@ func (a *ApplicationCredentialsAPIService) GetCsrForApplicationExecute(r ApiGetC
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1006,7 +920,6 @@ func (a *ApplicationCredentialsAPIService) GetCsrForApplicationExecute(r ApiGetC
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationCredentialsAPIService.GetCsrForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1035,7 +948,6 @@ func (a *ApplicationCredentialsAPIService) GetCsrForApplicationExecute(r ApiGetC
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1052,13 +964,11 @@ func (a *ApplicationCredentialsAPIService) GetCsrForApplicationExecute(r ApiGetC
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1067,7 +977,6 @@ func (a *ApplicationCredentialsAPIService) GetCsrForApplicationExecute(r ApiGetC
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1082,12 +991,10 @@ func (a *ApplicationCredentialsAPIService) GetCsrForApplicationExecute(r ApiGetC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1096,12 +1003,10 @@ func (a *ApplicationCredentialsAPIService) GetCsrForApplicationExecute(r ApiGetC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1110,13 +1015,11 @@ func (a *ApplicationCredentialsAPIService) GetCsrForApplicationExecute(r ApiGetC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1125,22 +1028,18 @@ func (a *ApplicationCredentialsAPIService) GetCsrForApplicationExecute(r ApiGetC
 }
 
 type ApiListApplicationKeysRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationCredentialsAPI
-	appId string
-	// TODU
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListApplicationKeysRequest) Data (data interface{}) ApiListApplicationKeysRequest {
+func (r ApiListApplicationKeysRequest) Data(data interface{}) ApiListApplicationKeysRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListApplicationKeysRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListApplicationKeysExecute(r)
 }
@@ -1154,13 +1053,12 @@ Lists all key credentials for an application
  @param appId Application ID
  @return ApiListApplicationKeysRequest
 */
-// TODU
 
 func (a *ApplicationCredentialsAPIService) ListApplicationKeys(ctx context.Context, appId string) ApiListApplicationKeysRequest {
 	return ApiListApplicationKeysRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -1173,10 +1071,9 @@ func (a *ApplicationCredentialsAPIService) ListApplicationKeysExecute(r ApiListA
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1186,7 +1083,6 @@ func (a *ApplicationCredentialsAPIService) ListApplicationKeysExecute(r ApiListA
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationCredentialsAPIService.ListApplicationKeys")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1214,7 +1110,6 @@ func (a *ApplicationCredentialsAPIService) ListApplicationKeysExecute(r ApiListA
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1231,13 +1126,11 @@ func (a *ApplicationCredentialsAPIService) ListApplicationKeysExecute(r ApiListA
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1246,7 +1139,6 @@ func (a *ApplicationCredentialsAPIService) ListApplicationKeysExecute(r ApiListA
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1261,12 +1153,10 @@ func (a *ApplicationCredentialsAPIService) ListApplicationKeysExecute(r ApiListA
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1275,12 +1165,10 @@ func (a *ApplicationCredentialsAPIService) ListApplicationKeysExecute(r ApiListA
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1289,13 +1177,11 @@ func (a *ApplicationCredentialsAPIService) ListApplicationKeysExecute(r ApiListA
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1304,22 +1190,18 @@ func (a *ApplicationCredentialsAPIService) ListApplicationKeysExecute(r ApiListA
 }
 
 type ApiListCsrsForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationCredentialsAPI
-	appId string
-	// TODU
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListCsrsForApplicationRequest) Data (data interface{}) ApiListCsrsForApplicationRequest {
+func (r ApiListCsrsForApplicationRequest) Data(data interface{}) ApiListCsrsForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListCsrsForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListCsrsForApplicationExecute(r)
 }
@@ -1333,13 +1215,12 @@ Lists all Certificate Signing Requests for an application
  @param appId Application ID
  @return ApiListCsrsForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationCredentialsAPIService) ListCsrsForApplication(ctx context.Context, appId string) ApiListCsrsForApplicationRequest {
 	return ApiListCsrsForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -1352,10 +1233,9 @@ func (a *ApplicationCredentialsAPIService) ListCsrsForApplicationExecute(r ApiLi
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1365,7 +1245,6 @@ func (a *ApplicationCredentialsAPIService) ListCsrsForApplicationExecute(r ApiLi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationCredentialsAPIService.ListCsrsForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1393,7 +1272,6 @@ func (a *ApplicationCredentialsAPIService) ListCsrsForApplicationExecute(r ApiLi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1410,13 +1288,11 @@ func (a *ApplicationCredentialsAPIService) ListCsrsForApplicationExecute(r ApiLi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1425,7 +1301,6 @@ func (a *ApplicationCredentialsAPIService) ListCsrsForApplicationExecute(r ApiLi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1440,12 +1315,10 @@ func (a *ApplicationCredentialsAPIService) ListCsrsForApplicationExecute(r ApiLi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1454,12 +1327,10 @@ func (a *ApplicationCredentialsAPIService) ListCsrsForApplicationExecute(r ApiLi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1468,13 +1339,11 @@ func (a *ApplicationCredentialsAPIService) ListCsrsForApplicationExecute(r ApiLi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1483,12 +1352,11 @@ func (a *ApplicationCredentialsAPIService) ListCsrsForApplicationExecute(r ApiLi
 }
 
 type ApiPublishCsrFromApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationCredentialsAPI
-	appId string
-	csrId string
-	body **os.File
-	// TODU
+	appId      string
+	csrId      string
+	body       **os.File
 	data       interface{}
 	retryCount int32
 }
@@ -1498,14 +1366,11 @@ func (r ApiPublishCsrFromApplicationRequest) Body(body *os.File) ApiPublishCsrFr
 	return r
 }
 
-
-// TODU
-func (r ApiPublishCsrFromApplicationRequest) Data (data interface{}) ApiPublishCsrFromApplicationRequest {
+func (r ApiPublishCsrFromApplicationRequest) Data(data interface{}) ApiPublishCsrFromApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiPublishCsrFromApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.PublishCsrFromApplicationExecute(r)
 }
@@ -1520,14 +1385,13 @@ Publishes a certificate signing request for the app with a signed X.509 certific
  @param csrId `id` of the CSR
  @return ApiPublishCsrFromApplicationRequest
 */
-// TODU
 
 func (a *ApplicationCredentialsAPIService) PublishCsrFromApplication(ctx context.Context, appId string, csrId string) ApiPublishCsrFromApplicationRequest {
 	return ApiPublishCsrFromApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		csrId: csrId,
+		ctx:        ctx,
+		appId:      appId,
+		csrId:      csrId,
 		retryCount: 0,
 	}
 }
@@ -1540,10 +1404,9 @@ func (a *ApplicationCredentialsAPIService) PublishCsrFromApplicationExecute(r Ap
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1553,7 +1416,6 @@ func (a *ApplicationCredentialsAPIService) PublishCsrFromApplicationExecute(r Ap
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationCredentialsAPIService.PublishCsrFromApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1582,7 +1444,6 @@ func (a *ApplicationCredentialsAPIService) PublishCsrFromApplicationExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -1602,13 +1463,11 @@ func (a *ApplicationCredentialsAPIService) PublishCsrFromApplicationExecute(r Ap
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1617,7 +1476,6 @@ func (a *ApplicationCredentialsAPIService) PublishCsrFromApplicationExecute(r Ap
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1632,12 +1490,10 @@ func (a *ApplicationCredentialsAPIService) PublishCsrFromApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1646,12 +1502,10 @@ func (a *ApplicationCredentialsAPIService) PublishCsrFromApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1660,12 +1514,10 @@ func (a *ApplicationCredentialsAPIService) PublishCsrFromApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1674,13 +1526,11 @@ func (a *ApplicationCredentialsAPIService) PublishCsrFromApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1689,23 +1539,19 @@ func (a *ApplicationCredentialsAPIService) PublishCsrFromApplicationExecute(r Ap
 }
 
 type ApiRevokeCsrFromApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationCredentialsAPI
-	appId string
-	csrId string
-	// TODU
+	appId      string
+	csrId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeCsrFromApplicationRequest) Data (data interface{}) ApiRevokeCsrFromApplicationRequest {
+func (r ApiRevokeCsrFromApplicationRequest) Data(data interface{}) ApiRevokeCsrFromApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeCsrFromApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeCsrFromApplicationExecute(r)
 }
@@ -1720,14 +1566,13 @@ Revokes a certificate signing request and deletes the key pair from the applicat
  @param csrId `id` of the CSR
  @return ApiRevokeCsrFromApplicationRequest
 */
-// TODU
 
 func (a *ApplicationCredentialsAPIService) RevokeCsrFromApplication(ctx context.Context, appId string, csrId string) ApiRevokeCsrFromApplicationRequest {
 	return ApiRevokeCsrFromApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		csrId: csrId,
+		ctx:        ctx,
+		appId:      appId,
+		csrId:      csrId,
 		retryCount: 0,
 	}
 }
@@ -1741,7 +1586,7 @@ func (a *ApplicationCredentialsAPIService) RevokeCsrFromApplicationExecute(r Api
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1751,7 +1596,6 @@ func (a *ApplicationCredentialsAPIService) RevokeCsrFromApplicationExecute(r Api
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationCredentialsAPIService.RevokeCsrFromApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1780,7 +1624,6 @@ func (a *ApplicationCredentialsAPIService) RevokeCsrFromApplicationExecute(r Api
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1797,13 +1640,11 @@ func (a *ApplicationCredentialsAPIService) RevokeCsrFromApplicationExecute(r Api
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1812,7 +1653,6 @@ func (a *ApplicationCredentialsAPIService) RevokeCsrFromApplicationExecute(r Api
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1827,12 +1667,10 @@ func (a *ApplicationCredentialsAPIService) RevokeCsrFromApplicationExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1841,12 +1679,10 @@ func (a *ApplicationCredentialsAPIService) RevokeCsrFromApplicationExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1855,13 +1691,11 @@ func (a *ApplicationCredentialsAPIService) RevokeCsrFromApplicationExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

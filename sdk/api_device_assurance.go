@@ -17,88 +17,82 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type DeviceAssuranceAPI interface {
 
 	/*
-	CreateDeviceAssurancePolicy Create a Device Assurance Policy
+		CreateDeviceAssurancePolicy Create a Device Assurance Policy
 
-	Creates a new Device Assurance Policy
+		Creates a new Device Assurance Policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateDeviceAssurancePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateDeviceAssurancePolicyRequest
 	*/
 	CreateDeviceAssurancePolicy(ctx context.Context) ApiCreateDeviceAssurancePolicyRequest
 
 	// CreateDeviceAssurancePolicyExecute executes the request
 	//  @return ListDeviceAssurancePolicies200ResponseInner
-	// TODU
 	CreateDeviceAssurancePolicyExecute(r ApiCreateDeviceAssurancePolicyRequest) (*APIResponse, error)
 
 	/*
-	DeleteDeviceAssurancePolicy Delete a Device Assurance Policy
+		DeleteDeviceAssurancePolicy Delete a Device Assurance Policy
 
-	Deletes a Device Assurance Policy by `deviceAssuranceId`. If the Device Assurance Policy is currently being used in the org Authentication Policies, the delete will not be allowed.
+		Deletes a Device Assurance Policy by `deviceAssuranceId`. If the Device Assurance Policy is currently being used in the org Authentication Policies, the delete will not be allowed.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceAssuranceId Id of the Device Assurance Policy
-	@return ApiDeleteDeviceAssurancePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param deviceAssuranceId Id of the Device Assurance Policy
+		@return ApiDeleteDeviceAssurancePolicyRequest
 	*/
 	DeleteDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiDeleteDeviceAssurancePolicyRequest
 
 	// DeleteDeviceAssurancePolicyExecute executes the request
-	// TODU
 	DeleteDeviceAssurancePolicyExecute(r ApiDeleteDeviceAssurancePolicyRequest) (*APIResponse, error)
 
 	/*
-	GetDeviceAssurancePolicy Retrieve a Device Assurance Policy
+		GetDeviceAssurancePolicy Retrieve a Device Assurance Policy
 
-	Retrieves a Device Assurance Policy by `deviceAssuranceId`
+		Retrieves a Device Assurance Policy by `deviceAssuranceId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceAssuranceId Id of the Device Assurance Policy
-	@return ApiGetDeviceAssurancePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param deviceAssuranceId Id of the Device Assurance Policy
+		@return ApiGetDeviceAssurancePolicyRequest
 	*/
 	GetDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiGetDeviceAssurancePolicyRequest
 
 	// GetDeviceAssurancePolicyExecute executes the request
 	//  @return ListDeviceAssurancePolicies200ResponseInner
-	// TODU
 	GetDeviceAssurancePolicyExecute(r ApiGetDeviceAssurancePolicyRequest) (*APIResponse, error)
 
 	/*
-	ListDeviceAssurancePolicies List all Device Assurance Policies
+		ListDeviceAssurancePolicies List all Device Assurance Policies
 
-	Lists all device assurance policies
+		Lists all device assurance policies
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListDeviceAssurancePoliciesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListDeviceAssurancePoliciesRequest
 	*/
 	ListDeviceAssurancePolicies(ctx context.Context) ApiListDeviceAssurancePoliciesRequest
 
 	// ListDeviceAssurancePoliciesExecute executes the request
 	//  @return []ListDeviceAssurancePolicies200ResponseInner
-	// TODU
 	ListDeviceAssurancePoliciesExecute(r ApiListDeviceAssurancePoliciesRequest) (*APIResponse, error)
 
 	/*
-	ReplaceDeviceAssurancePolicy Replace a Device Assurance Policy
+		ReplaceDeviceAssurancePolicy Replace a Device Assurance Policy
 
-	Replaces a Device Assurance Policy by `deviceAssuranceId`
+		Replaces a Device Assurance Policy by `deviceAssuranceId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param deviceAssuranceId Id of the Device Assurance Policy
-	@return ApiReplaceDeviceAssurancePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param deviceAssuranceId Id of the Device Assurance Policy
+		@return ApiReplaceDeviceAssurancePolicyRequest
 	*/
 	ReplaceDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiReplaceDeviceAssurancePolicyRequest
 
 	// ReplaceDeviceAssurancePolicyExecute executes the request
 	//  @return ListDeviceAssurancePolicies200ResponseInner
-	// TODU
 	ReplaceDeviceAssurancePolicyExecute(r ApiReplaceDeviceAssurancePolicyRequest) (*APIResponse, error)
 }
 
@@ -106,12 +100,11 @@ type DeviceAssuranceAPI interface {
 type DeviceAssuranceAPIService service
 
 type ApiCreateDeviceAssurancePolicyRequest struct {
-	ctx context.Context
-	ApiService DeviceAssuranceAPI
+	ctx             context.Context
+	ApiService      DeviceAssuranceAPI
 	deviceAssurance *ListDeviceAssurancePolicies200ResponseInner
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
 func (r ApiCreateDeviceAssurancePolicyRequest) DeviceAssurance(deviceAssurance ListDeviceAssurancePolicies200ResponseInner) ApiCreateDeviceAssurancePolicyRequest {
@@ -119,14 +112,11 @@ func (r ApiCreateDeviceAssurancePolicyRequest) DeviceAssurance(deviceAssurance L
 	return r
 }
 
-
-// TODU
-func (r ApiCreateDeviceAssurancePolicyRequest) Data (data interface{}) ApiCreateDeviceAssurancePolicyRequest {
+func (r ApiCreateDeviceAssurancePolicyRequest) Data(data interface{}) ApiCreateDeviceAssurancePolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateDeviceAssurancePolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateDeviceAssurancePolicyExecute(r)
 }
@@ -139,12 +129,11 @@ Creates a new Device Assurance Policy
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateDeviceAssurancePolicyRequest
 */
-// TODU
 
 func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicy(ctx context.Context) ApiCreateDeviceAssurancePolicyRequest {
 	return ApiCreateDeviceAssurancePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -157,10 +146,9 @@ func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCrea
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -170,7 +158,6 @@ func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCrea
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAssuranceAPIService.CreateDeviceAssurancePolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -197,7 +184,6 @@ func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCrea
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.deviceAssurance
 	localVarPostBody = r.data
@@ -217,13 +203,11 @@ func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCrea
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -232,7 +216,6 @@ func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCrea
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -247,12 +230,10 @@ func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -261,12 +242,10 @@ func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -275,13 +254,11 @@ func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -290,22 +267,18 @@ func (a *DeviceAssuranceAPIService) CreateDeviceAssurancePolicyExecute(r ApiCrea
 }
 
 type ApiDeleteDeviceAssurancePolicyRequest struct {
-	ctx context.Context
-	ApiService DeviceAssuranceAPI
+	ctx               context.Context
+	ApiService        DeviceAssuranceAPI
 	deviceAssuranceId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data              interface{}
+	retryCount        int32
 }
 
-
-// TODU
-func (r ApiDeleteDeviceAssurancePolicyRequest) Data (data interface{}) ApiDeleteDeviceAssurancePolicyRequest {
+func (r ApiDeleteDeviceAssurancePolicyRequest) Data(data interface{}) ApiDeleteDeviceAssurancePolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteDeviceAssurancePolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteDeviceAssurancePolicyExecute(r)
 }
@@ -319,14 +292,13 @@ Deletes a Device Assurance Policy by `deviceAssuranceId`. If the Device Assuranc
  @param deviceAssuranceId Id of the Device Assurance Policy
  @return ApiDeleteDeviceAssurancePolicyRequest
 */
-// TODU
 
 func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiDeleteDeviceAssurancePolicyRequest {
 	return ApiDeleteDeviceAssurancePolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:        a,
+		ctx:               ctx,
 		deviceAssuranceId: deviceAssuranceId,
-		retryCount: 0,
+		retryCount:        0,
 	}
 }
 
@@ -339,7 +311,7 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -349,7 +321,6 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAssuranceAPIService.DeleteDeviceAssurancePolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -377,7 +348,6 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -394,13 +364,11 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -409,7 +377,6 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -424,12 +391,10 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -438,12 +403,10 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -452,12 +415,10 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -466,13 +427,11 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -481,22 +440,18 @@ func (a *DeviceAssuranceAPIService) DeleteDeviceAssurancePolicyExecute(r ApiDele
 }
 
 type ApiGetDeviceAssurancePolicyRequest struct {
-	ctx context.Context
-	ApiService DeviceAssuranceAPI
+	ctx               context.Context
+	ApiService        DeviceAssuranceAPI
 	deviceAssuranceId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data              interface{}
+	retryCount        int32
 }
 
-
-// TODU
-func (r ApiGetDeviceAssurancePolicyRequest) Data (data interface{}) ApiGetDeviceAssurancePolicyRequest {
+func (r ApiGetDeviceAssurancePolicyRequest) Data(data interface{}) ApiGetDeviceAssurancePolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetDeviceAssurancePolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetDeviceAssurancePolicyExecute(r)
 }
@@ -510,14 +465,13 @@ Retrieves a Device Assurance Policy by `deviceAssuranceId`
  @param deviceAssuranceId Id of the Device Assurance Policy
  @return ApiGetDeviceAssurancePolicyRequest
 */
-// TODU
 
 func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiGetDeviceAssurancePolicyRequest {
 	return ApiGetDeviceAssurancePolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:        a,
+		ctx:               ctx,
 		deviceAssuranceId: deviceAssuranceId,
-		retryCount: 0,
+		retryCount:        0,
 	}
 }
 
@@ -529,10 +483,9 @@ func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDevi
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -542,7 +495,6 @@ func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDevi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAssuranceAPIService.GetDeviceAssurancePolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -570,7 +522,6 @@ func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDevi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -587,13 +538,11 @@ func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDevi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -602,7 +551,6 @@ func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDevi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -617,12 +565,10 @@ func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDevi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -631,12 +577,10 @@ func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDevi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -645,13 +589,11 @@ func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDevi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -660,21 +602,17 @@ func (a *DeviceAssuranceAPIService) GetDeviceAssurancePolicyExecute(r ApiGetDevi
 }
 
 type ApiListDeviceAssurancePoliciesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService DeviceAssuranceAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListDeviceAssurancePoliciesRequest) Data (data interface{}) ApiListDeviceAssurancePoliciesRequest {
+func (r ApiListDeviceAssurancePoliciesRequest) Data(data interface{}) ApiListDeviceAssurancePoliciesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListDeviceAssurancePoliciesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListDeviceAssurancePoliciesExecute(r)
 }
@@ -687,12 +625,11 @@ Lists all device assurance policies
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListDeviceAssurancePoliciesRequest
 */
-// TODU
 
 func (a *DeviceAssuranceAPIService) ListDeviceAssurancePolicies(ctx context.Context) ApiListDeviceAssurancePoliciesRequest {
 	return ApiListDeviceAssurancePoliciesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -705,10 +642,9 @@ func (a *DeviceAssuranceAPIService) ListDeviceAssurancePoliciesExecute(r ApiList
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -718,7 +654,6 @@ func (a *DeviceAssuranceAPIService) ListDeviceAssurancePoliciesExecute(r ApiList
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAssuranceAPIService.ListDeviceAssurancePolicies")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -745,7 +680,6 @@ func (a *DeviceAssuranceAPIService) ListDeviceAssurancePoliciesExecute(r ApiList
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -762,13 +696,11 @@ func (a *DeviceAssuranceAPIService) ListDeviceAssurancePoliciesExecute(r ApiList
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -777,7 +709,6 @@ func (a *DeviceAssuranceAPIService) ListDeviceAssurancePoliciesExecute(r ApiList
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -792,12 +723,10 @@ func (a *DeviceAssuranceAPIService) ListDeviceAssurancePoliciesExecute(r ApiList
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -806,13 +735,11 @@ func (a *DeviceAssuranceAPIService) ListDeviceAssurancePoliciesExecute(r ApiList
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -821,13 +748,12 @@ func (a *DeviceAssuranceAPIService) ListDeviceAssurancePoliciesExecute(r ApiList
 }
 
 type ApiReplaceDeviceAssurancePolicyRequest struct {
-	ctx context.Context
-	ApiService DeviceAssuranceAPI
+	ctx               context.Context
+	ApiService        DeviceAssuranceAPI
 	deviceAssuranceId string
-	deviceAssurance *ListDeviceAssurancePolicies200ResponseInner
-	// TODU
-	data       interface{}
-	retryCount int32
+	deviceAssurance   *ListDeviceAssurancePolicies200ResponseInner
+	data              interface{}
+	retryCount        int32
 }
 
 func (r ApiReplaceDeviceAssurancePolicyRequest) DeviceAssurance(deviceAssurance ListDeviceAssurancePolicies200ResponseInner) ApiReplaceDeviceAssurancePolicyRequest {
@@ -835,14 +761,11 @@ func (r ApiReplaceDeviceAssurancePolicyRequest) DeviceAssurance(deviceAssurance 
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceDeviceAssurancePolicyRequest) Data (data interface{}) ApiReplaceDeviceAssurancePolicyRequest {
+func (r ApiReplaceDeviceAssurancePolicyRequest) Data(data interface{}) ApiReplaceDeviceAssurancePolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceDeviceAssurancePolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceDeviceAssurancePolicyExecute(r)
 }
@@ -856,14 +779,13 @@ Replaces a Device Assurance Policy by `deviceAssuranceId`
  @param deviceAssuranceId Id of the Device Assurance Policy
  @return ApiReplaceDeviceAssurancePolicyRequest
 */
-// TODU
 
 func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicy(ctx context.Context, deviceAssuranceId string) ApiReplaceDeviceAssurancePolicyRequest {
 	return ApiReplaceDeviceAssurancePolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:        a,
+		ctx:               ctx,
 		deviceAssuranceId: deviceAssuranceId,
-		retryCount: 0,
+		retryCount:        0,
 	}
 }
 
@@ -875,10 +797,9 @@ func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiRep
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -888,7 +809,6 @@ func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiRep
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAssuranceAPIService.ReplaceDeviceAssurancePolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -916,7 +836,6 @@ func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiRep
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.deviceAssurance
 	localVarPostBody = r.data
@@ -936,13 +855,11 @@ func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiRep
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -951,7 +868,6 @@ func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiRep
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -966,12 +882,10 @@ func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -980,12 +894,10 @@ func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -994,12 +906,10 @@ func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1008,13 +918,11 @@ func (a *DeviceAssuranceAPIService) ReplaceDeviceAssurancePolicyExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

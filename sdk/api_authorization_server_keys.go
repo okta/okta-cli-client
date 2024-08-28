@@ -17,43 +17,40 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthorizationServerKeysAPI interface {
 
 	/*
-	ListAuthorizationServerKeys List all Credential Keys
+		ListAuthorizationServerKeys List all Credential Keys
 
-	Lists all credential keys
+		Lists all credential keys
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiListAuthorizationServerKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiListAuthorizationServerKeysRequest
 	*/
 	ListAuthorizationServerKeys(ctx context.Context, authServerId string) ApiListAuthorizationServerKeysRequest
 
 	// ListAuthorizationServerKeysExecute executes the request
 	//  @return []JsonWebKey
-	// TODU
 	ListAuthorizationServerKeysExecute(r ApiListAuthorizationServerKeysRequest) (*APIResponse, error)
 
 	/*
-	RotateAuthorizationServerKeys Rotate all Credential Keys
+		RotateAuthorizationServerKeys Rotate all Credential Keys
 
-	Rotates all credential keys
+		Rotates all credential keys
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiRotateAuthorizationServerKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiRotateAuthorizationServerKeysRequest
 	*/
 	RotateAuthorizationServerKeys(ctx context.Context, authServerId string) ApiRotateAuthorizationServerKeysRequest
 
 	// RotateAuthorizationServerKeysExecute executes the request
 	//  @return []JsonWebKey
-	// TODU
 	RotateAuthorizationServerKeysExecute(r ApiRotateAuthorizationServerKeysRequest) (*APIResponse, error)
 }
 
@@ -61,22 +58,18 @@ type AuthorizationServerKeysAPI interface {
 type AuthorizationServerKeysAPIService service
 
 type ApiListAuthorizationServerKeysRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerKeysAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerKeysAPI
 	authServerId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiListAuthorizationServerKeysRequest) Data (data interface{}) ApiListAuthorizationServerKeysRequest {
+func (r ApiListAuthorizationServerKeysRequest) Data(data interface{}) ApiListAuthorizationServerKeysRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListAuthorizationServerKeysRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListAuthorizationServerKeysExecute(r)
 }
@@ -90,14 +83,13 @@ Lists all credential keys
  @param authServerId `id` of the Authorization Server
  @return ApiListAuthorizationServerKeysRequest
 */
-// TODU
 
 func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeys(ctx context.Context, authServerId string) ApiListAuthorizationServerKeysRequest {
 	return ApiListAuthorizationServerKeysRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -109,10 +101,9 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -122,7 +113,6 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerKeysAPIService.ListAuthorizationServerKeys")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -150,7 +140,6 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -167,13 +156,11 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -182,7 +169,6 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -197,12 +183,10 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -211,12 +195,10 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -225,13 +207,11 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -240,13 +220,12 @@ func (a *AuthorizationServerKeysAPIService) ListAuthorizationServerKeysExecute(r
 }
 
 type ApiRotateAuthorizationServerKeysRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerKeysAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerKeysAPI
 	authServerId string
-	use *JwkUse
-	// TODU
-	data       interface{}
-	retryCount int32
+	use          *JwkUse
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiRotateAuthorizationServerKeysRequest) Use(use JwkUse) ApiRotateAuthorizationServerKeysRequest {
@@ -254,14 +233,11 @@ func (r ApiRotateAuthorizationServerKeysRequest) Use(use JwkUse) ApiRotateAuthor
 	return r
 }
 
-
-// TODU
-func (r ApiRotateAuthorizationServerKeysRequest) Data (data interface{}) ApiRotateAuthorizationServerKeysRequest {
+func (r ApiRotateAuthorizationServerKeysRequest) Data(data interface{}) ApiRotateAuthorizationServerKeysRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRotateAuthorizationServerKeysRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RotateAuthorizationServerKeysExecute(r)
 }
@@ -275,14 +251,13 @@ Rotates all credential keys
  @param authServerId `id` of the Authorization Server
  @return ApiRotateAuthorizationServerKeysRequest
 */
-// TODU
 
 func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeys(ctx context.Context, authServerId string) ApiRotateAuthorizationServerKeysRequest {
 	return ApiRotateAuthorizationServerKeysRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -294,10 +269,9 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -307,7 +281,6 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerKeysAPIService.RotateAuthorizationServerKeys")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -335,7 +308,6 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.use
 	localVarPostBody = r.data
@@ -355,13 +327,11 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -370,7 +340,6 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -385,12 +354,10 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -399,12 +366,10 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -413,12 +378,10 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -427,13 +390,11 @@ func (a *AuthorizationServerKeysAPIService) RotateAuthorizationServerKeysExecute
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

@@ -17,123 +17,115 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type SessionAPI interface {
 
 	/*
-	CloseCurrentSession Close the current Session
+			CloseCurrentSession Close the current Session
 
-	Closes the Session for the user who is currently signed in. Use this method in a browser-based application to sign out a user.
+			Closes the Session for the user who is currently signed in. Use this method in a browser-based application to sign out a user.
 
-> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
+		> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCloseCurrentSessionRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCloseCurrentSessionRequest
 	*/
 	CloseCurrentSession(ctx context.Context) ApiCloseCurrentSessionRequest
 
 	// CloseCurrentSessionExecute executes the request
-	// TODU
 	CloseCurrentSessionExecute(r ApiCloseCurrentSessionRequest) (*APIResponse, error)
 
 	/*
-	CreateSession Create a Session with session token
+		CreateSession Create a Session with session token
 
-	Creates a new Session for a user with a valid session token. Use this API if, for example, you want to set the session cookie yourself instead of allowing Okta to set it, or want to hold the session ID to delete a session through the API instead of visiting the logout URL.
+		Creates a new Session for a user with a valid session token. Use this API if, for example, you want to set the session cookie yourself instead of allowing Okta to set it, or want to hold the session ID to delete a session through the API instead of visiting the logout URL.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateSessionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateSessionRequest
 	*/
 	CreateSession(ctx context.Context) ApiCreateSessionRequest
 
 	// CreateSessionExecute executes the request
 	//  @return Session
-	// TODU
 	CreateSessionExecute(r ApiCreateSessionRequest) (*APIResponse, error)
 
 	/*
-	GetCurrentSession Retrieve the current Session
+			GetCurrentSession Retrieve the current Session
 
-	Retrieves Session information for the current user. Use this method in a browser-based application to determine if the user is signed in. 
+			Retrieves Session information for the current user. Use this method in a browser-based application to determine if the user is signed in.
 
-> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation. 
+		> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetCurrentSessionRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiGetCurrentSessionRequest
 	*/
 	GetCurrentSession(ctx context.Context) ApiGetCurrentSessionRequest
 
 	// GetCurrentSessionExecute executes the request
 	//  @return Session
-	// TODU
 	GetCurrentSessionExecute(r ApiGetCurrentSessionRequest) (*APIResponse, error)
 
 	/*
-	GetSession Retrieve a Session
+		GetSession Retrieve a Session
 
-	Retrieves information about the Session specified by the given session ID
+		Retrieves information about the Session specified by the given session ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sessionId `id` of the Session
-	@return ApiGetSessionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param sessionId `id` of the Session
+		@return ApiGetSessionRequest
 	*/
 	GetSession(ctx context.Context, sessionId string) ApiGetSessionRequest
 
 	// GetSessionExecute executes the request
 	//  @return Session
-	// TODU
 	GetSessionExecute(r ApiGetSessionRequest) (*APIResponse, error)
 
 	/*
-	RefreshCurrentSession Refresh the current Session
+			RefreshCurrentSession Refresh the current Session
 
-	Refreshes the Session for the current user
+			Refreshes the Session for the current user
 
-> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
+		> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiRefreshCurrentSessionRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiRefreshCurrentSessionRequest
 	*/
 	RefreshCurrentSession(ctx context.Context) ApiRefreshCurrentSessionRequest
 
 	// RefreshCurrentSessionExecute executes the request
 	//  @return Session
-	// TODU
 	RefreshCurrentSessionExecute(r ApiRefreshCurrentSessionRequest) (*APIResponse, error)
 
 	/*
-	RefreshSession Refresh a Session
+		RefreshSession Refresh a Session
 
-	Refreshes an existing Session using the `id` for that Session. A successful response contains the refreshed Session with an updated `expiresAt` timestamp.
+		Refreshes an existing Session using the `id` for that Session. A successful response contains the refreshed Session with an updated `expiresAt` timestamp.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sessionId `id` of the Session
-	@return ApiRefreshSessionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param sessionId `id` of the Session
+		@return ApiRefreshSessionRequest
 	*/
 	RefreshSession(ctx context.Context, sessionId string) ApiRefreshSessionRequest
 
 	// RefreshSessionExecute executes the request
 	//  @return Session
-	// TODU
 	RefreshSessionExecute(r ApiRefreshSessionRequest) (*APIResponse, error)
 
 	/*
-	RevokeSession Revoke a Session
+		RevokeSession Revoke a Session
 
-	Revokes the specified Session
+		Revokes the specified Session
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sessionId `id` of the Session
-	@return ApiRevokeSessionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param sessionId `id` of the Session
+		@return ApiRevokeSessionRequest
 	*/
 	RevokeSession(ctx context.Context, sessionId string) ApiRevokeSessionRequest
 
 	// RevokeSessionExecute executes the request
-	// TODU
 	RevokeSessionExecute(r ApiRevokeSessionRequest) (*APIResponse, error)
 }
 
@@ -141,10 +133,9 @@ type SessionAPI interface {
 type SessionAPIService service
 
 type ApiCloseCurrentSessionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SessionAPI
-	cookie *string
-	// TODU
+	cookie     *string
 	data       interface{}
 	retryCount int32
 }
@@ -154,14 +145,11 @@ func (r ApiCloseCurrentSessionRequest) Cookie(cookie string) ApiCloseCurrentSess
 	return r
 }
 
-
-// TODU
-func (r ApiCloseCurrentSessionRequest) Data (data interface{}) ApiCloseCurrentSessionRequest {
+func (r ApiCloseCurrentSessionRequest) Data(data interface{}) ApiCloseCurrentSessionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCloseCurrentSessionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CloseCurrentSessionExecute(r)
 }
@@ -176,12 +164,11 @@ Closes the Session for the user who is currently signed in. Use this method in a
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCloseCurrentSessionRequest
 */
-// TODU
 
 func (a *SessionAPIService) CloseCurrentSession(ctx context.Context) ApiCloseCurrentSessionRequest {
 	return ApiCloseCurrentSessionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -195,7 +182,7 @@ func (a *SessionAPIService) CloseCurrentSessionExecute(r ApiCloseCurrentSessionR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -205,7 +192,6 @@ func (a *SessionAPIService) CloseCurrentSessionExecute(r ApiCloseCurrentSessionR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.CloseCurrentSession")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -235,16 +221,13 @@ func (a *SessionAPIService) CloseCurrentSessionExecute(r ApiCloseCurrentSessionR
 	if r.cookie != nil {
 		localVarHeaderParams["Cookie"] = parameterToString(*r.cookie, "")
 	}
-// TODU
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -253,7 +236,6 @@ func (a *SessionAPIService) CloseCurrentSessionExecute(r ApiCloseCurrentSessionR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -268,13 +250,11 @@ func (a *SessionAPIService) CloseCurrentSessionExecute(r ApiCloseCurrentSessionR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -283,12 +263,11 @@ func (a *SessionAPIService) CloseCurrentSessionExecute(r ApiCloseCurrentSessionR
 }
 
 type ApiCreateSessionRequest struct {
-	ctx context.Context
-	ApiService SessionAPI
+	ctx                  context.Context
+	ApiService           SessionAPI
 	createSessionRequest *CreateSessionRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                 interface{}
+	retryCount           int32
 }
 
 func (r ApiCreateSessionRequest) CreateSessionRequest(createSessionRequest CreateSessionRequest) ApiCreateSessionRequest {
@@ -296,14 +275,11 @@ func (r ApiCreateSessionRequest) CreateSessionRequest(createSessionRequest Creat
 	return r
 }
 
-
-// TODU
-func (r ApiCreateSessionRequest) Data (data interface{}) ApiCreateSessionRequest {
+func (r ApiCreateSessionRequest) Data(data interface{}) ApiCreateSessionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateSessionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateSessionExecute(r)
 }
@@ -316,12 +292,11 @@ Creates a new Session for a user with a valid session token. Use this API if, fo
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateSessionRequest
 */
-// TODU
 
 func (a *SessionAPIService) CreateSession(ctx context.Context) ApiCreateSessionRequest {
 	return ApiCreateSessionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -334,10 +309,9 @@ func (a *SessionAPIService) CreateSessionExecute(r ApiCreateSessionRequest) (*AP
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -347,7 +321,6 @@ func (a *SessionAPIService) CreateSessionExecute(r ApiCreateSessionRequest) (*AP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.CreateSession")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -374,7 +347,6 @@ func (a *SessionAPIService) CreateSessionExecute(r ApiCreateSessionRequest) (*AP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.createSessionRequest
 	localVarPostBody = r.data
@@ -394,13 +366,11 @@ func (a *SessionAPIService) CreateSessionExecute(r ApiCreateSessionRequest) (*AP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -409,7 +379,6 @@ func (a *SessionAPIService) CreateSessionExecute(r ApiCreateSessionRequest) (*AP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -424,12 +393,10 @@ func (a *SessionAPIService) CreateSessionExecute(r ApiCreateSessionRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -438,13 +405,11 @@ func (a *SessionAPIService) CreateSessionExecute(r ApiCreateSessionRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -453,10 +418,9 @@ func (a *SessionAPIService) CreateSessionExecute(r ApiCreateSessionRequest) (*AP
 }
 
 type ApiGetCurrentSessionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SessionAPI
-	cookie *string
-	// TODU
+	cookie     *string
 	data       interface{}
 	retryCount int32
 }
@@ -466,14 +430,11 @@ func (r ApiGetCurrentSessionRequest) Cookie(cookie string) ApiGetCurrentSessionR
 	return r
 }
 
-
-// TODU
-func (r ApiGetCurrentSessionRequest) Data (data interface{}) ApiGetCurrentSessionRequest {
+func (r ApiGetCurrentSessionRequest) Data(data interface{}) ApiGetCurrentSessionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetCurrentSessionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetCurrentSessionExecute(r)
 }
@@ -481,19 +442,18 @@ func (r ApiGetCurrentSessionRequest) Execute() (*APIResponse, error) {
 /*
 GetCurrentSession Retrieve the current Session
 
-Retrieves Session information for the current user. Use this method in a browser-based application to determine if the user is signed in. 
+Retrieves Session information for the current user. Use this method in a browser-based application to determine if the user is signed in.
 
-> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation. 
+> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCurrentSessionRequest
 */
-// TODU
 
 func (a *SessionAPIService) GetCurrentSession(ctx context.Context) ApiGetCurrentSessionRequest {
 	return ApiGetCurrentSessionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -506,10 +466,9 @@ func (a *SessionAPIService) GetCurrentSessionExecute(r ApiGetCurrentSessionReque
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -519,7 +478,6 @@ func (a *SessionAPIService) GetCurrentSessionExecute(r ApiGetCurrentSessionReque
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.GetCurrentSession")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -549,16 +507,13 @@ func (a *SessionAPIService) GetCurrentSessionExecute(r ApiGetCurrentSessionReque
 	if r.cookie != nil {
 		localVarHeaderParams["Cookie"] = parameterToString(*r.cookie, "")
 	}
-// TODU
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -567,7 +522,6 @@ func (a *SessionAPIService) GetCurrentSessionExecute(r ApiGetCurrentSessionReque
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -577,7 +531,6 @@ func (a *SessionAPIService) GetCurrentSessionExecute(r ApiGetCurrentSessionReque
 			error: localVarHTTPResponse.Status,
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -586,22 +539,18 @@ func (a *SessionAPIService) GetCurrentSessionExecute(r ApiGetCurrentSessionReque
 }
 
 type ApiGetSessionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SessionAPI
-	sessionId string
-	// TODU
+	sessionId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetSessionRequest) Data (data interface{}) ApiGetSessionRequest {
+func (r ApiGetSessionRequest) Data(data interface{}) ApiGetSessionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetSessionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetSessionExecute(r)
 }
@@ -615,13 +564,12 @@ Retrieves information about the Session specified by the given session ID
  @param sessionId `id` of the Session
  @return ApiGetSessionRequest
 */
-// TODU
 
 func (a *SessionAPIService) GetSession(ctx context.Context, sessionId string) ApiGetSessionRequest {
 	return ApiGetSessionRequest{
 		ApiService: a,
-		ctx: ctx,
-		sessionId: sessionId,
+		ctx:        ctx,
+		sessionId:  sessionId,
 		retryCount: 0,
 	}
 }
@@ -634,10 +582,9 @@ func (a *SessionAPIService) GetSessionExecute(r ApiGetSessionRequest) (*APIRespo
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -647,7 +594,6 @@ func (a *SessionAPIService) GetSessionExecute(r ApiGetSessionRequest) (*APIRespo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.GetSession")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -675,7 +621,6 @@ func (a *SessionAPIService) GetSessionExecute(r ApiGetSessionRequest) (*APIRespo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -692,13 +637,11 @@ func (a *SessionAPIService) GetSessionExecute(r ApiGetSessionRequest) (*APIRespo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -707,7 +650,6 @@ func (a *SessionAPIService) GetSessionExecute(r ApiGetSessionRequest) (*APIRespo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -722,12 +664,10 @@ func (a *SessionAPIService) GetSessionExecute(r ApiGetSessionRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -736,13 +676,11 @@ func (a *SessionAPIService) GetSessionExecute(r ApiGetSessionRequest) (*APIRespo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -751,10 +689,9 @@ func (a *SessionAPIService) GetSessionExecute(r ApiGetSessionRequest) (*APIRespo
 }
 
 type ApiRefreshCurrentSessionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SessionAPI
-	cookie *string
-	// TODU
+	cookie     *string
 	data       interface{}
 	retryCount int32
 }
@@ -764,14 +701,11 @@ func (r ApiRefreshCurrentSessionRequest) Cookie(cookie string) ApiRefreshCurrent
 	return r
 }
 
-
-// TODU
-func (r ApiRefreshCurrentSessionRequest) Data (data interface{}) ApiRefreshCurrentSessionRequest {
+func (r ApiRefreshCurrentSessionRequest) Data(data interface{}) ApiRefreshCurrentSessionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRefreshCurrentSessionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RefreshCurrentSessionExecute(r)
 }
@@ -786,12 +720,11 @@ Refreshes the Session for the current user
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiRefreshCurrentSessionRequest
 */
-// TODU
 
 func (a *SessionAPIService) RefreshCurrentSession(ctx context.Context) ApiRefreshCurrentSessionRequest {
 	return ApiRefreshCurrentSessionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -804,10 +737,9 @@ func (a *SessionAPIService) RefreshCurrentSessionExecute(r ApiRefreshCurrentSess
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -817,7 +749,6 @@ func (a *SessionAPIService) RefreshCurrentSessionExecute(r ApiRefreshCurrentSess
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.RefreshCurrentSession")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -847,16 +778,13 @@ func (a *SessionAPIService) RefreshCurrentSessionExecute(r ApiRefreshCurrentSess
 	if r.cookie != nil {
 		localVarHeaderParams["Cookie"] = parameterToString(*r.cookie, "")
 	}
-// TODU
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -865,7 +793,6 @@ func (a *SessionAPIService) RefreshCurrentSessionExecute(r ApiRefreshCurrentSess
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -875,7 +802,6 @@ func (a *SessionAPIService) RefreshCurrentSessionExecute(r ApiRefreshCurrentSess
 			error: localVarHTTPResponse.Status,
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -884,22 +810,18 @@ func (a *SessionAPIService) RefreshCurrentSessionExecute(r ApiRefreshCurrentSess
 }
 
 type ApiRefreshSessionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SessionAPI
-	sessionId string
-	// TODU
+	sessionId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRefreshSessionRequest) Data (data interface{}) ApiRefreshSessionRequest {
+func (r ApiRefreshSessionRequest) Data(data interface{}) ApiRefreshSessionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRefreshSessionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RefreshSessionExecute(r)
 }
@@ -913,13 +835,12 @@ Refreshes an existing Session using the `id` for that Session. A successful resp
  @param sessionId `id` of the Session
  @return ApiRefreshSessionRequest
 */
-// TODU
 
 func (a *SessionAPIService) RefreshSession(ctx context.Context, sessionId string) ApiRefreshSessionRequest {
 	return ApiRefreshSessionRequest{
 		ApiService: a,
-		ctx: ctx,
-		sessionId: sessionId,
+		ctx:        ctx,
+		sessionId:  sessionId,
 		retryCount: 0,
 	}
 }
@@ -932,10 +853,9 @@ func (a *SessionAPIService) RefreshSessionExecute(r ApiRefreshSessionRequest) (*
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -945,7 +865,6 @@ func (a *SessionAPIService) RefreshSessionExecute(r ApiRefreshSessionRequest) (*
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.RefreshSession")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -973,7 +892,6 @@ func (a *SessionAPIService) RefreshSessionExecute(r ApiRefreshSessionRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -990,13 +908,11 @@ func (a *SessionAPIService) RefreshSessionExecute(r ApiRefreshSessionRequest) (*
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1005,7 +921,6 @@ func (a *SessionAPIService) RefreshSessionExecute(r ApiRefreshSessionRequest) (*
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1020,12 +935,10 @@ func (a *SessionAPIService) RefreshSessionExecute(r ApiRefreshSessionRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1034,13 +947,11 @@ func (a *SessionAPIService) RefreshSessionExecute(r ApiRefreshSessionRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1049,22 +960,18 @@ func (a *SessionAPIService) RefreshSessionExecute(r ApiRefreshSessionRequest) (*
 }
 
 type ApiRevokeSessionRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService SessionAPI
-	sessionId string
-	// TODU
+	sessionId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeSessionRequest) Data (data interface{}) ApiRevokeSessionRequest {
+func (r ApiRevokeSessionRequest) Data(data interface{}) ApiRevokeSessionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeSessionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeSessionExecute(r)
 }
@@ -1078,13 +985,12 @@ Revokes the specified Session
  @param sessionId `id` of the Session
  @return ApiRevokeSessionRequest
 */
-// TODU
 
 func (a *SessionAPIService) RevokeSession(ctx context.Context, sessionId string) ApiRevokeSessionRequest {
 	return ApiRevokeSessionRequest{
 		ApiService: a,
-		ctx: ctx,
-		sessionId: sessionId,
+		ctx:        ctx,
+		sessionId:  sessionId,
 		retryCount: 0,
 	}
 }
@@ -1098,7 +1004,7 @@ func (a *SessionAPIService) RevokeSessionExecute(r ApiRevokeSessionRequest) (*AP
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1108,7 +1014,6 @@ func (a *SessionAPIService) RevokeSessionExecute(r ApiRevokeSessionRequest) (*AP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SessionAPIService.RevokeSession")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1136,7 +1041,6 @@ func (a *SessionAPIService) RevokeSessionExecute(r ApiRevokeSessionRequest) (*AP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1153,13 +1057,11 @@ func (a *SessionAPIService) RevokeSessionExecute(r ApiRevokeSessionRequest) (*AP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1168,7 +1070,6 @@ func (a *SessionAPIService) RevokeSessionExecute(r ApiRevokeSessionRequest) (*AP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1183,12 +1084,10 @@ func (a *SessionAPIService) RevokeSessionExecute(r ApiRevokeSessionRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1197,12 +1096,10 @@ func (a *SessionAPIService) RevokeSessionExecute(r ApiRevokeSessionRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1211,13 +1108,11 @@ func (a *SessionAPIService) RevokeSessionExecute(r ApiRevokeSessionRequest) (*AP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

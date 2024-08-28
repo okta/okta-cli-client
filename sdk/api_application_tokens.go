@@ -17,79 +17,74 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationTokensAPI interface {
 
 	/*
-	GetOAuth2TokenForApplication Retrieve an application Token
+		GetOAuth2TokenForApplication Retrieve an application Token
 
-	Retrieves a refresh token for the specified app
+		Retrieves a refresh token for the specified app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param tokenId `id` of Token
-	@return ApiGetOAuth2TokenForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param tokenId `id` of Token
+		@return ApiGetOAuth2TokenForApplicationRequest
 	*/
 	GetOAuth2TokenForApplication(ctx context.Context, appId string, tokenId string) ApiGetOAuth2TokenForApplicationRequest
 
 	// GetOAuth2TokenForApplicationExecute executes the request
 	//  @return OAuth2RefreshToken
-	// TODU
 	GetOAuth2TokenForApplicationExecute(r ApiGetOAuth2TokenForApplicationRequest) (*APIResponse, error)
 
 	/*
-	ListOAuth2TokensForApplication List all application refresh Tokens
+			ListOAuth2TokensForApplication List all application refresh Tokens
 
-	Lists all refresh tokens for an app
+			Lists all refresh tokens for an app
 
-> **Note:** The results are [paginated](/#pagination) according to the `limit` parameter.
-> If there are multiple pages of results, the Link header contains a `next` link that you need to use as an opaque value (follow it, don't parse it).
+		> **Note:** The results are [paginated](/#pagination) according to the `limit` parameter.
+		> If there are multiple pages of results, the Link header contains a `next` link that you need to use as an opaque value (follow it, don't parse it).
 
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListOAuth2TokensForApplicationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiListOAuth2TokensForApplicationRequest
 	*/
 	ListOAuth2TokensForApplication(ctx context.Context, appId string) ApiListOAuth2TokensForApplicationRequest
 
 	// ListOAuth2TokensForApplicationExecute executes the request
 	//  @return []OAuth2RefreshToken
-	// TODU
 	ListOAuth2TokensForApplicationExecute(r ApiListOAuth2TokensForApplicationRequest) (*APIResponse, error)
 
 	/*
-	RevokeOAuth2TokenForApplication Revoke an application Token
+		RevokeOAuth2TokenForApplication Revoke an application Token
 
-	Revokes the specified token for the specified app
+		Revokes the specified token for the specified app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param tokenId `id` of Token
-	@return ApiRevokeOAuth2TokenForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param tokenId `id` of Token
+		@return ApiRevokeOAuth2TokenForApplicationRequest
 	*/
 	RevokeOAuth2TokenForApplication(ctx context.Context, appId string, tokenId string) ApiRevokeOAuth2TokenForApplicationRequest
 
 	// RevokeOAuth2TokenForApplicationExecute executes the request
-	// TODU
 	RevokeOAuth2TokenForApplicationExecute(r ApiRevokeOAuth2TokenForApplicationRequest) (*APIResponse, error)
 
 	/*
-	RevokeOAuth2TokensForApplication Revoke all application Tokens
+		RevokeOAuth2TokensForApplication Revoke all application Tokens
 
-	Revokes all OAuth 2.0 refresh tokens for the specified app. Any access tokens issued with these refresh tokens are also revoked, but access tokens issued without a refresh token aren't affected.
+		Revokes all OAuth 2.0 refresh tokens for the specified app. Any access tokens issued with these refresh tokens are also revoked, but access tokens issued without a refresh token aren't affected.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiRevokeOAuth2TokensForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiRevokeOAuth2TokensForApplicationRequest
 	*/
 	RevokeOAuth2TokensForApplication(ctx context.Context, appId string) ApiRevokeOAuth2TokensForApplicationRequest
 
 	// RevokeOAuth2TokensForApplicationExecute executes the request
-	// TODU
 	RevokeOAuth2TokensForApplicationExecute(r ApiRevokeOAuth2TokensForApplicationRequest) (*APIResponse, error)
 }
 
@@ -97,12 +92,11 @@ type ApplicationTokensAPI interface {
 type ApplicationTokensAPIService service
 
 type ApiGetOAuth2TokenForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationTokensAPI
-	appId string
-	tokenId string
-	expand *string
-	// TODU
+	appId      string
+	tokenId    string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -113,14 +107,11 @@ func (r ApiGetOAuth2TokenForApplicationRequest) Expand(expand string) ApiGetOAut
 	return r
 }
 
-
-// TODU
-func (r ApiGetOAuth2TokenForApplicationRequest) Data (data interface{}) ApiGetOAuth2TokenForApplicationRequest {
+func (r ApiGetOAuth2TokenForApplicationRequest) Data(data interface{}) ApiGetOAuth2TokenForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetOAuth2TokenForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetOAuth2TokenForApplicationExecute(r)
 }
@@ -135,14 +126,13 @@ Retrieves a refresh token for the specified app
  @param tokenId `id` of Token
  @return ApiGetOAuth2TokenForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplication(ctx context.Context, appId string, tokenId string) ApiGetOAuth2TokenForApplicationRequest {
 	return ApiGetOAuth2TokenForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		tokenId: tokenId,
+		ctx:        ctx,
+		appId:      appId,
+		tokenId:    tokenId,
 		retryCount: 0,
 	}
 }
@@ -155,10 +145,9 @@ func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiG
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -168,7 +157,6 @@ func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiG
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationTokensAPIService.GetOAuth2TokenForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -200,7 +188,6 @@ func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -217,13 +204,11 @@ func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiG
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -232,7 +217,6 @@ func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiG
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -247,12 +231,10 @@ func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiG
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -261,12 +243,10 @@ func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiG
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -275,13 +255,11 @@ func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiG
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -290,13 +268,12 @@ func (a *ApplicationTokensAPIService) GetOAuth2TokenForApplicationExecute(r ApiG
 }
 
 type ApiListOAuth2TokensForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationTokensAPI
-	appId string
-	expand *string
-	after *string
-	limit *int32
-	// TODU
+	appId      string
+	expand     *string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -319,14 +296,11 @@ func (r ApiListOAuth2TokensForApplicationRequest) Limit(limit int32) ApiListOAut
 	return r
 }
 
-
-// TODU
-func (r ApiListOAuth2TokensForApplicationRequest) Data (data interface{}) ApiListOAuth2TokensForApplicationRequest {
+func (r ApiListOAuth2TokensForApplicationRequest) Data(data interface{}) ApiListOAuth2TokensForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListOAuth2TokensForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListOAuth2TokensForApplicationExecute(r)
 }
@@ -344,13 +318,12 @@ Lists all refresh tokens for an app
  @param appId Application ID
  @return ApiListOAuth2TokensForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplication(ctx context.Context, appId string) ApiListOAuth2TokensForApplicationRequest {
 	return ApiListOAuth2TokensForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -363,10 +336,9 @@ func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r Ap
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -376,7 +348,6 @@ func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r Ap
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationTokensAPIService.ListOAuth2TokensForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -413,7 +384,6 @@ func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -430,13 +400,11 @@ func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r Ap
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -445,7 +413,6 @@ func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r Ap
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -460,12 +427,10 @@ func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -474,12 +439,10 @@ func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -488,13 +451,11 @@ func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -503,23 +464,19 @@ func (a *ApplicationTokensAPIService) ListOAuth2TokensForApplicationExecute(r Ap
 }
 
 type ApiRevokeOAuth2TokenForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationTokensAPI
-	appId string
-	tokenId string
-	// TODU
+	appId      string
+	tokenId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeOAuth2TokenForApplicationRequest) Data (data interface{}) ApiRevokeOAuth2TokenForApplicationRequest {
+func (r ApiRevokeOAuth2TokenForApplicationRequest) Data(data interface{}) ApiRevokeOAuth2TokenForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeOAuth2TokenForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeOAuth2TokenForApplicationExecute(r)
 }
@@ -534,14 +491,13 @@ Revokes the specified token for the specified app
  @param tokenId `id` of Token
  @return ApiRevokeOAuth2TokenForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplication(ctx context.Context, appId string, tokenId string) ApiRevokeOAuth2TokenForApplicationRequest {
 	return ApiRevokeOAuth2TokenForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		tokenId: tokenId,
+		ctx:        ctx,
+		appId:      appId,
+		tokenId:    tokenId,
 		retryCount: 0,
 	}
 }
@@ -555,7 +511,7 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplicationExecute(r A
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -565,7 +521,6 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplicationExecute(r A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationTokensAPIService.RevokeOAuth2TokenForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -594,7 +549,6 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplicationExecute(r A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -611,13 +565,11 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplicationExecute(r A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -626,7 +578,6 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplicationExecute(r A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -641,12 +592,10 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplicationExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -655,12 +604,10 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplicationExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -669,13 +616,11 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplicationExecute(r A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -684,22 +629,18 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokenForApplicationExecute(r A
 }
 
 type ApiRevokeOAuth2TokensForApplicationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationTokensAPI
-	appId string
-	// TODU
+	appId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeOAuth2TokensForApplicationRequest) Data (data interface{}) ApiRevokeOAuth2TokensForApplicationRequest {
+func (r ApiRevokeOAuth2TokensForApplicationRequest) Data(data interface{}) ApiRevokeOAuth2TokensForApplicationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeOAuth2TokensForApplicationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeOAuth2TokensForApplicationExecute(r)
 }
@@ -713,13 +654,12 @@ Revokes all OAuth 2.0 refresh tokens for the specified app. Any access tokens is
  @param appId Application ID
  @return ApiRevokeOAuth2TokensForApplicationRequest
 */
-// TODU
 
 func (a *ApplicationTokensAPIService) RevokeOAuth2TokensForApplication(ctx context.Context, appId string) ApiRevokeOAuth2TokensForApplicationRequest {
 	return ApiRevokeOAuth2TokensForApplicationRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -733,7 +673,7 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokensForApplicationExecute(r 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -743,7 +683,6 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokensForApplicationExecute(r 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationTokensAPIService.RevokeOAuth2TokensForApplication")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -771,7 +710,6 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokensForApplicationExecute(r 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -788,13 +726,11 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokensForApplicationExecute(r 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -803,7 +739,6 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokensForApplicationExecute(r 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -818,12 +753,10 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokensForApplicationExecute(r 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -832,12 +765,10 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokensForApplicationExecute(r 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -846,13 +777,11 @@ func (a *ApplicationTokensAPIService) RevokeOAuth2TokensForApplicationExecute(r 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

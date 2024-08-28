@@ -17,93 +17,87 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthorizationServerScopesAPI interface {
 
 	/*
-	CreateOAuth2Scope Create a Custom Token Scope
+		CreateOAuth2Scope Create a Custom Token Scope
 
-	Creates a custom token scope
+		Creates a custom token scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiCreateOAuth2ScopeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiCreateOAuth2ScopeRequest
 	*/
 	CreateOAuth2Scope(ctx context.Context, authServerId string) ApiCreateOAuth2ScopeRequest
 
 	// CreateOAuth2ScopeExecute executes the request
 	//  @return OAuth2Scope
-	// TODU
 	CreateOAuth2ScopeExecute(r ApiCreateOAuth2ScopeRequest) (*APIResponse, error)
 
 	/*
-	DeleteOAuth2Scope Delete a Custom Token Scope
+		DeleteOAuth2Scope Delete a Custom Token Scope
 
-	Deletes a custom token scope
+		Deletes a custom token scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param scopeId `id` of Scope
-	@return ApiDeleteOAuth2ScopeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param scopeId `id` of Scope
+		@return ApiDeleteOAuth2ScopeRequest
 	*/
 	DeleteOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiDeleteOAuth2ScopeRequest
 
 	// DeleteOAuth2ScopeExecute executes the request
-	// TODU
 	DeleteOAuth2ScopeExecute(r ApiDeleteOAuth2ScopeRequest) (*APIResponse, error)
 
 	/*
-	GetOAuth2Scope Retrieve a Custom Token Scope
+		GetOAuth2Scope Retrieve a Custom Token Scope
 
-	Retrieves a custom token scope
+		Retrieves a custom token scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param scopeId `id` of Scope
-	@return ApiGetOAuth2ScopeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param scopeId `id` of Scope
+		@return ApiGetOAuth2ScopeRequest
 	*/
 	GetOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiGetOAuth2ScopeRequest
 
 	// GetOAuth2ScopeExecute executes the request
 	//  @return OAuth2Scope
-	// TODU
 	GetOAuth2ScopeExecute(r ApiGetOAuth2ScopeRequest) (*APIResponse, error)
 
 	/*
-	ListOAuth2Scopes List all Custom Token Scopes
+		ListOAuth2Scopes List all Custom Token Scopes
 
-	Lists all custom token scopes
+		Lists all custom token scopes
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiListOAuth2ScopesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiListOAuth2ScopesRequest
 	*/
 	ListOAuth2Scopes(ctx context.Context, authServerId string) ApiListOAuth2ScopesRequest
 
 	// ListOAuth2ScopesExecute executes the request
 	//  @return []OAuth2Scope
-	// TODU
 	ListOAuth2ScopesExecute(r ApiListOAuth2ScopesRequest) (*APIResponse, error)
 
 	/*
-	ReplaceOAuth2Scope Replace a Custom Token Scope
+		ReplaceOAuth2Scope Replace a Custom Token Scope
 
-	Replaces a custom token scope
+		Replaces a custom token scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param scopeId `id` of Scope
-	@return ApiReplaceOAuth2ScopeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param scopeId `id` of Scope
+		@return ApiReplaceOAuth2ScopeRequest
 	*/
 	ReplaceOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiReplaceOAuth2ScopeRequest
 
 	// ReplaceOAuth2ScopeExecute executes the request
 	//  @return OAuth2Scope
-	// TODU
 	ReplaceOAuth2ScopeExecute(r ApiReplaceOAuth2ScopeRequest) (*APIResponse, error)
 }
 
@@ -111,13 +105,12 @@ type AuthorizationServerScopesAPI interface {
 type AuthorizationServerScopesAPIService service
 
 type ApiCreateOAuth2ScopeRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerScopesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerScopesAPI
 	authServerId string
-	oAuth2Scope *OAuth2Scope
-	// TODU
-	data       interface{}
-	retryCount int32
+	oAuth2Scope  *OAuth2Scope
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiCreateOAuth2ScopeRequest) OAuth2Scope(oAuth2Scope OAuth2Scope) ApiCreateOAuth2ScopeRequest {
@@ -125,14 +118,11 @@ func (r ApiCreateOAuth2ScopeRequest) OAuth2Scope(oAuth2Scope OAuth2Scope) ApiCre
 	return r
 }
 
-
-// TODU
-func (r ApiCreateOAuth2ScopeRequest) Data (data interface{}) ApiCreateOAuth2ScopeRequest {
+func (r ApiCreateOAuth2ScopeRequest) Data(data interface{}) ApiCreateOAuth2ScopeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateOAuth2ScopeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateOAuth2ScopeExecute(r)
 }
@@ -146,14 +136,13 @@ Creates a custom token scope
  @param authServerId `id` of the Authorization Server
  @return ApiCreateOAuth2ScopeRequest
 */
-// TODU
 
 func (a *AuthorizationServerScopesAPIService) CreateOAuth2Scope(ctx context.Context, authServerId string) ApiCreateOAuth2ScopeRequest {
 	return ApiCreateOAuth2ScopeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -165,10 +154,9 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -178,7 +166,6 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerScopesAPIService.CreateOAuth2Scope")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -206,7 +193,6 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.oAuth2Scope
 	localVarPostBody = r.data
@@ -226,13 +212,11 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -241,7 +225,6 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -256,12 +239,10 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -270,12 +251,10 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -284,12 +263,10 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -298,13 +275,11 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -313,23 +288,19 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 }
 
 type ApiDeleteOAuth2ScopeRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerScopesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerScopesAPI
 	authServerId string
-	scopeId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	scopeId      string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeleteOAuth2ScopeRequest) Data (data interface{}) ApiDeleteOAuth2ScopeRequest {
+func (r ApiDeleteOAuth2ScopeRequest) Data(data interface{}) ApiDeleteOAuth2ScopeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteOAuth2ScopeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteOAuth2ScopeExecute(r)
 }
@@ -344,15 +315,14 @@ Deletes a custom token scope
  @param scopeId `id` of Scope
  @return ApiDeleteOAuth2ScopeRequest
 */
-// TODU
 
 func (a *AuthorizationServerScopesAPIService) DeleteOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiDeleteOAuth2ScopeRequest {
 	return ApiDeleteOAuth2ScopeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		scopeId: scopeId,
-		retryCount: 0,
+		scopeId:      scopeId,
+		retryCount:   0,
 	}
 }
 
@@ -365,7 +335,7 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -375,7 +345,6 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerScopesAPIService.DeleteOAuth2Scope")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -404,7 +373,6 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -421,13 +389,11 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -436,7 +402,6 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -451,12 +416,10 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -465,12 +428,10 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -479,13 +440,11 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -494,23 +453,19 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 }
 
 type ApiGetOAuth2ScopeRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerScopesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerScopesAPI
 	authServerId string
-	scopeId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	scopeId      string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiGetOAuth2ScopeRequest) Data (data interface{}) ApiGetOAuth2ScopeRequest {
+func (r ApiGetOAuth2ScopeRequest) Data(data interface{}) ApiGetOAuth2ScopeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetOAuth2ScopeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetOAuth2ScopeExecute(r)
 }
@@ -525,15 +480,14 @@ Retrieves a custom token scope
  @param scopeId `id` of Scope
  @return ApiGetOAuth2ScopeRequest
 */
-// TODU
 
 func (a *AuthorizationServerScopesAPIService) GetOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiGetOAuth2ScopeRequest {
 	return ApiGetOAuth2ScopeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		scopeId: scopeId,
-		retryCount: 0,
+		scopeId:      scopeId,
+		retryCount:   0,
 	}
 }
 
@@ -545,10 +499,9 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -558,7 +511,6 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerScopesAPIService.GetOAuth2Scope")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -587,7 +539,6 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -604,13 +555,11 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -619,7 +568,6 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -634,12 +582,10 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -648,12 +594,10 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -662,13 +606,11 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -677,16 +619,15 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 }
 
 type ApiListOAuth2ScopesRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerScopesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerScopesAPI
 	authServerId string
-	q *string
-	filter *string
-	cursor *string
-	limit *int32
-	// TODU
-	data       interface{}
-	retryCount int32
+	q            *string
+	filter       *string
+	cursor       *string
+	limit        *int32
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiListOAuth2ScopesRequest) Q(q string) ApiListOAuth2ScopesRequest {
@@ -709,14 +650,11 @@ func (r ApiListOAuth2ScopesRequest) Limit(limit int32) ApiListOAuth2ScopesReques
 	return r
 }
 
-
-// TODU
-func (r ApiListOAuth2ScopesRequest) Data (data interface{}) ApiListOAuth2ScopesRequest {
+func (r ApiListOAuth2ScopesRequest) Data(data interface{}) ApiListOAuth2ScopesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListOAuth2ScopesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListOAuth2ScopesExecute(r)
 }
@@ -730,14 +668,13 @@ Lists all custom token scopes
  @param authServerId `id` of the Authorization Server
  @return ApiListOAuth2ScopesRequest
 */
-// TODU
 
 func (a *AuthorizationServerScopesAPIService) ListOAuth2Scopes(ctx context.Context, authServerId string) ApiListOAuth2ScopesRequest {
 	return ApiListOAuth2ScopesRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -749,10 +686,9 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -762,7 +698,6 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerScopesAPIService.ListOAuth2Scopes")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -802,7 +737,6 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -819,13 +753,11 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -834,7 +766,6 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -849,12 +780,10 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -863,12 +792,10 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -877,13 +804,11 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -892,14 +817,13 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 }
 
 type ApiReplaceOAuth2ScopeRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerScopesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerScopesAPI
 	authServerId string
-	scopeId string
-	oAuth2Scope *OAuth2Scope
-	// TODU
-	data       interface{}
-	retryCount int32
+	scopeId      string
+	oAuth2Scope  *OAuth2Scope
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiReplaceOAuth2ScopeRequest) OAuth2Scope(oAuth2Scope OAuth2Scope) ApiReplaceOAuth2ScopeRequest {
@@ -907,14 +831,11 @@ func (r ApiReplaceOAuth2ScopeRequest) OAuth2Scope(oAuth2Scope OAuth2Scope) ApiRe
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceOAuth2ScopeRequest) Data (data interface{}) ApiReplaceOAuth2ScopeRequest {
+func (r ApiReplaceOAuth2ScopeRequest) Data(data interface{}) ApiReplaceOAuth2ScopeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceOAuth2ScopeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceOAuth2ScopeExecute(r)
 }
@@ -929,15 +850,14 @@ Replaces a custom token scope
  @param scopeId `id` of Scope
  @return ApiReplaceOAuth2ScopeRequest
 */
-// TODU
 
 func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2Scope(ctx context.Context, authServerId string, scopeId string) ApiReplaceOAuth2ScopeRequest {
 	return ApiReplaceOAuth2ScopeRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		scopeId: scopeId,
-		retryCount: 0,
+		scopeId:      scopeId,
+		retryCount:   0,
 	}
 }
 
@@ -949,10 +869,9 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -962,7 +881,6 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerScopesAPIService.ReplaceOAuth2Scope")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -991,7 +909,6 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.oAuth2Scope
 	localVarPostBody = r.data
@@ -1011,13 +928,11 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1026,7 +941,6 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1041,12 +955,10 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1055,12 +967,10 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1069,12 +979,10 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1083,13 +991,11 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

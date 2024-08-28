@@ -17,650 +17,610 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserAPI interface {
 
 	/*
-	ActivateUser Activate a User
+			ActivateUser Activate a User
 
-	Activates a user. This operation can only be performed on users with a `STAGED` or `DEPROVISIONED` status.
-Activation of a user is an asynchronous operation. The user will have the `transitioningToStatus`
-property with a value of `ACTIVE` during activation to indicate that the user hasn't completed the asynchronous operation.
-The user will have a status of `ACTIVE` when the activation process is complete.
-> **Multibrand and User activation**<br>
-If you want to send a branded User Activation email, change the subdomain of your request to the custom domain that's associated with the brand.
-For example, change `subdomain.okta.com` to `custom.domain.one`. See [Multibrand and custom domains](https://developer.okta.com/docs/concepts/brands/#multibrand-and-custom-domains).
-<br><br>
-> **Legal disclaimer**<br>
-After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
-you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
-Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
-liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
+			Activates a user. This operation can only be performed on users with a `STAGED` or `DEPROVISIONED` status.
+		Activation of a user is an asynchronous operation. The user will have the `transitioningToStatus`
+		property with a value of `ACTIVE` during activation to indicate that the user hasn't completed the asynchronous operation.
+		The user will have a status of `ACTIVE` when the activation process is complete.
+		> **Multibrand and User activation**<br>
+		If you want to send a branded User Activation email, change the subdomain of your request to the custom domain that's associated with the brand.
+		For example, change `subdomain.okta.com` to `custom.domain.one`. See [Multibrand and custom domains](https://developer.okta.com/docs/concepts/brands/#multibrand-and-custom-domains).
+		<br><br>
+		> **Legal disclaimer**<br>
+		After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
+		you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
+		Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
+		liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiActivateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiActivateUserRequest
 	*/
 	ActivateUser(ctx context.Context, userId string) ApiActivateUserRequest
 
 	// ActivateUserExecute executes the request
 	//  @return UserActivationToken
-	// TODU
 	ActivateUserExecute(r ApiActivateUserRequest) (*APIResponse, error)
 
 	/*
-	ChangePassword Change Password
+		ChangePassword Change Password
 
-	Changes a user's password by validating the user's current password. This operation can only be performed on users in `STAGED`, `ACTIVE`, `PASSWORD_EXPIRED`, or `RECOVERY` status that have a valid password credential
+		Changes a user's password by validating the user's current password. This operation can only be performed on users in `STAGED`, `ACTIVE`, `PASSWORD_EXPIRED`, or `RECOVERY` status that have a valid password credential
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiChangePasswordRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiChangePasswordRequest
 	*/
 	ChangePassword(ctx context.Context, userId string) ApiChangePasswordRequest
 
 	// ChangePasswordExecute executes the request
 	//  @return UserCredentials
-	// TODU
 	ChangePasswordExecute(r ApiChangePasswordRequest) (*APIResponse, error)
 
 	/*
-	ChangeRecoveryQuestion Change Recovery Question
+		ChangeRecoveryQuestion Change Recovery Question
 
-	Changes a user's recovery question & answer credential by validating the user's current password.  This operation can only be performed on users in **STAGED**, **ACTIVE** or **RECOVERY** `status` that have a valid password credential
+		Changes a user's recovery question & answer credential by validating the user's current password.  This operation can only be performed on users in **STAGED**, **ACTIVE** or **RECOVERY** `status` that have a valid password credential
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiChangeRecoveryQuestionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiChangeRecoveryQuestionRequest
 	*/
 	ChangeRecoveryQuestion(ctx context.Context, userId string) ApiChangeRecoveryQuestionRequest
 
 	// ChangeRecoveryQuestionExecute executes the request
 	//  @return UserCredentials
-	// TODU
 	ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuestionRequest) (*APIResponse, error)
 
 	/*
-	CreateUser Create a User
+			CreateUser Create a User
 
-	Creates a new user in your Okta organization with or without credentials<br>
-> **Legal Disclaimer**<br>
-After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
-you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
-Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
-liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
+			Creates a new user in your Okta organization with or without credentials<br>
+		> **Legal Disclaimer**<br>
+		After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
+		you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
+		Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
+		liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateUserRequest
 	*/
 	CreateUser(ctx context.Context) ApiCreateUserRequest
 
 	// CreateUserExecute executes the request
 	//  @return User
-	// TODU
 	CreateUserExecute(r ApiCreateUserRequest) (*APIResponse, error)
 
 	/*
-	DeactivateUser Deactivate a User
+		DeactivateUser Deactivate a User
 
-	Deactivates a user. This operation can only be performed on users that do not have a `DEPROVISIONED` status. While the asynchronous operation (triggered by HTTP header `Prefer: respond-async`) is proceeding the user's `transitioningToStatus` property is `DEPROVISIONED`. The user's status is `DEPROVISIONED` when the deactivation process is complete.
+		Deactivates a user. This operation can only be performed on users that do not have a `DEPROVISIONED` status. While the asynchronous operation (triggered by HTTP header `Prefer: respond-async`) is proceeding the user's `transitioningToStatus` property is `DEPROVISIONED`. The user's status is `DEPROVISIONED` when the deactivation process is complete.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiDeactivateUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiDeactivateUserRequest
 	*/
 	DeactivateUser(ctx context.Context, userId string) ApiDeactivateUserRequest
 
 	// DeactivateUserExecute executes the request
-	// TODU
 	DeactivateUserExecute(r ApiDeactivateUserRequest) (*APIResponse, error)
 
 	/*
-	DeleteLinkedObjectForUser Delete a Linked Object
+		DeleteLinkedObjectForUser Delete a Linked Object
 
-	Deletes linked objects for a user, relationshipName can be ONLY a primary relationship name
+		Deletes linked objects for a user, relationshipName can be ONLY a primary relationship name
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param relationshipName
-	@return ApiDeleteLinkedObjectForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param relationshipName
+		@return ApiDeleteLinkedObjectForUserRequest
 	*/
 	DeleteLinkedObjectForUser(ctx context.Context, userId string, relationshipName string) ApiDeleteLinkedObjectForUserRequest
 
 	// DeleteLinkedObjectForUserExecute executes the request
-	// TODU
 	DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjectForUserRequest) (*APIResponse, error)
 
 	/*
-	DeleteUser Delete a User
+		DeleteUser Delete a User
 
-	Deletes a user permanently. This operation can only be performed on users that have a `DEPROVISIONED` status.  **This action cannot be recovered!**. Calling this on an `ACTIVE` user will transition the user to `DEPROVISIONED`.
+		Deletes a user permanently. This operation can only be performed on users that have a `DEPROVISIONED` status.  **This action cannot be recovered!**. Calling this on an `ACTIVE` user will transition the user to `DEPROVISIONED`.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiDeleteUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiDeleteUserRequest
 	*/
 	DeleteUser(ctx context.Context, userId string) ApiDeleteUserRequest
 
 	// DeleteUserExecute executes the request
-	// TODU
 	DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse, error)
 
 	/*
-	ExpirePassword Expire Password
+		ExpirePassword Expire Password
 
-	Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login
+		Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiExpirePasswordRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiExpirePasswordRequest
 	*/
 	ExpirePassword(ctx context.Context, userId string) ApiExpirePasswordRequest
 
 	// ExpirePasswordExecute executes the request
 	//  @return User
-	// TODU
 	ExpirePasswordExecute(r ApiExpirePasswordRequest) (*APIResponse, error)
 
 	/*
-	ExpirePasswordAndGetTemporaryPassword Expire Password and Set Temporary Password
+		ExpirePasswordAndGetTemporaryPassword Expire Password and Set Temporary Password
 
-	Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login, and also sets the user's password to a temporary password returned in the response
+		Expires a user's password and transitions the user to the status of `PASSWORD_EXPIRED` so that the user is required to change their password at their next login, and also sets the user's password to a temporary password returned in the response
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiExpirePasswordAndGetTemporaryPasswordRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiExpirePasswordAndGetTemporaryPasswordRequest
 	*/
 	ExpirePasswordAndGetTemporaryPassword(ctx context.Context, userId string) ApiExpirePasswordAndGetTemporaryPasswordRequest
 
 	// ExpirePasswordAndGetTemporaryPasswordExecute executes the request
 	//  @return TempPassword
-	// TODU
 	ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpirePasswordAndGetTemporaryPasswordRequest) (*APIResponse, error)
 
 	/*
-	ForgotPassword Initiate Forgot Password
+		ForgotPassword Initiate Forgot Password
 
-	Initiates the forgot password flow. Generates a one-time token (OTT) that can be used to reset a user's password.
+		Initiates the forgot password flow. Generates a one-time token (OTT) that can be used to reset a user's password.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiForgotPasswordRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiForgotPasswordRequest
 	*/
 	ForgotPassword(ctx context.Context, userId string) ApiForgotPasswordRequest
 
 	// ForgotPasswordExecute executes the request
 	//  @return ForgotPasswordResponse
-	// TODU
 	ForgotPasswordExecute(r ApiForgotPasswordRequest) (*APIResponse, error)
 
 	/*
-	ForgotPasswordSetNewPassword Reset Password with Recovery Question
+		ForgotPasswordSetNewPassword Reset Password with Recovery Question
 
-	Resets the user's password to the specified password if the provided answer to the recovery question is correct
+		Resets the user's password to the specified password if the provided answer to the recovery question is correct
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiForgotPasswordSetNewPasswordRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiForgotPasswordSetNewPasswordRequest
 	*/
 	ForgotPasswordSetNewPassword(ctx context.Context, userId string) ApiForgotPasswordSetNewPasswordRequest
 
 	// ForgotPasswordSetNewPasswordExecute executes the request
 	//  @return UserCredentials
-	// TODU
 	ForgotPasswordSetNewPasswordExecute(r ApiForgotPasswordSetNewPasswordRequest) (*APIResponse, error)
 
 	/*
-	GenerateResetPasswordToken Generate a Reset Password Token
+		GenerateResetPasswordToken Generate a Reset Password Token
 
-	Generates a one-time token (OTT) that can be used to reset a user's password.  The OTT link can be automatically emailed to the user or returned to the API caller and distributed using a custom flow.
+		Generates a one-time token (OTT) that can be used to reset a user's password.  The OTT link can be automatically emailed to the user or returned to the API caller and distributed using a custom flow.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiGenerateResetPasswordTokenRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiGenerateResetPasswordTokenRequest
 	*/
 	GenerateResetPasswordToken(ctx context.Context, userId string) ApiGenerateResetPasswordTokenRequest
 
 	// GenerateResetPasswordTokenExecute executes the request
 	//  @return ResetPasswordToken
-	// TODU
 	GenerateResetPasswordTokenExecute(r ApiGenerateResetPasswordTokenRequest) (*APIResponse, error)
 
 	/*
-	GetRefreshTokenForUserAndClient Retrieve a Refresh Token for a Client
+		GetRefreshTokenForUserAndClient Retrieve a Refresh Token for a Client
 
-	Retrieves a refresh token issued for the specified User and Client
+		Retrieves a refresh token issued for the specified User and Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@param tokenId `id` of Token
-	@return ApiGetRefreshTokenForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@param tokenId `id` of Token
+		@return ApiGetRefreshTokenForUserAndClientRequest
 	*/
 	GetRefreshTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiGetRefreshTokenForUserAndClientRequest
 
 	// GetRefreshTokenForUserAndClientExecute executes the request
 	//  @return OAuth2RefreshToken
-	// TODU
 	GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshTokenForUserAndClientRequest) (*APIResponse, error)
 
 	/*
-	GetUser Retrieve a User
+		GetUser Retrieve a User
 
-	Retrieves a user from your Okta organization
+		Retrieves a user from your Okta organization
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiGetUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiGetUserRequest
 	*/
 	GetUser(ctx context.Context, userId string) ApiGetUserRequest
 
 	// GetUserExecute executes the request
 	//  @return UserGetSingleton
-	// TODU
 	GetUserExecute(r ApiGetUserRequest) (*APIResponse, error)
 
 	/*
-	GetUserGrant Retrieve a User Grant
+		GetUserGrant Retrieve a User Grant
 
-	Retrieves a grant for the specified user
+		Retrieves a grant for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param grantId Grant ID
-	@return ApiGetUserGrantRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param grantId Grant ID
+		@return ApiGetUserGrantRequest
 	*/
 	GetUserGrant(ctx context.Context, userId string, grantId string) ApiGetUserGrantRequest
 
 	// GetUserGrantExecute executes the request
 	//  @return OAuth2ScopeConsentGrant
-	// TODU
 	GetUserGrantExecute(r ApiGetUserGrantRequest) (*APIResponse, error)
 
 	/*
-	ListAppLinks List all Assigned Application Links
+		ListAppLinks List all Assigned Application Links
 
-	Lists all appLinks for all direct or indirect (via group membership) assigned applications
+		Lists all appLinks for all direct or indirect (via group membership) assigned applications
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListAppLinksRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListAppLinksRequest
 	*/
 	ListAppLinks(ctx context.Context, userId string) ApiListAppLinksRequest
 
 	// ListAppLinksExecute executes the request
 	//  @return []AppLink
-	// TODU
 	ListAppLinksExecute(r ApiListAppLinksRequest) (*APIResponse, error)
 
 	/*
-	ListGrantsForUserAndClient List all Grants for a Client
+		ListGrantsForUserAndClient List all Grants for a Client
 
-	Lists all grants for a specified user and client
+		Lists all grants for a specified user and client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@return ApiListGrantsForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@return ApiListGrantsForUserAndClientRequest
 	*/
 	ListGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiListGrantsForUserAndClientRequest
 
 	// ListGrantsForUserAndClientExecute executes the request
 	//  @return []OAuth2ScopeConsentGrant
-	// TODU
 	ListGrantsForUserAndClientExecute(r ApiListGrantsForUserAndClientRequest) (*APIResponse, error)
 
 	/*
-	ListLinkedObjectsForUser List all Linked Objects
+		ListLinkedObjectsForUser List all Linked Objects
 
-	Lists all linked objects for a user, relationshipName can be a primary or associated relationship name
+		Lists all linked objects for a user, relationshipName can be a primary or associated relationship name
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param relationshipName
-	@return ApiListLinkedObjectsForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param relationshipName
+		@return ApiListLinkedObjectsForUserRequest
 	*/
 	ListLinkedObjectsForUser(ctx context.Context, userId string, relationshipName string) ApiListLinkedObjectsForUserRequest
 
 	// ListLinkedObjectsForUserExecute executes the request
 	//  @return []map[string]interface{}
-	// TODU
 	ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsForUserRequest) (*APIResponse, error)
 
 	/*
-	ListRefreshTokensForUserAndClient List all Refresh Tokens for a Client
+		ListRefreshTokensForUserAndClient List all Refresh Tokens for a Client
 
-	Lists all refresh tokens issued for the specified User and Client
+		Lists all refresh tokens issued for the specified User and Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@return ApiListRefreshTokensForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@return ApiListRefreshTokensForUserAndClientRequest
 	*/
 	ListRefreshTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiListRefreshTokensForUserAndClientRequest
 
 	// ListRefreshTokensForUserAndClientExecute executes the request
 	//  @return []OAuth2RefreshToken
-	// TODU
 	ListRefreshTokensForUserAndClientExecute(r ApiListRefreshTokensForUserAndClientRequest) (*APIResponse, error)
 
 	/*
-	ListUserBlocks List all User Blocks
+		ListUserBlocks List all User Blocks
 
-	Lists information about how the user is blocked from accessing their account
+		Lists information about how the user is blocked from accessing their account
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserBlocksRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListUserBlocksRequest
 	*/
 	ListUserBlocks(ctx context.Context, userId string) ApiListUserBlocksRequest
 
 	// ListUserBlocksExecute executes the request
 	//  @return []UserBlock
-	// TODU
 	ListUserBlocksExecute(r ApiListUserBlocksRequest) (*APIResponse, error)
 
 	/*
-	ListUserClients List all Clients
+		ListUserClients List all Clients
 
-	Lists all client resources for which the specified user has grants or tokens
+		Lists all client resources for which the specified user has grants or tokens
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserClientsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListUserClientsRequest
 	*/
 	ListUserClients(ctx context.Context, userId string) ApiListUserClientsRequest
 
 	// ListUserClientsExecute executes the request
 	//  @return []OAuth2Client
-	// TODU
 	ListUserClientsExecute(r ApiListUserClientsRequest) (*APIResponse, error)
 
 	/*
-	ListUserGrants List all User Grants
+		ListUserGrants List all User Grants
 
-	Lists all grants for the specified user
+		Lists all grants for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserGrantsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListUserGrantsRequest
 	*/
 	ListUserGrants(ctx context.Context, userId string) ApiListUserGrantsRequest
 
 	// ListUserGrantsExecute executes the request
 	//  @return []OAuth2ScopeConsentGrant
-	// TODU
 	ListUserGrantsExecute(r ApiListUserGrantsRequest) (*APIResponse, error)
 
 	/*
-	ListUserGroups List all Groups
+		ListUserGroups List all Groups
 
-	Lists all groups of which the user is a member
+		Lists all groups of which the user is a member
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserGroupsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListUserGroupsRequest
 	*/
 	ListUserGroups(ctx context.Context, userId string) ApiListUserGroupsRequest
 
 	// ListUserGroupsExecute executes the request
 	//  @return []Group
-	// TODU
 	ListUserGroupsExecute(r ApiListUserGroupsRequest) (*APIResponse, error)
 
 	/*
-	ListUserIdentityProviders List all Identity Providers
+		ListUserIdentityProviders List all Identity Providers
 
-	Lists the IdPs associated with the user
+		Lists the IdPs associated with the user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListUserIdentityProvidersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListUserIdentityProvidersRequest
 	*/
 	ListUserIdentityProviders(ctx context.Context, userId string) ApiListUserIdentityProvidersRequest
 
 	// ListUserIdentityProvidersExecute executes the request
 	//  @return []IdentityProvider
-	// TODU
 	ListUserIdentityProvidersExecute(r ApiListUserIdentityProvidersRequest) (*APIResponse, error)
 
 	/*
-	ListUsers List all Users
+		ListUsers List all Users
 
-	Lists all users that do not have a status of 'DEPROVISIONED' (by default), up to the maximum (200 for most orgs), with pagination.  A subset of users can be returned that match a supported filter expression or search criteria.
+		Lists all users that do not have a status of 'DEPROVISIONED' (by default), up to the maximum (200 for most orgs), with pagination.  A subset of users can be returned that match a supported filter expression or search criteria.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListUsersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListUsersRequest
 	*/
 	ListUsers(ctx context.Context) ApiListUsersRequest
 
 	// ListUsersExecute executes the request
 	//  @return []User
-	// TODU
 	ListUsersExecute(r ApiListUsersRequest) (*APIResponse, error)
 
 	/*
-	ReactivateUser Reactivate a User
+		ReactivateUser Reactivate a User
 
-	Reactivates a user.  This operation can only be performed on users with a `PROVISIONED` status.  This operation restarts the activation workflow if for some reason the user activation was not completed when using the activationToken from [Activate User](#activate-user).
+		Reactivates a user.  This operation can only be performed on users with a `PROVISIONED` status.  This operation restarts the activation workflow if for some reason the user activation was not completed when using the activationToken from [Activate User](#activate-user).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiReactivateUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiReactivateUserRequest
 	*/
 	ReactivateUser(ctx context.Context, userId string) ApiReactivateUserRequest
 
 	// ReactivateUserExecute executes the request
 	//  @return UserActivationToken
-	// TODU
 	ReactivateUserExecute(r ApiReactivateUserRequest) (*APIResponse, error)
 
 	/*
-	ReplaceUser Replace a User
+		ReplaceUser Replace a User
 
-	Replaces a user's profile and/or credentials using strict-update semantics
+		Replaces a user's profile and/or credentials using strict-update semantics
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiReplaceUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiReplaceUserRequest
 	*/
 	ReplaceUser(ctx context.Context, userId string) ApiReplaceUserRequest
 
 	// ReplaceUserExecute executes the request
 	//  @return User
-	// TODU
 	ReplaceUserExecute(r ApiReplaceUserRequest) (*APIResponse, error)
 
 	/*
-	ResetFactors Reset all Factors
+		ResetFactors Reset all Factors
 
-	Resets all factors for the specified user. All MFA factor enrollments returned to the unenrolled state. The user's status remains ACTIVE. This link is present only if the user is currently enrolled in one or more MFA factors.
+		Resets all factors for the specified user. All MFA factor enrollments returned to the unenrolled state. The user's status remains ACTIVE. This link is present only if the user is currently enrolled in one or more MFA factors.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiResetFactorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiResetFactorsRequest
 	*/
 	ResetFactors(ctx context.Context, userId string) ApiResetFactorsRequest
 
 	// ResetFactorsExecute executes the request
-	// TODU
 	ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResponse, error)
 
 	/*
-	RevokeGrantsForUserAndClient Revoke all Grants for a Client
+		RevokeGrantsForUserAndClient Revoke all Grants for a Client
 
-	Revokes all grants for the specified user and client
+		Revokes all grants for the specified user and client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@return ApiRevokeGrantsForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@return ApiRevokeGrantsForUserAndClientRequest
 	*/
 	RevokeGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeGrantsForUserAndClientRequest
 
 	// RevokeGrantsForUserAndClientExecute executes the request
-	// TODU
 	RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsForUserAndClientRequest) (*APIResponse, error)
 
 	/*
-	RevokeTokenForUserAndClient Revoke a Token for a Client
+		RevokeTokenForUserAndClient Revoke a Token for a Client
 
-	Revokes the specified refresh token
+		Revokes the specified refresh token
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@param tokenId `id` of Token
-	@return ApiRevokeTokenForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@param tokenId `id` of Token
+		@return ApiRevokeTokenForUserAndClientRequest
 	*/
 	RevokeTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiRevokeTokenForUserAndClientRequest
 
 	// RevokeTokenForUserAndClientExecute executes the request
-	// TODU
 	RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForUserAndClientRequest) (*APIResponse, error)
 
 	/*
-	RevokeTokensForUserAndClient Revoke all Refresh Tokens for a Client
+		RevokeTokensForUserAndClient Revoke all Refresh Tokens for a Client
 
-	Revokes all refresh tokens issued for the specified User and Client
+		Revokes all refresh tokens issued for the specified User and Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param clientId `client_id` of the app
-	@return ApiRevokeTokensForUserAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param clientId `client_id` of the app
+		@return ApiRevokeTokensForUserAndClientRequest
 	*/
 	RevokeTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeTokensForUserAndClientRequest
 
 	// RevokeTokensForUserAndClientExecute executes the request
-	// TODU
 	RevokeTokensForUserAndClientExecute(r ApiRevokeTokensForUserAndClientRequest) (*APIResponse, error)
 
 	/*
-	RevokeUserGrant Revoke a User Grant
+		RevokeUserGrant Revoke a User Grant
 
-	Revokes one grant for a specified user
+		Revokes one grant for a specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param grantId Grant ID
-	@return ApiRevokeUserGrantRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param grantId Grant ID
+		@return ApiRevokeUserGrantRequest
 	*/
 	RevokeUserGrant(ctx context.Context, userId string, grantId string) ApiRevokeUserGrantRequest
 
 	// RevokeUserGrantExecute executes the request
-	// TODU
 	RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*APIResponse, error)
 
 	/*
-	RevokeUserGrants Revoke all User Grants
+		RevokeUserGrants Revoke all User Grants
 
-	Revokes all grants for a specified user
+		Revokes all grants for a specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiRevokeUserGrantsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiRevokeUserGrantsRequest
 	*/
 	RevokeUserGrants(ctx context.Context, userId string) ApiRevokeUserGrantsRequest
 
 	// RevokeUserGrantsExecute executes the request
-	// TODU
 	RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (*APIResponse, error)
 
 	/*
-	RevokeUserSessions Revoke all User Sessions
+		RevokeUserSessions Revoke all User Sessions
 
-	Revokes all active identity provider sessions of the user. This forces the user to authenticate on the next operation. Optionally revokes OpenID Connect and OAuth refresh and access tokens issued to the user.
+		Revokes all active identity provider sessions of the user. This forces the user to authenticate on the next operation. Optionally revokes OpenID Connect and OAuth refresh and access tokens issued to the user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiRevokeUserSessionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiRevokeUserSessionsRequest
 	*/
 	RevokeUserSessions(ctx context.Context, userId string) ApiRevokeUserSessionsRequest
 
 	// RevokeUserSessionsExecute executes the request
-	// TODU
 	RevokeUserSessionsExecute(r ApiRevokeUserSessionsRequest) (*APIResponse, error)
 
 	/*
-	SetLinkedObjectForUser Create a Linked Object for two Users
+		SetLinkedObjectForUser Create a Linked Object for two Users
 
-	Creates a Linked Object for two users
+		Creates a Linked Object for two users
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param primaryRelationshipName
-	@param primaryUserId `id` of primary User
-	@return ApiSetLinkedObjectForUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param primaryRelationshipName
+		@param primaryUserId `id` of primary User
+		@return ApiSetLinkedObjectForUserRequest
 	*/
 	SetLinkedObjectForUser(ctx context.Context, userId string, primaryRelationshipName string, primaryUserId string) ApiSetLinkedObjectForUserRequest
 
 	// SetLinkedObjectForUserExecute executes the request
-	// TODU
 	SetLinkedObjectForUserExecute(r ApiSetLinkedObjectForUserRequest) (*APIResponse, error)
 
 	/*
-	SuspendUser Suspend a User
+		SuspendUser Suspend a User
 
-	Suspends a user.  This operation can only be performed on users with an `ACTIVE` status.  The user will have a status of `SUSPENDED` when the process is complete.
+		Suspends a user.  This operation can only be performed on users with an `ACTIVE` status.  The user will have a status of `SUSPENDED` when the process is complete.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiSuspendUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiSuspendUserRequest
 	*/
 	SuspendUser(ctx context.Context, userId string) ApiSuspendUserRequest
 
 	// SuspendUserExecute executes the request
-	// TODU
 	SuspendUserExecute(r ApiSuspendUserRequest) (*APIResponse, error)
 
 	/*
-	UnlockUser Unlock a User
+		UnlockUser Unlock a User
 
-	Unlocks a user with a `LOCKED_OUT` status or unlocks a user with an `ACTIVE` status that is blocked from unknown devices. Unlocked users have an `ACTIVE` status and can sign in with their current password.
+		Unlocks a user with a `LOCKED_OUT` status or unlocks a user with an `ACTIVE` status that is blocked from unknown devices. Unlocked users have an `ACTIVE` status and can sign in with their current password.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiUnlockUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiUnlockUserRequest
 	*/
 	UnlockUser(ctx context.Context, userId string) ApiUnlockUserRequest
 
 	// UnlockUserExecute executes the request
-	// TODU
 	UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse, error)
 
 	/*
-	UnsuspendUser Unsuspend a User
+		UnsuspendUser Unsuspend a User
 
-	Unsuspends a user and returns them to the `ACTIVE` state.  This operation can only be performed on users that have a `SUSPENDED` status.
+		Unsuspends a user and returns them to the `ACTIVE` state.  This operation can only be performed on users that have a `SUSPENDED` status.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiUnsuspendUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiUnsuspendUserRequest
 	*/
 	UnsuspendUser(ctx context.Context, userId string) ApiUnsuspendUserRequest
 
 	// UnsuspendUserExecute executes the request
-	// TODU
 	UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIResponse, error)
 
 	/*
-	UpdateUser Update a User
+		UpdateUser Update a User
 
-	Updates a user partially determined by the request parameters
+		Updates a user partially determined by the request parameters
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiUpdateUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiUpdateUserRequest
 	*/
 	UpdateUser(ctx context.Context, userId string) ApiUpdateUserRequest
 
 	// UpdateUserExecute executes the request
 	//  @return User
-	// TODU
 	UpdateUserExecute(r ApiUpdateUserRequest) (*APIResponse, error)
 }
 
@@ -668,11 +628,10 @@ liability associated with, the activation email's content. You, and you alone, b
 type UserAPIService service
 
 type ApiActivateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	sendEmail *bool
-	// TODU
+	userId     string
+	sendEmail  *bool
 	data       interface{}
 	retryCount int32
 }
@@ -683,14 +642,11 @@ func (r ApiActivateUserRequest) SendEmail(sendEmail bool) ApiActivateUserRequest
 	return r
 }
 
-
-// TODU
-func (r ApiActivateUserRequest) Data (data interface{}) ApiActivateUserRequest {
+func (r ApiActivateUserRequest) Data(data interface{}) ApiActivateUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateUserExecute(r)
 }
@@ -716,13 +672,12 @@ liability associated with, the activation email's content. You, and you alone, b
  @param userId ID of an existing Okta user
  @return ApiActivateUserRequest
 */
-// TODU
 
 func (a *UserAPIService) ActivateUser(ctx context.Context, userId string) ApiActivateUserRequest {
 	return ApiActivateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -735,10 +690,9 @@ func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*APIResp
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -748,7 +702,6 @@ func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*APIResp
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ActivateUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -777,7 +730,6 @@ func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*APIResp
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -794,13 +746,11 @@ func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*APIResp
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -809,7 +759,6 @@ func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*APIResp
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -824,12 +773,10 @@ func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -838,12 +785,10 @@ func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -852,13 +797,11 @@ func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -867,14 +810,13 @@ func (a *UserAPIService) ActivateUserExecute(r ApiActivateUserRequest) (*APIResp
 }
 
 type ApiChangePasswordRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx                   context.Context
+	ApiService            UserAPI
+	userId                string
 	changePasswordRequest *ChangePasswordRequest
-	strict *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	strict                *bool
+	data                  interface{}
+	retryCount            int32
 }
 
 func (r ApiChangePasswordRequest) ChangePasswordRequest(changePasswordRequest ChangePasswordRequest) ApiChangePasswordRequest {
@@ -887,14 +829,11 @@ func (r ApiChangePasswordRequest) Strict(strict bool) ApiChangePasswordRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiChangePasswordRequest) Data (data interface{}) ApiChangePasswordRequest {
+func (r ApiChangePasswordRequest) Data(data interface{}) ApiChangePasswordRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiChangePasswordRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ChangePasswordExecute(r)
 }
@@ -908,13 +847,12 @@ Changes a user's password by validating the user's current password. This operat
  @param userId ID of an existing Okta user
  @return ApiChangePasswordRequest
 */
-// TODU
 
 func (a *UserAPIService) ChangePassword(ctx context.Context, userId string) ApiChangePasswordRequest {
 	return ApiChangePasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -927,10 +865,9 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*API
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -940,7 +877,6 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ChangePassword")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -971,7 +907,6 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.changePasswordRequest
 	localVarPostBody = r.data
@@ -991,13 +926,11 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1006,7 +939,6 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1021,12 +953,10 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1035,12 +965,10 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1049,12 +977,10 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1063,13 +989,11 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1078,13 +1002,12 @@ func (a *UserAPIService) ChangePasswordExecute(r ApiChangePasswordRequest) (*API
 }
 
 type ApiChangeRecoveryQuestionRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx             context.Context
+	ApiService      UserAPI
+	userId          string
 	userCredentials *UserCredentials
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
 func (r ApiChangeRecoveryQuestionRequest) UserCredentials(userCredentials UserCredentials) ApiChangeRecoveryQuestionRequest {
@@ -1092,14 +1015,11 @@ func (r ApiChangeRecoveryQuestionRequest) UserCredentials(userCredentials UserCr
 	return r
 }
 
-
-// TODU
-func (r ApiChangeRecoveryQuestionRequest) Data (data interface{}) ApiChangeRecoveryQuestionRequest {
+func (r ApiChangeRecoveryQuestionRequest) Data(data interface{}) ApiChangeRecoveryQuestionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiChangeRecoveryQuestionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ChangeRecoveryQuestionExecute(r)
 }
@@ -1113,13 +1033,12 @@ Changes a user's recovery question & answer credential by validating the user's 
  @param userId ID of an existing Okta user
  @return ApiChangeRecoveryQuestionRequest
 */
-// TODU
 
 func (a *UserAPIService) ChangeRecoveryQuestion(ctx context.Context, userId string) ApiChangeRecoveryQuestionRequest {
 	return ApiChangeRecoveryQuestionRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1132,10 +1051,9 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1145,7 +1063,6 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ChangeRecoveryQuestion")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1173,7 +1090,6 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.userCredentials
 	localVarPostBody = r.data
@@ -1193,13 +1109,11 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1208,7 +1122,6 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1223,12 +1136,10 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1237,12 +1148,10 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1251,12 +1160,10 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1265,13 +1172,11 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1280,13 +1185,12 @@ func (a *UserAPIService) ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuesti
 }
 
 type ApiCreateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	body *CreateUserRequest
-	activate *bool
-	provider *bool
-	nextLogin *string
-	// TODU
+	body       *CreateUserRequest
+	activate   *bool
+	provider   *bool
+	nextLogin  *string
 	data       interface{}
 	retryCount int32
 }
@@ -1314,14 +1218,11 @@ func (r ApiCreateUserRequest) NextLogin(nextLogin string) ApiCreateUserRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiCreateUserRequest) Data (data interface{}) ApiCreateUserRequest {
+func (r ApiCreateUserRequest) Data(data interface{}) ApiCreateUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateUserExecute(r)
 }
@@ -1339,12 +1240,11 @@ liability associated with, the activation email's content. You, and you alone, b
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateUserRequest
 */
-// TODU
 
 func (a *UserAPIService) CreateUser(ctx context.Context) ApiCreateUserRequest {
 	return ApiCreateUserRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1357,10 +1257,9 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*APIResponse
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1370,7 +1269,6 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*APIResponse
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.CreateUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1406,7 +1304,6 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*APIResponse
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -1426,13 +1323,11 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*APIResponse
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1441,7 +1336,6 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*APIResponse
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1456,12 +1350,10 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1470,12 +1362,10 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1484,13 +1374,11 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1499,11 +1387,10 @@ func (a *UserAPIService) CreateUserExecute(r ApiCreateUserRequest) (*APIResponse
 }
 
 type ApiDeactivateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	sendEmail *bool
-	// TODU
+	userId     string
+	sendEmail  *bool
 	data       interface{}
 	retryCount int32
 }
@@ -1513,14 +1400,11 @@ func (r ApiDeactivateUserRequest) SendEmail(sendEmail bool) ApiDeactivateUserReq
 	return r
 }
 
-
-// TODU
-func (r ApiDeactivateUserRequest) Data (data interface{}) ApiDeactivateUserRequest {
+func (r ApiDeactivateUserRequest) Data(data interface{}) ApiDeactivateUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateUserExecute(r)
 }
@@ -1534,13 +1418,12 @@ Deactivates a user. This operation can only be performed on users that do not ha
  @param userId ID of an existing Okta user
  @return ApiDeactivateUserRequest
 */
-// TODU
 
 func (a *UserAPIService) DeactivateUser(ctx context.Context, userId string) ApiDeactivateUserRequest {
 	return ApiDeactivateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1554,7 +1437,7 @@ func (a *UserAPIService) DeactivateUserExecute(r ApiDeactivateUserRequest) (*API
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1564,7 +1447,6 @@ func (a *UserAPIService) DeactivateUserExecute(r ApiDeactivateUserRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.DeactivateUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1595,7 +1477,6 @@ func (a *UserAPIService) DeactivateUserExecute(r ApiDeactivateUserRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1612,13 +1493,11 @@ func (a *UserAPIService) DeactivateUserExecute(r ApiDeactivateUserRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1627,7 +1506,6 @@ func (a *UserAPIService) DeactivateUserExecute(r ApiDeactivateUserRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1642,12 +1520,10 @@ func (a *UserAPIService) DeactivateUserExecute(r ApiDeactivateUserRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1656,12 +1532,10 @@ func (a *UserAPIService) DeactivateUserExecute(r ApiDeactivateUserRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1670,13 +1544,11 @@ func (a *UserAPIService) DeactivateUserExecute(r ApiDeactivateUserRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1685,23 +1557,19 @@ func (a *UserAPIService) DeactivateUserExecute(r ApiDeactivateUserRequest) (*API
 }
 
 type ApiDeleteLinkedObjectForUserRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx              context.Context
+	ApiService       UserAPI
+	userId           string
 	relationshipName string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiDeleteLinkedObjectForUserRequest) Data (data interface{}) ApiDeleteLinkedObjectForUserRequest {
+func (r ApiDeleteLinkedObjectForUserRequest) Data(data interface{}) ApiDeleteLinkedObjectForUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteLinkedObjectForUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteLinkedObjectForUserExecute(r)
 }
@@ -1716,15 +1584,14 @@ Deletes linked objects for a user, relationshipName can be ONLY a primary relati
  @param relationshipName
  @return ApiDeleteLinkedObjectForUserRequest
 */
-// TODU
 
 func (a *UserAPIService) DeleteLinkedObjectForUser(ctx context.Context, userId string, relationshipName string) ApiDeleteLinkedObjectForUserRequest {
 	return ApiDeleteLinkedObjectForUserRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ApiService:       a,
+		ctx:              ctx,
+		userId:           userId,
 		relationshipName: relationshipName,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -1737,7 +1604,7 @@ func (a *UserAPIService) DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjec
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1747,7 +1614,6 @@ func (a *UserAPIService) DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjec
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.DeleteLinkedObjectForUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1776,7 +1642,6 @@ func (a *UserAPIService) DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1793,13 +1658,11 @@ func (a *UserAPIService) DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjec
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1808,7 +1671,6 @@ func (a *UserAPIService) DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjec
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1823,12 +1685,10 @@ func (a *UserAPIService) DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1837,12 +1697,10 @@ func (a *UserAPIService) DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1851,13 +1709,11 @@ func (a *UserAPIService) DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1866,11 +1722,10 @@ func (a *UserAPIService) DeleteLinkedObjectForUserExecute(r ApiDeleteLinkedObjec
 }
 
 type ApiDeleteUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	sendEmail *bool
-	// TODU
+	userId     string
+	sendEmail  *bool
 	data       interface{}
 	retryCount int32
 }
@@ -1880,14 +1735,11 @@ func (r ApiDeleteUserRequest) SendEmail(sendEmail bool) ApiDeleteUserRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiDeleteUserRequest) Data (data interface{}) ApiDeleteUserRequest {
+func (r ApiDeleteUserRequest) Data(data interface{}) ApiDeleteUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteUserExecute(r)
 }
@@ -1901,13 +1753,12 @@ Deletes a user permanently. This operation can only be performed on users that h
  @param userId ID of an existing Okta user
  @return ApiDeleteUserRequest
 */
-// TODU
 
 func (a *UserAPIService) DeleteUser(ctx context.Context, userId string) ApiDeleteUserRequest {
 	return ApiDeleteUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1921,7 +1772,7 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1931,7 +1782,6 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.DeleteUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1962,7 +1812,6 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1979,13 +1828,11 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1994,7 +1841,6 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2009,12 +1855,10 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2023,12 +1867,10 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2037,12 +1879,10 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2051,13 +1891,11 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2066,22 +1904,18 @@ func (a *UserAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*APIResponse
 }
 
 type ApiExpirePasswordRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiExpirePasswordRequest) Data (data interface{}) ApiExpirePasswordRequest {
+func (r ApiExpirePasswordRequest) Data(data interface{}) ApiExpirePasswordRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiExpirePasswordRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ExpirePasswordExecute(r)
 }
@@ -2095,13 +1929,12 @@ Expires a user's password and transitions the user to the status of `PASSWORD_EX
  @param userId ID of an existing Okta user
  @return ApiExpirePasswordRequest
 */
-// TODU
 
 func (a *UserAPIService) ExpirePassword(ctx context.Context, userId string) ApiExpirePasswordRequest {
 	return ApiExpirePasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -2114,10 +1947,9 @@ func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*API
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2127,7 +1959,6 @@ func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ExpirePassword")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2155,7 +1986,6 @@ func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2172,13 +2002,11 @@ func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2187,7 +2015,6 @@ func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2202,12 +2029,10 @@ func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2216,12 +2041,10 @@ func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2230,13 +2053,11 @@ func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2245,13 +2066,12 @@ func (a *UserAPIService) ExpirePasswordExecute(r ApiExpirePasswordRequest) (*API
 }
 
 type ApiExpirePasswordAndGetTemporaryPasswordRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx            context.Context
+	ApiService     UserAPI
+	userId         string
 	revokeSessions *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	data           interface{}
+	retryCount     int32
 }
 
 // When set to &#x60;true&#x60; (and the session is a user session), all user sessions are revoked except the current session.
@@ -2260,14 +2080,11 @@ func (r ApiExpirePasswordAndGetTemporaryPasswordRequest) RevokeSessions(revokeSe
 	return r
 }
 
-
-// TODU
-func (r ApiExpirePasswordAndGetTemporaryPasswordRequest) Data (data interface{}) ApiExpirePasswordAndGetTemporaryPasswordRequest {
+func (r ApiExpirePasswordAndGetTemporaryPasswordRequest) Data(data interface{}) ApiExpirePasswordAndGetTemporaryPasswordRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiExpirePasswordAndGetTemporaryPasswordRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ExpirePasswordAndGetTemporaryPasswordExecute(r)
 }
@@ -2281,13 +2098,12 @@ Expires a user's password and transitions the user to the status of `PASSWORD_EX
  @param userId ID of an existing Okta user
  @return ApiExpirePasswordAndGetTemporaryPasswordRequest
 */
-// TODU
 
 func (a *UserAPIService) ExpirePasswordAndGetTemporaryPassword(ctx context.Context, userId string) ApiExpirePasswordAndGetTemporaryPasswordRequest {
 	return ApiExpirePasswordAndGetTemporaryPasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -2300,10 +2116,9 @@ func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpir
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2313,7 +2128,6 @@ func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpir
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ExpirePasswordAndGetTemporaryPassword")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2344,7 +2158,6 @@ func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpir
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2361,13 +2174,11 @@ func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpir
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2376,7 +2187,6 @@ func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpir
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2391,12 +2201,10 @@ func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpir
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2405,12 +2213,10 @@ func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpir
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2419,13 +2225,11 @@ func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpir
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2434,11 +2238,10 @@ func (a *UserAPIService) ExpirePasswordAndGetTemporaryPasswordExecute(r ApiExpir
 }
 
 type ApiForgotPasswordRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	sendEmail *bool
-	// TODU
+	userId     string
+	sendEmail  *bool
 	data       interface{}
 	retryCount int32
 }
@@ -2448,14 +2251,11 @@ func (r ApiForgotPasswordRequest) SendEmail(sendEmail bool) ApiForgotPasswordReq
 	return r
 }
 
-
-// TODU
-func (r ApiForgotPasswordRequest) Data (data interface{}) ApiForgotPasswordRequest {
+func (r ApiForgotPasswordRequest) Data(data interface{}) ApiForgotPasswordRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiForgotPasswordRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ForgotPasswordExecute(r)
 }
@@ -2469,13 +2269,12 @@ Initiates the forgot password flow. Generates a one-time token (OTT) that can be
  @param userId ID of an existing Okta user
  @return ApiForgotPasswordRequest
 */
-// TODU
 
 func (a *UserAPIService) ForgotPassword(ctx context.Context, userId string) ApiForgotPasswordRequest {
 	return ApiForgotPasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -2488,10 +2287,9 @@ func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*API
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2501,7 +2299,6 @@ func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ForgotPassword")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2532,7 +2329,6 @@ func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2549,13 +2345,11 @@ func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2564,7 +2358,6 @@ func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2579,12 +2372,10 @@ func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2593,12 +2384,10 @@ func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2607,13 +2396,11 @@ func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2622,14 +2409,13 @@ func (a *UserAPIService) ForgotPasswordExecute(r ApiForgotPasswordRequest) (*API
 }
 
 type ApiForgotPasswordSetNewPasswordRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx             context.Context
+	ApiService      UserAPI
+	userId          string
 	userCredentials *UserCredentials
-	sendEmail *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	sendEmail       *bool
+	data            interface{}
+	retryCount      int32
 }
 
 func (r ApiForgotPasswordSetNewPasswordRequest) UserCredentials(userCredentials UserCredentials) ApiForgotPasswordSetNewPasswordRequest {
@@ -2642,14 +2428,11 @@ func (r ApiForgotPasswordSetNewPasswordRequest) SendEmail(sendEmail bool) ApiFor
 	return r
 }
 
-
-// TODU
-func (r ApiForgotPasswordSetNewPasswordRequest) Data (data interface{}) ApiForgotPasswordSetNewPasswordRequest {
+func (r ApiForgotPasswordSetNewPasswordRequest) Data(data interface{}) ApiForgotPasswordSetNewPasswordRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiForgotPasswordSetNewPasswordRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ForgotPasswordSetNewPasswordExecute(r)
 }
@@ -2663,13 +2446,12 @@ Resets the user's password to the specified password if the provided answer to t
  @param userId ID of an existing Okta user
  @return ApiForgotPasswordSetNewPasswordRequest
 */
-// TODU
 
 func (a *UserAPIService) ForgotPasswordSetNewPassword(ctx context.Context, userId string) ApiForgotPasswordSetNewPasswordRequest {
 	return ApiForgotPasswordSetNewPasswordRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -2682,10 +2464,9 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2695,7 +2476,6 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ForgotPasswordSetNewPassword")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2726,7 +2506,6 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.userCredentials
 	localVarPostBody = r.data
@@ -2746,13 +2525,11 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2761,7 +2538,6 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2776,12 +2552,10 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2790,12 +2564,10 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2804,12 +2576,10 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2818,13 +2588,11 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2833,14 +2601,13 @@ func (a *UserAPIService) ForgotPasswordSetNewPasswordExecute(r ApiForgotPassword
 }
 
 type ApiGenerateResetPasswordTokenRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
-	sendEmail *bool
+	ctx            context.Context
+	ApiService     UserAPI
+	userId         string
+	sendEmail      *bool
 	revokeSessions *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	data           interface{}
+	retryCount     int32
 }
 
 func (r ApiGenerateResetPasswordTokenRequest) SendEmail(sendEmail bool) ApiGenerateResetPasswordTokenRequest {
@@ -2854,14 +2621,11 @@ func (r ApiGenerateResetPasswordTokenRequest) RevokeSessions(revokeSessions bool
 	return r
 }
 
-
-// TODU
-func (r ApiGenerateResetPasswordTokenRequest) Data (data interface{}) ApiGenerateResetPasswordTokenRequest {
+func (r ApiGenerateResetPasswordTokenRequest) Data(data interface{}) ApiGenerateResetPasswordTokenRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGenerateResetPasswordTokenRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GenerateResetPasswordTokenExecute(r)
 }
@@ -2875,13 +2639,12 @@ Generates a one-time token (OTT) that can be used to reset a user's password.  T
  @param userId ID of an existing Okta user
  @return ApiGenerateResetPasswordTokenRequest
 */
-// TODU
 
 func (a *UserAPIService) GenerateResetPasswordToken(ctx context.Context, userId string) ApiGenerateResetPasswordTokenRequest {
 	return ApiGenerateResetPasswordTokenRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -2894,10 +2657,9 @@ func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPas
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2907,7 +2669,6 @@ func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPas
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.GenerateResetPasswordToken")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2939,7 +2700,6 @@ func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPas
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2956,13 +2716,11 @@ func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPas
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2971,7 +2729,6 @@ func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPas
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2986,12 +2743,10 @@ func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPas
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3000,12 +2755,10 @@ func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPas
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3014,13 +2767,11 @@ func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPas
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3029,15 +2780,14 @@ func (a *UserAPIService) GenerateResetPasswordTokenExecute(r ApiGenerateResetPas
 }
 
 type ApiGetRefreshTokenForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
-	tokenId string
-	expand *string
-	limit *int32
-	after *string
-	// TODU
+	userId     string
+	clientId   string
+	tokenId    string
+	expand     *string
+	limit      *int32
+	after      *string
 	data       interface{}
 	retryCount int32
 }
@@ -3057,14 +2807,11 @@ func (r ApiGetRefreshTokenForUserAndClientRequest) After(after string) ApiGetRef
 	return r
 }
 
-
-// TODU
-func (r ApiGetRefreshTokenForUserAndClientRequest) Data (data interface{}) ApiGetRefreshTokenForUserAndClientRequest {
+func (r ApiGetRefreshTokenForUserAndClientRequest) Data(data interface{}) ApiGetRefreshTokenForUserAndClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetRefreshTokenForUserAndClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetRefreshTokenForUserAndClientExecute(r)
 }
@@ -3080,15 +2827,14 @@ Retrieves a refresh token issued for the specified User and Client
  @param tokenId `id` of Token
  @return ApiGetRefreshTokenForUserAndClientRequest
 */
-// TODU
 
 func (a *UserAPIService) GetRefreshTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiGetRefreshTokenForUserAndClientRequest {
 	return ApiGetRefreshTokenForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
-		tokenId: tokenId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
+		tokenId:    tokenId,
 		retryCount: 0,
 	}
 }
@@ -3101,10 +2847,9 @@ func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshT
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3114,7 +2859,6 @@ func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshT
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.GetRefreshTokenForUserAndClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3153,7 +2897,6 @@ func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshT
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3170,13 +2913,11 @@ func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshT
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3185,7 +2926,6 @@ func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshT
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3200,12 +2940,10 @@ func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshT
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3214,12 +2952,10 @@ func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshT
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3228,13 +2964,11 @@ func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshT
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3243,11 +2977,10 @@ func (a *UserAPIService) GetRefreshTokenForUserAndClientExecute(r ApiGetRefreshT
 }
 
 type ApiGetUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	expand *string
-	// TODU
+	userId     string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -3258,14 +2991,11 @@ func (r ApiGetUserRequest) Expand(expand string) ApiGetUserRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiGetUserRequest) Data (data interface{}) ApiGetUserRequest {
+func (r ApiGetUserRequest) Data(data interface{}) ApiGetUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetUserExecute(r)
 }
@@ -3279,13 +3009,12 @@ Retrieves a user from your Okta organization
  @param userId ID of an existing Okta user
  @return ApiGetUserRequest
 */
-// TODU
 
 func (a *UserAPIService) GetUser(ctx context.Context, userId string) ApiGetUserRequest {
 	return ApiGetUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -3298,10 +3027,9 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*APIResponse, erro
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3311,7 +3039,6 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*APIResponse, erro
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.GetUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3342,7 +3069,6 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*APIResponse, erro
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3359,13 +3085,11 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*APIResponse, erro
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3374,7 +3098,6 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*APIResponse, erro
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3389,12 +3112,10 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*APIResponse, erro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3403,12 +3124,10 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*APIResponse, erro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3417,13 +3136,11 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*APIResponse, erro
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3432,12 +3149,11 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*APIResponse, erro
 }
 
 type ApiGetUserGrantRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	grantId string
-	expand *string
-	// TODU
+	userId     string
+	grantId    string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -3447,14 +3163,11 @@ func (r ApiGetUserGrantRequest) Expand(expand string) ApiGetUserGrantRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiGetUserGrantRequest) Data (data interface{}) ApiGetUserGrantRequest {
+func (r ApiGetUserGrantRequest) Data(data interface{}) ApiGetUserGrantRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetUserGrantRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetUserGrantExecute(r)
 }
@@ -3469,14 +3182,13 @@ Retrieves a grant for the specified user
  @param grantId Grant ID
  @return ApiGetUserGrantRequest
 */
-// TODU
 
 func (a *UserAPIService) GetUserGrant(ctx context.Context, userId string, grantId string) ApiGetUserGrantRequest {
 	return ApiGetUserGrantRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		grantId: grantId,
+		ctx:        ctx,
+		userId:     userId,
+		grantId:    grantId,
 		retryCount: 0,
 	}
 }
@@ -3489,10 +3201,9 @@ func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*APIResp
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3502,7 +3213,6 @@ func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*APIResp
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.GetUserGrant")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3534,7 +3244,6 @@ func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*APIResp
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3551,13 +3260,11 @@ func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*APIResp
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3566,7 +3273,6 @@ func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*APIResp
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3581,12 +3287,10 @@ func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3595,12 +3299,10 @@ func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3609,13 +3311,11 @@ func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3624,22 +3324,18 @@ func (a *UserAPIService) GetUserGrantExecute(r ApiGetUserGrantRequest) (*APIResp
 }
 
 type ApiListAppLinksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListAppLinksRequest) Data (data interface{}) ApiListAppLinksRequest {
+func (r ApiListAppLinksRequest) Data(data interface{}) ApiListAppLinksRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListAppLinksRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListAppLinksExecute(r)
 }
@@ -3653,13 +3349,12 @@ Lists all appLinks for all direct or indirect (via group membership) assigned ap
  @param userId ID of an existing Okta user
  @return ApiListAppLinksRequest
 */
-// TODU
 
 func (a *UserAPIService) ListAppLinks(ctx context.Context, userId string) ApiListAppLinksRequest {
 	return ApiListAppLinksRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -3672,10 +3367,9 @@ func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) (*APIResp
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3685,7 +3379,6 @@ func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) (*APIResp
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ListAppLinks")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3713,7 +3406,6 @@ func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) (*APIResp
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3730,13 +3422,11 @@ func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) (*APIResp
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3745,7 +3435,6 @@ func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) (*APIResp
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3760,12 +3449,10 @@ func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3774,12 +3461,10 @@ func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3788,13 +3473,11 @@ func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3803,14 +3486,13 @@ func (a *UserAPIService) ListAppLinksExecute(r ApiListAppLinksRequest) (*APIResp
 }
 
 type ApiListGrantsForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
-	expand *string
-	after *string
-	limit *int32
-	// TODU
+	userId     string
+	clientId   string
+	expand     *string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -3830,14 +3512,11 @@ func (r ApiListGrantsForUserAndClientRequest) Limit(limit int32) ApiListGrantsFo
 	return r
 }
 
-
-// TODU
-func (r ApiListGrantsForUserAndClientRequest) Data (data interface{}) ApiListGrantsForUserAndClientRequest {
+func (r ApiListGrantsForUserAndClientRequest) Data(data interface{}) ApiListGrantsForUserAndClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListGrantsForUserAndClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListGrantsForUserAndClientExecute(r)
 }
@@ -3852,14 +3531,13 @@ Lists all grants for a specified user and client
  @param clientId `client_id` of the app
  @return ApiListGrantsForUserAndClientRequest
 */
-// TODU
 
 func (a *UserAPIService) ListGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiListGrantsForUserAndClientRequest {
 	return ApiListGrantsForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
@@ -3872,10 +3550,9 @@ func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUse
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3885,7 +3562,6 @@ func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUse
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ListGrantsForUserAndClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3923,7 +3599,6 @@ func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUse
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3940,13 +3615,11 @@ func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUse
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3955,7 +3628,6 @@ func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUse
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3970,12 +3642,10 @@ func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3984,12 +3654,10 @@ func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3998,13 +3666,11 @@ func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4013,15 +3679,14 @@ func (a *UserAPIService) ListGrantsForUserAndClientExecute(r ApiListGrantsForUse
 }
 
 type ApiListLinkedObjectsForUserRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx              context.Context
+	ApiService       UserAPI
+	userId           string
 	relationshipName string
-	after *string
-	limit *int32
-	// TODU
-	data       interface{}
-	retryCount int32
+	after            *string
+	limit            *int32
+	data             interface{}
+	retryCount       int32
 }
 
 func (r ApiListLinkedObjectsForUserRequest) After(after string) ApiListLinkedObjectsForUserRequest {
@@ -4034,14 +3699,11 @@ func (r ApiListLinkedObjectsForUserRequest) Limit(limit int32) ApiListLinkedObje
 	return r
 }
 
-
-// TODU
-func (r ApiListLinkedObjectsForUserRequest) Data (data interface{}) ApiListLinkedObjectsForUserRequest {
+func (r ApiListLinkedObjectsForUserRequest) Data(data interface{}) ApiListLinkedObjectsForUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListLinkedObjectsForUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListLinkedObjectsForUserExecute(r)
 }
@@ -4056,15 +3718,14 @@ Lists all linked objects for a user, relationshipName can be a primary or associ
  @param relationshipName
  @return ApiListLinkedObjectsForUserRequest
 */
-// TODU
 
 func (a *UserAPIService) ListLinkedObjectsForUser(ctx context.Context, userId string, relationshipName string) ApiListLinkedObjectsForUserRequest {
 	return ApiListLinkedObjectsForUserRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ApiService:       a,
+		ctx:              ctx,
+		userId:           userId,
 		relationshipName: relationshipName,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -4076,10 +3737,9 @@ func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsF
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4089,7 +3749,6 @@ func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsF
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ListLinkedObjectsForUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4124,7 +3783,6 @@ func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsF
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4141,13 +3799,11 @@ func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsF
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4156,7 +3812,6 @@ func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsF
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4171,12 +3826,10 @@ func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsF
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4185,12 +3838,10 @@ func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsF
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4199,13 +3850,11 @@ func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsF
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4214,14 +3863,13 @@ func (a *UserAPIService) ListLinkedObjectsForUserExecute(r ApiListLinkedObjectsF
 }
 
 type ApiListRefreshTokensForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
-	expand *string
-	after *string
-	limit *int32
-	// TODU
+	userId     string
+	clientId   string
+	expand     *string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -4241,14 +3889,11 @@ func (r ApiListRefreshTokensForUserAndClientRequest) Limit(limit int32) ApiListR
 	return r
 }
 
-
-// TODU
-func (r ApiListRefreshTokensForUserAndClientRequest) Data (data interface{}) ApiListRefreshTokensForUserAndClientRequest {
+func (r ApiListRefreshTokensForUserAndClientRequest) Data(data interface{}) ApiListRefreshTokensForUserAndClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListRefreshTokensForUserAndClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListRefreshTokensForUserAndClientExecute(r)
 }
@@ -4263,14 +3908,13 @@ Lists all refresh tokens issued for the specified User and Client
  @param clientId `client_id` of the app
  @return ApiListRefreshTokensForUserAndClientRequest
 */
-// TODU
 
 func (a *UserAPIService) ListRefreshTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiListRefreshTokensForUserAndClientRequest {
 	return ApiListRefreshTokensForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
@@ -4283,10 +3927,9 @@ func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefre
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4296,7 +3939,6 @@ func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefre
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ListRefreshTokensForUserAndClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4334,7 +3976,6 @@ func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefre
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4351,13 +3992,11 @@ func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefre
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4366,7 +4005,6 @@ func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefre
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4381,12 +4019,10 @@ func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefre
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4395,12 +4031,10 @@ func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefre
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4409,13 +4043,11 @@ func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefre
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4424,22 +4056,18 @@ func (a *UserAPIService) ListRefreshTokensForUserAndClientExecute(r ApiListRefre
 }
 
 type ApiListUserBlocksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListUserBlocksRequest) Data (data interface{}) ApiListUserBlocksRequest {
+func (r ApiListUserBlocksRequest) Data(data interface{}) ApiListUserBlocksRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListUserBlocksRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListUserBlocksExecute(r)
 }
@@ -4453,13 +4081,12 @@ Lists information about how the user is blocked from accessing their account
  @param userId ID of an existing Okta user
  @return ApiListUserBlocksRequest
 */
-// TODU
 
 func (a *UserAPIService) ListUserBlocks(ctx context.Context, userId string) ApiListUserBlocksRequest {
 	return ApiListUserBlocksRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -4472,10 +4099,9 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) (*API
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4485,7 +4111,6 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ListUserBlocks")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4513,7 +4138,6 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4530,13 +4154,11 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4545,7 +4167,6 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4560,12 +4181,10 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4574,12 +4193,10 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4588,13 +4205,11 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4603,22 +4218,18 @@ func (a *UserAPIService) ListUserBlocksExecute(r ApiListUserBlocksRequest) (*API
 }
 
 type ApiListUserClientsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListUserClientsRequest) Data (data interface{}) ApiListUserClientsRequest {
+func (r ApiListUserClientsRequest) Data(data interface{}) ApiListUserClientsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListUserClientsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListUserClientsExecute(r)
 }
@@ -4632,13 +4243,12 @@ Lists all client resources for which the specified user has grants or tokens
  @param userId ID of an existing Okta user
  @return ApiListUserClientsRequest
 */
-// TODU
 
 func (a *UserAPIService) ListUserClients(ctx context.Context, userId string) ApiListUserClientsRequest {
 	return ApiListUserClientsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -4651,10 +4261,9 @@ func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) (*A
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4664,7 +4273,6 @@ func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) (*A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ListUserClients")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4692,7 +4300,6 @@ func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) (*A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4709,13 +4316,11 @@ func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) (*A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4724,7 +4329,6 @@ func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) (*A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4739,12 +4343,10 @@ func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4753,12 +4355,10 @@ func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4767,13 +4367,11 @@ func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4782,14 +4380,13 @@ func (a *UserAPIService) ListUserClientsExecute(r ApiListUserClientsRequest) (*A
 }
 
 type ApiListUserGrantsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	scopeId *string
-	expand *string
-	after *string
-	limit *int32
-	// TODU
+	userId     string
+	scopeId    *string
+	expand     *string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -4814,14 +4411,11 @@ func (r ApiListUserGrantsRequest) Limit(limit int32) ApiListUserGrantsRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiListUserGrantsRequest) Data (data interface{}) ApiListUserGrantsRequest {
+func (r ApiListUserGrantsRequest) Data(data interface{}) ApiListUserGrantsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListUserGrantsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListUserGrantsExecute(r)
 }
@@ -4835,13 +4429,12 @@ Lists all grants for the specified user
  @param userId ID of an existing Okta user
  @return ApiListUserGrantsRequest
 */
-// TODU
 
 func (a *UserAPIService) ListUserGrants(ctx context.Context, userId string) ApiListUserGrantsRequest {
 	return ApiListUserGrantsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -4854,10 +4447,9 @@ func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) (*API
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4867,7 +4459,6 @@ func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ListUserGrants")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4907,7 +4498,6 @@ func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4924,13 +4514,11 @@ func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4939,7 +4527,6 @@ func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4954,12 +4541,10 @@ func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4968,12 +4553,10 @@ func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4982,13 +4565,11 @@ func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4997,12 +4578,11 @@ func (a *UserAPIService) ListUserGrantsExecute(r ApiListUserGrantsRequest) (*API
 }
 
 type ApiListUserGroupsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	after *string
-	limit *int32
-	// TODU
+	userId     string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -5019,14 +4599,11 @@ func (r ApiListUserGroupsRequest) Limit(limit int32) ApiListUserGroupsRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiListUserGroupsRequest) Data (data interface{}) ApiListUserGroupsRequest {
+func (r ApiListUserGroupsRequest) Data(data interface{}) ApiListUserGroupsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListUserGroupsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListUserGroupsExecute(r)
 }
@@ -5040,13 +4617,12 @@ Lists all groups of which the user is a member
  @param userId ID of an existing Okta user
  @return ApiListUserGroupsRequest
 */
-// TODU
 
 func (a *UserAPIService) ListUserGroups(ctx context.Context, userId string) ApiListUserGroupsRequest {
 	return ApiListUserGroupsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -5059,10 +4635,9 @@ func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) (*API
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5072,7 +4647,6 @@ func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ListUserGroups")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5106,7 +4680,6 @@ func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -5123,13 +4696,11 @@ func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5138,7 +4709,6 @@ func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -5153,12 +4723,10 @@ func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -5167,12 +4735,10 @@ func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -5181,13 +4747,11 @@ func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -5196,22 +4760,18 @@ func (a *UserAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequest) (*API
 }
 
 type ApiListUserIdentityProvidersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListUserIdentityProvidersRequest) Data (data interface{}) ApiListUserIdentityProvidersRequest {
+func (r ApiListUserIdentityProvidersRequest) Data(data interface{}) ApiListUserIdentityProvidersRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListUserIdentityProvidersRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListUserIdentityProvidersExecute(r)
 }
@@ -5225,13 +4785,12 @@ Lists the IdPs associated with the user
  @param userId ID of an existing Okta user
  @return ApiListUserIdentityProvidersRequest
 */
-// TODU
 
 func (a *UserAPIService) ListUserIdentityProviders(ctx context.Context, userId string) ApiListUserIdentityProvidersRequest {
 	return ApiListUserIdentityProvidersRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -5244,10 +4803,9 @@ func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityP
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5257,7 +4815,6 @@ func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ListUserIdentityProviders")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5285,7 +4842,6 @@ func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -5302,13 +4858,11 @@ func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5317,7 +4871,6 @@ func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -5332,12 +4885,10 @@ func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -5346,12 +4897,10 @@ func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -5360,13 +4909,11 @@ func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -5375,16 +4922,15 @@ func (a *UserAPIService) ListUserIdentityProvidersExecute(r ApiListUserIdentityP
 }
 
 type ApiListUsersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	q *string
-	after *string
-	limit *int32
-	filter *string
-	search *string
-	sortBy *string
-	sortOrder *string
-	// TODU
+	q          *string
+	after      *string
+	limit      *int32
+	filter     *string
+	search     *string
+	sortBy     *string
+	sortOrder  *string
 	data       interface{}
 	retryCount int32
 }
@@ -5430,14 +4976,11 @@ func (r ApiListUsersRequest) SortOrder(sortOrder string) ApiListUsersRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiListUsersRequest) Data (data interface{}) ApiListUsersRequest {
+func (r ApiListUsersRequest) Data(data interface{}) ApiListUsersRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListUsersRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListUsersExecute(r)
 }
@@ -5450,12 +4993,11 @@ Lists all users that do not have a status of 'DEPROVISIONED' (by default), up to
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListUsersRequest
 */
-// TODU
 
 func (a *UserAPIService) ListUsers(ctx context.Context) ApiListUsersRequest {
 	return ApiListUsersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -5468,10 +5010,9 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) (*APIResponse, 
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5481,7 +5022,6 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) (*APIResponse, 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ListUsers")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5529,7 +5069,6 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) (*APIResponse, 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -5546,13 +5085,11 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) (*APIResponse, 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5561,7 +5098,6 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) (*APIResponse, 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -5576,12 +5112,10 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) (*APIResponse, 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -5590,13 +5124,11 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) (*APIResponse, 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -5605,11 +5137,10 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) (*APIResponse, 
 }
 
 type ApiReactivateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	sendEmail *bool
-	// TODU
+	userId     string
+	sendEmail  *bool
 	data       interface{}
 	retryCount int32
 }
@@ -5620,14 +5151,11 @@ func (r ApiReactivateUserRequest) SendEmail(sendEmail bool) ApiReactivateUserReq
 	return r
 }
 
-
-// TODU
-func (r ApiReactivateUserRequest) Data (data interface{}) ApiReactivateUserRequest {
+func (r ApiReactivateUserRequest) Data(data interface{}) ApiReactivateUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReactivateUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReactivateUserExecute(r)
 }
@@ -5641,13 +5169,12 @@ Reactivates a user.  This operation can only be performed on users with a `PROVI
  @param userId ID of an existing Okta user
  @return ApiReactivateUserRequest
 */
-// TODU
 
 func (a *UserAPIService) ReactivateUser(ctx context.Context, userId string) ApiReactivateUserRequest {
 	return ApiReactivateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -5660,10 +5187,9 @@ func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*API
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5673,7 +5199,6 @@ func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ReactivateUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5704,7 +5229,6 @@ func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -5721,13 +5245,11 @@ func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5736,7 +5258,6 @@ func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -5751,12 +5272,10 @@ func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -5765,12 +5284,10 @@ func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -5779,13 +5296,11 @@ func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -5794,12 +5309,11 @@ func (a *UserAPIService) ReactivateUserExecute(r ApiReactivateUserRequest) (*API
 }
 
 type ApiReplaceUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	user *User
-	strict *bool
-	// TODU
+	userId     string
+	user       *User
+	strict     *bool
 	data       interface{}
 	retryCount int32
 }
@@ -5814,14 +5328,11 @@ func (r ApiReplaceUserRequest) Strict(strict bool) ApiReplaceUserRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceUserRequest) Data (data interface{}) ApiReplaceUserRequest {
+func (r ApiReplaceUserRequest) Data(data interface{}) ApiReplaceUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceUserExecute(r)
 }
@@ -5835,13 +5346,12 @@ Replaces a user's profile and/or credentials using strict-update semantics
  @param userId ID of an existing Okta user
  @return ApiReplaceUserRequest
 */
-// TODU
 
 func (a *UserAPIService) ReplaceUser(ctx context.Context, userId string) ApiReplaceUserRequest {
 	return ApiReplaceUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -5854,10 +5364,9 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*APIRespon
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -5867,7 +5376,6 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*APIRespon
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ReplaceUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5898,7 +5406,6 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*APIRespon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.user
 	localVarPostBody = r.data
@@ -5918,13 +5425,11 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*APIRespon
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5933,7 +5438,6 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*APIRespon
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -5948,12 +5452,10 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*APIRespon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -5962,12 +5464,10 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*APIRespon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -5976,12 +5476,10 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*APIRespon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -5990,13 +5488,11 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*APIRespon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -6005,13 +5501,12 @@ func (a *UserAPIService) ReplaceUserExecute(r ApiReplaceUserRequest) (*APIRespon
 }
 
 type ApiResetFactorsRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx                      context.Context
+	ApiService               UserAPI
+	userId                   string
 	removeRecoveryEnrollment *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                     interface{}
+	retryCount               int32
 }
 
 // If &#x60;true&#x60;, removes the phone number as both a recovery method and a Factor. Supported Factors: &#x60;sms&#x60; and &#x60;call&#x60;
@@ -6020,14 +5515,11 @@ func (r ApiResetFactorsRequest) RemoveRecoveryEnrollment(removeRecoveryEnrollmen
 	return r
 }
 
-
-// TODU
-func (r ApiResetFactorsRequest) Data (data interface{}) ApiResetFactorsRequest {
+func (r ApiResetFactorsRequest) Data(data interface{}) ApiResetFactorsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiResetFactorsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ResetFactorsExecute(r)
 }
@@ -6041,13 +5533,12 @@ Resets all factors for the specified user. All MFA factor enrollments returned t
  @param userId ID of an existing Okta user
  @return ApiResetFactorsRequest
 */
-// TODU
 
 func (a *UserAPIService) ResetFactors(ctx context.Context, userId string) ApiResetFactorsRequest {
 	return ApiResetFactorsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -6061,7 +5552,7 @@ func (a *UserAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResp
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6071,7 +5562,6 @@ func (a *UserAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResp
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ResetFactors")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6102,7 +5592,6 @@ func (a *UserAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResp
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -6119,13 +5608,11 @@ func (a *UserAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResp
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6134,7 +5621,6 @@ func (a *UserAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResp
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -6149,12 +5635,10 @@ func (a *UserAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -6163,12 +5647,10 @@ func (a *UserAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -6177,13 +5659,11 @@ func (a *UserAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -6192,23 +5672,19 @@ func (a *UserAPIService) ResetFactorsExecute(r ApiResetFactorsRequest) (*APIResp
 }
 
 type ApiRevokeGrantsForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
-	// TODU
+	userId     string
+	clientId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeGrantsForUserAndClientRequest) Data (data interface{}) ApiRevokeGrantsForUserAndClientRequest {
+func (r ApiRevokeGrantsForUserAndClientRequest) Data(data interface{}) ApiRevokeGrantsForUserAndClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeGrantsForUserAndClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeGrantsForUserAndClientExecute(r)
 }
@@ -6223,14 +5699,13 @@ Revokes all grants for the specified user and client
  @param clientId `client_id` of the app
  @return ApiRevokeGrantsForUserAndClientRequest
 */
-// TODU
 
 func (a *UserAPIService) RevokeGrantsForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeGrantsForUserAndClientRequest {
 	return ApiRevokeGrantsForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
@@ -6244,7 +5719,7 @@ func (a *UserAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsFo
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6254,7 +5729,6 @@ func (a *UserAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsFo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.RevokeGrantsForUserAndClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6283,7 +5757,6 @@ func (a *UserAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsFo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -6300,13 +5773,11 @@ func (a *UserAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsFo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6315,7 +5786,6 @@ func (a *UserAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsFo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -6330,12 +5800,10 @@ func (a *UserAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsFo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -6344,12 +5812,10 @@ func (a *UserAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsFo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -6358,13 +5824,11 @@ func (a *UserAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsFo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -6373,24 +5837,20 @@ func (a *UserAPIService) RevokeGrantsForUserAndClientExecute(r ApiRevokeGrantsFo
 }
 
 type ApiRevokeTokenForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
-	tokenId string
-	// TODU
+	userId     string
+	clientId   string
+	tokenId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeTokenForUserAndClientRequest) Data (data interface{}) ApiRevokeTokenForUserAndClientRequest {
+func (r ApiRevokeTokenForUserAndClientRequest) Data(data interface{}) ApiRevokeTokenForUserAndClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeTokenForUserAndClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeTokenForUserAndClientExecute(r)
 }
@@ -6406,15 +5866,14 @@ Revokes the specified refresh token
  @param tokenId `id` of Token
  @return ApiRevokeTokenForUserAndClientRequest
 */
-// TODU
 
 func (a *UserAPIService) RevokeTokenForUserAndClient(ctx context.Context, userId string, clientId string, tokenId string) ApiRevokeTokenForUserAndClientRequest {
 	return ApiRevokeTokenForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
-		tokenId: tokenId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
+		tokenId:    tokenId,
 		retryCount: 0,
 	}
 }
@@ -6428,7 +5887,7 @@ func (a *UserAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForU
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6438,7 +5897,6 @@ func (a *UserAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForU
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.RevokeTokenForUserAndClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6468,7 +5926,6 @@ func (a *UserAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForU
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -6485,13 +5942,11 @@ func (a *UserAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForU
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6500,7 +5955,6 @@ func (a *UserAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForU
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -6515,12 +5969,10 @@ func (a *UserAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -6529,12 +5981,10 @@ func (a *UserAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -6543,13 +5993,11 @@ func (a *UserAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -6558,23 +6006,19 @@ func (a *UserAPIService) RevokeTokenForUserAndClientExecute(r ApiRevokeTokenForU
 }
 
 type ApiRevokeTokensForUserAndClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	clientId string
-	// TODU
+	userId     string
+	clientId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeTokensForUserAndClientRequest) Data (data interface{}) ApiRevokeTokensForUserAndClientRequest {
+func (r ApiRevokeTokensForUserAndClientRequest) Data(data interface{}) ApiRevokeTokensForUserAndClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeTokensForUserAndClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeTokensForUserAndClientExecute(r)
 }
@@ -6589,14 +6033,13 @@ Revokes all refresh tokens issued for the specified User and Client
  @param clientId `client_id` of the app
  @return ApiRevokeTokensForUserAndClientRequest
 */
-// TODU
 
 func (a *UserAPIService) RevokeTokensForUserAndClient(ctx context.Context, userId string, clientId string) ApiRevokeTokensForUserAndClientRequest {
 	return ApiRevokeTokensForUserAndClientRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		clientId: clientId,
+		ctx:        ctx,
+		userId:     userId,
+		clientId:   clientId,
 		retryCount: 0,
 	}
 }
@@ -6610,7 +6053,7 @@ func (a *UserAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTokensFo
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6620,7 +6063,6 @@ func (a *UserAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTokensFo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.RevokeTokensForUserAndClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6649,7 +6091,6 @@ func (a *UserAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTokensFo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -6666,13 +6107,11 @@ func (a *UserAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTokensFo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6681,7 +6120,6 @@ func (a *UserAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTokensFo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -6696,12 +6134,10 @@ func (a *UserAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTokensFo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -6710,12 +6146,10 @@ func (a *UserAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTokensFo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -6724,13 +6158,11 @@ func (a *UserAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTokensFo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -6739,23 +6171,19 @@ func (a *UserAPIService) RevokeTokensForUserAndClientExecute(r ApiRevokeTokensFo
 }
 
 type ApiRevokeUserGrantRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	grantId string
-	// TODU
+	userId     string
+	grantId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeUserGrantRequest) Data (data interface{}) ApiRevokeUserGrantRequest {
+func (r ApiRevokeUserGrantRequest) Data(data interface{}) ApiRevokeUserGrantRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeUserGrantRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeUserGrantExecute(r)
 }
@@ -6770,14 +6198,13 @@ Revokes one grant for a specified user
  @param grantId Grant ID
  @return ApiRevokeUserGrantRequest
 */
-// TODU
 
 func (a *UserAPIService) RevokeUserGrant(ctx context.Context, userId string, grantId string) ApiRevokeUserGrantRequest {
 	return ApiRevokeUserGrantRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		grantId: grantId,
+		ctx:        ctx,
+		userId:     userId,
+		grantId:    grantId,
 		retryCount: 0,
 	}
 }
@@ -6791,7 +6218,7 @@ func (a *UserAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*A
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6801,7 +6228,6 @@ func (a *UserAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.RevokeUserGrant")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6830,7 +6256,6 @@ func (a *UserAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -6847,13 +6272,11 @@ func (a *UserAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -6862,7 +6285,6 @@ func (a *UserAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -6877,12 +6299,10 @@ func (a *UserAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -6891,12 +6311,10 @@ func (a *UserAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -6905,13 +6323,11 @@ func (a *UserAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -6920,22 +6336,18 @@ func (a *UserAPIService) RevokeUserGrantExecute(r ApiRevokeUserGrantRequest) (*A
 }
 
 type ApiRevokeUserGrantsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeUserGrantsRequest) Data (data interface{}) ApiRevokeUserGrantsRequest {
+func (r ApiRevokeUserGrantsRequest) Data(data interface{}) ApiRevokeUserGrantsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeUserGrantsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeUserGrantsExecute(r)
 }
@@ -6949,13 +6361,12 @@ Revokes all grants for a specified user
  @param userId ID of an existing Okta user
  @return ApiRevokeUserGrantsRequest
 */
-// TODU
 
 func (a *UserAPIService) RevokeUserGrants(ctx context.Context, userId string) ApiRevokeUserGrantsRequest {
 	return ApiRevokeUserGrantsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -6969,7 +6380,7 @@ func (a *UserAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -6979,7 +6390,6 @@ func (a *UserAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.RevokeUserGrants")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7007,7 +6417,6 @@ func (a *UserAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -7024,13 +6433,11 @@ func (a *UserAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7039,7 +6446,6 @@ func (a *UserAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -7054,12 +6460,10 @@ func (a *UserAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -7068,12 +6472,10 @@ func (a *UserAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -7082,13 +6484,11 @@ func (a *UserAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -7097,13 +6497,12 @@ func (a *UserAPIService) RevokeUserGrantsExecute(r ApiRevokeUserGrantsRequest) (
 }
 
 type ApiRevokeUserSessionsRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx         context.Context
+	ApiService  UserAPI
+	userId      string
 	oauthTokens *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
 // Revoke issued OpenID Connect and OAuth refresh and access tokens
@@ -7112,14 +6511,11 @@ func (r ApiRevokeUserSessionsRequest) OauthTokens(oauthTokens bool) ApiRevokeUse
 	return r
 }
 
-
-// TODU
-func (r ApiRevokeUserSessionsRequest) Data (data interface{}) ApiRevokeUserSessionsRequest {
+func (r ApiRevokeUserSessionsRequest) Data(data interface{}) ApiRevokeUserSessionsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeUserSessionsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeUserSessionsExecute(r)
 }
@@ -7133,13 +6529,12 @@ Revokes all active identity provider sessions of the user. This forces the user 
  @param userId ID of an existing Okta user
  @return ApiRevokeUserSessionsRequest
 */
-// TODU
 
 func (a *UserAPIService) RevokeUserSessions(ctx context.Context, userId string) ApiRevokeUserSessionsRequest {
 	return ApiRevokeUserSessionsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -7153,7 +6548,7 @@ func (a *UserAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessionsReques
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7163,7 +6558,6 @@ func (a *UserAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessionsReques
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.RevokeUserSessions")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7194,7 +6588,6 @@ func (a *UserAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessionsReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -7211,13 +6604,11 @@ func (a *UserAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessionsReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7226,7 +6617,6 @@ func (a *UserAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessionsReques
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -7241,12 +6631,10 @@ func (a *UserAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessionsReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -7255,12 +6643,10 @@ func (a *UserAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessionsReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -7269,13 +6655,11 @@ func (a *UserAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessionsReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -7284,24 +6668,20 @@ func (a *UserAPIService) RevokeUserSessionsExecute(r ApiRevokeUserSessionsReques
 }
 
 type ApiSetLinkedObjectForUserRequest struct {
-	ctx context.Context
-	ApiService UserAPI
-	userId string
+	ctx                     context.Context
+	ApiService              UserAPI
+	userId                  string
 	primaryRelationshipName string
-	primaryUserId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	primaryUserId           string
+	data                    interface{}
+	retryCount              int32
 }
 
-
-// TODU
-func (r ApiSetLinkedObjectForUserRequest) Data (data interface{}) ApiSetLinkedObjectForUserRequest {
+func (r ApiSetLinkedObjectForUserRequest) Data(data interface{}) ApiSetLinkedObjectForUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiSetLinkedObjectForUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.SetLinkedObjectForUserExecute(r)
 }
@@ -7317,16 +6697,15 @@ Creates a Linked Object for two users
  @param primaryUserId `id` of primary User
  @return ApiSetLinkedObjectForUserRequest
 */
-// TODU
 
 func (a *UserAPIService) SetLinkedObjectForUser(ctx context.Context, userId string, primaryRelationshipName string, primaryUserId string) ApiSetLinkedObjectForUserRequest {
 	return ApiSetLinkedObjectForUserRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ApiService:              a,
+		ctx:                     ctx,
+		userId:                  userId,
 		primaryRelationshipName: primaryRelationshipName,
-		primaryUserId: primaryUserId,
-		retryCount: 0,
+		primaryUserId:           primaryUserId,
+		retryCount:              0,
 	}
 }
 
@@ -7339,7 +6718,7 @@ func (a *UserAPIService) SetLinkedObjectForUserExecute(r ApiSetLinkedObjectForUs
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7349,7 +6728,6 @@ func (a *UserAPIService) SetLinkedObjectForUserExecute(r ApiSetLinkedObjectForUs
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.SetLinkedObjectForUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7379,16 +6757,13 @@ func (a *UserAPIService) SetLinkedObjectForUserExecute(r ApiSetLinkedObjectForUs
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7397,7 +6772,6 @@ func (a *UserAPIService) SetLinkedObjectForUserExecute(r ApiSetLinkedObjectForUs
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -7412,12 +6786,10 @@ func (a *UserAPIService) SetLinkedObjectForUserExecute(r ApiSetLinkedObjectForUs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -7426,12 +6798,10 @@ func (a *UserAPIService) SetLinkedObjectForUserExecute(r ApiSetLinkedObjectForUs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -7440,13 +6810,11 @@ func (a *UserAPIService) SetLinkedObjectForUserExecute(r ApiSetLinkedObjectForUs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -7455,22 +6823,18 @@ func (a *UserAPIService) SetLinkedObjectForUserExecute(r ApiSetLinkedObjectForUs
 }
 
 type ApiSuspendUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiSuspendUserRequest) Data (data interface{}) ApiSuspendUserRequest {
+func (r ApiSuspendUserRequest) Data(data interface{}) ApiSuspendUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiSuspendUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.SuspendUserExecute(r)
 }
@@ -7484,13 +6848,12 @@ Suspends a user.  This operation can only be performed on users with an `ACTIVE`
  @param userId ID of an existing Okta user
  @return ApiSuspendUserRequest
 */
-// TODU
 
 func (a *UserAPIService) SuspendUser(ctx context.Context, userId string) ApiSuspendUserRequest {
 	return ApiSuspendUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -7504,7 +6867,7 @@ func (a *UserAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*APIRespon
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7514,7 +6877,6 @@ func (a *UserAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*APIRespon
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.SuspendUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7542,7 +6904,6 @@ func (a *UserAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*APIRespon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -7559,13 +6920,11 @@ func (a *UserAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*APIRespon
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7574,7 +6933,6 @@ func (a *UserAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*APIRespon
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -7589,12 +6947,10 @@ func (a *UserAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*APIRespon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -7603,12 +6959,10 @@ func (a *UserAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*APIRespon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -7617,13 +6971,11 @@ func (a *UserAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*APIRespon
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -7632,22 +6984,18 @@ func (a *UserAPIService) SuspendUserExecute(r ApiSuspendUserRequest) (*APIRespon
 }
 
 type ApiUnlockUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnlockUserRequest) Data (data interface{}) ApiUnlockUserRequest {
+func (r ApiUnlockUserRequest) Data(data interface{}) ApiUnlockUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnlockUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnlockUserExecute(r)
 }
@@ -7661,13 +7009,12 @@ Unlocks a user with a `LOCKED_OUT` status or unlocks a user with an `ACTIVE` sta
  @param userId ID of an existing Okta user
  @return ApiUnlockUserRequest
 */
-// TODU
 
 func (a *UserAPIService) UnlockUser(ctx context.Context, userId string) ApiUnlockUserRequest {
 	return ApiUnlockUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -7681,7 +7028,7 @@ func (a *UserAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7691,7 +7038,6 @@ func (a *UserAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.UnlockUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7719,7 +7065,6 @@ func (a *UserAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -7736,13 +7081,11 @@ func (a *UserAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7751,7 +7094,6 @@ func (a *UserAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -7766,12 +7108,10 @@ func (a *UserAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -7780,12 +7120,10 @@ func (a *UserAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -7794,13 +7132,11 @@ func (a *UserAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -7809,22 +7145,18 @@ func (a *UserAPIService) UnlockUserExecute(r ApiUnlockUserRequest) (*APIResponse
 }
 
 type ApiUnsuspendUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnsuspendUserRequest) Data (data interface{}) ApiUnsuspendUserRequest {
+func (r ApiUnsuspendUserRequest) Data(data interface{}) ApiUnsuspendUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnsuspendUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnsuspendUserExecute(r)
 }
@@ -7838,13 +7170,12 @@ Unsuspends a user and returns them to the `ACTIVE` state.  This operation can on
  @param userId ID of an existing Okta user
  @return ApiUnsuspendUserRequest
 */
-// TODU
 
 func (a *UserAPIService) UnsuspendUser(ctx context.Context, userId string) ApiUnsuspendUserRequest {
 	return ApiUnsuspendUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -7858,7 +7189,7 @@ func (a *UserAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIRe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -7868,7 +7199,6 @@ func (a *UserAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.UnsuspendUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7896,7 +7226,6 @@ func (a *UserAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -7913,13 +7242,11 @@ func (a *UserAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -7928,7 +7255,6 @@ func (a *UserAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -7943,12 +7269,10 @@ func (a *UserAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -7957,12 +7281,10 @@ func (a *UserAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -7971,13 +7293,11 @@ func (a *UserAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -7986,12 +7306,11 @@ func (a *UserAPIService) UnsuspendUserExecute(r ApiUnsuspendUserRequest) (*APIRe
 }
 
 type ApiUpdateUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserAPI
-	userId string
-	user *UpdateUserRequest
-	strict *bool
-	// TODU
+	userId     string
+	user       *UpdateUserRequest
+	strict     *bool
 	data       interface{}
 	retryCount int32
 }
@@ -8006,14 +7325,11 @@ func (r ApiUpdateUserRequest) Strict(strict bool) ApiUpdateUserRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateUserRequest) Data (data interface{}) ApiUpdateUserRequest {
+func (r ApiUpdateUserRequest) Data(data interface{}) ApiUpdateUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateUserExecute(r)
 }
@@ -8027,13 +7343,12 @@ Updates a user partially determined by the request parameters
  @param userId ID of an existing Okta user
  @return ApiUpdateUserRequest
 */
-// TODU
 
 func (a *UserAPIService) UpdateUser(ctx context.Context, userId string) ApiUpdateUserRequest {
 	return ApiUpdateUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -8046,10 +7361,9 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*APIResponse
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -8059,7 +7373,6 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*APIResponse
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.UpdateUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -8090,7 +7403,6 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*APIResponse
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.user
 	localVarPostBody = r.data
@@ -8110,13 +7422,11 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*APIResponse
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -8125,7 +7435,6 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*APIResponse
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -8140,12 +7449,10 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -8154,12 +7461,10 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -8168,12 +7473,10 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -8182,13 +7485,11 @@ func (a *UserAPIService) UpdateUserExecute(r ApiUpdateUserRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

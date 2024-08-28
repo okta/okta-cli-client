@@ -17,188 +17,177 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type UserFactorAPI interface {
 
 	/*
-	ActivateFactor Activate a Factor
+			ActivateFactor Activate a Factor
 
-	Activates a Factor. The `sms` and `token:software:totp` factor types require activation to complete the enrollment process.
+			Activates a Factor. The `sms` and `token:software:totp` factor types require activation to complete the enrollment process.
 
-Okta enforces a rate limit of five activation attempts within five minutes.
-After a user exceeds the rate limit, Okta returns an error message.
+		Okta enforces a rate limit of five activation attempts within five minutes.
+		After a user exceeds the rate limit, Okta returns an error message.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing User Factor
-	@return ApiActivateFactorRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@param factorId ID of an existing User Factor
+			@return ApiActivateFactorRequest
 	*/
 	ActivateFactor(ctx context.Context, userId string, factorId string) ApiActivateFactorRequest
 
 	// ActivateFactorExecute executes the request
 	//  @return ListFactors200ResponseInner
-	// TODU
 	ActivateFactorExecute(r ApiActivateFactorRequest) (*APIResponse, error)
 
 	/*
-	EnrollFactor Enroll a Factor
+		EnrollFactor Enroll a Factor
 
-	Enrolls a supported Factor for the specified user
+		Enrolls a supported Factor for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiEnrollFactorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiEnrollFactorRequest
 	*/
 	EnrollFactor(ctx context.Context, userId string) ApiEnrollFactorRequest
 
 	// EnrollFactorExecute executes the request
 	//  @return ListFactors200ResponseInner
-	// TODU
 	EnrollFactorExecute(r ApiEnrollFactorRequest) (*APIResponse, error)
 
 	/*
-	GetFactor Retrieve a Factor
+		GetFactor Retrieve a Factor
 
-	Retrieves an existing Factor for the specified user
+		Retrieves an existing Factor for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing User Factor
-	@return ApiGetFactorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param factorId ID of an existing User Factor
+		@return ApiGetFactorRequest
 	*/
 	GetFactor(ctx context.Context, userId string, factorId string) ApiGetFactorRequest
 
 	// GetFactorExecute executes the request
 	//  @return ListFactors200ResponseInner
-	// TODU
 	GetFactorExecute(r ApiGetFactorRequest) (*APIResponse, error)
 
 	/*
-	GetFactorTransactionStatus Retrieve a Factor transaction status
+		GetFactorTransactionStatus Retrieve a Factor transaction status
 
-	Retrieves the status of a `push` Factor verification transaction
+		Retrieves the status of a `push` Factor verification transaction
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing User Factor
-	@param transactionId ID of an existing Factor verification transaction
-	@return ApiGetFactorTransactionStatusRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param factorId ID of an existing User Factor
+		@param transactionId ID of an existing Factor verification transaction
+		@return ApiGetFactorTransactionStatusRequest
 	*/
 	GetFactorTransactionStatus(ctx context.Context, userId string, factorId string, transactionId string) ApiGetFactorTransactionStatusRequest
 
 	// GetFactorTransactionStatusExecute executes the request
 	//  @return UserFactorVerifyResponse
-	// TODU
 	GetFactorTransactionStatusExecute(r ApiGetFactorTransactionStatusRequest) (*APIResponse, error)
 
 	/*
-	ListFactors List all enrolled Factors
+		ListFactors List all enrolled Factors
 
-	Lists all enrolled Factors for the specified user
+		Lists all enrolled Factors for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListFactorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListFactorsRequest
 	*/
 	ListFactors(ctx context.Context, userId string) ApiListFactorsRequest
 
 	// ListFactorsExecute executes the request
 	//  @return []ListFactors200ResponseInner
-	// TODU
 	ListFactorsExecute(r ApiListFactorsRequest) (*APIResponse, error)
 
 	/*
-	ListSupportedFactors List all supported Factors
+		ListSupportedFactors List all supported Factors
 
-	Lists all the supported Factors that can be enrolled for the specified user
+		Lists all the supported Factors that can be enrolled for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListSupportedFactorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListSupportedFactorsRequest
 	*/
 	ListSupportedFactors(ctx context.Context, userId string) ApiListSupportedFactorsRequest
 
 	// ListSupportedFactorsExecute executes the request
 	//  @return []ListFactors200ResponseInner
-	// TODU
 	ListSupportedFactorsExecute(r ApiListSupportedFactorsRequest) (*APIResponse, error)
 
 	/*
-	ListSupportedSecurityQuestions List all supported Security Questions
+		ListSupportedSecurityQuestions List all supported Security Questions
 
-	Lists all available Security Questions for the specified user
+		Lists all available Security Questions for the specified user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@return ApiListSupportedSecurityQuestionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@return ApiListSupportedSecurityQuestionsRequest
 	*/
 	ListSupportedSecurityQuestions(ctx context.Context, userId string) ApiListSupportedSecurityQuestionsRequest
 
 	// ListSupportedSecurityQuestionsExecute executes the request
 	//  @return []UserFactorSecurityQuestionProfile
-	// TODU
 	ListSupportedSecurityQuestionsExecute(r ApiListSupportedSecurityQuestionsRequest) (*APIResponse, error)
 
 	/*
-	ResendEnrollFactor Resend a Factor enrollment
+			ResendEnrollFactor Resend a Factor enrollment
 
-	Resends an `sms`, `call`, or `email` factor challenge as part of an enrollment flow.
+			Resends an `sms`, `call`, or `email` factor challenge as part of an enrollment flow.
 
-For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge per device every 30 seconds. You can configure your `sms` and `call` factors to use a third-party telephony provider. See the [Telephony inline hook reference](https://developer.okta.com/docs/reference/telephony-hook/). Okta round-robins between SMS providers with every resend request to help ensure delivery of an SMS and Call OTPs across different carriers.
+		For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge per device every 30 seconds. You can configure your `sms` and `call` factors to use a third-party telephony provider. See the [Telephony inline hook reference](https://developer.okta.com/docs/reference/telephony-hook/). Okta round-robins between SMS providers with every resend request to help ensure delivery of an SMS and Call OTPs across different carriers.
 
-> **Note**: Resend operations aren't allowed after a factor exceeds the activation rate limit. See [Activate a Factor](./#tag/UserFactor/operation/activateFactor).
+		> **Note**: Resend operations aren't allowed after a factor exceeds the activation rate limit. See [Activate a Factor](./#tag/UserFactor/operation/activateFactor).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing User Factor
-	@return ApiResendEnrollFactorRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@param factorId ID of an existing User Factor
+			@return ApiResendEnrollFactorRequest
 	*/
 	ResendEnrollFactor(ctx context.Context, userId string, factorId string) ApiResendEnrollFactorRequest
 
 	// ResendEnrollFactorExecute executes the request
 	//  @return ListFactors200ResponseInner
-	// TODU
 	ResendEnrollFactorExecute(r ApiResendEnrollFactorRequest) (*APIResponse, error)
 
 	/*
-	UnenrollFactor Unenroll a Factor
+			UnenrollFactor Unenroll a Factor
 
-	Unenrolls an existing Factor for the specified user. This allows the user to enroll a new Factor.
+			Unenrolls an existing Factor for the specified user. This allows the user to enroll a new Factor.
 
-> **Note**: If you unenroll the `push` or the `signed_nonce` Factors, Okta also unenrolls any other `totp`, `signed_nonce`, or Okta Verify `push` Factors associated with the user.
+		> **Note**: If you unenroll the `push` or the `signed_nonce` Factors, Okta also unenrolls any other `totp`, `signed_nonce`, or Okta Verify `push` Factors associated with the user.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing User Factor
-	@return ApiUnenrollFactorRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@param factorId ID of an existing User Factor
+			@return ApiUnenrollFactorRequest
 	*/
 	UnenrollFactor(ctx context.Context, userId string, factorId string) ApiUnenrollFactorRequest
 
 	// UnenrollFactorExecute executes the request
-	// TODU
 	UnenrollFactorExecute(r ApiUnenrollFactorRequest) (*APIResponse, error)
 
 	/*
-	VerifyFactor Verify a Factor
+			VerifyFactor Verify a Factor
 
-	Verifies an OTP for a Factor. Some Factors (`call`, `email`, `push`, `sms`, `u2f`, and `webauthn`) require Okta to issue a challenge to initiate the transaction. Do this by making a request without a body. After a challenge is issued, make another request to verify the Factor.
+			Verifies an OTP for a Factor. Some Factors (`call`, `email`, `push`, `sms`, `u2f`, and `webauthn`) require Okta to issue a challenge to initiate the transaction. Do this by making a request without a body. After a challenge is issued, make another request to verify the Factor.
 
-**Note**: To verify a `push` factor, use the **poll** link returned when you issue the challenge. See [Retrieve a Factor Transaction Status](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/getFactorTransactionStatus).
+		**Note**: To verify a `push` factor, use the **poll** link returned when you issue the challenge. See [Retrieve a Factor Transaction Status](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/getFactorTransactionStatus).
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param userId ID of an existing Okta user
-	@param factorId ID of an existing User Factor
-	@return ApiVerifyFactorRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@param factorId ID of an existing User Factor
+			@return ApiVerifyFactorRequest
 	*/
 	VerifyFactor(ctx context.Context, userId string, factorId string) ApiVerifyFactorRequest
 
 	// VerifyFactorExecute executes the request
 	//  @return UserFactorVerifyResponse
-	// TODU
 	VerifyFactorExecute(r ApiVerifyFactorRequest) (*APIResponse, error)
 }
 
@@ -206,12 +195,11 @@ For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge pe
 type UserFactorAPIService service
 
 type ApiActivateFactorRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserFactorAPI
-	userId string
-	factorId string
-	body *UserFactorActivateRequest
-	// TODU
+	userId     string
+	factorId   string
+	body       *UserFactorActivateRequest
 	data       interface{}
 	retryCount int32
 }
@@ -221,14 +209,11 @@ func (r ApiActivateFactorRequest) Body(body UserFactorActivateRequest) ApiActiva
 	return r
 }
 
-
-// TODU
-func (r ApiActivateFactorRequest) Data (data interface{}) ApiActivateFactorRequest {
+func (r ApiActivateFactorRequest) Data(data interface{}) ApiActivateFactorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateFactorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateFactorExecute(r)
 }
@@ -246,14 +231,13 @@ After a user exceeds the rate limit, Okta returns an error message.
  @param factorId ID of an existing User Factor
  @return ApiActivateFactorRequest
 */
-// TODU
 
 func (a *UserFactorAPIService) ActivateFactor(ctx context.Context, userId string, factorId string) ApiActivateFactorRequest {
 	return ApiActivateFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ctx:        ctx,
+		userId:     userId,
+		factorId:   factorId,
 		retryCount: 0,
 	}
 }
@@ -266,10 +250,9 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -279,7 +262,6 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserFactorAPIService.ActivateFactor")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -308,7 +290,6 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -328,13 +309,11 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -343,7 +322,6 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -358,12 +336,10 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -372,12 +348,10 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -386,12 +360,10 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -400,13 +372,11 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -415,17 +385,16 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 }
 
 type ApiEnrollFactorRequest struct {
-	ctx context.Context
-	ApiService UserFactorAPI
-	userId string
-	body *ListFactors200ResponseInner
-	updatePhone *bool
-	templateId *string
+	ctx                  context.Context
+	ApiService           UserFactorAPI
+	userId               string
+	body                 *ListFactors200ResponseInner
+	updatePhone          *bool
+	templateId           *string
 	tokenLifetimeSeconds *int32
-	activate *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	activate             *bool
+	data                 interface{}
+	retryCount           int32
 }
 
 // Factor
@@ -458,14 +427,11 @@ func (r ApiEnrollFactorRequest) Activate(activate bool) ApiEnrollFactorRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiEnrollFactorRequest) Data (data interface{}) ApiEnrollFactorRequest {
+func (r ApiEnrollFactorRequest) Data(data interface{}) ApiEnrollFactorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiEnrollFactorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.EnrollFactorExecute(r)
 }
@@ -479,13 +445,12 @@ Enrolls a supported Factor for the specified user
  @param userId ID of an existing Okta user
  @return ApiEnrollFactorRequest
 */
-// TODU
 
 func (a *UserFactorAPIService) EnrollFactor(ctx context.Context, userId string) ApiEnrollFactorRequest {
 	return ApiEnrollFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -498,10 +463,9 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*A
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -511,7 +475,6 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserFactorAPIService.EnrollFactor")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -551,7 +514,6 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -571,13 +533,11 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -586,7 +546,6 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -601,12 +560,10 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -615,12 +572,10 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -629,12 +584,10 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -643,13 +596,11 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -658,23 +609,19 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*A
 }
 
 type ApiGetFactorRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserFactorAPI
-	userId string
-	factorId string
-	// TODU
+	userId     string
+	factorId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetFactorRequest) Data (data interface{}) ApiGetFactorRequest {
+func (r ApiGetFactorRequest) Data(data interface{}) ApiGetFactorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetFactorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetFactorExecute(r)
 }
@@ -689,14 +636,13 @@ Retrieves an existing Factor for the specified user
  @param factorId ID of an existing User Factor
  @return ApiGetFactorRequest
 */
-// TODU
 
 func (a *UserFactorAPIService) GetFactor(ctx context.Context, userId string, factorId string) ApiGetFactorRequest {
 	return ApiGetFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ctx:        ctx,
+		userId:     userId,
+		factorId:   factorId,
 		retryCount: 0,
 	}
 }
@@ -709,10 +655,9 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*APIResp
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -722,7 +667,6 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*APIResp
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserFactorAPIService.GetFactor")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -751,7 +695,6 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*APIResp
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -768,13 +711,11 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*APIResp
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -783,7 +724,6 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*APIResp
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -798,12 +738,10 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -812,12 +750,10 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -826,13 +762,11 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -841,24 +775,20 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*APIResp
 }
 
 type ApiGetFactorTransactionStatusRequest struct {
-	ctx context.Context
-	ApiService UserFactorAPI
-	userId string
-	factorId string
+	ctx           context.Context
+	ApiService    UserFactorAPI
+	userId        string
+	factorId      string
 	transactionId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiGetFactorTransactionStatusRequest) Data (data interface{}) ApiGetFactorTransactionStatusRequest {
+func (r ApiGetFactorTransactionStatusRequest) Data(data interface{}) ApiGetFactorTransactionStatusRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetFactorTransactionStatusRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetFactorTransactionStatusExecute(r)
 }
@@ -874,16 +804,15 @@ Retrieves the status of a `push` Factor verification transaction
  @param transactionId ID of an existing Factor verification transaction
  @return ApiGetFactorTransactionStatusRequest
 */
-// TODU
 
 func (a *UserFactorAPIService) GetFactorTransactionStatus(ctx context.Context, userId string, factorId string, transactionId string) ApiGetFactorTransactionStatusRequest {
 	return ApiGetFactorTransactionStatusRequest{
-		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ApiService:    a,
+		ctx:           ctx,
+		userId:        userId,
+		factorId:      factorId,
 		transactionId: transactionId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -895,10 +824,9 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -908,7 +836,6 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserFactorAPIService.GetFactorTransactionStatus")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -938,7 +865,6 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -955,13 +881,11 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -970,7 +894,6 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -985,12 +908,10 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -999,12 +920,10 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1013,13 +932,11 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1028,22 +945,18 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 }
 
 type ApiListFactorsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserFactorAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListFactorsRequest) Data (data interface{}) ApiListFactorsRequest {
+func (r ApiListFactorsRequest) Data(data interface{}) ApiListFactorsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListFactorsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListFactorsExecute(r)
 }
@@ -1057,13 +970,12 @@ Lists all enrolled Factors for the specified user
  @param userId ID of an existing Okta user
  @return ApiListFactorsRequest
 */
-// TODU
 
 func (a *UserFactorAPIService) ListFactors(ctx context.Context, userId string) ApiListFactorsRequest {
 	return ApiListFactorsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1076,10 +988,9 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) (*API
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1089,7 +1000,6 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserFactorAPIService.ListFactors")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1117,7 +1027,6 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1134,13 +1043,11 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1149,7 +1056,6 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1164,12 +1070,10 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1178,12 +1082,10 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1192,13 +1094,11 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1207,22 +1107,18 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) (*API
 }
 
 type ApiListSupportedFactorsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserFactorAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListSupportedFactorsRequest) Data (data interface{}) ApiListSupportedFactorsRequest {
+func (r ApiListSupportedFactorsRequest) Data(data interface{}) ApiListSupportedFactorsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListSupportedFactorsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListSupportedFactorsExecute(r)
 }
@@ -1236,13 +1132,12 @@ Lists all the supported Factors that can be enrolled for the specified user
  @param userId ID of an existing Okta user
  @return ApiListSupportedFactorsRequest
 */
-// TODU
 
 func (a *UserFactorAPIService) ListSupportedFactors(ctx context.Context, userId string) ApiListSupportedFactorsRequest {
 	return ApiListSupportedFactorsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1255,10 +1150,9 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1268,7 +1162,6 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserFactorAPIService.ListSupportedFactors")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1296,7 +1189,6 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1313,13 +1205,11 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1328,7 +1218,6 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1343,12 +1232,10 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1357,12 +1244,10 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1371,13 +1256,11 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1386,22 +1269,18 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 }
 
 type ApiListSupportedSecurityQuestionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService UserFactorAPI
-	userId string
-	// TODU
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListSupportedSecurityQuestionsRequest) Data (data interface{}) ApiListSupportedSecurityQuestionsRequest {
+func (r ApiListSupportedSecurityQuestionsRequest) Data(data interface{}) ApiListSupportedSecurityQuestionsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListSupportedSecurityQuestionsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListSupportedSecurityQuestionsExecute(r)
 }
@@ -1415,13 +1294,12 @@ Lists all available Security Questions for the specified user
  @param userId ID of an existing Okta user
  @return ApiListSupportedSecurityQuestionsRequest
 */
-// TODU
 
 func (a *UserFactorAPIService) ListSupportedSecurityQuestions(ctx context.Context, userId string) ApiListSupportedSecurityQuestionsRequest {
 	return ApiListSupportedSecurityQuestionsRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
+		ctx:        ctx,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -1434,10 +1312,9 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1447,7 +1324,6 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserFactorAPIService.ListSupportedSecurityQuestions")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1475,7 +1351,6 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1492,13 +1367,11 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1507,7 +1380,6 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1522,12 +1394,10 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1536,12 +1406,10 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1550,13 +1418,11 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1565,15 +1431,14 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 }
 
 type ApiResendEnrollFactorRequest struct {
-	ctx context.Context
-	ApiService UserFactorAPI
-	userId string
-	factorId string
+	ctx                         context.Context
+	ApiService                  UserFactorAPI
+	userId                      string
+	factorId                    string
 	listFactors200ResponseInner *ListFactors200ResponseInner
-	templateId *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	templateId                  *string
+	data                        interface{}
+	retryCount                  int32
 }
 
 func (r ApiResendEnrollFactorRequest) ListFactors200ResponseInner(listFactors200ResponseInner ListFactors200ResponseInner) ApiResendEnrollFactorRequest {
@@ -1587,14 +1452,11 @@ func (r ApiResendEnrollFactorRequest) TemplateId(templateId string) ApiResendEnr
 	return r
 }
 
-
-// TODU
-func (r ApiResendEnrollFactorRequest) Data (data interface{}) ApiResendEnrollFactorRequest {
+func (r ApiResendEnrollFactorRequest) Data(data interface{}) ApiResendEnrollFactorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiResendEnrollFactorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ResendEnrollFactorExecute(r)
 }
@@ -1613,14 +1475,13 @@ For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge pe
  @param factorId ID of an existing User Factor
  @return ApiResendEnrollFactorRequest
 */
-// TODU
 
 func (a *UserFactorAPIService) ResendEnrollFactor(ctx context.Context, userId string, factorId string) ApiResendEnrollFactorRequest {
 	return ApiResendEnrollFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ctx:        ctx,
+		userId:     userId,
+		factorId:   factorId,
 		retryCount: 0,
 	}
 }
@@ -1633,10 +1494,9 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1646,7 +1506,6 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserFactorAPIService.ResendEnrollFactor")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1678,7 +1537,6 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.listFactors200ResponseInner
 	localVarPostBody = r.data
@@ -1698,13 +1556,11 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1713,7 +1569,6 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1728,12 +1583,10 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1742,12 +1595,10 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1756,12 +1607,10 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1770,13 +1619,11 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1785,14 +1632,13 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 }
 
 type ApiUnenrollFactorRequest struct {
-	ctx context.Context
-	ApiService UserFactorAPI
-	userId string
-	factorId string
+	ctx                      context.Context
+	ApiService               UserFactorAPI
+	userId                   string
+	factorId                 string
 	removeRecoveryEnrollment *bool
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                     interface{}
+	retryCount               int32
 }
 
 // If &#x60;true&#x60;, removes the the phone number as both a recovery method and a Factor. Only used for &#x60;sms&#x60; and &#x60;call&#x60; Factors.
@@ -1801,14 +1647,11 @@ func (r ApiUnenrollFactorRequest) RemoveRecoveryEnrollment(removeRecoveryEnrollm
 	return r
 }
 
-
-// TODU
-func (r ApiUnenrollFactorRequest) Data (data interface{}) ApiUnenrollFactorRequest {
+func (r ApiUnenrollFactorRequest) Data(data interface{}) ApiUnenrollFactorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnenrollFactorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnenrollFactorExecute(r)
 }
@@ -1825,14 +1668,13 @@ Unenrolls an existing Factor for the specified user. This allows the user to enr
  @param factorId ID of an existing User Factor
  @return ApiUnenrollFactorRequest
 */
-// TODU
 
 func (a *UserFactorAPIService) UnenrollFactor(ctx context.Context, userId string, factorId string) ApiUnenrollFactorRequest {
 	return ApiUnenrollFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ctx:        ctx,
+		userId:     userId,
+		factorId:   factorId,
 		retryCount: 0,
 	}
 }
@@ -1846,7 +1688,7 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1856,7 +1698,6 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserFactorAPIService.UnenrollFactor")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1888,7 +1729,6 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1905,13 +1745,11 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1920,7 +1758,6 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1935,12 +1772,10 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1949,12 +1784,10 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1963,13 +1796,11 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1978,19 +1809,18 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 }
 
 type ApiVerifyFactorRequest struct {
-	ctx context.Context
-	ApiService UserFactorAPI
-	userId string
-	factorId string
-	templateId *string
+	ctx                  context.Context
+	ApiService           UserFactorAPI
+	userId               string
+	factorId             string
+	templateId           *string
 	tokenLifetimeSeconds *int32
-	xForwardedFor *string
-	userAgent *string
-	acceptLanguage *string
-	body *UserFactorVerifyRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	xForwardedFor        *string
+	userAgent            *string
+	acceptLanguage       *string
+	body                 *UserFactorVerifyRequest
+	data                 interface{}
+	retryCount           int32
 }
 
 // ID of an existing custom SMS template. See the [SMS Templates API](../Template). Only used by &#x60;sms&#x60; Factors.
@@ -2028,14 +1858,11 @@ func (r ApiVerifyFactorRequest) Body(body UserFactorVerifyRequest) ApiVerifyFact
 	return r
 }
 
-
-// TODU
-func (r ApiVerifyFactorRequest) Data (data interface{}) ApiVerifyFactorRequest {
+func (r ApiVerifyFactorRequest) Data(data interface{}) ApiVerifyFactorRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiVerifyFactorRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.VerifyFactorExecute(r)
 }
@@ -2052,14 +1879,13 @@ Verifies an OTP for a Factor. Some Factors (`call`, `email`, `push`, `sms`, `u2f
  @param factorId ID of an existing User Factor
  @return ApiVerifyFactorRequest
 */
-// TODU
 
 func (a *UserFactorAPIService) VerifyFactor(ctx context.Context, userId string, factorId string) ApiVerifyFactorRequest {
 	return ApiVerifyFactorRequest{
 		ApiService: a,
-		ctx: ctx,
-		userId: userId,
-		factorId: factorId,
+		ctx:        ctx,
+		userId:     userId,
+		factorId:   factorId,
 		retryCount: 0,
 	}
 }
@@ -2072,10 +1898,9 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*A
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2085,7 +1910,6 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserFactorAPIService.VerifyFactor")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2129,7 +1953,6 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*A
 	if r.acceptLanguage != nil {
 		localVarHeaderParams["Accept-Language"] = parameterToString(*r.acceptLanguage, "")
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -2149,13 +1972,11 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2164,7 +1985,6 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2179,12 +1999,10 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2193,12 +2011,10 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2207,12 +2023,10 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2221,13 +2035,11 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

@@ -17,95 +17,89 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthorizationServerClientsAPI interface {
 
 	/*
-	GetRefreshTokenForAuthorizationServerAndClient Retrieve a refresh token for a Client
+		GetRefreshTokenForAuthorizationServerAndClient Retrieve a refresh token for a Client
 
-	Retrieves a refresh token for a Client
+		Retrieves a refresh token for a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param clientId `client_id` of the app
-	@param tokenId `id` of Token
-	@return ApiGetRefreshTokenForAuthorizationServerAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param clientId `client_id` of the app
+		@param tokenId `id` of Token
+		@return ApiGetRefreshTokenForAuthorizationServerAndClientRequest
 	*/
 	GetRefreshTokenForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, tokenId string) ApiGetRefreshTokenForAuthorizationServerAndClientRequest
 
 	// GetRefreshTokenForAuthorizationServerAndClientExecute executes the request
 	//  @return OAuth2RefreshToken
-	// TODU
 	GetRefreshTokenForAuthorizationServerAndClientExecute(r ApiGetRefreshTokenForAuthorizationServerAndClientRequest) (*APIResponse, error)
 
 	/*
-	ListOAuth2ClientsForAuthorizationServer List all Client resources for an authorization server
+		ListOAuth2ClientsForAuthorizationServer List all Client resources for an authorization server
 
-	Lists all Client resources for which the specified authorization server has tokens
+		Lists all Client resources for which the specified authorization server has tokens
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiListOAuth2ClientsForAuthorizationServerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiListOAuth2ClientsForAuthorizationServerRequest
 	*/
 	ListOAuth2ClientsForAuthorizationServer(ctx context.Context, authServerId string) ApiListOAuth2ClientsForAuthorizationServerRequest
 
 	// ListOAuth2ClientsForAuthorizationServerExecute executes the request
 	//  @return []OAuth2Client
-	// TODU
 	ListOAuth2ClientsForAuthorizationServerExecute(r ApiListOAuth2ClientsForAuthorizationServerRequest) (*APIResponse, error)
 
 	/*
-	ListRefreshTokensForAuthorizationServerAndClient List all refresh tokens for a Client
+		ListRefreshTokensForAuthorizationServerAndClient List all refresh tokens for a Client
 
-	Lists all refresh tokens issued by an authorization server for a specific Client
+		Lists all refresh tokens issued by an authorization server for a specific Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param clientId `client_id` of the app
-	@return ApiListRefreshTokensForAuthorizationServerAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param clientId `client_id` of the app
+		@return ApiListRefreshTokensForAuthorizationServerAndClientRequest
 	*/
 	ListRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiListRefreshTokensForAuthorizationServerAndClientRequest
 
 	// ListRefreshTokensForAuthorizationServerAndClientExecute executes the request
 	//  @return []OAuth2RefreshToken
-	// TODU
 	ListRefreshTokensForAuthorizationServerAndClientExecute(r ApiListRefreshTokensForAuthorizationServerAndClientRequest) (*APIResponse, error)
 
 	/*
-	RevokeRefreshTokenForAuthorizationServerAndClient Revoke a refresh token for a Client
+		RevokeRefreshTokenForAuthorizationServerAndClient Revoke a refresh token for a Client
 
-	Revokes a refresh token for a Client
+		Revokes a refresh token for a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param clientId `client_id` of the app
-	@param tokenId `id` of Token
-	@return ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param clientId `client_id` of the app
+		@param tokenId `id` of Token
+		@return ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest
 	*/
 	RevokeRefreshTokenForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, tokenId string) ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest
 
 	// RevokeRefreshTokenForAuthorizationServerAndClientExecute executes the request
-	// TODU
 	RevokeRefreshTokenForAuthorizationServerAndClientExecute(r ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest) (*APIResponse, error)
 
 	/*
-	RevokeRefreshTokensForAuthorizationServerAndClient Revoke all refresh tokens for a Client
+		RevokeRefreshTokensForAuthorizationServerAndClient Revoke all refresh tokens for a Client
 
-	Revokes all refresh tokens for a Client
+		Revokes all refresh tokens for a Client
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param clientId `client_id` of the app
-	@return ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param clientId `client_id` of the app
+		@return ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
 	*/
 	RevokeRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
 
 	// RevokeRefreshTokensForAuthorizationServerAndClientExecute executes the request
-	// TODU
 	RevokeRefreshTokensForAuthorizationServerAndClientExecute(r ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest) (*APIResponse, error)
 }
 
@@ -113,15 +107,14 @@ type AuthorizationServerClientsAPI interface {
 type AuthorizationServerClientsAPIService service
 
 type ApiGetRefreshTokenForAuthorizationServerAndClientRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerClientsAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerClientsAPI
 	authServerId string
-	clientId string
-	tokenId string
-	expand *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	clientId     string
+	tokenId      string
+	expand       *string
+	data         interface{}
+	retryCount   int32
 }
 
 // Valid value: &#x60;scope&#x60;. If specified, scope details are included in the &#x60;_embedded&#x60; attribute.
@@ -130,14 +123,11 @@ func (r ApiGetRefreshTokenForAuthorizationServerAndClientRequest) Expand(expand 
 	return r
 }
 
-
-// TODU
-func (r ApiGetRefreshTokenForAuthorizationServerAndClientRequest) Data (data interface{}) ApiGetRefreshTokenForAuthorizationServerAndClientRequest {
+func (r ApiGetRefreshTokenForAuthorizationServerAndClientRequest) Data(data interface{}) ApiGetRefreshTokenForAuthorizationServerAndClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetRefreshTokenForAuthorizationServerAndClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetRefreshTokenForAuthorizationServerAndClientExecute(r)
 }
@@ -153,16 +143,15 @@ Retrieves a refresh token for a Client
  @param tokenId `id` of Token
  @return ApiGetRefreshTokenForAuthorizationServerAndClientRequest
 */
-// TODU
 
 func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, tokenId string) ApiGetRefreshTokenForAuthorizationServerAndClientRequest {
 	return ApiGetRefreshTokenForAuthorizationServerAndClientRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		clientId: clientId,
-		tokenId: tokenId,
-		retryCount: 0,
+		clientId:     clientId,
+		tokenId:      tokenId,
+		retryCount:   0,
 	}
 }
 
@@ -174,10 +163,9 @@ func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationSe
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -187,7 +175,6 @@ func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationSe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerClientsAPIService.GetRefreshTokenForAuthorizationServerAndClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -220,7 +207,6 @@ func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationSe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -237,13 +223,11 @@ func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationSe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -252,7 +236,6 @@ func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationSe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -267,12 +250,10 @@ func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -281,12 +262,10 @@ func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -295,13 +274,11 @@ func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -310,22 +287,18 @@ func (a *AuthorizationServerClientsAPIService) GetRefreshTokenForAuthorizationSe
 }
 
 type ApiListOAuth2ClientsForAuthorizationServerRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerClientsAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerClientsAPI
 	authServerId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiListOAuth2ClientsForAuthorizationServerRequest) Data (data interface{}) ApiListOAuth2ClientsForAuthorizationServerRequest {
+func (r ApiListOAuth2ClientsForAuthorizationServerRequest) Data(data interface{}) ApiListOAuth2ClientsForAuthorizationServerRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListOAuth2ClientsForAuthorizationServerRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListOAuth2ClientsForAuthorizationServerExecute(r)
 }
@@ -339,14 +312,13 @@ Lists all Client resources for which the specified authorization server has toke
  @param authServerId `id` of the Authorization Server
  @return ApiListOAuth2ClientsForAuthorizationServerRequest
 */
-// TODU
 
 func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorizationServer(ctx context.Context, authServerId string) ApiListOAuth2ClientsForAuthorizationServerRequest {
 	return ApiListOAuth2ClientsForAuthorizationServerRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -358,10 +330,9 @@ func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorization
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -371,7 +342,6 @@ func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorization
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerClientsAPIService.ListOAuth2ClientsForAuthorizationServer")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -399,7 +369,6 @@ func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorization
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -416,13 +385,11 @@ func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorization
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -431,7 +398,6 @@ func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorization
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -446,12 +412,10 @@ func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorization
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -460,12 +424,10 @@ func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorization
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -474,13 +436,11 @@ func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorization
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -489,16 +449,15 @@ func (a *AuthorizationServerClientsAPIService) ListOAuth2ClientsForAuthorization
 }
 
 type ApiListRefreshTokensForAuthorizationServerAndClientRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerClientsAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerClientsAPI
 	authServerId string
-	clientId string
-	expand *string
-	after *string
-	limit *int32
-	// TODU
-	data       interface{}
-	retryCount int32
+	clientId     string
+	expand       *string
+	after        *string
+	limit        *int32
+	data         interface{}
+	retryCount   int32
 }
 
 // Valid value: &#x60;scope&#x60;. If specified, scope details are included in the &#x60;_embedded&#x60; attribute.
@@ -519,14 +478,11 @@ func (r ApiListRefreshTokensForAuthorizationServerAndClientRequest) Limit(limit 
 	return r
 }
 
-
-// TODU
-func (r ApiListRefreshTokensForAuthorizationServerAndClientRequest) Data (data interface{}) ApiListRefreshTokensForAuthorizationServerAndClientRequest {
+func (r ApiListRefreshTokensForAuthorizationServerAndClientRequest) Data(data interface{}) ApiListRefreshTokensForAuthorizationServerAndClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListRefreshTokensForAuthorizationServerAndClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListRefreshTokensForAuthorizationServerAndClientExecute(r)
 }
@@ -541,15 +497,14 @@ Lists all refresh tokens issued by an authorization server for a specific Client
  @param clientId `client_id` of the app
  @return ApiListRefreshTokensForAuthorizationServerAndClientRequest
 */
-// TODU
 
 func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiListRefreshTokensForAuthorizationServerAndClientRequest {
 	return ApiListRefreshTokensForAuthorizationServerAndClientRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		clientId: clientId,
-		retryCount: 0,
+		clientId:     clientId,
+		retryCount:   0,
 	}
 }
 
@@ -561,10 +516,9 @@ func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorization
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -574,7 +528,6 @@ func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorization
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerClientsAPIService.ListRefreshTokensForAuthorizationServerAndClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -612,7 +565,6 @@ func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorization
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -629,13 +581,11 @@ func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorization
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -644,7 +594,6 @@ func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorization
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -659,12 +608,10 @@ func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorization
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -673,12 +620,10 @@ func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorization
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -687,13 +632,11 @@ func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorization
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -702,24 +645,20 @@ func (a *AuthorizationServerClientsAPIService) ListRefreshTokensForAuthorization
 }
 
 type ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerClientsAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerClientsAPI
 	authServerId string
-	clientId string
-	tokenId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	clientId     string
+	tokenId      string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest) Data (data interface{}) ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest {
+func (r ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest) Data(data interface{}) ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeRefreshTokenForAuthorizationServerAndClientExecute(r)
 }
@@ -735,16 +674,15 @@ Revokes a refresh token for a Client
  @param tokenId `id` of Token
  @return ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest
 */
-// TODU
 
 func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string, tokenId string) ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest {
 	return ApiRevokeRefreshTokenForAuthorizationServerAndClientRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		clientId: clientId,
-		tokenId: tokenId,
-		retryCount: 0,
+		clientId:     clientId,
+		tokenId:      tokenId,
+		retryCount:   0,
 	}
 }
 
@@ -757,7 +695,7 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizatio
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -767,7 +705,6 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizatio
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerClientsAPIService.RevokeRefreshTokenForAuthorizationServerAndClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -797,7 +734,6 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizatio
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -814,13 +750,11 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizatio
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -829,7 +763,6 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizatio
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -844,12 +777,10 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizatio
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -858,12 +789,10 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizatio
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -872,13 +801,11 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizatio
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -887,23 +814,19 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokenForAuthorizatio
 }
 
 type ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerClientsAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerClientsAPI
 	authServerId string
-	clientId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	clientId     string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest) Data (data interface{}) ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest {
+func (r ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest) Data(data interface{}) ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeRefreshTokensForAuthorizationServerAndClientExecute(r)
 }
@@ -918,15 +841,14 @@ Revokes all refresh tokens for a Client
  @param clientId `client_id` of the app
  @return ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest
 */
-// TODU
 
 func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizationServerAndClient(ctx context.Context, authServerId string, clientId string) ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest {
 	return ApiRevokeRefreshTokensForAuthorizationServerAndClientRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		clientId: clientId,
-		retryCount: 0,
+		clientId:     clientId,
+		retryCount:   0,
 	}
 }
 
@@ -939,7 +861,7 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizati
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -949,7 +871,6 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizati
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerClientsAPIService.RevokeRefreshTokensForAuthorizationServerAndClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -978,7 +899,6 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizati
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -995,13 +915,11 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizati
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1010,7 +928,6 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizati
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1025,12 +942,10 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizati
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1039,12 +954,10 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizati
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1053,13 +966,11 @@ func (a *AuthorizationServerClientsAPIService) RevokeRefreshTokensForAuthorizati
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

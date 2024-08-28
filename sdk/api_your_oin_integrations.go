@@ -17,21 +17,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
-	"strings"
 	"os"
+	"strings"
+	"time"
 )
-
 
 type YourOinIntegrationsAPI interface {
 
 	/*
-	CreateSubmission Create an OIN Integration
+		CreateSubmission Create an OIN Integration
 
-	Creates an OIN Integration submission for verification and publication
+		Creates an OIN Integration submission for verification and publication
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateSubmissionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateSubmissionRequest
 	*/
 	CreateSubmission(ctx context.Context) ApiCreateSubmissionRequest
 
@@ -41,13 +40,13 @@ type YourOinIntegrationsAPI interface {
 	CreateSubmissionExecute(r ApiCreateSubmissionRequest) (*APIResponse, error)
 
 	/*
-	GetSubmissionByOperationId Retrieve an OIN Integration
+		GetSubmissionByOperationId Retrieve an OIN Integration
 
-	Retrieves an OIN Integration by ID
+		Retrieves an OIN Integration by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param submissionId OIN Integration ID
-	@return ApiGetSubmissionByOperationIdRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param submissionId OIN Integration ID
+		@return ApiGetSubmissionByOperationIdRequest
 	*/
 	GetSubmissionByOperationId(ctx context.Context, submissionId string) ApiGetSubmissionByOperationIdRequest
 
@@ -57,13 +56,13 @@ type YourOinIntegrationsAPI interface {
 	GetSubmissionByOperationIdExecute(r ApiGetSubmissionByOperationIdRequest) (*APIResponse, error)
 
 	/*
-	GetSubmissionTestInfo Retrieve an OIN Integration Testing Information
+		GetSubmissionTestInfo Retrieve an OIN Integration Testing Information
 
-	Retrieves the testing information for an existing OIN Integration
+		Retrieves the testing information for an existing OIN Integration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param submissionId OIN Integration ID
-	@return ApiGetSubmissionTestInfoRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param submissionId OIN Integration ID
+		@return ApiGetSubmissionTestInfoRequest
 	*/
 	GetSubmissionTestInfo(ctx context.Context, submissionId string) ApiGetSubmissionTestInfoRequest
 
@@ -73,12 +72,12 @@ type YourOinIntegrationsAPI interface {
 	GetSubmissionTestInfoExecute(r ApiGetSubmissionTestInfoRequest) (*APIResponse, error)
 
 	/*
-	ListSubmissions List all OIN Integrations
+		ListSubmissions List all OIN Integrations
 
-	Lists all OIN Integration submissions created through the org
+		Lists all OIN Integration submissions created through the org
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSubmissionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListSubmissionsRequest
 	*/
 	ListSubmissions(ctx context.Context) ApiListSubmissionsRequest
 
@@ -88,13 +87,13 @@ type YourOinIntegrationsAPI interface {
 	ListSubmissionsExecute(r ApiListSubmissionsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceSubmission Replace an OIN Integration
+		ReplaceSubmission Replace an OIN Integration
 
-	Replaces the properties of an OIN Integration identified by ID
+		Replaces the properties of an OIN Integration identified by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param submissionId OIN Integration ID
-	@return ApiReplaceSubmissionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param submissionId OIN Integration ID
+		@return ApiReplaceSubmissionRequest
 	*/
 	ReplaceSubmission(ctx context.Context, submissionId string) ApiReplaceSubmissionRequest
 
@@ -104,13 +103,13 @@ type YourOinIntegrationsAPI interface {
 	ReplaceSubmissionExecute(r ApiReplaceSubmissionRequest) (*APIResponse, error)
 
 	/*
-	SubmitSubmission Submit an OIN Integration
+		SubmitSubmission Submit an OIN Integration
 
-	Submits an OIN Integration for Okta verification
+		Submits an OIN Integration for Okta verification
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param submissionId OIN Integration ID
-	@return ApiSubmitSubmissionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param submissionId OIN Integration ID
+		@return ApiSubmitSubmissionRequest
 	*/
 	SubmitSubmission(ctx context.Context, submissionId string) ApiSubmitSubmissionRequest
 
@@ -119,12 +118,12 @@ type YourOinIntegrationsAPI interface {
 	SubmitSubmissionExecute(r ApiSubmitSubmissionRequest) (*APIResponse, error)
 
 	/*
-	UploadSubmissionLogo Upload an OIN Integration logo
+		UploadSubmissionLogo Upload an OIN Integration logo
 
-	Uploads a logo to your org. The image uploaded must adhere to the [OIN logo guidelines](https://developer.okta.com/docs/guides/submit-app-prereq/main/#logo-guidelines). Use the URL returned in the response header to specify the [`logo`](/openapi/okta-management/management/tag/YourOinIntegrations/#tag/YourOinIntegrations/operation/createSubmission!path=logo&t=request) parameter when you [create your OIN Integration submission](/openapi/okta-management/management/tag/YourOinIntegrations/#tag/YourOinIntegrations/operation/createSubmission). This logo appears in the OIN catalog for your app integration.
+		Uploads a logo to your org. The image uploaded must adhere to the [OIN logo guidelines](https://developer.okta.com/docs/guides/submit-app-prereq/main/#logo-guidelines). Use the URL returned in the response header to specify the [`logo`](/openapi/okta-management/management/tag/YourOinIntegrations/#tag/YourOinIntegrations/operation/createSubmission!path=logo&t=request) parameter when you [create your OIN Integration submission](/openapi/okta-management/management/tag/YourOinIntegrations/#tag/YourOinIntegrations/operation/createSubmission). This logo appears in the OIN catalog for your app integration.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiUploadSubmissionLogoRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiUploadSubmissionLogoRequest
 	*/
 	UploadSubmissionLogo(ctx context.Context) ApiUploadSubmissionLogoRequest
 
@@ -133,13 +132,13 @@ type YourOinIntegrationsAPI interface {
 	UploadSubmissionLogoExecute(r ApiUploadSubmissionLogoRequest) (*APIResponse, error)
 
 	/*
-	UpsertSubmissionTestInfo Upsert an OIN Integration Testing Information
+		UpsertSubmissionTestInfo Upsert an OIN Integration Testing Information
 
-	Upserts (adds or replaces) testing information for an OIN Integration
+		Upserts (adds or replaces) testing information for an OIN Integration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param submissionId OIN Integration ID
-	@return ApiUpsertSubmissionTestInfoRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param submissionId OIN Integration ID
+		@return ApiUpsertSubmissionTestInfoRequest
 	*/
 	UpsertSubmissionTestInfo(ctx context.Context, submissionId string) ApiUpsertSubmissionTestInfoRequest
 
@@ -153,8 +152,8 @@ type YourOinIntegrationsAPI interface {
 type YourOinIntegrationsAPIService service
 
 type ApiCreateSubmissionRequest struct {
-	ctx context.Context
-	ApiService YourOinIntegrationsAPI
+	ctx               context.Context
+	ApiService        YourOinIntegrationsAPI
 	submissionRequest *SubmissionRequest
 	// TODU
 	data       interface{}
@@ -166,9 +165,8 @@ func (r ApiCreateSubmissionRequest) SubmissionRequest(submissionRequest Submissi
 	return r
 }
 
-
 // TODU
-func (r ApiCreateSubmissionRequest) Data (data interface{}) ApiCreateSubmissionRequest {
+func (r ApiCreateSubmissionRequest) Data(data interface{}) ApiCreateSubmissionRequest {
 	r.data = data
 	return r
 }
@@ -191,7 +189,7 @@ Creates an OIN Integration submission for verification and publication
 func (a *YourOinIntegrationsAPIService) CreateSubmission(ctx context.Context) ApiCreateSubmissionRequest {
 	return ApiCreateSubmissionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -201,13 +199,13 @@ func (a *YourOinIntegrationsAPIService) CreateSubmission(ctx context.Context) Ap
 
 func (a *YourOinIntegrationsAPIService) CreateSubmissionExecute(r ApiCreateSubmissionRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -244,7 +242,7 @@ func (a *YourOinIntegrationsAPIService) CreateSubmissionExecute(r ApiCreateSubmi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	// body params
 	// localVarPostBody = r.submissionRequest
 	localVarPostBody = r.data
@@ -351,17 +349,16 @@ func (a *YourOinIntegrationsAPIService) CreateSubmissionExecute(r ApiCreateSubmi
 }
 
 type ApiGetSubmissionByOperationIdRequest struct {
-	ctx context.Context
-	ApiService YourOinIntegrationsAPI
+	ctx          context.Context
+	ApiService   YourOinIntegrationsAPI
 	submissionId string
 	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
 // TODU
-func (r ApiGetSubmissionByOperationIdRequest) Data (data interface{}) ApiGetSubmissionByOperationIdRequest {
+func (r ApiGetSubmissionByOperationIdRequest) Data(data interface{}) ApiGetSubmissionByOperationIdRequest {
 	r.data = data
 	return r
 }
@@ -384,10 +381,10 @@ Retrieves an OIN Integration by ID
 
 func (a *YourOinIntegrationsAPIService) GetSubmissionByOperationId(ctx context.Context, submissionId string) ApiGetSubmissionByOperationIdRequest {
 	return ApiGetSubmissionByOperationIdRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		submissionId: submissionId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -396,13 +393,13 @@ func (a *YourOinIntegrationsAPIService) GetSubmissionByOperationId(ctx context.C
 
 func (a *YourOinIntegrationsAPIService) GetSubmissionByOperationIdExecute(r ApiGetSubmissionByOperationIdRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -440,7 +437,7 @@ func (a *YourOinIntegrationsAPIService) GetSubmissionByOperationIdExecute(r ApiG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -544,17 +541,16 @@ func (a *YourOinIntegrationsAPIService) GetSubmissionByOperationIdExecute(r ApiG
 }
 
 type ApiGetSubmissionTestInfoRequest struct {
-	ctx context.Context
-	ApiService YourOinIntegrationsAPI
+	ctx          context.Context
+	ApiService   YourOinIntegrationsAPI
 	submissionId string
 	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
 // TODU
-func (r ApiGetSubmissionTestInfoRequest) Data (data interface{}) ApiGetSubmissionTestInfoRequest {
+func (r ApiGetSubmissionTestInfoRequest) Data(data interface{}) ApiGetSubmissionTestInfoRequest {
 	r.data = data
 	return r
 }
@@ -577,10 +573,10 @@ Retrieves the testing information for an existing OIN Integration
 
 func (a *YourOinIntegrationsAPIService) GetSubmissionTestInfo(ctx context.Context, submissionId string) ApiGetSubmissionTestInfoRequest {
 	return ApiGetSubmissionTestInfoRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		submissionId: submissionId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -589,13 +585,13 @@ func (a *YourOinIntegrationsAPIService) GetSubmissionTestInfo(ctx context.Contex
 
 func (a *YourOinIntegrationsAPIService) GetSubmissionTestInfoExecute(r ApiGetSubmissionTestInfoRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -633,7 +629,7 @@ func (a *YourOinIntegrationsAPIService) GetSubmissionTestInfoExecute(r ApiGetSub
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -737,10 +733,10 @@ func (a *YourOinIntegrationsAPIService) GetSubmissionTestInfoExecute(r ApiGetSub
 }
 
 type ApiListSubmissionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService YourOinIntegrationsAPI
-	limit *int32
-	after *string
+	limit      *int32
+	after      *string
 	// TODU
 	data       interface{}
 	retryCount int32
@@ -758,9 +754,8 @@ func (r ApiListSubmissionsRequest) After(after string) ApiListSubmissionsRequest
 	return r
 }
 
-
 // TODU
-func (r ApiListSubmissionsRequest) Data (data interface{}) ApiListSubmissionsRequest {
+func (r ApiListSubmissionsRequest) Data(data interface{}) ApiListSubmissionsRequest {
 	r.data = data
 	return r
 }
@@ -783,7 +778,7 @@ Lists all OIN Integration submissions created through the org
 func (a *YourOinIntegrationsAPIService) ListSubmissions(ctx context.Context) ApiListSubmissionsRequest {
 	return ApiListSubmissionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -793,13 +788,13 @@ func (a *YourOinIntegrationsAPIService) ListSubmissions(ctx context.Context) Api
 
 func (a *YourOinIntegrationsAPIService) ListSubmissionsExecute(r ApiListSubmissionsRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -842,7 +837,7 @@ func (a *YourOinIntegrationsAPIService) ListSubmissionsExecute(r ApiListSubmissi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -946,9 +941,9 @@ func (a *YourOinIntegrationsAPIService) ListSubmissionsExecute(r ApiListSubmissi
 }
 
 type ApiReplaceSubmissionRequest struct {
-	ctx context.Context
-	ApiService YourOinIntegrationsAPI
-	submissionId string
+	ctx               context.Context
+	ApiService        YourOinIntegrationsAPI
+	submissionId      string
 	submissionRequest *SubmissionRequest
 	// TODU
 	data       interface{}
@@ -960,9 +955,8 @@ func (r ApiReplaceSubmissionRequest) SubmissionRequest(submissionRequest Submiss
 	return r
 }
 
-
 // TODU
-func (r ApiReplaceSubmissionRequest) Data (data interface{}) ApiReplaceSubmissionRequest {
+func (r ApiReplaceSubmissionRequest) Data(data interface{}) ApiReplaceSubmissionRequest {
 	r.data = data
 	return r
 }
@@ -985,10 +979,10 @@ Replaces the properties of an OIN Integration identified by ID
 
 func (a *YourOinIntegrationsAPIService) ReplaceSubmission(ctx context.Context, submissionId string) ApiReplaceSubmissionRequest {
 	return ApiReplaceSubmissionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		submissionId: submissionId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -997,13 +991,13 @@ func (a *YourOinIntegrationsAPIService) ReplaceSubmission(ctx context.Context, s
 
 func (a *YourOinIntegrationsAPIService) ReplaceSubmissionExecute(r ApiReplaceSubmissionRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1041,7 +1035,7 @@ func (a *YourOinIntegrationsAPIService) ReplaceSubmissionExecute(r ApiReplaceSub
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	// body params
 	// localVarPostBody = r.submissionRequest
 	localVarPostBody = r.data
@@ -1148,17 +1142,16 @@ func (a *YourOinIntegrationsAPIService) ReplaceSubmissionExecute(r ApiReplaceSub
 }
 
 type ApiSubmitSubmissionRequest struct {
-	ctx context.Context
-	ApiService YourOinIntegrationsAPI
+	ctx          context.Context
+	ApiService   YourOinIntegrationsAPI
 	submissionId string
 	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
 // TODU
-func (r ApiSubmitSubmissionRequest) Data (data interface{}) ApiSubmitSubmissionRequest {
+func (r ApiSubmitSubmissionRequest) Data(data interface{}) ApiSubmitSubmissionRequest {
 	r.data = data
 	return r
 }
@@ -1181,10 +1174,10 @@ Submits an OIN Integration for Okta verification
 
 func (a *YourOinIntegrationsAPIService) SubmitSubmission(ctx context.Context, submissionId string) ApiSubmitSubmissionRequest {
 	return ApiSubmitSubmissionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		submissionId: submissionId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1197,7 +1190,7 @@ func (a *YourOinIntegrationsAPIService) SubmitSubmissionExecute(r ApiSubmitSubmi
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1235,7 +1228,7 @@ func (a *YourOinIntegrationsAPIService) SubmitSubmissionExecute(r ApiSubmitSubmi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1339,9 +1332,9 @@ func (a *YourOinIntegrationsAPIService) SubmitSubmissionExecute(r ApiSubmitSubmi
 }
 
 type ApiUploadSubmissionLogoRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService YourOinIntegrationsAPI
-	file **os.File
+	file       **os.File
 	// TODU
 	data       interface{}
 	retryCount int32
@@ -1352,9 +1345,8 @@ func (r ApiUploadSubmissionLogoRequest) File(file *os.File) ApiUploadSubmissionL
 	return r
 }
 
-
 // TODU
-func (r ApiUploadSubmissionLogoRequest) Data (data interface{}) ApiUploadSubmissionLogoRequest {
+func (r ApiUploadSubmissionLogoRequest) Data(data interface{}) ApiUploadSubmissionLogoRequest {
 	r.data = data
 	return r
 }
@@ -1377,7 +1369,7 @@ Uploads a logo to your org. The image uploaded must adhere to the [OIN logo guid
 func (a *YourOinIntegrationsAPIService) UploadSubmissionLogo(ctx context.Context) ApiUploadSubmissionLogoRequest {
 	return ApiUploadSubmissionLogoRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1391,7 +1383,7 @@ func (a *YourOinIntegrationsAPIService) UploadSubmissionLogoExecute(r ApiUploadS
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1429,8 +1421,8 @@ func (a *YourOinIntegrationsAPIService) UploadSubmissionLogoExecute(r ApiUploadS
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	var fileLocalVarFormFileName string
-	var fileLocalVarFileName     string
-	var fileLocalVarFileBytes    []byte
+	var fileLocalVarFileName string
+	var fileLocalVarFileBytes []byte
 
 	fileLocalVarFormFileName = "file"
 
@@ -1445,7 +1437,7 @@ func (a *YourOinIntegrationsAPIService) UploadSubmissionLogoExecute(r ApiUploadS
 		fileLocalVarFile.Close()
 	}
 	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
-// TODU
+	// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1549,10 +1541,10 @@ func (a *YourOinIntegrationsAPIService) UploadSubmissionLogoExecute(r ApiUploadS
 }
 
 type ApiUpsertSubmissionTestInfoRequest struct {
-	ctx context.Context
-	ApiService YourOinIntegrationsAPI
+	ctx          context.Context
+	ApiService   YourOinIntegrationsAPI
 	submissionId string
-	testInfo *TestInfo
+	testInfo     *TestInfo
 	// TODU
 	data       interface{}
 	retryCount int32
@@ -1563,9 +1555,8 @@ func (r ApiUpsertSubmissionTestInfoRequest) TestInfo(testInfo TestInfo) ApiUpser
 	return r
 }
 
-
 // TODU
-func (r ApiUpsertSubmissionTestInfoRequest) Data (data interface{}) ApiUpsertSubmissionTestInfoRequest {
+func (r ApiUpsertSubmissionTestInfoRequest) Data(data interface{}) ApiUpsertSubmissionTestInfoRequest {
 	r.data = data
 	return r
 }
@@ -1588,10 +1579,10 @@ Upserts (adds or replaces) testing information for an OIN Integration
 
 func (a *YourOinIntegrationsAPIService) UpsertSubmissionTestInfo(ctx context.Context, submissionId string) ApiUpsertSubmissionTestInfoRequest {
 	return ApiUpsertSubmissionTestInfoRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		submissionId: submissionId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1600,13 +1591,13 @@ func (a *YourOinIntegrationsAPIService) UpsertSubmissionTestInfo(ctx context.Con
 
 func (a *YourOinIntegrationsAPIService) UpsertSubmissionTestInfoExecute(r ApiUpsertSubmissionTestInfoRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1644,7 +1635,7 @@ func (a *YourOinIntegrationsAPIService) UpsertSubmissionTestInfoExecute(r ApiUps
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	// body params
 	// localVarPostBody = r.testInfo
 	localVarPostBody = r.data

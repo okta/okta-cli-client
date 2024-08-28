@@ -17,125 +17,117 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AuthorizationServerPoliciesAPI interface {
 
 	/*
-	ActivateAuthorizationServerPolicy Activate a Policy
+		ActivateAuthorizationServerPolicy Activate a Policy
 
-	Activates an authorization server policy
+		Activates an authorization server policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@return ApiActivateAuthorizationServerPolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@return ApiActivateAuthorizationServerPolicyRequest
 	*/
 	ActivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiActivateAuthorizationServerPolicyRequest
 
 	// ActivateAuthorizationServerPolicyExecute executes the request
-	// TODU
 	ActivateAuthorizationServerPolicyExecute(r ApiActivateAuthorizationServerPolicyRequest) (*APIResponse, error)
 
 	/*
-	CreateAuthorizationServerPolicy Create a Policy
+		CreateAuthorizationServerPolicy Create a Policy
 
-	Creates a policy
+		Creates a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiCreateAuthorizationServerPolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiCreateAuthorizationServerPolicyRequest
 	*/
 	CreateAuthorizationServerPolicy(ctx context.Context, authServerId string) ApiCreateAuthorizationServerPolicyRequest
 
 	// CreateAuthorizationServerPolicyExecute executes the request
 	//  @return AuthorizationServerPolicy
-	// TODU
 	CreateAuthorizationServerPolicyExecute(r ApiCreateAuthorizationServerPolicyRequest) (*APIResponse, error)
 
 	/*
-	DeactivateAuthorizationServerPolicy Deactivate a Policy
+		DeactivateAuthorizationServerPolicy Deactivate a Policy
 
-	Deactivates an authorization server policy
+		Deactivates an authorization server policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@return ApiDeactivateAuthorizationServerPolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@return ApiDeactivateAuthorizationServerPolicyRequest
 	*/
 	DeactivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiDeactivateAuthorizationServerPolicyRequest
 
 	// DeactivateAuthorizationServerPolicyExecute executes the request
-	// TODU
 	DeactivateAuthorizationServerPolicyExecute(r ApiDeactivateAuthorizationServerPolicyRequest) (*APIResponse, error)
 
 	/*
-	DeleteAuthorizationServerPolicy Delete a Policy
+		DeleteAuthorizationServerPolicy Delete a Policy
 
-	Deletes a policy
+		Deletes a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@return ApiDeleteAuthorizationServerPolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@return ApiDeleteAuthorizationServerPolicyRequest
 	*/
 	DeleteAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiDeleteAuthorizationServerPolicyRequest
 
 	// DeleteAuthorizationServerPolicyExecute executes the request
-	// TODU
 	DeleteAuthorizationServerPolicyExecute(r ApiDeleteAuthorizationServerPolicyRequest) (*APIResponse, error)
 
 	/*
-	GetAuthorizationServerPolicy Retrieve a Policy
+		GetAuthorizationServerPolicy Retrieve a Policy
 
-	Retrieves a policy
+		Retrieves a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@return ApiGetAuthorizationServerPolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@return ApiGetAuthorizationServerPolicyRequest
 	*/
 	GetAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiGetAuthorizationServerPolicyRequest
 
 	// GetAuthorizationServerPolicyExecute executes the request
 	//  @return AuthorizationServerPolicy
-	// TODU
 	GetAuthorizationServerPolicyExecute(r ApiGetAuthorizationServerPolicyRequest) (*APIResponse, error)
 
 	/*
-	ListAuthorizationServerPolicies List all Policies
+		ListAuthorizationServerPolicies List all Policies
 
-	Lists all policies
+		Lists all policies
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@return ApiListAuthorizationServerPoliciesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@return ApiListAuthorizationServerPoliciesRequest
 	*/
 	ListAuthorizationServerPolicies(ctx context.Context, authServerId string) ApiListAuthorizationServerPoliciesRequest
 
 	// ListAuthorizationServerPoliciesExecute executes the request
 	//  @return []AuthorizationServerPolicy
-	// TODU
 	ListAuthorizationServerPoliciesExecute(r ApiListAuthorizationServerPoliciesRequest) (*APIResponse, error)
 
 	/*
-	ReplaceAuthorizationServerPolicy Replace a Policy
+		ReplaceAuthorizationServerPolicy Replace a Policy
 
-	Replaces a policy
+		Replaces a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
-	@return ApiReplaceAuthorizationServerPolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param authServerId `id` of the Authorization Server
+		@param policyId `id` of the Policy
+		@return ApiReplaceAuthorizationServerPolicyRequest
 	*/
 	ReplaceAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiReplaceAuthorizationServerPolicyRequest
 
 	// ReplaceAuthorizationServerPolicyExecute executes the request
 	//  @return AuthorizationServerPolicy
-	// TODU
 	ReplaceAuthorizationServerPolicyExecute(r ApiReplaceAuthorizationServerPolicyRequest) (*APIResponse, error)
 }
 
@@ -143,23 +135,19 @@ type AuthorizationServerPoliciesAPI interface {
 type AuthorizationServerPoliciesAPIService service
 
 type ApiActivateAuthorizationServerPolicyRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerPoliciesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerPoliciesAPI
 	authServerId string
-	policyId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	policyId     string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiActivateAuthorizationServerPolicyRequest) Data (data interface{}) ApiActivateAuthorizationServerPolicyRequest {
+func (r ApiActivateAuthorizationServerPolicyRequest) Data(data interface{}) ApiActivateAuthorizationServerPolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateAuthorizationServerPolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateAuthorizationServerPolicyExecute(r)
 }
@@ -174,15 +162,14 @@ Activates an authorization server policy
  @param policyId `id` of the Policy
  @return ApiActivateAuthorizationServerPolicyRequest
 */
-// TODU
 
 func (a *AuthorizationServerPoliciesAPIService) ActivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiActivateAuthorizationServerPolicyRequest {
 	return ApiActivateAuthorizationServerPolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		retryCount: 0,
+		policyId:     policyId,
+		retryCount:   0,
 	}
 }
 
@@ -195,7 +182,7 @@ func (a *AuthorizationServerPoliciesAPIService) ActivateAuthorizationServerPolic
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -205,7 +192,6 @@ func (a *AuthorizationServerPoliciesAPIService) ActivateAuthorizationServerPolic
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerPoliciesAPIService.ActivateAuthorizationServerPolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -234,7 +220,6 @@ func (a *AuthorizationServerPoliciesAPIService) ActivateAuthorizationServerPolic
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -251,13 +236,11 @@ func (a *AuthorizationServerPoliciesAPIService) ActivateAuthorizationServerPolic
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -266,7 +249,6 @@ func (a *AuthorizationServerPoliciesAPIService) ActivateAuthorizationServerPolic
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -281,12 +263,10 @@ func (a *AuthorizationServerPoliciesAPIService) ActivateAuthorizationServerPolic
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -295,12 +275,10 @@ func (a *AuthorizationServerPoliciesAPIService) ActivateAuthorizationServerPolic
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -309,13 +287,11 @@ func (a *AuthorizationServerPoliciesAPIService) ActivateAuthorizationServerPolic
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -324,13 +300,12 @@ func (a *AuthorizationServerPoliciesAPIService) ActivateAuthorizationServerPolic
 }
 
 type ApiCreateAuthorizationServerPolicyRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerPoliciesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerPoliciesAPI
 	authServerId string
-	policy *AuthorizationServerPolicy
-	// TODU
-	data       interface{}
-	retryCount int32
+	policy       *AuthorizationServerPolicy
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiCreateAuthorizationServerPolicyRequest) Policy(policy AuthorizationServerPolicy) ApiCreateAuthorizationServerPolicyRequest {
@@ -338,14 +313,11 @@ func (r ApiCreateAuthorizationServerPolicyRequest) Policy(policy AuthorizationSe
 	return r
 }
 
-
-// TODU
-func (r ApiCreateAuthorizationServerPolicyRequest) Data (data interface{}) ApiCreateAuthorizationServerPolicyRequest {
+func (r ApiCreateAuthorizationServerPolicyRequest) Data(data interface{}) ApiCreateAuthorizationServerPolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateAuthorizationServerPolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateAuthorizationServerPolicyExecute(r)
 }
@@ -359,14 +331,13 @@ Creates a policy
  @param authServerId `id` of the Authorization Server
  @return ApiCreateAuthorizationServerPolicyRequest
 */
-// TODU
 
 func (a *AuthorizationServerPoliciesAPIService) CreateAuthorizationServerPolicy(ctx context.Context, authServerId string) ApiCreateAuthorizationServerPolicyRequest {
 	return ApiCreateAuthorizationServerPolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -378,10 +349,9 @@ func (a *AuthorizationServerPoliciesAPIService) CreateAuthorizationServerPolicyE
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -391,7 +361,6 @@ func (a *AuthorizationServerPoliciesAPIService) CreateAuthorizationServerPolicyE
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerPoliciesAPIService.CreateAuthorizationServerPolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -419,7 +388,6 @@ func (a *AuthorizationServerPoliciesAPIService) CreateAuthorizationServerPolicyE
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.policy
 	localVarPostBody = r.data
@@ -439,13 +407,11 @@ func (a *AuthorizationServerPoliciesAPIService) CreateAuthorizationServerPolicyE
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -454,7 +420,6 @@ func (a *AuthorizationServerPoliciesAPIService) CreateAuthorizationServerPolicyE
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -469,12 +434,10 @@ func (a *AuthorizationServerPoliciesAPIService) CreateAuthorizationServerPolicyE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -483,12 +446,10 @@ func (a *AuthorizationServerPoliciesAPIService) CreateAuthorizationServerPolicyE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -497,12 +458,10 @@ func (a *AuthorizationServerPoliciesAPIService) CreateAuthorizationServerPolicyE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -511,13 +470,11 @@ func (a *AuthorizationServerPoliciesAPIService) CreateAuthorizationServerPolicyE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -526,23 +483,19 @@ func (a *AuthorizationServerPoliciesAPIService) CreateAuthorizationServerPolicyE
 }
 
 type ApiDeactivateAuthorizationServerPolicyRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerPoliciesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerPoliciesAPI
 	authServerId string
-	policyId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	policyId     string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeactivateAuthorizationServerPolicyRequest) Data (data interface{}) ApiDeactivateAuthorizationServerPolicyRequest {
+func (r ApiDeactivateAuthorizationServerPolicyRequest) Data(data interface{}) ApiDeactivateAuthorizationServerPolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateAuthorizationServerPolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateAuthorizationServerPolicyExecute(r)
 }
@@ -557,15 +510,14 @@ Deactivates an authorization server policy
  @param policyId `id` of the Policy
  @return ApiDeactivateAuthorizationServerPolicyRequest
 */
-// TODU
 
 func (a *AuthorizationServerPoliciesAPIService) DeactivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiDeactivateAuthorizationServerPolicyRequest {
 	return ApiDeactivateAuthorizationServerPolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		retryCount: 0,
+		policyId:     policyId,
+		retryCount:   0,
 	}
 }
 
@@ -578,7 +530,7 @@ func (a *AuthorizationServerPoliciesAPIService) DeactivateAuthorizationServerPol
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -588,7 +540,6 @@ func (a *AuthorizationServerPoliciesAPIService) DeactivateAuthorizationServerPol
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerPoliciesAPIService.DeactivateAuthorizationServerPolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -617,7 +568,6 @@ func (a *AuthorizationServerPoliciesAPIService) DeactivateAuthorizationServerPol
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -634,13 +584,11 @@ func (a *AuthorizationServerPoliciesAPIService) DeactivateAuthorizationServerPol
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -649,7 +597,6 @@ func (a *AuthorizationServerPoliciesAPIService) DeactivateAuthorizationServerPol
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -664,12 +611,10 @@ func (a *AuthorizationServerPoliciesAPIService) DeactivateAuthorizationServerPol
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -678,12 +623,10 @@ func (a *AuthorizationServerPoliciesAPIService) DeactivateAuthorizationServerPol
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -692,13 +635,11 @@ func (a *AuthorizationServerPoliciesAPIService) DeactivateAuthorizationServerPol
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -707,23 +648,19 @@ func (a *AuthorizationServerPoliciesAPIService) DeactivateAuthorizationServerPol
 }
 
 type ApiDeleteAuthorizationServerPolicyRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerPoliciesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerPoliciesAPI
 	authServerId string
-	policyId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	policyId     string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeleteAuthorizationServerPolicyRequest) Data (data interface{}) ApiDeleteAuthorizationServerPolicyRequest {
+func (r ApiDeleteAuthorizationServerPolicyRequest) Data(data interface{}) ApiDeleteAuthorizationServerPolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteAuthorizationServerPolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteAuthorizationServerPolicyExecute(r)
 }
@@ -738,15 +675,14 @@ Deletes a policy
  @param policyId `id` of the Policy
  @return ApiDeleteAuthorizationServerPolicyRequest
 */
-// TODU
 
 func (a *AuthorizationServerPoliciesAPIService) DeleteAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiDeleteAuthorizationServerPolicyRequest {
 	return ApiDeleteAuthorizationServerPolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		retryCount: 0,
+		policyId:     policyId,
+		retryCount:   0,
 	}
 }
 
@@ -759,7 +695,7 @@ func (a *AuthorizationServerPoliciesAPIService) DeleteAuthorizationServerPolicyE
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -769,7 +705,6 @@ func (a *AuthorizationServerPoliciesAPIService) DeleteAuthorizationServerPolicyE
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerPoliciesAPIService.DeleteAuthorizationServerPolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -798,7 +733,6 @@ func (a *AuthorizationServerPoliciesAPIService) DeleteAuthorizationServerPolicyE
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -815,13 +749,11 @@ func (a *AuthorizationServerPoliciesAPIService) DeleteAuthorizationServerPolicyE
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -830,7 +762,6 @@ func (a *AuthorizationServerPoliciesAPIService) DeleteAuthorizationServerPolicyE
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -845,12 +776,10 @@ func (a *AuthorizationServerPoliciesAPIService) DeleteAuthorizationServerPolicyE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -859,12 +788,10 @@ func (a *AuthorizationServerPoliciesAPIService) DeleteAuthorizationServerPolicyE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -873,13 +800,11 @@ func (a *AuthorizationServerPoliciesAPIService) DeleteAuthorizationServerPolicyE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -888,23 +813,19 @@ func (a *AuthorizationServerPoliciesAPIService) DeleteAuthorizationServerPolicyE
 }
 
 type ApiGetAuthorizationServerPolicyRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerPoliciesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerPoliciesAPI
 	authServerId string
-	policyId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	policyId     string
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiGetAuthorizationServerPolicyRequest) Data (data interface{}) ApiGetAuthorizationServerPolicyRequest {
+func (r ApiGetAuthorizationServerPolicyRequest) Data(data interface{}) ApiGetAuthorizationServerPolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetAuthorizationServerPolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetAuthorizationServerPolicyExecute(r)
 }
@@ -919,15 +840,14 @@ Retrieves a policy
  @param policyId `id` of the Policy
  @return ApiGetAuthorizationServerPolicyRequest
 */
-// TODU
 
 func (a *AuthorizationServerPoliciesAPIService) GetAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiGetAuthorizationServerPolicyRequest {
 	return ApiGetAuthorizationServerPolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		retryCount: 0,
+		policyId:     policyId,
+		retryCount:   0,
 	}
 }
 
@@ -939,10 +859,9 @@ func (a *AuthorizationServerPoliciesAPIService) GetAuthorizationServerPolicyExec
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -952,7 +871,6 @@ func (a *AuthorizationServerPoliciesAPIService) GetAuthorizationServerPolicyExec
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerPoliciesAPIService.GetAuthorizationServerPolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -981,7 +899,6 @@ func (a *AuthorizationServerPoliciesAPIService) GetAuthorizationServerPolicyExec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -998,13 +915,11 @@ func (a *AuthorizationServerPoliciesAPIService) GetAuthorizationServerPolicyExec
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1013,7 +928,6 @@ func (a *AuthorizationServerPoliciesAPIService) GetAuthorizationServerPolicyExec
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1028,12 +942,10 @@ func (a *AuthorizationServerPoliciesAPIService) GetAuthorizationServerPolicyExec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1042,12 +954,10 @@ func (a *AuthorizationServerPoliciesAPIService) GetAuthorizationServerPolicyExec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1056,13 +966,11 @@ func (a *AuthorizationServerPoliciesAPIService) GetAuthorizationServerPolicyExec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1071,22 +979,18 @@ func (a *AuthorizationServerPoliciesAPIService) GetAuthorizationServerPolicyExec
 }
 
 type ApiListAuthorizationServerPoliciesRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerPoliciesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerPoliciesAPI
 	authServerId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiListAuthorizationServerPoliciesRequest) Data (data interface{}) ApiListAuthorizationServerPoliciesRequest {
+func (r ApiListAuthorizationServerPoliciesRequest) Data(data interface{}) ApiListAuthorizationServerPoliciesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListAuthorizationServerPoliciesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListAuthorizationServerPoliciesExecute(r)
 }
@@ -1100,14 +1004,13 @@ Lists all policies
  @param authServerId `id` of the Authorization Server
  @return ApiListAuthorizationServerPoliciesRequest
 */
-// TODU
 
 func (a *AuthorizationServerPoliciesAPIService) ListAuthorizationServerPolicies(ctx context.Context, authServerId string) ApiListAuthorizationServerPoliciesRequest {
 	return ApiListAuthorizationServerPoliciesRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1119,10 +1022,9 @@ func (a *AuthorizationServerPoliciesAPIService) ListAuthorizationServerPoliciesE
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1132,7 +1034,6 @@ func (a *AuthorizationServerPoliciesAPIService) ListAuthorizationServerPoliciesE
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerPoliciesAPIService.ListAuthorizationServerPolicies")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1160,7 +1061,6 @@ func (a *AuthorizationServerPoliciesAPIService) ListAuthorizationServerPoliciesE
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1177,13 +1077,11 @@ func (a *AuthorizationServerPoliciesAPIService) ListAuthorizationServerPoliciesE
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1192,7 +1090,6 @@ func (a *AuthorizationServerPoliciesAPIService) ListAuthorizationServerPoliciesE
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1207,12 +1104,10 @@ func (a *AuthorizationServerPoliciesAPIService) ListAuthorizationServerPoliciesE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1221,12 +1116,10 @@ func (a *AuthorizationServerPoliciesAPIService) ListAuthorizationServerPoliciesE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1235,13 +1128,11 @@ func (a *AuthorizationServerPoliciesAPIService) ListAuthorizationServerPoliciesE
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1250,14 +1141,13 @@ func (a *AuthorizationServerPoliciesAPIService) ListAuthorizationServerPoliciesE
 }
 
 type ApiReplaceAuthorizationServerPolicyRequest struct {
-	ctx context.Context
-	ApiService AuthorizationServerPoliciesAPI
+	ctx          context.Context
+	ApiService   AuthorizationServerPoliciesAPI
 	authServerId string
-	policyId string
-	policy *AuthorizationServerPolicy
-	// TODU
-	data       interface{}
-	retryCount int32
+	policyId     string
+	policy       *AuthorizationServerPolicy
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiReplaceAuthorizationServerPolicyRequest) Policy(policy AuthorizationServerPolicy) ApiReplaceAuthorizationServerPolicyRequest {
@@ -1265,14 +1155,11 @@ func (r ApiReplaceAuthorizationServerPolicyRequest) Policy(policy AuthorizationS
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceAuthorizationServerPolicyRequest) Data (data interface{}) ApiReplaceAuthorizationServerPolicyRequest {
+func (r ApiReplaceAuthorizationServerPolicyRequest) Data(data interface{}) ApiReplaceAuthorizationServerPolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceAuthorizationServerPolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceAuthorizationServerPolicyExecute(r)
 }
@@ -1287,15 +1174,14 @@ Replaces a policy
  @param policyId `id` of the Policy
  @return ApiReplaceAuthorizationServerPolicyRequest
 */
-// TODU
 
 func (a *AuthorizationServerPoliciesAPIService) ReplaceAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiReplaceAuthorizationServerPolicyRequest {
 	return ApiReplaceAuthorizationServerPolicyRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		authServerId: authServerId,
-		policyId: policyId,
-		retryCount: 0,
+		policyId:     policyId,
+		retryCount:   0,
 	}
 }
 
@@ -1307,10 +1193,9 @@ func (a *AuthorizationServerPoliciesAPIService) ReplaceAuthorizationServerPolicy
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1320,7 +1205,6 @@ func (a *AuthorizationServerPoliciesAPIService) ReplaceAuthorizationServerPolicy
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuthorizationServerPoliciesAPIService.ReplaceAuthorizationServerPolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1349,7 +1233,6 @@ func (a *AuthorizationServerPoliciesAPIService) ReplaceAuthorizationServerPolicy
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.policy
 	localVarPostBody = r.data
@@ -1369,13 +1252,11 @@ func (a *AuthorizationServerPoliciesAPIService) ReplaceAuthorizationServerPolicy
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1384,7 +1265,6 @@ func (a *AuthorizationServerPoliciesAPIService) ReplaceAuthorizationServerPolicy
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1399,12 +1279,10 @@ func (a *AuthorizationServerPoliciesAPIService) ReplaceAuthorizationServerPolicy
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1413,12 +1291,10 @@ func (a *AuthorizationServerPoliciesAPIService) ReplaceAuthorizationServerPolicy
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1427,12 +1303,10 @@ func (a *AuthorizationServerPoliciesAPIService) ReplaceAuthorizationServerPolicy
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1441,13 +1315,11 @@ func (a *AuthorizationServerPoliciesAPIService) ReplaceAuthorizationServerPolicy
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

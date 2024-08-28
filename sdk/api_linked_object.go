@@ -17,72 +17,67 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type LinkedObjectAPI interface {
 
 	/*
-	CreateLinkedObjectDefinition Create a Linked Object Definition
+		CreateLinkedObjectDefinition Create a Linked Object Definition
 
-	Creates a linked object definition
+		Creates a linked object definition
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateLinkedObjectDefinitionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateLinkedObjectDefinitionRequest
 	*/
 	CreateLinkedObjectDefinition(ctx context.Context) ApiCreateLinkedObjectDefinitionRequest
 
 	// CreateLinkedObjectDefinitionExecute executes the request
 	//  @return LinkedObject
-	// TODU
 	CreateLinkedObjectDefinitionExecute(r ApiCreateLinkedObjectDefinitionRequest) (*APIResponse, error)
 
 	/*
-	DeleteLinkedObjectDefinition Delete a Linked Object Definition
+		DeleteLinkedObjectDefinition Delete a Linked Object Definition
 
-	Deletes a linked object definition
+		Deletes a linked object definition
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param linkedObjectName
-	@return ApiDeleteLinkedObjectDefinitionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param linkedObjectName
+		@return ApiDeleteLinkedObjectDefinitionRequest
 	*/
 	DeleteLinkedObjectDefinition(ctx context.Context, linkedObjectName string) ApiDeleteLinkedObjectDefinitionRequest
 
 	// DeleteLinkedObjectDefinitionExecute executes the request
-	// TODU
 	DeleteLinkedObjectDefinitionExecute(r ApiDeleteLinkedObjectDefinitionRequest) (*APIResponse, error)
 
 	/*
-	GetLinkedObjectDefinition Retrieve a Linked Object Definition
+		GetLinkedObjectDefinition Retrieve a Linked Object Definition
 
-	Retrieves a linked object definition
+		Retrieves a linked object definition
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param linkedObjectName
-	@return ApiGetLinkedObjectDefinitionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param linkedObjectName
+		@return ApiGetLinkedObjectDefinitionRequest
 	*/
 	GetLinkedObjectDefinition(ctx context.Context, linkedObjectName string) ApiGetLinkedObjectDefinitionRequest
 
 	// GetLinkedObjectDefinitionExecute executes the request
 	//  @return LinkedObject
-	// TODU
 	GetLinkedObjectDefinitionExecute(r ApiGetLinkedObjectDefinitionRequest) (*APIResponse, error)
 
 	/*
-	ListLinkedObjectDefinitions List all Linked Object Definitions
+		ListLinkedObjectDefinitions List all Linked Object Definitions
 
-	Lists all linked object definitions
+		Lists all linked object definitions
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListLinkedObjectDefinitionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListLinkedObjectDefinitionsRequest
 	*/
 	ListLinkedObjectDefinitions(ctx context.Context) ApiListLinkedObjectDefinitionsRequest
 
 	// ListLinkedObjectDefinitionsExecute executes the request
 	//  @return []LinkedObject
-	// TODU
 	ListLinkedObjectDefinitionsExecute(r ApiListLinkedObjectDefinitionsRequest) (*APIResponse, error)
 }
 
@@ -90,12 +85,11 @@ type LinkedObjectAPI interface {
 type LinkedObjectAPIService service
 
 type ApiCreateLinkedObjectDefinitionRequest struct {
-	ctx context.Context
-	ApiService LinkedObjectAPI
+	ctx          context.Context
+	ApiService   LinkedObjectAPI
 	linkedObject *LinkedObject
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiCreateLinkedObjectDefinitionRequest) LinkedObject(linkedObject LinkedObject) ApiCreateLinkedObjectDefinitionRequest {
@@ -103,14 +97,11 @@ func (r ApiCreateLinkedObjectDefinitionRequest) LinkedObject(linkedObject Linked
 	return r
 }
 
-
-// TODU
-func (r ApiCreateLinkedObjectDefinitionRequest) Data (data interface{}) ApiCreateLinkedObjectDefinitionRequest {
+func (r ApiCreateLinkedObjectDefinitionRequest) Data(data interface{}) ApiCreateLinkedObjectDefinitionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateLinkedObjectDefinitionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateLinkedObjectDefinitionExecute(r)
 }
@@ -123,12 +114,11 @@ Creates a linked object definition
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateLinkedObjectDefinitionRequest
 */
-// TODU
 
 func (a *LinkedObjectAPIService) CreateLinkedObjectDefinition(ctx context.Context) ApiCreateLinkedObjectDefinitionRequest {
 	return ApiCreateLinkedObjectDefinitionRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -141,10 +131,9 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -154,7 +143,6 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkedObjectAPIService.CreateLinkedObjectDefinition")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -181,7 +169,6 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.linkedObject
 	localVarPostBody = r.data
@@ -201,13 +188,11 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -216,7 +201,6 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -231,12 +215,10 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -245,12 +227,10 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -259,13 +239,11 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -274,22 +252,18 @@ func (a *LinkedObjectAPIService) CreateLinkedObjectDefinitionExecute(r ApiCreate
 }
 
 type ApiDeleteLinkedObjectDefinitionRequest struct {
-	ctx context.Context
-	ApiService LinkedObjectAPI
+	ctx              context.Context
+	ApiService       LinkedObjectAPI
 	linkedObjectName string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiDeleteLinkedObjectDefinitionRequest) Data (data interface{}) ApiDeleteLinkedObjectDefinitionRequest {
+func (r ApiDeleteLinkedObjectDefinitionRequest) Data(data interface{}) ApiDeleteLinkedObjectDefinitionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteLinkedObjectDefinitionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteLinkedObjectDefinitionExecute(r)
 }
@@ -303,14 +277,13 @@ Deletes a linked object definition
  @param linkedObjectName
  @return ApiDeleteLinkedObjectDefinitionRequest
 */
-// TODU
 
 func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinition(ctx context.Context, linkedObjectName string) ApiDeleteLinkedObjectDefinitionRequest {
 	return ApiDeleteLinkedObjectDefinitionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		linkedObjectName: linkedObjectName,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -323,7 +296,7 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -333,7 +306,6 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkedObjectAPIService.DeleteLinkedObjectDefinition")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -361,7 +333,6 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -378,13 +349,11 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -393,7 +362,6 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -408,12 +376,10 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -422,12 +388,10 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -436,13 +400,11 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -451,22 +413,18 @@ func (a *LinkedObjectAPIService) DeleteLinkedObjectDefinitionExecute(r ApiDelete
 }
 
 type ApiGetLinkedObjectDefinitionRequest struct {
-	ctx context.Context
-	ApiService LinkedObjectAPI
+	ctx              context.Context
+	ApiService       LinkedObjectAPI
 	linkedObjectName string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiGetLinkedObjectDefinitionRequest) Data (data interface{}) ApiGetLinkedObjectDefinitionRequest {
+func (r ApiGetLinkedObjectDefinitionRequest) Data(data interface{}) ApiGetLinkedObjectDefinitionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetLinkedObjectDefinitionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetLinkedObjectDefinitionExecute(r)
 }
@@ -480,14 +438,13 @@ Retrieves a linked object definition
  @param linkedObjectName
  @return ApiGetLinkedObjectDefinitionRequest
 */
-// TODU
 
 func (a *LinkedObjectAPIService) GetLinkedObjectDefinition(ctx context.Context, linkedObjectName string) ApiGetLinkedObjectDefinitionRequest {
 	return ApiGetLinkedObjectDefinitionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		linkedObjectName: linkedObjectName,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -499,10 +456,9 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -512,7 +468,6 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkedObjectAPIService.GetLinkedObjectDefinition")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -540,7 +495,6 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -557,13 +511,11 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -572,7 +524,6 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -587,12 +538,10 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -601,12 +550,10 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -615,13 +562,11 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -630,21 +575,17 @@ func (a *LinkedObjectAPIService) GetLinkedObjectDefinitionExecute(r ApiGetLinked
 }
 
 type ApiListLinkedObjectDefinitionsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService LinkedObjectAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListLinkedObjectDefinitionsRequest) Data (data interface{}) ApiListLinkedObjectDefinitionsRequest {
+func (r ApiListLinkedObjectDefinitionsRequest) Data(data interface{}) ApiListLinkedObjectDefinitionsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListLinkedObjectDefinitionsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListLinkedObjectDefinitionsExecute(r)
 }
@@ -657,12 +598,11 @@ Lists all linked object definitions
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListLinkedObjectDefinitionsRequest
 */
-// TODU
 
 func (a *LinkedObjectAPIService) ListLinkedObjectDefinitions(ctx context.Context) ApiListLinkedObjectDefinitionsRequest {
 	return ApiListLinkedObjectDefinitionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -675,10 +615,9 @@ func (a *LinkedObjectAPIService) ListLinkedObjectDefinitionsExecute(r ApiListLin
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -688,7 +627,6 @@ func (a *LinkedObjectAPIService) ListLinkedObjectDefinitionsExecute(r ApiListLin
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkedObjectAPIService.ListLinkedObjectDefinitions")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -715,7 +653,6 @@ func (a *LinkedObjectAPIService) ListLinkedObjectDefinitionsExecute(r ApiListLin
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -732,13 +669,11 @@ func (a *LinkedObjectAPIService) ListLinkedObjectDefinitionsExecute(r ApiListLin
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -747,7 +682,6 @@ func (a *LinkedObjectAPIService) ListLinkedObjectDefinitionsExecute(r ApiListLin
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -762,12 +696,10 @@ func (a *LinkedObjectAPIService) ListLinkedObjectDefinitionsExecute(r ApiListLin
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -776,13 +708,11 @@ func (a *LinkedObjectAPIService) ListLinkedObjectDefinitionsExecute(r ApiListLin
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

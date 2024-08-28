@@ -17,270 +17,253 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ResourceSetAPI interface {
 
 	/*
-	AddMembersToBinding Add more Members to a binding
+		AddMembersToBinding Add more Members to a binding
 
-	Adds more members to a Resource Set binding
+		Adds more members to a Resource Set binding
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiAddMembersToBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiAddMembersToBindingRequest
 	*/
 	AddMembersToBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiAddMembersToBindingRequest
 
 	// AddMembersToBindingExecute executes the request
 	//  @return ResourceSetBindingResponse
-	// TODU
 	AddMembersToBindingExecute(r ApiAddMembersToBindingRequest) (*APIResponse, error)
 
 	/*
-	AddResourceSetResource Add more Resource to a Resource Set
+		AddResourceSetResource Add more Resource to a Resource Set
 
-	Adds more resources to a Resource Set
+		Adds more resources to a Resource Set
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiAddResourceSetResourceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiAddResourceSetResourceRequest
 	*/
 	AddResourceSetResource(ctx context.Context, resourceSetId string) ApiAddResourceSetResourceRequest
 
 	// AddResourceSetResourceExecute executes the request
 	//  @return ResourceSet
-	// TODU
 	AddResourceSetResourceExecute(r ApiAddResourceSetResourceRequest) (*APIResponse, error)
 
 	/*
-	CreateResourceSet Create a Resource Set
+		CreateResourceSet Create a Resource Set
 
-	Creates a new Resource Set
+		Creates a new Resource Set
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateResourceSetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateResourceSetRequest
 	*/
 	CreateResourceSet(ctx context.Context) ApiCreateResourceSetRequest
 
 	// CreateResourceSetExecute executes the request
 	//  @return ResourceSet
-	// TODU
 	CreateResourceSetExecute(r ApiCreateResourceSetRequest) (*APIResponse, error)
 
 	/*
-	CreateResourceSetBinding Create a Resource Set Binding
+		CreateResourceSetBinding Create a Resource Set Binding
 
-	Creates a new Resource Set binding
+		Creates a new Resource Set binding
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiCreateResourceSetBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiCreateResourceSetBindingRequest
 	*/
 	CreateResourceSetBinding(ctx context.Context, resourceSetId string) ApiCreateResourceSetBindingRequest
 
 	// CreateResourceSetBindingExecute executes the request
 	//  @return ResourceSetBindingResponse
-	// TODU
 	CreateResourceSetBindingExecute(r ApiCreateResourceSetBindingRequest) (*APIResponse, error)
 
 	/*
-	DeleteBinding Delete a Binding
+		DeleteBinding Delete a Binding
 
-	Deletes a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
+		Deletes a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiDeleteBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiDeleteBindingRequest
 	*/
 	DeleteBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiDeleteBindingRequest
 
 	// DeleteBindingExecute executes the request
-	// TODU
 	DeleteBindingExecute(r ApiDeleteBindingRequest) (*APIResponse, error)
 
 	/*
-	DeleteResourceSet Delete a Resource Set
+		DeleteResourceSet Delete a Resource Set
 
-	Deletes a role by `resourceSetId`
+		Deletes a role by `resourceSetId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiDeleteResourceSetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiDeleteResourceSetRequest
 	*/
 	DeleteResourceSet(ctx context.Context, resourceSetId string) ApiDeleteResourceSetRequest
 
 	// DeleteResourceSetExecute executes the request
-	// TODU
 	DeleteResourceSetExecute(r ApiDeleteResourceSetRequest) (*APIResponse, error)
 
 	/*
-	DeleteResourceSetResource Delete a Resource from a Resource Set
+		DeleteResourceSetResource Delete a Resource from a Resource Set
 
-	Deletes a resource identified by `resourceId` from a Resource Set
+		Deletes a resource identified by `resourceId` from a Resource Set
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param resourceId `id` of a resource
-	@return ApiDeleteResourceSetResourceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param resourceId `id` of a resource
+		@return ApiDeleteResourceSetResourceRequest
 	*/
 	DeleteResourceSetResource(ctx context.Context, resourceSetId string, resourceId string) ApiDeleteResourceSetResourceRequest
 
 	// DeleteResourceSetResourceExecute executes the request
-	// TODU
 	DeleteResourceSetResourceExecute(r ApiDeleteResourceSetResourceRequest) (*APIResponse, error)
 
 	/*
-	GetBinding Retrieve a Binding
+		GetBinding Retrieve a Binding
 
-	Retrieves a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
+		Retrieves a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiGetBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiGetBindingRequest
 	*/
 	GetBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiGetBindingRequest
 
 	// GetBindingExecute executes the request
 	//  @return ResourceSetBindingResponse
-	// TODU
 	GetBindingExecute(r ApiGetBindingRequest) (*APIResponse, error)
 
 	/*
-	GetMemberOfBinding Retrieve a Member of a binding
+		GetMemberOfBinding Retrieve a Member of a binding
 
-	Retrieves a member identified by `memberId` for a binding
+		Retrieves a member identified by `memberId` for a binding
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@param memberId `id` of a member
-	@return ApiGetMemberOfBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@param memberId `id` of a member
+		@return ApiGetMemberOfBindingRequest
 	*/
 	GetMemberOfBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string, memberId string) ApiGetMemberOfBindingRequest
 
 	// GetMemberOfBindingExecute executes the request
 	//  @return ResourceSetBindingMember
-	// TODU
 	GetMemberOfBindingExecute(r ApiGetMemberOfBindingRequest) (*APIResponse, error)
 
 	/*
-	GetResourceSet Retrieve a Resource Set
+		GetResourceSet Retrieve a Resource Set
 
-	Retrieves a Resource Set by `resourceSetId`
+		Retrieves a Resource Set by `resourceSetId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiGetResourceSetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiGetResourceSetRequest
 	*/
 	GetResourceSet(ctx context.Context, resourceSetId string) ApiGetResourceSetRequest
 
 	// GetResourceSetExecute executes the request
 	//  @return ResourceSet
-	// TODU
 	GetResourceSetExecute(r ApiGetResourceSetRequest) (*APIResponse, error)
 
 	/*
-	ListBindings List all Bindings
+		ListBindings List all Bindings
 
-	Lists all Resource Set bindings with pagination support
+		Lists all Resource Set bindings with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiListBindingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiListBindingsRequest
 	*/
 	ListBindings(ctx context.Context, resourceSetId string) ApiListBindingsRequest
 
 	// ListBindingsExecute executes the request
 	//  @return ResourceSetBindings
-	// TODU
 	ListBindingsExecute(r ApiListBindingsRequest) (*APIResponse, error)
 
 	/*
-	ListMembersOfBinding List all Members of a binding
+		ListMembersOfBinding List all Members of a binding
 
-	Lists all members of a Resource Set binding with pagination support
+		Lists all members of a Resource Set binding with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@return ApiListMembersOfBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@return ApiListMembersOfBindingRequest
 	*/
 	ListMembersOfBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiListMembersOfBindingRequest
 
 	// ListMembersOfBindingExecute executes the request
 	//  @return ResourceSetBindingMembers
-	// TODU
 	ListMembersOfBindingExecute(r ApiListMembersOfBindingRequest) (*APIResponse, error)
 
 	/*
-	ListResourceSetResources List all Resources of a Resource Set
+		ListResourceSetResources List all Resources of a Resource Set
 
-	Lists all resources that make up the Resource Set
+		Lists all resources that make up the Resource Set
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiListResourceSetResourcesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiListResourceSetResourcesRequest
 	*/
 	ListResourceSetResources(ctx context.Context, resourceSetId string) ApiListResourceSetResourcesRequest
 
 	// ListResourceSetResourcesExecute executes the request
 	//  @return ResourceSetResources
-	// TODU
 	ListResourceSetResourcesExecute(r ApiListResourceSetResourcesRequest) (*APIResponse, error)
 
 	/*
-	ListResourceSets List all Resource Sets
+		ListResourceSets List all Resource Sets
 
-	Lists all Resource Sets with pagination support
+		Lists all Resource Sets with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListResourceSetsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListResourceSetsRequest
 	*/
 	ListResourceSets(ctx context.Context) ApiListResourceSetsRequest
 
 	// ListResourceSetsExecute executes the request
 	//  @return ResourceSets
-	// TODU
 	ListResourceSetsExecute(r ApiListResourceSetsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceResourceSet Replace a Resource Set
+		ReplaceResourceSet Replace a Resource Set
 
-	Replaces a Resource Set by `resourceSetId`
+		Replaces a Resource Set by `resourceSetId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@return ApiReplaceResourceSetRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@return ApiReplaceResourceSetRequest
 	*/
 	ReplaceResourceSet(ctx context.Context, resourceSetId string) ApiReplaceResourceSetRequest
 
 	// ReplaceResourceSetExecute executes the request
 	//  @return ResourceSet
-	// TODU
 	ReplaceResourceSetExecute(r ApiReplaceResourceSetRequest) (*APIResponse, error)
 
 	/*
-	UnassignMemberFromBinding Unassign a Member from a binding
+		UnassignMemberFromBinding Unassign a Member from a binding
 
-	Unassigns a member identified by `memberId` from a binding
+		Unassigns a member identified by `memberId` from a binding
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSetId `id` of a Resource Set
-	@param roleIdOrLabel `id` or `label` of the role
-	@param memberId `id` of a member
-	@return ApiUnassignMemberFromBindingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSetId `id` of a Resource Set
+		@param roleIdOrLabel `id` or `label` of the role
+		@param memberId `id` of a member
+		@return ApiUnassignMemberFromBindingRequest
 	*/
 	UnassignMemberFromBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string, memberId string) ApiUnassignMemberFromBindingRequest
 
 	// UnassignMemberFromBindingExecute executes the request
-	// TODU
 	UnassignMemberFromBindingExecute(r ApiUnassignMemberFromBindingRequest) (*APIResponse, error)
 }
 
@@ -288,14 +271,13 @@ type ResourceSetAPI interface {
 type ResourceSetAPIService service
 
 type ApiAddMembersToBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	instance *ResourceSetBindingAddMembersRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	instance      *ResourceSetBindingAddMembersRequest
+	data          interface{}
+	retryCount    int32
 }
 
 func (r ApiAddMembersToBindingRequest) Instance(instance ResourceSetBindingAddMembersRequest) ApiAddMembersToBindingRequest {
@@ -303,14 +285,11 @@ func (r ApiAddMembersToBindingRequest) Instance(instance ResourceSetBindingAddMe
 	return r
 }
 
-
-// TODU
-func (r ApiAddMembersToBindingRequest) Data (data interface{}) ApiAddMembersToBindingRequest {
+func (r ApiAddMembersToBindingRequest) Data(data interface{}) ApiAddMembersToBindingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAddMembersToBindingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AddMembersToBindingExecute(r)
 }
@@ -325,15 +304,14 @@ Adds more members to a Resource Set binding
  @param roleIdOrLabel `id` or `label` of the role
  @return ApiAddMembersToBindingRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) AddMembersToBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiAddMembersToBindingRequest {
 	return ApiAddMembersToBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -345,10 +323,9 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -358,7 +335,6 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.AddMembersToBinding")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -387,7 +363,6 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -407,13 +382,11 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -422,7 +395,6 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -437,12 +409,10 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -451,12 +421,10 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -465,12 +433,10 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -479,13 +445,11 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -494,13 +458,12 @@ func (a *ResourceSetAPIService) AddMembersToBindingExecute(r ApiAddMembersToBind
 }
 
 type ApiAddResourceSetResourceRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	instance *ResourceSetResourcePatchRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	instance      *ResourceSetResourcePatchRequest
+	data          interface{}
+	retryCount    int32
 }
 
 func (r ApiAddResourceSetResourceRequest) Instance(instance ResourceSetResourcePatchRequest) ApiAddResourceSetResourceRequest {
@@ -508,14 +471,11 @@ func (r ApiAddResourceSetResourceRequest) Instance(instance ResourceSetResourceP
 	return r
 }
 
-
-// TODU
-func (r ApiAddResourceSetResourceRequest) Data (data interface{}) ApiAddResourceSetResourceRequest {
+func (r ApiAddResourceSetResourceRequest) Data(data interface{}) ApiAddResourceSetResourceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAddResourceSetResourceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AddResourceSetResourceExecute(r)
 }
@@ -529,14 +489,13 @@ Adds more resources to a Resource Set
  @param resourceSetId `id` of a Resource Set
  @return ApiAddResourceSetResourceRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) AddResourceSetResource(ctx context.Context, resourceSetId string) ApiAddResourceSetResourceRequest {
 	return ApiAddResourceSetResourceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -548,10 +507,9 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -561,7 +519,6 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.AddResourceSetResource")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -589,7 +546,6 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -609,13 +565,11 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -624,7 +578,6 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -639,12 +592,10 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -653,12 +604,10 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -667,12 +616,10 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -681,13 +628,11 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -696,10 +641,9 @@ func (a *ResourceSetAPIService) AddResourceSetResourceExecute(r ApiAddResourceSe
 }
 
 type ApiCreateResourceSetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ResourceSetAPI
-	instance *CreateResourceSetRequest
-	// TODU
+	instance   *CreateResourceSetRequest
 	data       interface{}
 	retryCount int32
 }
@@ -709,14 +653,11 @@ func (r ApiCreateResourceSetRequest) Instance(instance CreateResourceSetRequest)
 	return r
 }
 
-
-// TODU
-func (r ApiCreateResourceSetRequest) Data (data interface{}) ApiCreateResourceSetRequest {
+func (r ApiCreateResourceSetRequest) Data(data interface{}) ApiCreateResourceSetRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateResourceSetRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateResourceSetExecute(r)
 }
@@ -729,12 +670,11 @@ Creates a new Resource Set
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateResourceSetRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) CreateResourceSet(ctx context.Context) ApiCreateResourceSetRequest {
 	return ApiCreateResourceSetRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -747,10 +687,9 @@ func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetR
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -760,7 +699,6 @@ func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.CreateResourceSet")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -787,7 +725,6 @@ func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -807,13 +744,11 @@ func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -822,7 +757,6 @@ func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -837,12 +771,10 @@ func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -851,12 +783,10 @@ func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -865,13 +795,11 @@ func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -880,13 +808,12 @@ func (a *ResourceSetAPIService) CreateResourceSetExecute(r ApiCreateResourceSetR
 }
 
 type ApiCreateResourceSetBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	instance *ResourceSetBindingCreateRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	instance      *ResourceSetBindingCreateRequest
+	data          interface{}
+	retryCount    int32
 }
 
 func (r ApiCreateResourceSetBindingRequest) Instance(instance ResourceSetBindingCreateRequest) ApiCreateResourceSetBindingRequest {
@@ -894,14 +821,11 @@ func (r ApiCreateResourceSetBindingRequest) Instance(instance ResourceSetBinding
 	return r
 }
 
-
-// TODU
-func (r ApiCreateResourceSetBindingRequest) Data (data interface{}) ApiCreateResourceSetBindingRequest {
+func (r ApiCreateResourceSetBindingRequest) Data(data interface{}) ApiCreateResourceSetBindingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateResourceSetBindingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateResourceSetBindingExecute(r)
 }
@@ -915,14 +839,13 @@ Creates a new Resource Set binding
  @param resourceSetId `id` of a Resource Set
  @return ApiCreateResourceSetBindingRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) CreateResourceSetBinding(ctx context.Context, resourceSetId string) ApiCreateResourceSetBindingRequest {
 	return ApiCreateResourceSetBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -934,10 +857,9 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -947,7 +869,6 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.CreateResourceSetBinding")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -975,7 +896,6 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -995,13 +915,11 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1010,7 +928,6 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1025,12 +942,10 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1039,12 +954,10 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1053,12 +966,10 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1067,13 +978,11 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1082,23 +991,19 @@ func (a *ResourceSetAPIService) CreateResourceSetBindingExecute(r ApiCreateResou
 }
 
 type ApiDeleteBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiDeleteBindingRequest) Data (data interface{}) ApiDeleteBindingRequest {
+func (r ApiDeleteBindingRequest) Data(data interface{}) ApiDeleteBindingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteBindingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteBindingExecute(r)
 }
@@ -1113,15 +1018,14 @@ Deletes a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
  @param roleIdOrLabel `id` or `label` of the role
  @return ApiDeleteBindingRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) DeleteBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiDeleteBindingRequest {
 	return ApiDeleteBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -1134,7 +1038,7 @@ func (a *ResourceSetAPIService) DeleteBindingExecute(r ApiDeleteBindingRequest) 
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1144,7 +1048,6 @@ func (a *ResourceSetAPIService) DeleteBindingExecute(r ApiDeleteBindingRequest) 
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.DeleteBinding")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1173,7 +1076,6 @@ func (a *ResourceSetAPIService) DeleteBindingExecute(r ApiDeleteBindingRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1190,13 +1092,11 @@ func (a *ResourceSetAPIService) DeleteBindingExecute(r ApiDeleteBindingRequest) 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1205,7 +1105,6 @@ func (a *ResourceSetAPIService) DeleteBindingExecute(r ApiDeleteBindingRequest) 
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1220,12 +1119,10 @@ func (a *ResourceSetAPIService) DeleteBindingExecute(r ApiDeleteBindingRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1234,12 +1131,10 @@ func (a *ResourceSetAPIService) DeleteBindingExecute(r ApiDeleteBindingRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1248,13 +1143,11 @@ func (a *ResourceSetAPIService) DeleteBindingExecute(r ApiDeleteBindingRequest) 
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1263,22 +1156,18 @@ func (a *ResourceSetAPIService) DeleteBindingExecute(r ApiDeleteBindingRequest) 
 }
 
 type ApiDeleteResourceSetRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiDeleteResourceSetRequest) Data (data interface{}) ApiDeleteResourceSetRequest {
+func (r ApiDeleteResourceSetRequest) Data(data interface{}) ApiDeleteResourceSetRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteResourceSetRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteResourceSetExecute(r)
 }
@@ -1292,14 +1181,13 @@ Deletes a role by `resourceSetId`
  @param resourceSetId `id` of a Resource Set
  @return ApiDeleteResourceSetRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) DeleteResourceSet(ctx context.Context, resourceSetId string) ApiDeleteResourceSetRequest {
 	return ApiDeleteResourceSetRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -1312,7 +1200,7 @@ func (a *ResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourceSetR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1322,7 +1210,6 @@ func (a *ResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourceSetR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.DeleteResourceSet")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1350,7 +1237,6 @@ func (a *ResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourceSetR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1367,13 +1253,11 @@ func (a *ResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourceSetR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1382,7 +1266,6 @@ func (a *ResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourceSetR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1397,12 +1280,10 @@ func (a *ResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourceSetR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1411,12 +1292,10 @@ func (a *ResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourceSetR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1425,13 +1304,11 @@ func (a *ResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourceSetR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1440,23 +1317,19 @@ func (a *ResourceSetAPIService) DeleteResourceSetExecute(r ApiDeleteResourceSetR
 }
 
 type ApiDeleteResourceSetResourceRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	resourceId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	resourceId    string
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiDeleteResourceSetResourceRequest) Data (data interface{}) ApiDeleteResourceSetResourceRequest {
+func (r ApiDeleteResourceSetResourceRequest) Data(data interface{}) ApiDeleteResourceSetResourceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteResourceSetResourceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteResourceSetResourceExecute(r)
 }
@@ -1471,15 +1344,14 @@ Deletes a resource identified by `resourceId` from a Resource Set
  @param resourceId `id` of a resource
  @return ApiDeleteResourceSetResourceRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) DeleteResourceSetResource(ctx context.Context, resourceSetId string, resourceId string) ApiDeleteResourceSetResourceRequest {
 	return ApiDeleteResourceSetResourceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		resourceId: resourceId,
-		retryCount: 0,
+		resourceId:    resourceId,
+		retryCount:    0,
 	}
 }
 
@@ -1492,7 +1364,7 @@ func (a *ResourceSetAPIService) DeleteResourceSetResourceExecute(r ApiDeleteReso
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1502,7 +1374,6 @@ func (a *ResourceSetAPIService) DeleteResourceSetResourceExecute(r ApiDeleteReso
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.DeleteResourceSetResource")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1531,7 +1402,6 @@ func (a *ResourceSetAPIService) DeleteResourceSetResourceExecute(r ApiDeleteReso
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1548,13 +1418,11 @@ func (a *ResourceSetAPIService) DeleteResourceSetResourceExecute(r ApiDeleteReso
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1563,7 +1431,6 @@ func (a *ResourceSetAPIService) DeleteResourceSetResourceExecute(r ApiDeleteReso
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1578,12 +1445,10 @@ func (a *ResourceSetAPIService) DeleteResourceSetResourceExecute(r ApiDeleteReso
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1592,12 +1457,10 @@ func (a *ResourceSetAPIService) DeleteResourceSetResourceExecute(r ApiDeleteReso
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1606,13 +1469,11 @@ func (a *ResourceSetAPIService) DeleteResourceSetResourceExecute(r ApiDeleteReso
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1621,23 +1482,19 @@ func (a *ResourceSetAPIService) DeleteResourceSetResourceExecute(r ApiDeleteReso
 }
 
 type ApiGetBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiGetBindingRequest) Data (data interface{}) ApiGetBindingRequest {
+func (r ApiGetBindingRequest) Data(data interface{}) ApiGetBindingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetBindingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetBindingExecute(r)
 }
@@ -1652,15 +1509,14 @@ Retrieves a Resource Set binding by `resourceSetId` and `roleIdOrLabel`
  @param roleIdOrLabel `id` or `label` of the role
  @return ApiGetBindingRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) GetBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiGetBindingRequest {
 	return ApiGetBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -1672,10 +1528,9 @@ func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*APIR
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1685,7 +1540,6 @@ func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*APIR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.GetBinding")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1714,7 +1568,6 @@ func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*APIR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1731,13 +1584,11 @@ func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*APIR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1746,7 +1597,6 @@ func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*APIR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1761,12 +1611,10 @@ func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*APIR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1775,12 +1623,10 @@ func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*APIR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1789,13 +1635,11 @@ func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*APIR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1804,24 +1648,20 @@ func (a *ResourceSetAPIService) GetBindingExecute(r ApiGetBindingRequest) (*APIR
 }
 
 type ApiGetMemberOfBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	memberId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	memberId      string
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiGetMemberOfBindingRequest) Data (data interface{}) ApiGetMemberOfBindingRequest {
+func (r ApiGetMemberOfBindingRequest) Data(data interface{}) ApiGetMemberOfBindingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetMemberOfBindingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetMemberOfBindingExecute(r)
 }
@@ -1837,16 +1677,15 @@ Retrieves a member identified by `memberId` for a binding
  @param memberId `id` of a member
  @return ApiGetMemberOfBindingRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) GetMemberOfBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string, memberId string) ApiGetMemberOfBindingRequest {
 	return ApiGetMemberOfBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		memberId: memberId,
-		retryCount: 0,
+		memberId:      memberId,
+		retryCount:    0,
 	}
 }
 
@@ -1858,10 +1697,9 @@ func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindin
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1871,7 +1709,6 @@ func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindin
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.GetMemberOfBinding")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1901,7 +1738,6 @@ func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindin
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1918,13 +1754,11 @@ func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindin
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1933,7 +1767,6 @@ func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindin
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1948,12 +1781,10 @@ func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindin
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1962,12 +1793,10 @@ func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindin
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1976,13 +1805,11 @@ func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindin
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1991,22 +1818,18 @@ func (a *ResourceSetAPIService) GetMemberOfBindingExecute(r ApiGetMemberOfBindin
 }
 
 type ApiGetResourceSetRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiGetResourceSetRequest) Data (data interface{}) ApiGetResourceSetRequest {
+func (r ApiGetResourceSetRequest) Data(data interface{}) ApiGetResourceSetRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetResourceSetRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetResourceSetExecute(r)
 }
@@ -2020,14 +1843,13 @@ Retrieves a Resource Set by `resourceSetId`
  @param resourceSetId `id` of a Resource Set
  @return ApiGetResourceSetRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) GetResourceSet(ctx context.Context, resourceSetId string) ApiGetResourceSetRequest {
 	return ApiGetResourceSetRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -2039,10 +1861,9 @@ func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2052,7 +1873,6 @@ func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.GetResourceSet")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2080,7 +1900,6 @@ func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2097,13 +1916,11 @@ func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2112,7 +1929,6 @@ func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2127,12 +1943,10 @@ func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2141,12 +1955,10 @@ func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2155,13 +1967,11 @@ func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2170,13 +1980,12 @@ func (a *ResourceSetAPIService) GetResourceSetExecute(r ApiGetResourceSetRequest
 }
 
 type ApiListBindingsRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	after *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	after         *string
+	data          interface{}
+	retryCount    int32
 }
 
 // The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](/#pagination).
@@ -2185,14 +1994,11 @@ func (r ApiListBindingsRequest) After(after string) ApiListBindingsRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiListBindingsRequest) Data (data interface{}) ApiListBindingsRequest {
+func (r ApiListBindingsRequest) Data(data interface{}) ApiListBindingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListBindingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListBindingsExecute(r)
 }
@@ -2206,14 +2012,13 @@ Lists all Resource Set bindings with pagination support
  @param resourceSetId `id` of a Resource Set
  @return ApiListBindingsRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) ListBindings(ctx context.Context, resourceSetId string) ApiListBindingsRequest {
 	return ApiListBindingsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -2225,10 +2030,9 @@ func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2238,7 +2042,6 @@ func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.ListBindings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2269,7 +2072,6 @@ func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2286,13 +2088,11 @@ func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2301,7 +2101,6 @@ func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2316,12 +2115,10 @@ func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2330,12 +2127,10 @@ func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2344,13 +2139,11 @@ func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2359,14 +2152,13 @@ func (a *ResourceSetAPIService) ListBindingsExecute(r ApiListBindingsRequest) (*
 }
 
 type ApiListMembersOfBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	after *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	after         *string
+	data          interface{}
+	retryCount    int32
 }
 
 // The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](/#pagination).
@@ -2375,14 +2167,11 @@ func (r ApiListMembersOfBindingRequest) After(after string) ApiListMembersOfBind
 	return r
 }
 
-
-// TODU
-func (r ApiListMembersOfBindingRequest) Data (data interface{}) ApiListMembersOfBindingRequest {
+func (r ApiListMembersOfBindingRequest) Data(data interface{}) ApiListMembersOfBindingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListMembersOfBindingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListMembersOfBindingExecute(r)
 }
@@ -2397,15 +2186,14 @@ Lists all members of a Resource Set binding with pagination support
  @param roleIdOrLabel `id` or `label` of the role
  @return ApiListMembersOfBindingRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) ListMembersOfBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string) ApiListMembersOfBindingRequest {
 	return ApiListMembersOfBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -2417,10 +2205,9 @@ func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBi
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2430,7 +2217,6 @@ func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.ListMembersOfBinding")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2462,7 +2248,6 @@ func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2479,13 +2264,11 @@ func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2494,7 +2277,6 @@ func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2509,12 +2291,10 @@ func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2523,12 +2303,10 @@ func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2537,13 +2315,11 @@ func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2552,22 +2328,18 @@ func (a *ResourceSetAPIService) ListMembersOfBindingExecute(r ApiListMembersOfBi
 }
 
 type ApiListResourceSetResourcesRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiListResourceSetResourcesRequest) Data (data interface{}) ApiListResourceSetResourcesRequest {
+func (r ApiListResourceSetResourcesRequest) Data(data interface{}) ApiListResourceSetResourcesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListResourceSetResourcesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListResourceSetResourcesExecute(r)
 }
@@ -2581,14 +2353,13 @@ Lists all resources that make up the Resource Set
  @param resourceSetId `id` of a Resource Set
  @return ApiListResourceSetResourcesRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) ListResourceSetResources(ctx context.Context, resourceSetId string) ApiListResourceSetResourcesRequest {
 	return ApiListResourceSetResourcesRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -2600,10 +2371,9 @@ func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourc
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2613,7 +2383,6 @@ func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourc
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.ListResourceSetResources")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2641,7 +2410,6 @@ func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourc
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2658,13 +2426,11 @@ func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourc
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2673,7 +2439,6 @@ func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourc
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2688,12 +2453,10 @@ func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourc
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2702,12 +2465,10 @@ func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourc
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2716,13 +2477,11 @@ func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourc
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2731,10 +2490,9 @@ func (a *ResourceSetAPIService) ListResourceSetResourcesExecute(r ApiListResourc
 }
 
 type ApiListResourceSetsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ResourceSetAPI
-	after *string
-	// TODU
+	after      *string
 	data       interface{}
 	retryCount int32
 }
@@ -2745,14 +2503,11 @@ func (r ApiListResourceSetsRequest) After(after string) ApiListResourceSetsReque
 	return r
 }
 
-
-// TODU
-func (r ApiListResourceSetsRequest) Data (data interface{}) ApiListResourceSetsRequest {
+func (r ApiListResourceSetsRequest) Data(data interface{}) ApiListResourceSetsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListResourceSetsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListResourceSetsExecute(r)
 }
@@ -2765,12 +2520,11 @@ Lists all Resource Sets with pagination support
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListResourceSetsRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) ListResourceSets(ctx context.Context) ApiListResourceSetsRequest {
 	return ApiListResourceSetsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -2783,10 +2537,9 @@ func (a *ResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsReq
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2796,7 +2549,6 @@ func (a *ResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsReq
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.ListResourceSets")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2826,7 +2578,6 @@ func (a *ResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2843,13 +2594,11 @@ func (a *ResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2858,7 +2607,6 @@ func (a *ResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsReq
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2873,12 +2621,10 @@ func (a *ResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2887,13 +2633,11 @@ func (a *ResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsReq
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2902,13 +2646,12 @@ func (a *ResourceSetAPIService) ListResourceSetsExecute(r ApiListResourceSetsReq
 }
 
 type ApiReplaceResourceSetRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
-	instance *ResourceSet
-	// TODU
-	data       interface{}
-	retryCount int32
+	instance      *ResourceSet
+	data          interface{}
+	retryCount    int32
 }
 
 func (r ApiReplaceResourceSetRequest) Instance(instance ResourceSet) ApiReplaceResourceSetRequest {
@@ -2916,14 +2659,11 @@ func (r ApiReplaceResourceSetRequest) Instance(instance ResourceSet) ApiReplaceR
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceResourceSetRequest) Data (data interface{}) ApiReplaceResourceSetRequest {
+func (r ApiReplaceResourceSetRequest) Data(data interface{}) ApiReplaceResourceSetRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceResourceSetRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceResourceSetExecute(r)
 }
@@ -2937,14 +2677,13 @@ Replaces a Resource Set by `resourceSetId`
  @param resourceSetId `id` of a Resource Set
  @return ApiReplaceResourceSetRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) ReplaceResourceSet(ctx context.Context, resourceSetId string) ApiReplaceResourceSetRequest {
 	return ApiReplaceResourceSetRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
-		retryCount: 0,
+		retryCount:    0,
 	}
 }
 
@@ -2956,10 +2695,9 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2969,7 +2707,6 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.ReplaceResourceSet")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2997,7 +2734,6 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -3017,13 +2753,11 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3032,7 +2766,6 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3047,12 +2780,10 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3061,12 +2792,10 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3075,12 +2804,10 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3089,13 +2816,11 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3104,24 +2829,20 @@ func (a *ResourceSetAPIService) ReplaceResourceSetExecute(r ApiReplaceResourceSe
 }
 
 type ApiUnassignMemberFromBindingRequest struct {
-	ctx context.Context
-	ApiService ResourceSetAPI
+	ctx           context.Context
+	ApiService    ResourceSetAPI
 	resourceSetId string
 	roleIdOrLabel string
-	memberId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	memberId      string
+	data          interface{}
+	retryCount    int32
 }
 
-
-// TODU
-func (r ApiUnassignMemberFromBindingRequest) Data (data interface{}) ApiUnassignMemberFromBindingRequest {
+func (r ApiUnassignMemberFromBindingRequest) Data(data interface{}) ApiUnassignMemberFromBindingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnassignMemberFromBindingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnassignMemberFromBindingExecute(r)
 }
@@ -3137,16 +2858,15 @@ Unassigns a member identified by `memberId` from a binding
  @param memberId `id` of a member
  @return ApiUnassignMemberFromBindingRequest
 */
-// TODU
 
 func (a *ResourceSetAPIService) UnassignMemberFromBinding(ctx context.Context, resourceSetId string, roleIdOrLabel string, memberId string) ApiUnassignMemberFromBindingRequest {
 	return ApiUnassignMemberFromBindingRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		resourceSetId: resourceSetId,
 		roleIdOrLabel: roleIdOrLabel,
-		memberId: memberId,
-		retryCount: 0,
+		memberId:      memberId,
+		retryCount:    0,
 	}
 }
 
@@ -3159,7 +2879,7 @@ func (a *ResourceSetAPIService) UnassignMemberFromBindingExecute(r ApiUnassignMe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3169,7 +2889,6 @@ func (a *ResourceSetAPIService) UnassignMemberFromBindingExecute(r ApiUnassignMe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ResourceSetAPIService.UnassignMemberFromBinding")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3199,7 +2918,6 @@ func (a *ResourceSetAPIService) UnassignMemberFromBindingExecute(r ApiUnassignMe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3216,13 +2934,11 @@ func (a *ResourceSetAPIService) UnassignMemberFromBindingExecute(r ApiUnassignMe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3231,7 +2947,6 @@ func (a *ResourceSetAPIService) UnassignMemberFromBindingExecute(r ApiUnassignMe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3246,12 +2961,10 @@ func (a *ResourceSetAPIService) UnassignMemberFromBindingExecute(r ApiUnassignMe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3260,12 +2973,10 @@ func (a *ResourceSetAPIService) UnassignMemberFromBindingExecute(r ApiUnassignMe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3274,13 +2985,11 @@ func (a *ResourceSetAPIService) UnassignMemberFromBindingExecute(r ApiUnassignMe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

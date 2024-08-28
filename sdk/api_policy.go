@@ -17,350 +17,328 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type PolicyAPI interface {
 
 	/*
-	ActivatePolicy Activate a Policy
+		ActivatePolicy Activate a Policy
 
-	Activates a policy
+		Activates a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiActivatePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiActivatePolicyRequest
 	*/
 	ActivatePolicy(ctx context.Context, policyId string) ApiActivatePolicyRequest
 
 	// ActivatePolicyExecute executes the request
-	// TODU
 	ActivatePolicyExecute(r ApiActivatePolicyRequest) (*APIResponse, error)
 
 	/*
-	ActivatePolicyRule Activate a Policy Rule
+		ActivatePolicyRule Activate a Policy Rule
 
-	Activates a Policy Rule identified by `policyId` and `ruleId`
+		Activates a Policy Rule identified by `policyId` and `ruleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiActivatePolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the Policy Rule
+		@return ApiActivatePolicyRuleRequest
 	*/
 	ActivatePolicyRule(ctx context.Context, policyId string, ruleId string) ApiActivatePolicyRuleRequest
 
 	// ActivatePolicyRuleExecute executes the request
-	// TODU
 	ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequest) (*APIResponse, error)
 
 	/*
-	ClonePolicy Clone an existing Policy
+		ClonePolicy Clone an existing Policy
 
-	Clones an existing policy
+		Clones an existing policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiClonePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiClonePolicyRequest
 	*/
 	ClonePolicy(ctx context.Context, policyId string) ApiClonePolicyRequest
 
 	// ClonePolicyExecute executes the request
 	//  @return ListPolicies200ResponseInner
-	// TODU
 	ClonePolicyExecute(r ApiClonePolicyRequest) (*APIResponse, error)
 
 	/*
-	CreatePolicy Create a Policy
+		CreatePolicy Create a Policy
 
-	Creates a policy
+		Creates a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreatePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreatePolicyRequest
 	*/
 	CreatePolicy(ctx context.Context) ApiCreatePolicyRequest
 
 	// CreatePolicyExecute executes the request
 	//  @return CreatePolicyRequest
-	// TODU
 	CreatePolicyExecute(r ApiCreatePolicyRequest) (*APIResponse, error)
 
 	/*
-	CreatePolicyRule Create a Policy Rule
+		CreatePolicyRule Create a Policy Rule
 
-	Creates a policy rule
+		Creates a policy rule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiCreatePolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiCreatePolicyRuleRequest
 	*/
 	CreatePolicyRule(ctx context.Context, policyId string) ApiCreatePolicyRuleRequest
 
 	// CreatePolicyRuleExecute executes the request
 	//  @return ListPolicyRules200ResponseInner
-	// TODU
 	CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest) (*APIResponse, error)
 
 	/*
-	CreatePolicySimulation Create a Policy Simulation
+			CreatePolicySimulation Create a Policy Simulation
 
-	Creates a policy or policy rule simulation. The access simulation evaluates policy and policy rules based on the existing policy rule configuration.
-The evaluation result simulates what the real-world authentication flow is and what policy rules have been applied or matched to the authentication flow.
+			Creates a policy or policy rule simulation. The access simulation evaluates policy and policy rules based on the existing policy rule configuration.
+		The evaluation result simulates what the real-world authentication flow is and what policy rules have been applied or matched to the authentication flow.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreatePolicySimulationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreatePolicySimulationRequest
 	*/
 	CreatePolicySimulation(ctx context.Context) ApiCreatePolicySimulationRequest
 
 	// CreatePolicySimulationExecute executes the request
 	//  @return []SimulatePolicyEvaluations
-	// TODU
 	CreatePolicySimulationExecute(r ApiCreatePolicySimulationRequest) (*APIResponse, error)
 
 	/*
-	DeactivatePolicy Deactivate a Policy
+		DeactivatePolicy Deactivate a Policy
 
-	Deactivates a policy
+		Deactivates a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiDeactivatePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiDeactivatePolicyRequest
 	*/
 	DeactivatePolicy(ctx context.Context, policyId string) ApiDeactivatePolicyRequest
 
 	// DeactivatePolicyExecute executes the request
-	// TODU
 	DeactivatePolicyExecute(r ApiDeactivatePolicyRequest) (*APIResponse, error)
 
 	/*
-	DeactivatePolicyRule Deactivate a Policy Rule
+		DeactivatePolicyRule Deactivate a Policy Rule
 
-	Deactivates a Policy Rule identified by `policyId` and `ruleId`
+		Deactivates a Policy Rule identified by `policyId` and `ruleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiDeactivatePolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the Policy Rule
+		@return ApiDeactivatePolicyRuleRequest
 	*/
 	DeactivatePolicyRule(ctx context.Context, policyId string, ruleId string) ApiDeactivatePolicyRuleRequest
 
 	// DeactivatePolicyRuleExecute executes the request
-	// TODU
 	DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRuleRequest) (*APIResponse, error)
 
 	/*
-	DeletePolicy Delete a Policy
+		DeletePolicy Delete a Policy
 
-	Deletes a policy
+		Deletes a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiDeletePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiDeletePolicyRequest
 	*/
 	DeletePolicy(ctx context.Context, policyId string) ApiDeletePolicyRequest
 
 	// DeletePolicyExecute executes the request
-	// TODU
 	DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIResponse, error)
 
 	/*
-	DeletePolicyResourceMapping Delete a policy resource Mapping
+		DeletePolicyResourceMapping Delete a policy resource Mapping
 
-	Deletes the resource Mapping for a Policy identified by  `policyId` and `mappingId`
+		Deletes the resource Mapping for a Policy identified by  `policyId` and `mappingId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param mappingId `id` of the policy resource Mapping
-	@return ApiDeletePolicyResourceMappingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param mappingId `id` of the policy resource Mapping
+		@return ApiDeletePolicyResourceMappingRequest
 	*/
 	DeletePolicyResourceMapping(ctx context.Context, policyId string, mappingId string) ApiDeletePolicyResourceMappingRequest
 
 	// DeletePolicyResourceMappingExecute executes the request
-	// TODU
 	DeletePolicyResourceMappingExecute(r ApiDeletePolicyResourceMappingRequest) (*APIResponse, error)
 
 	/*
-	DeletePolicyRule Delete a Policy Rule
+		DeletePolicyRule Delete a Policy Rule
 
-	Deletes a Policy Rule identified by `policyId` and `ruleId`
+		Deletes a Policy Rule identified by `policyId` and `ruleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiDeletePolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the Policy Rule
+		@return ApiDeletePolicyRuleRequest
 	*/
 	DeletePolicyRule(ctx context.Context, policyId string, ruleId string) ApiDeletePolicyRuleRequest
 
 	// DeletePolicyRuleExecute executes the request
-	// TODU
 	DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest) (*APIResponse, error)
 
 	/*
-	GetPolicy Retrieve a Policy
+		GetPolicy Retrieve a Policy
 
-	Retrieves a policy
+		Retrieves a policy
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiGetPolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiGetPolicyRequest
 	*/
 	GetPolicy(ctx context.Context, policyId string) ApiGetPolicyRequest
 
 	// GetPolicyExecute executes the request
 	//  @return ListPolicies200ResponseInner
-	// TODU
 	GetPolicyExecute(r ApiGetPolicyRequest) (*APIResponse, error)
 
 	/*
-	GetPolicyMapping Retrieve a policy resource Mapping
+		GetPolicyMapping Retrieve a policy resource Mapping
 
-	Retrieves a resource Mapping for a Policy identified by `policyId` and `mappingId`
+		Retrieves a resource Mapping for a Policy identified by `policyId` and `mappingId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param mappingId `id` of the policy resource Mapping
-	@return ApiGetPolicyMappingRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param mappingId `id` of the policy resource Mapping
+		@return ApiGetPolicyMappingRequest
 	*/
 	GetPolicyMapping(ctx context.Context, policyId string, mappingId string) ApiGetPolicyMappingRequest
 
 	// GetPolicyMappingExecute executes the request
 	//  @return PolicyMapping
-	// TODU
 	GetPolicyMappingExecute(r ApiGetPolicyMappingRequest) (*APIResponse, error)
 
 	/*
-	GetPolicyRule Retrieve a Policy Rule
+		GetPolicyRule Retrieve a Policy Rule
 
-	Retrieves a policy rule
+		Retrieves a policy rule
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiGetPolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the Policy Rule
+		@return ApiGetPolicyRuleRequest
 	*/
 	GetPolicyRule(ctx context.Context, policyId string, ruleId string) ApiGetPolicyRuleRequest
 
 	// GetPolicyRuleExecute executes the request
 	//  @return ListPolicyRules200ResponseInner
-	// TODU
 	GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*APIResponse, error)
 
 	/*
-	ListPolicies List all Policies
+		ListPolicies List all Policies
 
-	Lists all policies with the specified type
+		Lists all policies with the specified type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListPoliciesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListPoliciesRequest
 	*/
 	ListPolicies(ctx context.Context) ApiListPoliciesRequest
 
 	// ListPoliciesExecute executes the request
 	//  @return []ListPolicies200ResponseInner
-	// TODU
 	ListPoliciesExecute(r ApiListPoliciesRequest) (*APIResponse, error)
 
 	/*
-	ListPolicyApps List all Applications mapped to a Policy
+			ListPolicyApps List all Applications mapped to a Policy
 
-	Lists all applications mapped to a policy identified by `policyId`
+			Lists all applications mapped to a policy identified by `policyId`
 
-> **Note:** Use [List all resources mapped to a Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicyMappings) to list all applications mapped to a policy.
+		> **Note:** Use [List all resources mapped to a Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicyMappings) to list all applications mapped to a policy.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiListPolicyAppsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param policyId `id` of the Policy
+			@return ApiListPolicyAppsRequest
 
-	Deprecated
+			Deprecated
 	*/
 	ListPolicyApps(ctx context.Context, policyId string) ApiListPolicyAppsRequest
 
 	// ListPolicyAppsExecute executes the request
 	//  @return []ListApplications200ResponseInner
 	// Deprecated
-	// TODU
 	ListPolicyAppsExecute(r ApiListPolicyAppsRequest) (*APIResponse, error)
 
 	/*
-	ListPolicyMappings List all resources mapped to a Policy
+		ListPolicyMappings List all resources mapped to a Policy
 
-	Lists all resources mapped to a Policy identified by `policyId`
+		Lists all resources mapped to a Policy identified by `policyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiListPolicyMappingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiListPolicyMappingsRequest
 	*/
 	ListPolicyMappings(ctx context.Context, policyId string) ApiListPolicyMappingsRequest
 
 	// ListPolicyMappingsExecute executes the request
 	//  @return []PolicyMapping
-	// TODU
 	ListPolicyMappingsExecute(r ApiListPolicyMappingsRequest) (*APIResponse, error)
 
 	/*
-	ListPolicyRules List all Policy Rules
+		ListPolicyRules List all Policy Rules
 
-	Lists all policy rules
+		Lists all policy rules
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiListPolicyRulesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiListPolicyRulesRequest
 	*/
 	ListPolicyRules(ctx context.Context, policyId string) ApiListPolicyRulesRequest
 
 	// ListPolicyRulesExecute executes the request
 	//  @return []ListPolicyRules200ResponseInner
-	// TODU
 	ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (*APIResponse, error)
 
 	/*
-	MapResourceToPolicy Map a resource to a Policy
+		MapResourceToPolicy Map a resource to a Policy
 
-	Maps a resource to a Policy identified by `policyId`
+		Maps a resource to a Policy identified by `policyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiMapResourceToPolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiMapResourceToPolicyRequest
 	*/
 	MapResourceToPolicy(ctx context.Context, policyId string) ApiMapResourceToPolicyRequest
 
 	// MapResourceToPolicyExecute executes the request
 	//  @return PolicyMapping
-	// TODU
 	MapResourceToPolicyExecute(r ApiMapResourceToPolicyRequest) (*APIResponse, error)
 
 	/*
-	ReplacePolicy Replace a Policy
+		ReplacePolicy Replace a Policy
 
-	Replaces the properties of a Policy identified by `policyId`
+		Replaces the properties of a Policy identified by `policyId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@return ApiReplacePolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@return ApiReplacePolicyRequest
 	*/
 	ReplacePolicy(ctx context.Context, policyId string) ApiReplacePolicyRequest
 
 	// ReplacePolicyExecute executes the request
 	//  @return CreatePolicyRequest
-	// TODU
 	ReplacePolicyExecute(r ApiReplacePolicyRequest) (*APIResponse, error)
 
 	/*
-	ReplacePolicyRule Replace a Policy Rule
+		ReplacePolicyRule Replace a Policy Rule
 
-	Replaces the properties for a Policy Rule identified by `policyId` and `ruleId`
+		Replaces the properties for a Policy Rule identified by `policyId` and `ruleId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
-	@param ruleId `id` of the Policy Rule
-	@return ApiReplacePolicyRuleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param policyId `id` of the Policy
+		@param ruleId `id` of the Policy Rule
+		@return ApiReplacePolicyRuleRequest
 	*/
 	ReplacePolicyRule(ctx context.Context, policyId string, ruleId string) ApiReplacePolicyRuleRequest
 
 	// ReplacePolicyRuleExecute executes the request
 	//  @return ListPolicyRules200ResponseInner
-	// TODU
 	ReplacePolicyRuleExecute(r ApiReplacePolicyRuleRequest) (*APIResponse, error)
 }
 
@@ -368,22 +346,18 @@ The evaluation result simulates what the real-world authentication flow is and w
 type PolicyAPIService service
 
 type ApiActivatePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	// TODU
+	policyId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiActivatePolicyRequest) Data (data interface{}) ApiActivatePolicyRequest {
+func (r ApiActivatePolicyRequest) Data(data interface{}) ApiActivatePolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivatePolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivatePolicyExecute(r)
 }
@@ -397,13 +371,12 @@ Activates a policy
  @param policyId `id` of the Policy
  @return ApiActivatePolicyRequest
 */
-// TODU
 
 func (a *PolicyAPIService) ActivatePolicy(ctx context.Context, policyId string) ApiActivatePolicyRequest {
 	return ApiActivatePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -417,7 +390,7 @@ func (a *PolicyAPIService) ActivatePolicyExecute(r ApiActivatePolicyRequest) (*A
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -427,7 +400,6 @@ func (a *PolicyAPIService) ActivatePolicyExecute(r ApiActivatePolicyRequest) (*A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.ActivatePolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -455,7 +427,6 @@ func (a *PolicyAPIService) ActivatePolicyExecute(r ApiActivatePolicyRequest) (*A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -472,13 +443,11 @@ func (a *PolicyAPIService) ActivatePolicyExecute(r ApiActivatePolicyRequest) (*A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -487,7 +456,6 @@ func (a *PolicyAPIService) ActivatePolicyExecute(r ApiActivatePolicyRequest) (*A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -502,12 +470,10 @@ func (a *PolicyAPIService) ActivatePolicyExecute(r ApiActivatePolicyRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -516,12 +482,10 @@ func (a *PolicyAPIService) ActivatePolicyExecute(r ApiActivatePolicyRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -530,13 +494,11 @@ func (a *PolicyAPIService) ActivatePolicyExecute(r ApiActivatePolicyRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -545,23 +507,19 @@ func (a *PolicyAPIService) ActivatePolicyExecute(r ApiActivatePolicyRequest) (*A
 }
 
 type ApiActivatePolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	ruleId string
-	// TODU
+	policyId   string
+	ruleId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiActivatePolicyRuleRequest) Data (data interface{}) ApiActivatePolicyRuleRequest {
+func (r ApiActivatePolicyRuleRequest) Data(data interface{}) ApiActivatePolicyRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivatePolicyRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivatePolicyRuleExecute(r)
 }
@@ -576,14 +534,13 @@ Activates a Policy Rule identified by `policyId` and `ruleId`
  @param ruleId `id` of the Policy Rule
  @return ApiActivatePolicyRuleRequest
 */
-// TODU
 
 func (a *PolicyAPIService) ActivatePolicyRule(ctx context.Context, policyId string, ruleId string) ApiActivatePolicyRuleRequest {
 	return ApiActivatePolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		ruleId: ruleId,
+		ctx:        ctx,
+		policyId:   policyId,
+		ruleId:     ruleId,
 		retryCount: 0,
 	}
 }
@@ -597,7 +554,7 @@ func (a *PolicyAPIService) ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequ
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -607,7 +564,6 @@ func (a *PolicyAPIService) ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.ActivatePolicyRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -636,7 +592,6 @@ func (a *PolicyAPIService) ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -653,13 +608,11 @@ func (a *PolicyAPIService) ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -668,7 +621,6 @@ func (a *PolicyAPIService) ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -683,12 +635,10 @@ func (a *PolicyAPIService) ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -697,12 +647,10 @@ func (a *PolicyAPIService) ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -711,13 +659,11 @@ func (a *PolicyAPIService) ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -726,22 +672,18 @@ func (a *PolicyAPIService) ActivatePolicyRuleExecute(r ApiActivatePolicyRuleRequ
 }
 
 type ApiClonePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	// TODU
+	policyId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiClonePolicyRequest) Data (data interface{}) ApiClonePolicyRequest {
+func (r ApiClonePolicyRequest) Data(data interface{}) ApiClonePolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiClonePolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ClonePolicyExecute(r)
 }
@@ -755,13 +697,12 @@ Clones an existing policy
  @param policyId `id` of the Policy
  @return ApiClonePolicyRequest
 */
-// TODU
 
 func (a *PolicyAPIService) ClonePolicy(ctx context.Context, policyId string) ApiClonePolicyRequest {
 	return ApiClonePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -774,10 +715,9 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*APIResp
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -787,7 +727,6 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*APIResp
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.ClonePolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -815,7 +754,6 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*APIResp
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -832,13 +770,11 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*APIResp
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -847,7 +783,6 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*APIResp
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -862,12 +797,10 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -876,12 +809,10 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -890,12 +821,10 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -904,13 +833,11 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*APIResp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -919,11 +846,10 @@ func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*APIResp
 }
 
 type ApiCreatePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policy *CreatePolicyRequest
-	activate *bool
-	// TODU
+	policy     *CreatePolicyRequest
+	activate   *bool
 	data       interface{}
 	retryCount int32
 }
@@ -938,14 +864,11 @@ func (r ApiCreatePolicyRequest) Activate(activate bool) ApiCreatePolicyRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiCreatePolicyRequest) Data (data interface{}) ApiCreatePolicyRequest {
+func (r ApiCreatePolicyRequest) Data(data interface{}) ApiCreatePolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreatePolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreatePolicyExecute(r)
 }
@@ -958,12 +881,11 @@ Creates a policy
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreatePolicyRequest
 */
-// TODU
 
 func (a *PolicyAPIService) CreatePolicy(ctx context.Context) ApiCreatePolicyRequest {
 	return ApiCreatePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -976,10 +898,9 @@ func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*APIRe
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -989,7 +910,6 @@ func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*APIRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.CreatePolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1019,7 +939,6 @@ func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*APIRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.policy
 	localVarPostBody = r.data
@@ -1039,13 +958,11 @@ func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*APIRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1054,7 +971,6 @@ func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*APIRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1069,12 +985,10 @@ func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1083,12 +997,10 @@ func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1097,13 +1009,11 @@ func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1112,11 +1022,10 @@ func (a *PolicyAPIService) CreatePolicyExecute(r ApiCreatePolicyRequest) (*APIRe
 }
 
 type ApiCreatePolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
+	policyId   string
 	policyRule *ListPolicyRules200ResponseInner
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -1126,14 +1035,11 @@ func (r ApiCreatePolicyRuleRequest) PolicyRule(policyRule ListPolicyRules200Resp
 	return r
 }
 
-
-// TODU
-func (r ApiCreatePolicyRuleRequest) Data (data interface{}) ApiCreatePolicyRuleRequest {
+func (r ApiCreatePolicyRuleRequest) Data(data interface{}) ApiCreatePolicyRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreatePolicyRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreatePolicyRuleExecute(r)
 }
@@ -1147,13 +1053,12 @@ Creates a policy rule
  @param policyId `id` of the Policy
  @return ApiCreatePolicyRuleRequest
 */
-// TODU
 
 func (a *PolicyAPIService) CreatePolicyRule(ctx context.Context, policyId string) ApiCreatePolicyRuleRequest {
 	return ApiCreatePolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -1166,10 +1071,9 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1179,7 +1083,6 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.CreatePolicyRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1207,7 +1110,6 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.policyRule
 	localVarPostBody = r.data
@@ -1227,13 +1129,11 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1242,7 +1142,6 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1257,12 +1156,10 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1271,12 +1168,10 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1285,12 +1180,10 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1299,13 +1192,11 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1314,13 +1205,12 @@ func (a *PolicyAPIService) CreatePolicyRuleExecute(r ApiCreatePolicyRuleRequest)
 }
 
 type ApiCreatePolicySimulationRequest struct {
-	ctx context.Context
-	ApiService PolicyAPI
+	ctx            context.Context
+	ApiService     PolicyAPI
 	simulatePolicy *[]SimulatePolicyBody
-	expand *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	expand         *string
+	data           interface{}
+	retryCount     int32
 }
 
 func (r ApiCreatePolicySimulationRequest) SimulatePolicy(simulatePolicy []SimulatePolicyBody) ApiCreatePolicySimulationRequest {
@@ -1334,14 +1224,11 @@ func (r ApiCreatePolicySimulationRequest) Expand(expand string) ApiCreatePolicyS
 	return r
 }
 
-
-// TODU
-func (r ApiCreatePolicySimulationRequest) Data (data interface{}) ApiCreatePolicySimulationRequest {
+func (r ApiCreatePolicySimulationRequest) Data(data interface{}) ApiCreatePolicySimulationRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreatePolicySimulationRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreatePolicySimulationExecute(r)
 }
@@ -1355,12 +1242,11 @@ The evaluation result simulates what the real-world authentication flow is and w
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreatePolicySimulationRequest
 */
-// TODU
 
 func (a *PolicyAPIService) CreatePolicySimulation(ctx context.Context) ApiCreatePolicySimulationRequest {
 	return ApiCreatePolicySimulationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1373,10 +1259,9 @@ func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimula
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1386,7 +1271,6 @@ func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimula
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.CreatePolicySimulation")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1416,7 +1300,6 @@ func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimula
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.simulatePolicy
 	localVarPostBody = r.data
@@ -1436,13 +1319,11 @@ func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimula
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1451,7 +1332,6 @@ func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimula
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1466,12 +1346,10 @@ func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimula
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1480,12 +1358,10 @@ func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimula
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1494,13 +1370,11 @@ func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimula
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1509,22 +1383,18 @@ func (a *PolicyAPIService) CreatePolicySimulationExecute(r ApiCreatePolicySimula
 }
 
 type ApiDeactivatePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	// TODU
+	policyId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeactivatePolicyRequest) Data (data interface{}) ApiDeactivatePolicyRequest {
+func (r ApiDeactivatePolicyRequest) Data(data interface{}) ApiDeactivatePolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivatePolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivatePolicyExecute(r)
 }
@@ -1538,13 +1408,12 @@ Deactivates a policy
  @param policyId `id` of the Policy
  @return ApiDeactivatePolicyRequest
 */
-// TODU
 
 func (a *PolicyAPIService) DeactivatePolicy(ctx context.Context, policyId string) ApiDeactivatePolicyRequest {
 	return ApiDeactivatePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -1558,7 +1427,7 @@ func (a *PolicyAPIService) DeactivatePolicyExecute(r ApiDeactivatePolicyRequest)
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1568,7 +1437,6 @@ func (a *PolicyAPIService) DeactivatePolicyExecute(r ApiDeactivatePolicyRequest)
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.DeactivatePolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1596,7 +1464,6 @@ func (a *PolicyAPIService) DeactivatePolicyExecute(r ApiDeactivatePolicyRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1613,13 +1480,11 @@ func (a *PolicyAPIService) DeactivatePolicyExecute(r ApiDeactivatePolicyRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1628,7 +1493,6 @@ func (a *PolicyAPIService) DeactivatePolicyExecute(r ApiDeactivatePolicyRequest)
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1643,12 +1507,10 @@ func (a *PolicyAPIService) DeactivatePolicyExecute(r ApiDeactivatePolicyRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1657,12 +1519,10 @@ func (a *PolicyAPIService) DeactivatePolicyExecute(r ApiDeactivatePolicyRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1671,13 +1531,11 @@ func (a *PolicyAPIService) DeactivatePolicyExecute(r ApiDeactivatePolicyRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1686,23 +1544,19 @@ func (a *PolicyAPIService) DeactivatePolicyExecute(r ApiDeactivatePolicyRequest)
 }
 
 type ApiDeactivatePolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	ruleId string
-	// TODU
+	policyId   string
+	ruleId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeactivatePolicyRuleRequest) Data (data interface{}) ApiDeactivatePolicyRuleRequest {
+func (r ApiDeactivatePolicyRuleRequest) Data(data interface{}) ApiDeactivatePolicyRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivatePolicyRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivatePolicyRuleExecute(r)
 }
@@ -1717,14 +1571,13 @@ Deactivates a Policy Rule identified by `policyId` and `ruleId`
  @param ruleId `id` of the Policy Rule
  @return ApiDeactivatePolicyRuleRequest
 */
-// TODU
 
 func (a *PolicyAPIService) DeactivatePolicyRule(ctx context.Context, policyId string, ruleId string) ApiDeactivatePolicyRuleRequest {
 	return ApiDeactivatePolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		ruleId: ruleId,
+		ctx:        ctx,
+		policyId:   policyId,
+		ruleId:     ruleId,
 		retryCount: 0,
 	}
 }
@@ -1738,7 +1591,7 @@ func (a *PolicyAPIService) DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRule
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1748,7 +1601,6 @@ func (a *PolicyAPIService) DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRule
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.DeactivatePolicyRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1777,7 +1629,6 @@ func (a *PolicyAPIService) DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRule
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1794,13 +1645,11 @@ func (a *PolicyAPIService) DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRule
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1809,7 +1658,6 @@ func (a *PolicyAPIService) DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRule
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1824,12 +1672,10 @@ func (a *PolicyAPIService) DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRule
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1838,12 +1684,10 @@ func (a *PolicyAPIService) DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRule
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1852,13 +1696,11 @@ func (a *PolicyAPIService) DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRule
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1867,22 +1709,18 @@ func (a *PolicyAPIService) DeactivatePolicyRuleExecute(r ApiDeactivatePolicyRule
 }
 
 type ApiDeletePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	// TODU
+	policyId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeletePolicyRequest) Data (data interface{}) ApiDeletePolicyRequest {
+func (r ApiDeletePolicyRequest) Data(data interface{}) ApiDeletePolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeletePolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeletePolicyExecute(r)
 }
@@ -1896,13 +1734,12 @@ Deletes a policy
  @param policyId `id` of the Policy
  @return ApiDeletePolicyRequest
 */
-// TODU
 
 func (a *PolicyAPIService) DeletePolicy(ctx context.Context, policyId string) ApiDeletePolicyRequest {
 	return ApiDeletePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -1916,7 +1753,7 @@ func (a *PolicyAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIRe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1926,7 +1763,6 @@ func (a *PolicyAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.DeletePolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1954,7 +1790,6 @@ func (a *PolicyAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1971,13 +1806,11 @@ func (a *PolicyAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1986,7 +1819,6 @@ func (a *PolicyAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2001,12 +1833,10 @@ func (a *PolicyAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2015,12 +1845,10 @@ func (a *PolicyAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2029,13 +1857,11 @@ func (a *PolicyAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2044,23 +1870,19 @@ func (a *PolicyAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*APIRe
 }
 
 type ApiDeletePolicyResourceMappingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	mappingId string
-	// TODU
+	policyId   string
+	mappingId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeletePolicyResourceMappingRequest) Data (data interface{}) ApiDeletePolicyResourceMappingRequest {
+func (r ApiDeletePolicyResourceMappingRequest) Data(data interface{}) ApiDeletePolicyResourceMappingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeletePolicyResourceMappingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeletePolicyResourceMappingExecute(r)
 }
@@ -2075,14 +1897,13 @@ Deletes the resource Mapping for a Policy identified by  `policyId` and `mapping
  @param mappingId `id` of the policy resource Mapping
  @return ApiDeletePolicyResourceMappingRequest
 */
-// TODU
 
 func (a *PolicyAPIService) DeletePolicyResourceMapping(ctx context.Context, policyId string, mappingId string) ApiDeletePolicyResourceMappingRequest {
 	return ApiDeletePolicyResourceMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		mappingId: mappingId,
+		ctx:        ctx,
+		policyId:   policyId,
+		mappingId:  mappingId,
 		retryCount: 0,
 	}
 }
@@ -2096,7 +1917,7 @@ func (a *PolicyAPIService) DeletePolicyResourceMappingExecute(r ApiDeletePolicyR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2106,7 +1927,6 @@ func (a *PolicyAPIService) DeletePolicyResourceMappingExecute(r ApiDeletePolicyR
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.DeletePolicyResourceMapping")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2135,7 +1955,6 @@ func (a *PolicyAPIService) DeletePolicyResourceMappingExecute(r ApiDeletePolicyR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2152,13 +1971,11 @@ func (a *PolicyAPIService) DeletePolicyResourceMappingExecute(r ApiDeletePolicyR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2167,7 +1984,6 @@ func (a *PolicyAPIService) DeletePolicyResourceMappingExecute(r ApiDeletePolicyR
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2182,12 +1998,10 @@ func (a *PolicyAPIService) DeletePolicyResourceMappingExecute(r ApiDeletePolicyR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2196,12 +2010,10 @@ func (a *PolicyAPIService) DeletePolicyResourceMappingExecute(r ApiDeletePolicyR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2210,13 +2022,11 @@ func (a *PolicyAPIService) DeletePolicyResourceMappingExecute(r ApiDeletePolicyR
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2225,23 +2035,19 @@ func (a *PolicyAPIService) DeletePolicyResourceMappingExecute(r ApiDeletePolicyR
 }
 
 type ApiDeletePolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	ruleId string
-	// TODU
+	policyId   string
+	ruleId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeletePolicyRuleRequest) Data (data interface{}) ApiDeletePolicyRuleRequest {
+func (r ApiDeletePolicyRuleRequest) Data(data interface{}) ApiDeletePolicyRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeletePolicyRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeletePolicyRuleExecute(r)
 }
@@ -2256,14 +2062,13 @@ Deletes a Policy Rule identified by `policyId` and `ruleId`
  @param ruleId `id` of the Policy Rule
  @return ApiDeletePolicyRuleRequest
 */
-// TODU
 
 func (a *PolicyAPIService) DeletePolicyRule(ctx context.Context, policyId string, ruleId string) ApiDeletePolicyRuleRequest {
 	return ApiDeletePolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		ruleId: ruleId,
+		ctx:        ctx,
+		policyId:   policyId,
+		ruleId:     ruleId,
 		retryCount: 0,
 	}
 }
@@ -2277,7 +2082,7 @@ func (a *PolicyAPIService) DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest)
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2287,7 +2092,6 @@ func (a *PolicyAPIService) DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest)
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.DeletePolicyRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2316,7 +2120,6 @@ func (a *PolicyAPIService) DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2333,13 +2136,11 @@ func (a *PolicyAPIService) DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2348,7 +2149,6 @@ func (a *PolicyAPIService) DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest)
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2363,12 +2163,10 @@ func (a *PolicyAPIService) DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2377,12 +2175,10 @@ func (a *PolicyAPIService) DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2391,13 +2187,11 @@ func (a *PolicyAPIService) DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2406,11 +2200,10 @@ func (a *PolicyAPIService) DeletePolicyRuleExecute(r ApiDeletePolicyRuleRequest)
 }
 
 type ApiGetPolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	expand *string
-	// TODU
+	policyId   string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -2420,14 +2213,11 @@ func (r ApiGetPolicyRequest) Expand(expand string) ApiGetPolicyRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiGetPolicyRequest) Data (data interface{}) ApiGetPolicyRequest {
+func (r ApiGetPolicyRequest) Data(data interface{}) ApiGetPolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetPolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetPolicyExecute(r)
 }
@@ -2441,13 +2231,12 @@ Retrieves a policy
  @param policyId `id` of the Policy
  @return ApiGetPolicyRequest
 */
-// TODU
 
 func (a *PolicyAPIService) GetPolicy(ctx context.Context, policyId string) ApiGetPolicyRequest {
 	return ApiGetPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -2460,10 +2249,9 @@ func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*APIResponse
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2473,7 +2261,6 @@ func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*APIResponse
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.GetPolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2504,7 +2291,6 @@ func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*APIResponse
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2521,13 +2307,11 @@ func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*APIResponse
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2536,7 +2320,6 @@ func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*APIResponse
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2551,12 +2334,10 @@ func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2565,12 +2346,10 @@ func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2579,13 +2358,11 @@ func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*APIResponse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2594,23 +2371,19 @@ func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*APIResponse
 }
 
 type ApiGetPolicyMappingRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	mappingId string
-	// TODU
+	policyId   string
+	mappingId  string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetPolicyMappingRequest) Data (data interface{}) ApiGetPolicyMappingRequest {
+func (r ApiGetPolicyMappingRequest) Data(data interface{}) ApiGetPolicyMappingRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetPolicyMappingRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetPolicyMappingExecute(r)
 }
@@ -2625,14 +2398,13 @@ Retrieves a resource Mapping for a Policy identified by `policyId` and `mappingI
  @param mappingId `id` of the policy resource Mapping
  @return ApiGetPolicyMappingRequest
 */
-// TODU
 
 func (a *PolicyAPIService) GetPolicyMapping(ctx context.Context, policyId string, mappingId string) ApiGetPolicyMappingRequest {
 	return ApiGetPolicyMappingRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		mappingId: mappingId,
+		ctx:        ctx,
+		policyId:   policyId,
+		mappingId:  mappingId,
 		retryCount: 0,
 	}
 }
@@ -2645,10 +2417,9 @@ func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest)
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2658,7 +2429,6 @@ func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest)
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.GetPolicyMapping")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2687,7 +2457,6 @@ func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2704,13 +2473,11 @@ func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2719,7 +2486,6 @@ func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest)
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2734,12 +2500,10 @@ func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2748,12 +2512,10 @@ func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2762,13 +2524,11 @@ func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2777,23 +2537,19 @@ func (a *PolicyAPIService) GetPolicyMappingExecute(r ApiGetPolicyMappingRequest)
 }
 
 type ApiGetPolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	ruleId string
-	// TODU
+	policyId   string
+	ruleId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetPolicyRuleRequest) Data (data interface{}) ApiGetPolicyRuleRequest {
+func (r ApiGetPolicyRuleRequest) Data(data interface{}) ApiGetPolicyRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetPolicyRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetPolicyRuleExecute(r)
 }
@@ -2808,14 +2564,13 @@ Retrieves a policy rule
  @param ruleId `id` of the Policy Rule
  @return ApiGetPolicyRuleRequest
 */
-// TODU
 
 func (a *PolicyAPIService) GetPolicyRule(ctx context.Context, policyId string, ruleId string) ApiGetPolicyRuleRequest {
 	return ApiGetPolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		ruleId: ruleId,
+		ctx:        ctx,
+		policyId:   policyId,
+		ruleId:     ruleId,
 		retryCount: 0,
 	}
 }
@@ -2828,10 +2583,9 @@ func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*API
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2841,7 +2595,6 @@ func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.GetPolicyRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2870,7 +2623,6 @@ func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2887,13 +2639,11 @@ func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2902,7 +2652,6 @@ func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2917,12 +2666,10 @@ func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2931,12 +2678,10 @@ func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2945,13 +2690,11 @@ func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2960,12 +2703,11 @@ func (a *PolicyAPIService) GetPolicyRuleExecute(r ApiGetPolicyRuleRequest) (*API
 }
 
 type ApiListPoliciesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	type_ *string
-	status *string
-	expand *string
-	// TODU
+	type_      *string
+	status     *string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -2985,14 +2727,11 @@ func (r ApiListPoliciesRequest) Expand(expand string) ApiListPoliciesRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiListPoliciesRequest) Data (data interface{}) ApiListPoliciesRequest {
+func (r ApiListPoliciesRequest) Data(data interface{}) ApiListPoliciesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListPoliciesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListPoliciesExecute(r)
 }
@@ -3005,12 +2744,11 @@ Lists all policies with the specified type
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListPoliciesRequest
 */
-// TODU
 
 func (a *PolicyAPIService) ListPolicies(ctx context.Context) ApiListPoliciesRequest {
 	return ApiListPoliciesRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -3023,10 +2761,9 @@ func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*APIRe
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3036,7 +2773,6 @@ func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*APIRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.ListPolicies")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3070,7 +2806,6 @@ func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*APIRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3087,13 +2822,11 @@ func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*APIRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3102,7 +2835,6 @@ func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*APIRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3117,12 +2849,10 @@ func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3131,13 +2861,11 @@ func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*APIRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3146,22 +2874,18 @@ func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*APIRe
 }
 
 type ApiListPolicyAppsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	// TODU
+	policyId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListPolicyAppsRequest) Data (data interface{}) ApiListPolicyAppsRequest {
+func (r ApiListPolicyAppsRequest) Data(data interface{}) ApiListPolicyAppsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListPolicyAppsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListPolicyAppsExecute(r)
 }
@@ -3179,13 +2903,12 @@ Lists all applications mapped to a policy identified by `policyId`
 
 Deprecated
 */
-// TODU
 
 func (a *PolicyAPIService) ListPolicyApps(ctx context.Context, policyId string) ApiListPolicyAppsRequest {
 	return ApiListPolicyAppsRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -3199,10 +2922,9 @@ func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) (*A
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3212,7 +2934,6 @@ func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) (*A
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.ListPolicyApps")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3240,7 +2961,6 @@ func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) (*A
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3257,13 +2977,11 @@ func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) (*A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3272,7 +2990,6 @@ func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) (*A
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3287,12 +3004,10 @@ func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3301,12 +3016,10 @@ func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3315,13 +3028,11 @@ func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) (*A
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3330,22 +3041,18 @@ func (a *PolicyAPIService) ListPolicyAppsExecute(r ApiListPolicyAppsRequest) (*A
 }
 
 type ApiListPolicyMappingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	// TODU
+	policyId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListPolicyMappingsRequest) Data (data interface{}) ApiListPolicyMappingsRequest {
+func (r ApiListPolicyMappingsRequest) Data(data interface{}) ApiListPolicyMappingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListPolicyMappingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListPolicyMappingsExecute(r)
 }
@@ -3359,13 +3066,12 @@ Lists all resources mapped to a Policy identified by `policyId`
  @param policyId `id` of the Policy
  @return ApiListPolicyMappingsRequest
 */
-// TODU
 
 func (a *PolicyAPIService) ListPolicyMappings(ctx context.Context, policyId string) ApiListPolicyMappingsRequest {
 	return ApiListPolicyMappingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -3378,10 +3084,9 @@ func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequ
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3391,7 +3096,6 @@ func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.ListPolicyMappings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3419,7 +3123,6 @@ func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3436,13 +3139,11 @@ func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3451,7 +3152,6 @@ func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3466,12 +3166,10 @@ func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3480,12 +3178,10 @@ func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3494,13 +3190,11 @@ func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3509,22 +3203,18 @@ func (a *PolicyAPIService) ListPolicyMappingsExecute(r ApiListPolicyMappingsRequ
 }
 
 type ApiListPolicyRulesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	// TODU
+	policyId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListPolicyRulesRequest) Data (data interface{}) ApiListPolicyRulesRequest {
+func (r ApiListPolicyRulesRequest) Data(data interface{}) ApiListPolicyRulesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListPolicyRulesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListPolicyRulesExecute(r)
 }
@@ -3538,13 +3228,12 @@ Lists all policy rules
  @param policyId `id` of the Policy
  @return ApiListPolicyRulesRequest
 */
-// TODU
 
 func (a *PolicyAPIService) ListPolicyRules(ctx context.Context, policyId string) ApiListPolicyRulesRequest {
 	return ApiListPolicyRulesRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -3557,10 +3246,9 @@ func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3570,7 +3258,6 @@ func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.ListPolicyRules")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3598,7 +3285,6 @@ func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3615,13 +3301,11 @@ func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3630,7 +3314,6 @@ func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3645,12 +3328,10 @@ func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3659,12 +3340,10 @@ func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3673,13 +3352,11 @@ func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3688,13 +3365,12 @@ func (a *PolicyAPIService) ListPolicyRulesExecute(r ApiListPolicyRulesRequest) (
 }
 
 type ApiMapResourceToPolicyRequest struct {
-	ctx context.Context
-	ApiService PolicyAPI
-	policyId string
+	ctx                  context.Context
+	ApiService           PolicyAPI
+	policyId             string
 	policyMappingRequest *PolicyMappingRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                 interface{}
+	retryCount           int32
 }
 
 func (r ApiMapResourceToPolicyRequest) PolicyMappingRequest(policyMappingRequest PolicyMappingRequest) ApiMapResourceToPolicyRequest {
@@ -3702,14 +3378,11 @@ func (r ApiMapResourceToPolicyRequest) PolicyMappingRequest(policyMappingRequest
 	return r
 }
 
-
-// TODU
-func (r ApiMapResourceToPolicyRequest) Data (data interface{}) ApiMapResourceToPolicyRequest {
+func (r ApiMapResourceToPolicyRequest) Data(data interface{}) ApiMapResourceToPolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiMapResourceToPolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.MapResourceToPolicyExecute(r)
 }
@@ -3723,13 +3396,12 @@ Maps a resource to a Policy identified by `policyId`
  @param policyId `id` of the Policy
  @return ApiMapResourceToPolicyRequest
 */
-// TODU
 
 func (a *PolicyAPIService) MapResourceToPolicy(ctx context.Context, policyId string) ApiMapResourceToPolicyRequest {
 	return ApiMapResourceToPolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -3742,10 +3414,9 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3755,7 +3426,6 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.MapResourceToPolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3783,7 +3453,6 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.policyMappingRequest
 	localVarPostBody = r.data
@@ -3803,13 +3472,11 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3818,7 +3485,6 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3833,12 +3499,10 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3847,12 +3511,10 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3861,12 +3523,10 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3875,13 +3535,11 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3890,11 +3548,10 @@ func (a *PolicyAPIService) MapResourceToPolicyExecute(r ApiMapResourceToPolicyRe
 }
 
 type ApiReplacePolicyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	policy *CreatePolicyRequest
-	// TODU
+	policyId   string
+	policy     *CreatePolicyRequest
 	data       interface{}
 	retryCount int32
 }
@@ -3904,14 +3561,11 @@ func (r ApiReplacePolicyRequest) Policy(policy CreatePolicyRequest) ApiReplacePo
 	return r
 }
 
-
-// TODU
-func (r ApiReplacePolicyRequest) Data (data interface{}) ApiReplacePolicyRequest {
+func (r ApiReplacePolicyRequest) Data(data interface{}) ApiReplacePolicyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplacePolicyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplacePolicyExecute(r)
 }
@@ -3925,13 +3579,12 @@ Replaces the properties of a Policy identified by `policyId`
  @param policyId `id` of the Policy
  @return ApiReplacePolicyRequest
 */
-// TODU
 
 func (a *PolicyAPIService) ReplacePolicy(ctx context.Context, policyId string) ApiReplacePolicyRequest {
 	return ApiReplacePolicyRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
+		ctx:        ctx,
+		policyId:   policyId,
 		retryCount: 0,
 	}
 }
@@ -3944,10 +3597,9 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*API
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3957,7 +3609,6 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*API
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.ReplacePolicy")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3985,7 +3636,6 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*API
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.policy
 	localVarPostBody = r.data
@@ -4005,13 +3655,11 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*API
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4020,7 +3668,6 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*API
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4035,12 +3682,10 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -4049,12 +3694,10 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4063,12 +3706,10 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4077,13 +3718,11 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*API
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4092,12 +3731,11 @@ func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*API
 }
 
 type ApiReplacePolicyRuleRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService PolicyAPI
-	policyId string
-	ruleId string
+	policyId   string
+	ruleId     string
 	policyRule *ListPolicyRules200ResponseInner
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -4107,14 +3745,11 @@ func (r ApiReplacePolicyRuleRequest) PolicyRule(policyRule ListPolicyRules200Res
 	return r
 }
 
-
-// TODU
-func (r ApiReplacePolicyRuleRequest) Data (data interface{}) ApiReplacePolicyRuleRequest {
+func (r ApiReplacePolicyRuleRequest) Data(data interface{}) ApiReplacePolicyRuleRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplacePolicyRuleRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplacePolicyRuleExecute(r)
 }
@@ -4129,14 +3764,13 @@ Replaces the properties for a Policy Rule identified by `policyId` and `ruleId`
  @param ruleId `id` of the Policy Rule
  @return ApiReplacePolicyRuleRequest
 */
-// TODU
 
 func (a *PolicyAPIService) ReplacePolicyRule(ctx context.Context, policyId string, ruleId string) ApiReplacePolicyRuleRequest {
 	return ApiReplacePolicyRuleRequest{
 		ApiService: a,
-		ctx: ctx,
-		policyId: policyId,
-		ruleId: ruleId,
+		ctx:        ctx,
+		policyId:   policyId,
+		ruleId:     ruleId,
 		retryCount: 0,
 	}
 }
@@ -4149,10 +3783,9 @@ func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleReques
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4162,7 +3795,6 @@ func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleReques
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PolicyAPIService.ReplacePolicyRule")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4191,7 +3823,6 @@ func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.policyRule
 	localVarPostBody = r.data
@@ -4211,13 +3842,11 @@ func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4226,7 +3855,6 @@ func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleReques
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4241,12 +3869,10 @@ func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -4255,12 +3881,10 @@ func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4269,12 +3893,10 @@ func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4283,13 +3905,11 @@ func (a *PolicyAPIService) ReplacePolicyRuleExecute(r ApiReplacePolicyRuleReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

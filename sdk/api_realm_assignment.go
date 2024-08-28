@@ -17,148 +17,138 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type RealmAssignmentAPI interface {
 
 	/*
-	ActivateRealmAssignment Activate a Realm Assignment
+		ActivateRealmAssignment Activate a Realm Assignment
 
-	Activates a Realm Assignment
+		Activates a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param assignmentId `id` of the Realm Assignment
-	@return ApiActivateRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param assignmentId `id` of the Realm Assignment
+		@return ApiActivateRealmAssignmentRequest
 	*/
 	ActivateRealmAssignment(ctx context.Context, assignmentId string) ApiActivateRealmAssignmentRequest
 
 	// ActivateRealmAssignmentExecute executes the request
-	// TODU
 	ActivateRealmAssignmentExecute(r ApiActivateRealmAssignmentRequest) (*APIResponse, error)
 
 	/*
-	CreateRealmAssignment Create a Realm Assignment
+		CreateRealmAssignment Create a Realm Assignment
 
-	Creates a new Realm Assignment
+		Creates a new Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateRealmAssignmentRequest
 	*/
 	CreateRealmAssignment(ctx context.Context) ApiCreateRealmAssignmentRequest
 
 	// CreateRealmAssignmentExecute executes the request
 	//  @return RealmAssignment
-	// TODU
 	CreateRealmAssignmentExecute(r ApiCreateRealmAssignmentRequest) (*APIResponse, error)
 
 	/*
-	DeactivateRealmAssignment Deactivate a Realm Assignment
+		DeactivateRealmAssignment Deactivate a Realm Assignment
 
-	Deactivates a Realm Assignment
+		Deactivates a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param assignmentId `id` of the Realm Assignment
-	@return ApiDeactivateRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param assignmentId `id` of the Realm Assignment
+		@return ApiDeactivateRealmAssignmentRequest
 	*/
 	DeactivateRealmAssignment(ctx context.Context, assignmentId string) ApiDeactivateRealmAssignmentRequest
 
 	// DeactivateRealmAssignmentExecute executes the request
-	// TODU
 	DeactivateRealmAssignmentExecute(r ApiDeactivateRealmAssignmentRequest) (*APIResponse, error)
 
 	/*
-	DeleteRealmAssignment Delete a Realm Assignment
+		DeleteRealmAssignment Delete a Realm Assignment
 
-	Deletes a Realm Assignment
+		Deletes a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param assignmentId `id` of the Realm Assignment
-	@return ApiDeleteRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param assignmentId `id` of the Realm Assignment
+		@return ApiDeleteRealmAssignmentRequest
 	*/
 	DeleteRealmAssignment(ctx context.Context, assignmentId string) ApiDeleteRealmAssignmentRequest
 
 	// DeleteRealmAssignmentExecute executes the request
-	// TODU
 	DeleteRealmAssignmentExecute(r ApiDeleteRealmAssignmentRequest) (*APIResponse, error)
 
 	/*
-	ExecuteRealmAssignment Execute a Realm Assignment
+		ExecuteRealmAssignment Execute a Realm Assignment
 
-	Executes a Realm Assignment
+		Executes a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiExecuteRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiExecuteRealmAssignmentRequest
 	*/
 	ExecuteRealmAssignment(ctx context.Context) ApiExecuteRealmAssignmentRequest
 
 	// ExecuteRealmAssignmentExecute executes the request
 	//  @return OperationResponse
-	// TODU
 	ExecuteRealmAssignmentExecute(r ApiExecuteRealmAssignmentRequest) (*APIResponse, error)
 
 	/*
-	GetRealmAssignment Retrieve a Realm Assignment
+		GetRealmAssignment Retrieve a Realm Assignment
 
-	Retrieves a Realm Assignment
+		Retrieves a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param assignmentId `id` of the Realm Assignment
-	@return ApiGetRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param assignmentId `id` of the Realm Assignment
+		@return ApiGetRealmAssignmentRequest
 	*/
 	GetRealmAssignment(ctx context.Context, assignmentId string) ApiGetRealmAssignmentRequest
 
 	// GetRealmAssignmentExecute executes the request
 	//  @return RealmAssignment
-	// TODU
 	GetRealmAssignmentExecute(r ApiGetRealmAssignmentRequest) (*APIResponse, error)
 
 	/*
-	ListRealmAssignmentOperations List all Realm Assignment operations
+		ListRealmAssignmentOperations List all Realm Assignment operations
 
-	Lists all Realm Assignment operations. The upper limit is 200 and operations are sorted in descending order from most recent to oldest by id
+		Lists all Realm Assignment operations. The upper limit is 200 and operations are sorted in descending order from most recent to oldest by id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRealmAssignmentOperationsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListRealmAssignmentOperationsRequest
 	*/
 	ListRealmAssignmentOperations(ctx context.Context) ApiListRealmAssignmentOperationsRequest
 
 	// ListRealmAssignmentOperationsExecute executes the request
 	//  @return []OperationResponse
-	// TODU
 	ListRealmAssignmentOperationsExecute(r ApiListRealmAssignmentOperationsRequest) (*APIResponse, error)
 
 	/*
-	ListRealmAssignments List all Realm Assignments
+		ListRealmAssignments List all Realm Assignments
 
-	Lists all Realm Assignments
+		Lists all Realm Assignments
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRealmAssignmentsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListRealmAssignmentsRequest
 	*/
 	ListRealmAssignments(ctx context.Context) ApiListRealmAssignmentsRequest
 
 	// ListRealmAssignmentsExecute executes the request
 	//  @return []RealmAssignment
-	// TODU
 	ListRealmAssignmentsExecute(r ApiListRealmAssignmentsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceRealmAssignment Replace a Realm Assignment
+		ReplaceRealmAssignment Replace a Realm Assignment
 
-	Replaces a Realm Assignment
+		Replaces a Realm Assignment
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param assignmentId `id` of the Realm Assignment
-	@return ApiReplaceRealmAssignmentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param assignmentId `id` of the Realm Assignment
+		@return ApiReplaceRealmAssignmentRequest
 	*/
 	ReplaceRealmAssignment(ctx context.Context, assignmentId string) ApiReplaceRealmAssignmentRequest
 
 	// ReplaceRealmAssignmentExecute executes the request
 	//  @return RealmAssignment
-	// TODU
 	ReplaceRealmAssignmentExecute(r ApiReplaceRealmAssignmentRequest) (*APIResponse, error)
 }
 
@@ -166,22 +156,18 @@ type RealmAssignmentAPI interface {
 type RealmAssignmentAPIService service
 
 type ApiActivateRealmAssignmentRequest struct {
-	ctx context.Context
-	ApiService RealmAssignmentAPI
+	ctx          context.Context
+	ApiService   RealmAssignmentAPI
 	assignmentId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiActivateRealmAssignmentRequest) Data (data interface{}) ApiActivateRealmAssignmentRequest {
+func (r ApiActivateRealmAssignmentRequest) Data(data interface{}) ApiActivateRealmAssignmentRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateRealmAssignmentRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateRealmAssignmentExecute(r)
 }
@@ -195,14 +181,13 @@ Activates a Realm Assignment
  @param assignmentId `id` of the Realm Assignment
  @return ApiActivateRealmAssignmentRequest
 */
-// TODU
 
 func (a *RealmAssignmentAPIService) ActivateRealmAssignment(ctx context.Context, assignmentId string) ApiActivateRealmAssignmentRequest {
 	return ApiActivateRealmAssignmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		assignmentId: assignmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -215,7 +200,7 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -225,7 +210,6 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RealmAssignmentAPIService.ActivateRealmAssignment")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -253,7 +237,6 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -270,13 +253,11 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -285,7 +266,6 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -300,12 +280,10 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -314,12 +292,10 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -328,12 +304,10 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -342,13 +316,11 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -357,10 +329,9 @@ func (a *RealmAssignmentAPIService) ActivateRealmAssignmentExecute(r ApiActivate
 }
 
 type ApiCreateRealmAssignmentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAssignmentAPI
-	body *CreateRealmAssignmentRequest
-	// TODU
+	body       *CreateRealmAssignmentRequest
 	data       interface{}
 	retryCount int32
 }
@@ -370,14 +341,11 @@ func (r ApiCreateRealmAssignmentRequest) Body(body CreateRealmAssignmentRequest)
 	return r
 }
 
-
-// TODU
-func (r ApiCreateRealmAssignmentRequest) Data (data interface{}) ApiCreateRealmAssignmentRequest {
+func (r ApiCreateRealmAssignmentRequest) Data(data interface{}) ApiCreateRealmAssignmentRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateRealmAssignmentRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateRealmAssignmentExecute(r)
 }
@@ -390,12 +358,11 @@ Creates a new Realm Assignment
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateRealmAssignmentRequest
 */
-// TODU
 
 func (a *RealmAssignmentAPIService) CreateRealmAssignment(ctx context.Context) ApiCreateRealmAssignmentRequest {
 	return ApiCreateRealmAssignmentRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -408,10 +375,9 @@ func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateReal
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -421,7 +387,6 @@ func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateReal
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RealmAssignmentAPIService.CreateRealmAssignment")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -448,7 +413,6 @@ func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateReal
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -468,13 +432,11 @@ func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateReal
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -483,7 +445,6 @@ func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateReal
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -498,12 +459,10 @@ func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateReal
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -512,12 +471,10 @@ func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateReal
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -526,13 +483,11 @@ func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateReal
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -541,22 +496,18 @@ func (a *RealmAssignmentAPIService) CreateRealmAssignmentExecute(r ApiCreateReal
 }
 
 type ApiDeactivateRealmAssignmentRequest struct {
-	ctx context.Context
-	ApiService RealmAssignmentAPI
+	ctx          context.Context
+	ApiService   RealmAssignmentAPI
 	assignmentId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeactivateRealmAssignmentRequest) Data (data interface{}) ApiDeactivateRealmAssignmentRequest {
+func (r ApiDeactivateRealmAssignmentRequest) Data(data interface{}) ApiDeactivateRealmAssignmentRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateRealmAssignmentRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateRealmAssignmentExecute(r)
 }
@@ -570,14 +521,13 @@ Deactivates a Realm Assignment
  @param assignmentId `id` of the Realm Assignment
  @return ApiDeactivateRealmAssignmentRequest
 */
-// TODU
 
 func (a *RealmAssignmentAPIService) DeactivateRealmAssignment(ctx context.Context, assignmentId string) ApiDeactivateRealmAssignmentRequest {
 	return ApiDeactivateRealmAssignmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		assignmentId: assignmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -590,7 +540,7 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -600,7 +550,6 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RealmAssignmentAPIService.DeactivateRealmAssignment")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -628,7 +577,6 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -645,13 +593,11 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -660,7 +606,6 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -675,12 +620,10 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -689,12 +632,10 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -703,12 +644,10 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -717,13 +656,11 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -732,22 +669,18 @@ func (a *RealmAssignmentAPIService) DeactivateRealmAssignmentExecute(r ApiDeacti
 }
 
 type ApiDeleteRealmAssignmentRequest struct {
-	ctx context.Context
-	ApiService RealmAssignmentAPI
+	ctx          context.Context
+	ApiService   RealmAssignmentAPI
 	assignmentId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiDeleteRealmAssignmentRequest) Data (data interface{}) ApiDeleteRealmAssignmentRequest {
+func (r ApiDeleteRealmAssignmentRequest) Data(data interface{}) ApiDeleteRealmAssignmentRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteRealmAssignmentRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteRealmAssignmentExecute(r)
 }
@@ -761,14 +694,13 @@ Deletes a Realm Assignment
  @param assignmentId `id` of the Realm Assignment
  @return ApiDeleteRealmAssignmentRequest
 */
-// TODU
 
 func (a *RealmAssignmentAPIService) DeleteRealmAssignment(ctx context.Context, assignmentId string) ApiDeleteRealmAssignmentRequest {
 	return ApiDeleteRealmAssignmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		assignmentId: assignmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -781,7 +713,7 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -791,7 +723,6 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RealmAssignmentAPIService.DeleteRealmAssignment")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -819,7 +750,6 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -836,13 +766,11 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -851,7 +779,6 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -866,12 +793,10 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -880,12 +805,10 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -894,12 +817,10 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -908,13 +829,11 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -923,10 +842,9 @@ func (a *RealmAssignmentAPIService) DeleteRealmAssignmentExecute(r ApiDeleteReal
 }
 
 type ApiExecuteRealmAssignmentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAssignmentAPI
-	body *OperationRequest
-	// TODU
+	body       *OperationRequest
 	data       interface{}
 	retryCount int32
 }
@@ -936,14 +854,11 @@ func (r ApiExecuteRealmAssignmentRequest) Body(body OperationRequest) ApiExecute
 	return r
 }
 
-
-// TODU
-func (r ApiExecuteRealmAssignmentRequest) Data (data interface{}) ApiExecuteRealmAssignmentRequest {
+func (r ApiExecuteRealmAssignmentRequest) Data(data interface{}) ApiExecuteRealmAssignmentRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiExecuteRealmAssignmentRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ExecuteRealmAssignmentExecute(r)
 }
@@ -956,12 +871,11 @@ Executes a Realm Assignment
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiExecuteRealmAssignmentRequest
 */
-// TODU
 
 func (a *RealmAssignmentAPIService) ExecuteRealmAssignment(ctx context.Context) ApiExecuteRealmAssignmentRequest {
 	return ApiExecuteRealmAssignmentRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -974,10 +888,9 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRe
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -987,7 +900,6 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RealmAssignmentAPIService.ExecuteRealmAssignment")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1014,7 +926,6 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -1034,13 +945,11 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1049,7 +958,6 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1064,12 +972,10 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1078,12 +984,10 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1092,13 +996,11 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1107,22 +1009,18 @@ func (a *RealmAssignmentAPIService) ExecuteRealmAssignmentExecute(r ApiExecuteRe
 }
 
 type ApiGetRealmAssignmentRequest struct {
-	ctx context.Context
-	ApiService RealmAssignmentAPI
+	ctx          context.Context
+	ApiService   RealmAssignmentAPI
 	assignmentId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data         interface{}
+	retryCount   int32
 }
 
-
-// TODU
-func (r ApiGetRealmAssignmentRequest) Data (data interface{}) ApiGetRealmAssignmentRequest {
+func (r ApiGetRealmAssignmentRequest) Data(data interface{}) ApiGetRealmAssignmentRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetRealmAssignmentRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetRealmAssignmentExecute(r)
 }
@@ -1136,14 +1034,13 @@ Retrieves a Realm Assignment
  @param assignmentId `id` of the Realm Assignment
  @return ApiGetRealmAssignmentRequest
 */
-// TODU
 
 func (a *RealmAssignmentAPIService) GetRealmAssignment(ctx context.Context, assignmentId string) ApiGetRealmAssignmentRequest {
 	return ApiGetRealmAssignmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		assignmentId: assignmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1155,10 +1052,9 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1168,7 +1064,6 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RealmAssignmentAPIService.GetRealmAssignment")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1196,7 +1091,6 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1213,13 +1107,11 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1228,7 +1120,6 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1243,12 +1134,10 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1257,12 +1146,10 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1271,12 +1158,10 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1285,13 +1170,11 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1300,11 +1183,10 @@ func (a *RealmAssignmentAPIService) GetRealmAssignmentExecute(r ApiGetRealmAssig
 }
 
 type ApiListRealmAssignmentOperationsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAssignmentAPI
-	limit *int32
-	after *string
-	// TODU
+	limit      *int32
+	after      *string
 	data       interface{}
 	retryCount int32
 }
@@ -1321,14 +1203,11 @@ func (r ApiListRealmAssignmentOperationsRequest) After(after string) ApiListReal
 	return r
 }
 
-
-// TODU
-func (r ApiListRealmAssignmentOperationsRequest) Data (data interface{}) ApiListRealmAssignmentOperationsRequest {
+func (r ApiListRealmAssignmentOperationsRequest) Data(data interface{}) ApiListRealmAssignmentOperationsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListRealmAssignmentOperationsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListRealmAssignmentOperationsExecute(r)
 }
@@ -1341,12 +1220,11 @@ Lists all Realm Assignment operations. The upper limit is 200 and operations are
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListRealmAssignmentOperationsRequest
 */
-// TODU
 
 func (a *RealmAssignmentAPIService) ListRealmAssignmentOperations(ctx context.Context) ApiListRealmAssignmentOperationsRequest {
 	return ApiListRealmAssignmentOperationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1359,10 +1237,9 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiLi
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1372,7 +1249,6 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiLi
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RealmAssignmentAPIService.ListRealmAssignmentOperations")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1405,7 +1281,6 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiLi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1422,13 +1297,11 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiLi
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1437,7 +1310,6 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiLi
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1452,12 +1324,10 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiLi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1466,13 +1336,11 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiLi
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1481,11 +1349,10 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentOperationsExecute(r ApiLi
 }
 
 type ApiListRealmAssignmentsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RealmAssignmentAPI
-	limit *int32
-	after *string
-	// TODU
+	limit      *int32
+	after      *string
 	data       interface{}
 	retryCount int32
 }
@@ -1502,14 +1369,11 @@ func (r ApiListRealmAssignmentsRequest) After(after string) ApiListRealmAssignme
 	return r
 }
 
-
-// TODU
-func (r ApiListRealmAssignmentsRequest) Data (data interface{}) ApiListRealmAssignmentsRequest {
+func (r ApiListRealmAssignmentsRequest) Data(data interface{}) ApiListRealmAssignmentsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListRealmAssignmentsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListRealmAssignmentsExecute(r)
 }
@@ -1522,12 +1386,11 @@ Lists all Realm Assignments
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListRealmAssignmentsRequest
 */
-// TODU
 
 func (a *RealmAssignmentAPIService) ListRealmAssignments(ctx context.Context) ApiListRealmAssignmentsRequest {
 	return ApiListRealmAssignmentsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1540,10 +1403,9 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentsExecute(r ApiListRealmAs
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1553,7 +1415,6 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentsExecute(r ApiListRealmAs
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RealmAssignmentAPIService.ListRealmAssignments")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1586,7 +1447,6 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentsExecute(r ApiListRealmAs
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1603,13 +1463,11 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentsExecute(r ApiListRealmAs
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1618,7 +1476,6 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentsExecute(r ApiListRealmAs
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1633,12 +1490,10 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentsExecute(r ApiListRealmAs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1647,13 +1502,11 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentsExecute(r ApiListRealmAs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1662,13 +1515,12 @@ func (a *RealmAssignmentAPIService) ListRealmAssignmentsExecute(r ApiListRealmAs
 }
 
 type ApiReplaceRealmAssignmentRequest struct {
-	ctx context.Context
-	ApiService RealmAssignmentAPI
+	ctx          context.Context
+	ApiService   RealmAssignmentAPI
 	assignmentId string
-	body *UpdateRealmAssignmentRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	body         *UpdateRealmAssignmentRequest
+	data         interface{}
+	retryCount   int32
 }
 
 func (r ApiReplaceRealmAssignmentRequest) Body(body UpdateRealmAssignmentRequest) ApiReplaceRealmAssignmentRequest {
@@ -1676,14 +1528,11 @@ func (r ApiReplaceRealmAssignmentRequest) Body(body UpdateRealmAssignmentRequest
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceRealmAssignmentRequest) Data (data interface{}) ApiReplaceRealmAssignmentRequest {
+func (r ApiReplaceRealmAssignmentRequest) Data(data interface{}) ApiReplaceRealmAssignmentRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceRealmAssignmentRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceRealmAssignmentExecute(r)
 }
@@ -1697,14 +1546,13 @@ Replaces a Realm Assignment
  @param assignmentId `id` of the Realm Assignment
  @return ApiReplaceRealmAssignmentRequest
 */
-// TODU
 
 func (a *RealmAssignmentAPIService) ReplaceRealmAssignment(ctx context.Context, assignmentId string) ApiReplaceRealmAssignmentRequest {
 	return ApiReplaceRealmAssignmentRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:   a,
+		ctx:          ctx,
 		assignmentId: assignmentId,
-		retryCount: 0,
+		retryCount:   0,
 	}
 }
 
@@ -1716,10 +1564,9 @@ func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRe
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1729,7 +1576,6 @@ func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RealmAssignmentAPIService.ReplaceRealmAssignment")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1757,7 +1603,6 @@ func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -1777,13 +1622,11 @@ func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1792,7 +1635,6 @@ func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1807,12 +1649,10 @@ func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1821,12 +1661,10 @@ func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1835,12 +1673,10 @@ func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1849,13 +1685,11 @@ func (a *RealmAssignmentAPIService) ReplaceRealmAssignmentExecute(r ApiReplaceRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

@@ -17,413 +17,387 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
-	"strings"
 	"os"
+	"strings"
+	"time"
 )
-
 
 type IdentityProviderAPI interface {
 
 	/*
-	ActivateIdentityProvider Activate an Identity Provider
+		ActivateIdentityProvider Activate an Identity Provider
 
-	Activates an inactive IdP
+		Activates an inactive IdP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiActivateIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiActivateIdentityProviderRequest
 	*/
 	ActivateIdentityProvider(ctx context.Context, idpId string) ApiActivateIdentityProviderRequest
 
 	// ActivateIdentityProviderExecute executes the request
 	//  @return IdentityProvider
-	// TODU
 	ActivateIdentityProviderExecute(r ApiActivateIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	CloneIdentityProviderKey Clone a Signing Credential Key
+		CloneIdentityProviderKey Clone a Signing Credential Key
 
-	Clones a X.509 certificate for an IdP signing key credential from a source IdP to target IdP
+		Clones a X.509 certificate for an IdP signing key credential from a source IdP to target IdP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param idpKeyId `id` of IdP Key
-	@return ApiCloneIdentityProviderKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param idpKeyId `id` of IdP Key
+		@return ApiCloneIdentityProviderKeyRequest
 	*/
 	CloneIdentityProviderKey(ctx context.Context, idpId string, idpKeyId string) ApiCloneIdentityProviderKeyRequest
 
 	// CloneIdentityProviderKeyExecute executes the request
 	//  @return JsonWebKey
-	// TODU
 	CloneIdentityProviderKeyExecute(r ApiCloneIdentityProviderKeyRequest) (*APIResponse, error)
 
 	/*
-	CreateIdentityProvider Create an Identity Provider
+		CreateIdentityProvider Create an Identity Provider
 
-	Creates a new identity provider integration
+		Creates a new identity provider integration
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateIdentityProviderRequest
 	*/
 	CreateIdentityProvider(ctx context.Context) ApiCreateIdentityProviderRequest
 
 	// CreateIdentityProviderExecute executes the request
 	//  @return IdentityProvider
-	// TODU
 	CreateIdentityProviderExecute(r ApiCreateIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	CreateIdentityProviderKey Create an X.509 Certificate Public Key
+		CreateIdentityProviderKey Create an X.509 Certificate Public Key
 
-	Creates a new X.509 certificate credential to the IdP key store.
+		Creates a new X.509 certificate credential to the IdP key store.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateIdentityProviderKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateIdentityProviderKeyRequest
 	*/
 	CreateIdentityProviderKey(ctx context.Context) ApiCreateIdentityProviderKeyRequest
 
 	// CreateIdentityProviderKeyExecute executes the request
 	//  @return JsonWebKey
-	// TODU
 	CreateIdentityProviderKeyExecute(r ApiCreateIdentityProviderKeyRequest) (*APIResponse, error)
 
 	/*
-	DeactivateIdentityProvider Deactivate an Identity Provider
+		DeactivateIdentityProvider Deactivate an Identity Provider
 
-	Deactivates an active IdP
+		Deactivates an active IdP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiDeactivateIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiDeactivateIdentityProviderRequest
 	*/
 	DeactivateIdentityProvider(ctx context.Context, idpId string) ApiDeactivateIdentityProviderRequest
 
 	// DeactivateIdentityProviderExecute executes the request
 	//  @return IdentityProvider
-	// TODU
 	DeactivateIdentityProviderExecute(r ApiDeactivateIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	DeleteIdentityProvider Delete an Identity Provider
+		DeleteIdentityProvider Delete an Identity Provider
 
-	Deletes an identity provider integration by `idpId`
+		Deletes an identity provider integration by `idpId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiDeleteIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiDeleteIdentityProviderRequest
 	*/
 	DeleteIdentityProvider(ctx context.Context, idpId string) ApiDeleteIdentityProviderRequest
 
 	// DeleteIdentityProviderExecute executes the request
-	// TODU
 	DeleteIdentityProviderExecute(r ApiDeleteIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	DeleteIdentityProviderKey Delete a Signing Credential Key
+		DeleteIdentityProviderKey Delete a Signing Credential Key
 
-	Deletes a specific IdP Key Credential by `kid` if it is not currently being used by an Active or Inactive IdP
+		Deletes a specific IdP Key Credential by `kid` if it is not currently being used by an Active or Inactive IdP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpKeyId `id` of IdP Key
-	@return ApiDeleteIdentityProviderKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpKeyId `id` of IdP Key
+		@return ApiDeleteIdentityProviderKeyRequest
 	*/
 	DeleteIdentityProviderKey(ctx context.Context, idpKeyId string) ApiDeleteIdentityProviderKeyRequest
 
 	// DeleteIdentityProviderKeyExecute executes the request
-	// TODU
 	DeleteIdentityProviderKeyExecute(r ApiDeleteIdentityProviderKeyRequest) (*APIResponse, error)
 
 	/*
-	GenerateCsrForIdentityProvider Generate a Certificate Signing Request
+		GenerateCsrForIdentityProvider Generate a Certificate Signing Request
 
-	Generates a new key pair and returns a Certificate Signing Request for it
+		Generates a new key pair and returns a Certificate Signing Request for it
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiGenerateCsrForIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiGenerateCsrForIdentityProviderRequest
 	*/
 	GenerateCsrForIdentityProvider(ctx context.Context, idpId string) ApiGenerateCsrForIdentityProviderRequest
 
 	// GenerateCsrForIdentityProviderExecute executes the request
 	//  @return Csr
-	// TODU
 	GenerateCsrForIdentityProviderExecute(r ApiGenerateCsrForIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	GenerateIdentityProviderSigningKey Generate a new Signing Credential Key
+		GenerateIdentityProviderSigningKey Generate a new Signing Credential Key
 
-	Generates a new X.509 certificate for an IdP signing key credential to be used for signing assertions sent to the IdP
+		Generates a new X.509 certificate for an IdP signing key credential to be used for signing assertions sent to the IdP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiGenerateIdentityProviderSigningKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiGenerateIdentityProviderSigningKeyRequest
 	*/
 	GenerateIdentityProviderSigningKey(ctx context.Context, idpId string) ApiGenerateIdentityProviderSigningKeyRequest
 
 	// GenerateIdentityProviderSigningKeyExecute executes the request
 	//  @return JsonWebKey
-	// TODU
 	GenerateIdentityProviderSigningKeyExecute(r ApiGenerateIdentityProviderSigningKeyRequest) (*APIResponse, error)
 
 	/*
-	GetCsrForIdentityProvider Retrieve a Certificate Signing Request
+		GetCsrForIdentityProvider Retrieve a Certificate Signing Request
 
-	Retrieves a specific Certificate Signing Request model by id
+		Retrieves a specific Certificate Signing Request model by id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param idpCsrId `id` of the IdP CSR
-	@return ApiGetCsrForIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param idpCsrId `id` of the IdP CSR
+		@return ApiGetCsrForIdentityProviderRequest
 	*/
 	GetCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiGetCsrForIdentityProviderRequest
 
 	// GetCsrForIdentityProviderExecute executes the request
 	//  @return Csr
-	// TODU
 	GetCsrForIdentityProviderExecute(r ApiGetCsrForIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	GetIdentityProvider Retrieve an Identity Provider
+		GetIdentityProvider Retrieve an Identity Provider
 
-	Retrieves an identity provider integration by `idpId`
+		Retrieves an identity provider integration by `idpId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiGetIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiGetIdentityProviderRequest
 	*/
 	GetIdentityProvider(ctx context.Context, idpId string) ApiGetIdentityProviderRequest
 
 	// GetIdentityProviderExecute executes the request
 	//  @return IdentityProvider
-	// TODU
 	GetIdentityProviderExecute(r ApiGetIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	GetIdentityProviderApplicationUser Retrieve a User
+		GetIdentityProviderApplicationUser Retrieve a User
 
-	Retrieves a linked IdP user by ID
+		Retrieves a linked IdP user by ID
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param userId ID of an existing Okta user
-	@return ApiGetIdentityProviderApplicationUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param userId ID of an existing Okta user
+		@return ApiGetIdentityProviderApplicationUserRequest
 	*/
 	GetIdentityProviderApplicationUser(ctx context.Context, idpId string, userId string) ApiGetIdentityProviderApplicationUserRequest
 
 	// GetIdentityProviderApplicationUserExecute executes the request
 	//  @return IdentityProviderApplicationUser
-	// TODU
 	GetIdentityProviderApplicationUserExecute(r ApiGetIdentityProviderApplicationUserRequest) (*APIResponse, error)
 
 	/*
-	GetIdentityProviderKey Retrieve an Credential Key
+		GetIdentityProviderKey Retrieve an Credential Key
 
-	Retrieves a specific IdP Key Credential by `kid`
+		Retrieves a specific IdP Key Credential by `kid`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpKeyId `id` of IdP Key
-	@return ApiGetIdentityProviderKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpKeyId `id` of IdP Key
+		@return ApiGetIdentityProviderKeyRequest
 	*/
 	GetIdentityProviderKey(ctx context.Context, idpKeyId string) ApiGetIdentityProviderKeyRequest
 
 	// GetIdentityProviderKeyExecute executes the request
 	//  @return JsonWebKey
-	// TODU
 	GetIdentityProviderKeyExecute(r ApiGetIdentityProviderKeyRequest) (*APIResponse, error)
 
 	/*
-	GetIdentityProviderSigningKey Retrieve a Signing Credential Key
+		GetIdentityProviderSigningKey Retrieve a Signing Credential Key
 
-	Retrieves a specific IdP Key Credential by `kid`
+		Retrieves a specific IdP Key Credential by `kid`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param idpKeyId `id` of IdP Key
-	@return ApiGetIdentityProviderSigningKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param idpKeyId `id` of IdP Key
+		@return ApiGetIdentityProviderSigningKeyRequest
 	*/
 	GetIdentityProviderSigningKey(ctx context.Context, idpId string, idpKeyId string) ApiGetIdentityProviderSigningKeyRequest
 
 	// GetIdentityProviderSigningKeyExecute executes the request
 	//  @return JsonWebKey
-	// TODU
 	GetIdentityProviderSigningKeyExecute(r ApiGetIdentityProviderSigningKeyRequest) (*APIResponse, error)
 
 	/*
-	LinkUserToIdentityProvider Link a User to a Social IdP
+		LinkUserToIdentityProvider Link a User to a Social IdP
 
-	Links an Okta user to an existing Social Identity Provider. This does not support the SAML2 Identity Provider Type
+		Links an Okta user to an existing Social Identity Provider. This does not support the SAML2 Identity Provider Type
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param userId ID of an existing Okta user
-	@return ApiLinkUserToIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param userId ID of an existing Okta user
+		@return ApiLinkUserToIdentityProviderRequest
 	*/
 	LinkUserToIdentityProvider(ctx context.Context, idpId string, userId string) ApiLinkUserToIdentityProviderRequest
 
 	// LinkUserToIdentityProviderExecute executes the request
 	//  @return IdentityProviderApplicationUser
-	// TODU
 	LinkUserToIdentityProviderExecute(r ApiLinkUserToIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	ListCsrsForIdentityProvider List all Certificate Signing Requests
+		ListCsrsForIdentityProvider List all Certificate Signing Requests
 
-	Lists all Certificate Signing Requests for an IdP
+		Lists all Certificate Signing Requests for an IdP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiListCsrsForIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiListCsrsForIdentityProviderRequest
 	*/
 	ListCsrsForIdentityProvider(ctx context.Context, idpId string) ApiListCsrsForIdentityProviderRequest
 
 	// ListCsrsForIdentityProviderExecute executes the request
 	//  @return []Csr
-	// TODU
 	ListCsrsForIdentityProviderExecute(r ApiListCsrsForIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	ListIdentityProviderApplicationUsers List all Users
+		ListIdentityProviderApplicationUsers List all Users
 
-	Lists all users linked to the identity provider
+		Lists all users linked to the identity provider
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiListIdentityProviderApplicationUsersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiListIdentityProviderApplicationUsersRequest
 	*/
 	ListIdentityProviderApplicationUsers(ctx context.Context, idpId string) ApiListIdentityProviderApplicationUsersRequest
 
 	// ListIdentityProviderApplicationUsersExecute executes the request
 	//  @return []IdentityProviderApplicationUser
-	// TODU
 	ListIdentityProviderApplicationUsersExecute(r ApiListIdentityProviderApplicationUsersRequest) (*APIResponse, error)
 
 	/*
-	ListIdentityProviderKeys List all Credential Keys
+		ListIdentityProviderKeys List all Credential Keys
 
-	Lists all IdP key credentials
+		Lists all IdP key credentials
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListIdentityProviderKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListIdentityProviderKeysRequest
 	*/
 	ListIdentityProviderKeys(ctx context.Context) ApiListIdentityProviderKeysRequest
 
 	// ListIdentityProviderKeysExecute executes the request
 	//  @return []JsonWebKey
-	// TODU
 	ListIdentityProviderKeysExecute(r ApiListIdentityProviderKeysRequest) (*APIResponse, error)
 
 	/*
-	ListIdentityProviderSigningKeys List all Signing Credential Keys
+		ListIdentityProviderSigningKeys List all Signing Credential Keys
 
-	Lists all signing key credentials for an IdP
+		Lists all signing key credentials for an IdP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiListIdentityProviderSigningKeysRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiListIdentityProviderSigningKeysRequest
 	*/
 	ListIdentityProviderSigningKeys(ctx context.Context, idpId string) ApiListIdentityProviderSigningKeysRequest
 
 	// ListIdentityProviderSigningKeysExecute executes the request
 	//  @return []JsonWebKey
-	// TODU
 	ListIdentityProviderSigningKeysExecute(r ApiListIdentityProviderSigningKeysRequest) (*APIResponse, error)
 
 	/*
-	ListIdentityProviders List all Identity Providers
+		ListIdentityProviders List all Identity Providers
 
-	Lists all identity provider integrations with pagination. A subset of IdPs can be returned that match a supported filter expression or query.
+		Lists all identity provider integrations with pagination. A subset of IdPs can be returned that match a supported filter expression or query.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListIdentityProvidersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListIdentityProvidersRequest
 	*/
 	ListIdentityProviders(ctx context.Context) ApiListIdentityProvidersRequest
 
 	// ListIdentityProvidersExecute executes the request
 	//  @return []IdentityProvider
-	// TODU
 	ListIdentityProvidersExecute(r ApiListIdentityProvidersRequest) (*APIResponse, error)
 
 	/*
-	ListSocialAuthTokens List all Tokens from a OIDC Identity Provider
+		ListSocialAuthTokens List all Tokens from a OIDC Identity Provider
 
-	Lists the tokens minted by the Social Authentication Provider when the user authenticates with Okta via Social Auth
+		Lists the tokens minted by the Social Authentication Provider when the user authenticates with Okta via Social Auth
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param userId ID of an existing Okta user
-	@return ApiListSocialAuthTokensRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param userId ID of an existing Okta user
+		@return ApiListSocialAuthTokensRequest
 	*/
 	ListSocialAuthTokens(ctx context.Context, idpId string, userId string) ApiListSocialAuthTokensRequest
 
 	// ListSocialAuthTokensExecute executes the request
 	//  @return []SocialAuthToken
-	// TODU
 	ListSocialAuthTokensExecute(r ApiListSocialAuthTokensRequest) (*APIResponse, error)
 
 	/*
-	PublishCsrForIdentityProvider Publish a Certificate Signing Request
+		PublishCsrForIdentityProvider Publish a Certificate Signing Request
 
-	Publishes a certificate signing request with a signed X.509 certificate and adds it into the signing key credentials for the IdP
+		Publishes a certificate signing request with a signed X.509 certificate and adds it into the signing key credentials for the IdP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param idpCsrId `id` of the IdP CSR
-	@return ApiPublishCsrForIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param idpCsrId `id` of the IdP CSR
+		@return ApiPublishCsrForIdentityProviderRequest
 	*/
 	PublishCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiPublishCsrForIdentityProviderRequest
 
 	// PublishCsrForIdentityProviderExecute executes the request
 	//  @return JsonWebKey
-	// TODU
 	PublishCsrForIdentityProviderExecute(r ApiPublishCsrForIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	ReplaceIdentityProvider Replace an Identity Provider
+		ReplaceIdentityProvider Replace an Identity Provider
 
-	Replaces an identity provider integration by `idpId`
+		Replaces an identity provider integration by `idpId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@return ApiReplaceIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@return ApiReplaceIdentityProviderRequest
 	*/
 	ReplaceIdentityProvider(ctx context.Context, idpId string) ApiReplaceIdentityProviderRequest
 
 	// ReplaceIdentityProviderExecute executes the request
 	//  @return IdentityProvider
-	// TODU
 	ReplaceIdentityProviderExecute(r ApiReplaceIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	RevokeCsrForIdentityProvider Revoke a Certificate Signing Request
+		RevokeCsrForIdentityProvider Revoke a Certificate Signing Request
 
-	Revokes a certificate signing request and deletes the key pair from the IdP
+		Revokes a certificate signing request and deletes the key pair from the IdP
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param idpCsrId `id` of the IdP CSR
-	@return ApiRevokeCsrForIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param idpCsrId `id` of the IdP CSR
+		@return ApiRevokeCsrForIdentityProviderRequest
 	*/
 	RevokeCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiRevokeCsrForIdentityProviderRequest
 
 	// RevokeCsrForIdentityProviderExecute executes the request
-	// TODU
 	RevokeCsrForIdentityProviderExecute(r ApiRevokeCsrForIdentityProviderRequest) (*APIResponse, error)
 
 	/*
-	UnlinkUserFromIdentityProvider Unlink a User from IdP
+		UnlinkUserFromIdentityProvider Unlink a User from IdP
 
-	Unlinks the link between the Okta user and the IdP user
+		Unlinks the link between the Okta user and the IdP user
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpId `id` of IdP
-	@param userId ID of an existing Okta user
-	@return ApiUnlinkUserFromIdentityProviderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param idpId `id` of IdP
+		@param userId ID of an existing Okta user
+		@return ApiUnlinkUserFromIdentityProviderRequest
 	*/
 	UnlinkUserFromIdentityProvider(ctx context.Context, idpId string, userId string) ApiUnlinkUserFromIdentityProviderRequest
 
 	// UnlinkUserFromIdentityProviderExecute executes the request
-	// TODU
 	UnlinkUserFromIdentityProviderExecute(r ApiUnlinkUserFromIdentityProviderRequest) (*APIResponse, error)
 }
 
@@ -431,22 +405,18 @@ type IdentityProviderAPI interface {
 type IdentityProviderAPIService service
 
 type ApiActivateIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	// TODU
+	idpId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiActivateIdentityProviderRequest) Data (data interface{}) ApiActivateIdentityProviderRequest {
+func (r ApiActivateIdentityProviderRequest) Data(data interface{}) ApiActivateIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateIdentityProviderExecute(r)
 }
@@ -460,13 +430,12 @@ Activates an inactive IdP
  @param idpId `id` of IdP
  @return ApiActivateIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) ActivateIdentityProvider(ctx context.Context, idpId string) ApiActivateIdentityProviderRequest {
 	return ApiActivateIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
@@ -479,10 +448,9 @@ func (a *IdentityProviderAPIService) ActivateIdentityProviderExecute(r ApiActiva
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -492,7 +460,6 @@ func (a *IdentityProviderAPIService) ActivateIdentityProviderExecute(r ApiActiva
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.ActivateIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -520,7 +487,6 @@ func (a *IdentityProviderAPIService) ActivateIdentityProviderExecute(r ApiActiva
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -537,13 +503,11 @@ func (a *IdentityProviderAPIService) ActivateIdentityProviderExecute(r ApiActiva
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -552,7 +516,6 @@ func (a *IdentityProviderAPIService) ActivateIdentityProviderExecute(r ApiActiva
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -567,12 +530,10 @@ func (a *IdentityProviderAPIService) ActivateIdentityProviderExecute(r ApiActiva
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -581,12 +542,10 @@ func (a *IdentityProviderAPIService) ActivateIdentityProviderExecute(r ApiActiva
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -595,13 +554,11 @@ func (a *IdentityProviderAPIService) ActivateIdentityProviderExecute(r ApiActiva
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -610,14 +567,13 @@ func (a *IdentityProviderAPIService) ActivateIdentityProviderExecute(r ApiActiva
 }
 
 type ApiCloneIdentityProviderKeyRequest struct {
-	ctx context.Context
-	ApiService IdentityProviderAPI
-	idpId string
-	idpKeyId string
+	ctx         context.Context
+	ApiService  IdentityProviderAPI
+	idpId       string
+	idpKeyId    string
 	targetIdpId *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data        interface{}
+	retryCount  int32
 }
 
 func (r ApiCloneIdentityProviderKeyRequest) TargetIdpId(targetIdpId string) ApiCloneIdentityProviderKeyRequest {
@@ -625,14 +581,11 @@ func (r ApiCloneIdentityProviderKeyRequest) TargetIdpId(targetIdpId string) ApiC
 	return r
 }
 
-
-// TODU
-func (r ApiCloneIdentityProviderKeyRequest) Data (data interface{}) ApiCloneIdentityProviderKeyRequest {
+func (r ApiCloneIdentityProviderKeyRequest) Data(data interface{}) ApiCloneIdentityProviderKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCloneIdentityProviderKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CloneIdentityProviderKeyExecute(r)
 }
@@ -647,14 +600,13 @@ Clones a X.509 certificate for an IdP signing key credential from a source IdP t
  @param idpKeyId `id` of IdP Key
  @return ApiCloneIdentityProviderKeyRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) CloneIdentityProviderKey(ctx context.Context, idpId string, idpKeyId string) ApiCloneIdentityProviderKeyRequest {
 	return ApiCloneIdentityProviderKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		idpKeyId: idpKeyId,
+		ctx:        ctx,
+		idpId:      idpId,
+		idpKeyId:   idpKeyId,
 		retryCount: 0,
 	}
 }
@@ -667,10 +619,9 @@ func (a *IdentityProviderAPIService) CloneIdentityProviderKeyExecute(r ApiCloneI
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -680,7 +631,6 @@ func (a *IdentityProviderAPIService) CloneIdentityProviderKeyExecute(r ApiCloneI
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.CloneIdentityProviderKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -710,7 +660,6 @@ func (a *IdentityProviderAPIService) CloneIdentityProviderKeyExecute(r ApiCloneI
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -727,13 +676,11 @@ func (a *IdentityProviderAPIService) CloneIdentityProviderKeyExecute(r ApiCloneI
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -742,7 +689,6 @@ func (a *IdentityProviderAPIService) CloneIdentityProviderKeyExecute(r ApiCloneI
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -757,12 +703,10 @@ func (a *IdentityProviderAPIService) CloneIdentityProviderKeyExecute(r ApiCloneI
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -771,12 +715,10 @@ func (a *IdentityProviderAPIService) CloneIdentityProviderKeyExecute(r ApiCloneI
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -785,13 +727,11 @@ func (a *IdentityProviderAPIService) CloneIdentityProviderKeyExecute(r ApiCloneI
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -800,12 +740,11 @@ func (a *IdentityProviderAPIService) CloneIdentityProviderKeyExecute(r ApiCloneI
 }
 
 type ApiCreateIdentityProviderRequest struct {
-	ctx context.Context
-	ApiService IdentityProviderAPI
+	ctx              context.Context
+	ApiService       IdentityProviderAPI
 	identityProvider *IdentityProvider
-	// TODU
-	data       interface{}
-	retryCount int32
+	data             interface{}
+	retryCount       int32
 }
 
 func (r ApiCreateIdentityProviderRequest) IdentityProvider(identityProvider IdentityProvider) ApiCreateIdentityProviderRequest {
@@ -813,14 +752,11 @@ func (r ApiCreateIdentityProviderRequest) IdentityProvider(identityProvider Iden
 	return r
 }
 
-
-// TODU
-func (r ApiCreateIdentityProviderRequest) Data (data interface{}) ApiCreateIdentityProviderRequest {
+func (r ApiCreateIdentityProviderRequest) Data(data interface{}) ApiCreateIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateIdentityProviderExecute(r)
 }
@@ -833,12 +769,11 @@ Creates a new identity provider integration
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) CreateIdentityProvider(ctx context.Context) ApiCreateIdentityProviderRequest {
 	return ApiCreateIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -851,10 +786,9 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderExecute(r ApiCreateId
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -864,7 +798,6 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderExecute(r ApiCreateId
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.CreateIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -891,7 +824,6 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderExecute(r ApiCreateId
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.identityProvider
 	localVarPostBody = r.data
@@ -911,13 +843,11 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderExecute(r ApiCreateId
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -926,7 +856,6 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderExecute(r ApiCreateId
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -941,12 +870,10 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderExecute(r ApiCreateId
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -955,12 +882,10 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderExecute(r ApiCreateId
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -969,13 +894,11 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderExecute(r ApiCreateId
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -984,10 +907,9 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderExecute(r ApiCreateId
 }
 
 type ApiCreateIdentityProviderKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
 	jsonWebKey *JsonWebKey
-	// TODU
 	data       interface{}
 	retryCount int32
 }
@@ -997,14 +919,11 @@ func (r ApiCreateIdentityProviderKeyRequest) JsonWebKey(jsonWebKey JsonWebKey) A
 	return r
 }
 
-
-// TODU
-func (r ApiCreateIdentityProviderKeyRequest) Data (data interface{}) ApiCreateIdentityProviderKeyRequest {
+func (r ApiCreateIdentityProviderKeyRequest) Data(data interface{}) ApiCreateIdentityProviderKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateIdentityProviderKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateIdentityProviderKeyExecute(r)
 }
@@ -1017,12 +936,11 @@ Creates a new X.509 certificate credential to the IdP key store.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateIdentityProviderKeyRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) CreateIdentityProviderKey(ctx context.Context) ApiCreateIdentityProviderKeyRequest {
 	return ApiCreateIdentityProviderKeyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1035,10 +953,9 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderKeyExecute(r ApiCreat
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1048,7 +965,6 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderKeyExecute(r ApiCreat
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.CreateIdentityProviderKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1075,7 +991,6 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderKeyExecute(r ApiCreat
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.jsonWebKey
 	localVarPostBody = r.data
@@ -1095,13 +1010,11 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderKeyExecute(r ApiCreat
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1110,7 +1023,6 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderKeyExecute(r ApiCreat
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1125,12 +1037,10 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderKeyExecute(r ApiCreat
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1139,12 +1049,10 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderKeyExecute(r ApiCreat
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1153,13 +1061,11 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderKeyExecute(r ApiCreat
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1168,22 +1074,18 @@ func (a *IdentityProviderAPIService) CreateIdentityProviderKeyExecute(r ApiCreat
 }
 
 type ApiDeactivateIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	// TODU
+	idpId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeactivateIdentityProviderRequest) Data (data interface{}) ApiDeactivateIdentityProviderRequest {
+func (r ApiDeactivateIdentityProviderRequest) Data(data interface{}) ApiDeactivateIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateIdentityProviderExecute(r)
 }
@@ -1197,13 +1099,12 @@ Deactivates an active IdP
  @param idpId `id` of IdP
  @return ApiDeactivateIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) DeactivateIdentityProvider(ctx context.Context, idpId string) ApiDeactivateIdentityProviderRequest {
 	return ApiDeactivateIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
@@ -1216,10 +1117,9 @@ func (a *IdentityProviderAPIService) DeactivateIdentityProviderExecute(r ApiDeac
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1229,7 +1129,6 @@ func (a *IdentityProviderAPIService) DeactivateIdentityProviderExecute(r ApiDeac
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.DeactivateIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1257,7 +1156,6 @@ func (a *IdentityProviderAPIService) DeactivateIdentityProviderExecute(r ApiDeac
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1274,13 +1172,11 @@ func (a *IdentityProviderAPIService) DeactivateIdentityProviderExecute(r ApiDeac
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1289,7 +1185,6 @@ func (a *IdentityProviderAPIService) DeactivateIdentityProviderExecute(r ApiDeac
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1304,12 +1199,10 @@ func (a *IdentityProviderAPIService) DeactivateIdentityProviderExecute(r ApiDeac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1318,12 +1211,10 @@ func (a *IdentityProviderAPIService) DeactivateIdentityProviderExecute(r ApiDeac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1332,13 +1223,11 @@ func (a *IdentityProviderAPIService) DeactivateIdentityProviderExecute(r ApiDeac
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1347,22 +1236,18 @@ func (a *IdentityProviderAPIService) DeactivateIdentityProviderExecute(r ApiDeac
 }
 
 type ApiDeleteIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	// TODU
+	idpId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteIdentityProviderRequest) Data (data interface{}) ApiDeleteIdentityProviderRequest {
+func (r ApiDeleteIdentityProviderRequest) Data(data interface{}) ApiDeleteIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteIdentityProviderExecute(r)
 }
@@ -1376,13 +1261,12 @@ Deletes an identity provider integration by `idpId`
  @param idpId `id` of IdP
  @return ApiDeleteIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) DeleteIdentityProvider(ctx context.Context, idpId string) ApiDeleteIdentityProviderRequest {
 	return ApiDeleteIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
@@ -1396,7 +1280,7 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderExecute(r ApiDeleteId
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1406,7 +1290,6 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderExecute(r ApiDeleteId
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.DeleteIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1434,7 +1317,6 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderExecute(r ApiDeleteId
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1451,13 +1333,11 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderExecute(r ApiDeleteId
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1466,7 +1346,6 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderExecute(r ApiDeleteId
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1481,12 +1360,10 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderExecute(r ApiDeleteId
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1495,12 +1372,10 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderExecute(r ApiDeleteId
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1509,13 +1384,11 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderExecute(r ApiDeleteId
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1524,22 +1397,18 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderExecute(r ApiDeleteId
 }
 
 type ApiDeleteIdentityProviderKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpKeyId string
-	// TODU
+	idpKeyId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteIdentityProviderKeyRequest) Data (data interface{}) ApiDeleteIdentityProviderKeyRequest {
+func (r ApiDeleteIdentityProviderKeyRequest) Data(data interface{}) ApiDeleteIdentityProviderKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteIdentityProviderKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteIdentityProviderKeyExecute(r)
 }
@@ -1553,13 +1422,12 @@ Deletes a specific IdP Key Credential by `kid` if it is not currently being used
  @param idpKeyId `id` of IdP Key
  @return ApiDeleteIdentityProviderKeyRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) DeleteIdentityProviderKey(ctx context.Context, idpKeyId string) ApiDeleteIdentityProviderKeyRequest {
 	return ApiDeleteIdentityProviderKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpKeyId: idpKeyId,
+		ctx:        ctx,
+		idpKeyId:   idpKeyId,
 		retryCount: 0,
 	}
 }
@@ -1573,7 +1441,7 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderKeyExecute(r ApiDelet
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1583,7 +1451,6 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderKeyExecute(r ApiDelet
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.DeleteIdentityProviderKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1611,7 +1478,6 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderKeyExecute(r ApiDelet
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1628,13 +1494,11 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderKeyExecute(r ApiDelet
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1643,7 +1507,6 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderKeyExecute(r ApiDelet
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1658,12 +1521,10 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderKeyExecute(r ApiDelet
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1672,12 +1533,10 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderKeyExecute(r ApiDelet
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1686,13 +1545,11 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderKeyExecute(r ApiDelet
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1701,11 +1558,10 @@ func (a *IdentityProviderAPIService) DeleteIdentityProviderKeyExecute(r ApiDelet
 }
 
 type ApiGenerateCsrForIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	metadata *CsrMetadata
-	// TODU
+	idpId      string
+	metadata   *CsrMetadata
 	data       interface{}
 	retryCount int32
 }
@@ -1715,14 +1571,11 @@ func (r ApiGenerateCsrForIdentityProviderRequest) Metadata(metadata CsrMetadata)
 	return r
 }
 
-
-// TODU
-func (r ApiGenerateCsrForIdentityProviderRequest) Data (data interface{}) ApiGenerateCsrForIdentityProviderRequest {
+func (r ApiGenerateCsrForIdentityProviderRequest) Data(data interface{}) ApiGenerateCsrForIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGenerateCsrForIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GenerateCsrForIdentityProviderExecute(r)
 }
@@ -1736,13 +1589,12 @@ Generates a new key pair and returns a Certificate Signing Request for it
  @param idpId `id` of IdP
  @return ApiGenerateCsrForIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) GenerateCsrForIdentityProvider(ctx context.Context, idpId string) ApiGenerateCsrForIdentityProviderRequest {
 	return ApiGenerateCsrForIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
@@ -1755,10 +1607,9 @@ func (a *IdentityProviderAPIService) GenerateCsrForIdentityProviderExecute(r Api
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1768,7 +1619,6 @@ func (a *IdentityProviderAPIService) GenerateCsrForIdentityProviderExecute(r Api
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.GenerateCsrForIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1796,7 +1646,6 @@ func (a *IdentityProviderAPIService) GenerateCsrForIdentityProviderExecute(r Api
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.metadata
 	localVarPostBody = r.data
@@ -1816,13 +1665,11 @@ func (a *IdentityProviderAPIService) GenerateCsrForIdentityProviderExecute(r Api
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1831,7 +1678,6 @@ func (a *IdentityProviderAPIService) GenerateCsrForIdentityProviderExecute(r Api
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1846,12 +1692,10 @@ func (a *IdentityProviderAPIService) GenerateCsrForIdentityProviderExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1860,12 +1704,10 @@ func (a *IdentityProviderAPIService) GenerateCsrForIdentityProviderExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1874,12 +1716,10 @@ func (a *IdentityProviderAPIService) GenerateCsrForIdentityProviderExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1888,13 +1728,11 @@ func (a *IdentityProviderAPIService) GenerateCsrForIdentityProviderExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1903,13 +1741,12 @@ func (a *IdentityProviderAPIService) GenerateCsrForIdentityProviderExecute(r Api
 }
 
 type ApiGenerateIdentityProviderSigningKeyRequest struct {
-	ctx context.Context
-	ApiService IdentityProviderAPI
-	idpId string
+	ctx           context.Context
+	ApiService    IdentityProviderAPI
+	idpId         string
 	validityYears *int32
-	// TODU
-	data       interface{}
-	retryCount int32
+	data          interface{}
+	retryCount    int32
 }
 
 // expiry of the IdP Key Credential
@@ -1918,14 +1755,11 @@ func (r ApiGenerateIdentityProviderSigningKeyRequest) ValidityYears(validityYear
 	return r
 }
 
-
-// TODU
-func (r ApiGenerateIdentityProviderSigningKeyRequest) Data (data interface{}) ApiGenerateIdentityProviderSigningKeyRequest {
+func (r ApiGenerateIdentityProviderSigningKeyRequest) Data(data interface{}) ApiGenerateIdentityProviderSigningKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGenerateIdentityProviderSigningKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GenerateIdentityProviderSigningKeyExecute(r)
 }
@@ -1939,13 +1773,12 @@ Generates a new X.509 certificate for an IdP signing key credential to be used f
  @param idpId `id` of IdP
  @return ApiGenerateIdentityProviderSigningKeyRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) GenerateIdentityProviderSigningKey(ctx context.Context, idpId string) ApiGenerateIdentityProviderSigningKeyRequest {
 	return ApiGenerateIdentityProviderSigningKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
@@ -1958,10 +1791,9 @@ func (a *IdentityProviderAPIService) GenerateIdentityProviderSigningKeyExecute(r
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1971,7 +1803,6 @@ func (a *IdentityProviderAPIService) GenerateIdentityProviderSigningKeyExecute(r
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.GenerateIdentityProviderSigningKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2000,7 +1831,6 @@ func (a *IdentityProviderAPIService) GenerateIdentityProviderSigningKeyExecute(r
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2017,13 +1847,11 @@ func (a *IdentityProviderAPIService) GenerateIdentityProviderSigningKeyExecute(r
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2032,7 +1860,6 @@ func (a *IdentityProviderAPIService) GenerateIdentityProviderSigningKeyExecute(r
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2047,12 +1874,10 @@ func (a *IdentityProviderAPIService) GenerateIdentityProviderSigningKeyExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2061,12 +1886,10 @@ func (a *IdentityProviderAPIService) GenerateIdentityProviderSigningKeyExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2075,13 +1898,11 @@ func (a *IdentityProviderAPIService) GenerateIdentityProviderSigningKeyExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2090,23 +1911,19 @@ func (a *IdentityProviderAPIService) GenerateIdentityProviderSigningKeyExecute(r
 }
 
 type ApiGetCsrForIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	idpCsrId string
-	// TODU
+	idpId      string
+	idpCsrId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetCsrForIdentityProviderRequest) Data (data interface{}) ApiGetCsrForIdentityProviderRequest {
+func (r ApiGetCsrForIdentityProviderRequest) Data(data interface{}) ApiGetCsrForIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetCsrForIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetCsrForIdentityProviderExecute(r)
 }
@@ -2121,14 +1938,13 @@ Retrieves a specific Certificate Signing Request model by id
  @param idpCsrId `id` of the IdP CSR
  @return ApiGetCsrForIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) GetCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiGetCsrForIdentityProviderRequest {
 	return ApiGetCsrForIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		idpCsrId: idpCsrId,
+		ctx:        ctx,
+		idpId:      idpId,
+		idpCsrId:   idpCsrId,
 		retryCount: 0,
 	}
 }
@@ -2141,10 +1957,9 @@ func (a *IdentityProviderAPIService) GetCsrForIdentityProviderExecute(r ApiGetCs
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2154,7 +1969,6 @@ func (a *IdentityProviderAPIService) GetCsrForIdentityProviderExecute(r ApiGetCs
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.GetCsrForIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2183,7 +1997,6 @@ func (a *IdentityProviderAPIService) GetCsrForIdentityProviderExecute(r ApiGetCs
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2200,13 +2013,11 @@ func (a *IdentityProviderAPIService) GetCsrForIdentityProviderExecute(r ApiGetCs
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2215,7 +2026,6 @@ func (a *IdentityProviderAPIService) GetCsrForIdentityProviderExecute(r ApiGetCs
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2230,12 +2040,10 @@ func (a *IdentityProviderAPIService) GetCsrForIdentityProviderExecute(r ApiGetCs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2244,12 +2052,10 @@ func (a *IdentityProviderAPIService) GetCsrForIdentityProviderExecute(r ApiGetCs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2258,13 +2064,11 @@ func (a *IdentityProviderAPIService) GetCsrForIdentityProviderExecute(r ApiGetCs
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2273,22 +2077,18 @@ func (a *IdentityProviderAPIService) GetCsrForIdentityProviderExecute(r ApiGetCs
 }
 
 type ApiGetIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	// TODU
+	idpId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetIdentityProviderRequest) Data (data interface{}) ApiGetIdentityProviderRequest {
+func (r ApiGetIdentityProviderRequest) Data(data interface{}) ApiGetIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetIdentityProviderExecute(r)
 }
@@ -2302,13 +2102,12 @@ Retrieves an identity provider integration by `idpId`
  @param idpId `id` of IdP
  @return ApiGetIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) GetIdentityProvider(ctx context.Context, idpId string) ApiGetIdentityProviderRequest {
 	return ApiGetIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
@@ -2321,10 +2120,9 @@ func (a *IdentityProviderAPIService) GetIdentityProviderExecute(r ApiGetIdentity
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2334,7 +2132,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderExecute(r ApiGetIdentity
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.GetIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2362,7 +2159,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderExecute(r ApiGetIdentity
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2379,13 +2175,11 @@ func (a *IdentityProviderAPIService) GetIdentityProviderExecute(r ApiGetIdentity
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2394,7 +2188,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderExecute(r ApiGetIdentity
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2409,12 +2202,10 @@ func (a *IdentityProviderAPIService) GetIdentityProviderExecute(r ApiGetIdentity
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2423,12 +2214,10 @@ func (a *IdentityProviderAPIService) GetIdentityProviderExecute(r ApiGetIdentity
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2437,13 +2226,11 @@ func (a *IdentityProviderAPIService) GetIdentityProviderExecute(r ApiGetIdentity
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2452,23 +2239,19 @@ func (a *IdentityProviderAPIService) GetIdentityProviderExecute(r ApiGetIdentity
 }
 
 type ApiGetIdentityProviderApplicationUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	userId string
-	// TODU
+	idpId      string
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetIdentityProviderApplicationUserRequest) Data (data interface{}) ApiGetIdentityProviderApplicationUserRequest {
+func (r ApiGetIdentityProviderApplicationUserRequest) Data(data interface{}) ApiGetIdentityProviderApplicationUserRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetIdentityProviderApplicationUserRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetIdentityProviderApplicationUserExecute(r)
 }
@@ -2483,14 +2266,13 @@ Retrieves a linked IdP user by ID
  @param userId ID of an existing Okta user
  @return ApiGetIdentityProviderApplicationUserRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) GetIdentityProviderApplicationUser(ctx context.Context, idpId string, userId string) ApiGetIdentityProviderApplicationUserRequest {
 	return ApiGetIdentityProviderApplicationUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		userId: userId,
+		ctx:        ctx,
+		idpId:      idpId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -2503,10 +2285,9 @@ func (a *IdentityProviderAPIService) GetIdentityProviderApplicationUserExecute(r
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2516,7 +2297,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderApplicationUserExecute(r
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.GetIdentityProviderApplicationUser")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2545,7 +2325,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderApplicationUserExecute(r
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2562,13 +2341,11 @@ func (a *IdentityProviderAPIService) GetIdentityProviderApplicationUserExecute(r
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2577,7 +2354,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderApplicationUserExecute(r
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2592,12 +2368,10 @@ func (a *IdentityProviderAPIService) GetIdentityProviderApplicationUserExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2606,12 +2380,10 @@ func (a *IdentityProviderAPIService) GetIdentityProviderApplicationUserExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2620,13 +2392,11 @@ func (a *IdentityProviderAPIService) GetIdentityProviderApplicationUserExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2635,22 +2405,18 @@ func (a *IdentityProviderAPIService) GetIdentityProviderApplicationUserExecute(r
 }
 
 type ApiGetIdentityProviderKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpKeyId string
-	// TODU
+	idpKeyId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetIdentityProviderKeyRequest) Data (data interface{}) ApiGetIdentityProviderKeyRequest {
+func (r ApiGetIdentityProviderKeyRequest) Data(data interface{}) ApiGetIdentityProviderKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetIdentityProviderKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetIdentityProviderKeyExecute(r)
 }
@@ -2664,13 +2430,12 @@ Retrieves a specific IdP Key Credential by `kid`
  @param idpKeyId `id` of IdP Key
  @return ApiGetIdentityProviderKeyRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) GetIdentityProviderKey(ctx context.Context, idpKeyId string) ApiGetIdentityProviderKeyRequest {
 	return ApiGetIdentityProviderKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpKeyId: idpKeyId,
+		ctx:        ctx,
+		idpKeyId:   idpKeyId,
 		retryCount: 0,
 	}
 }
@@ -2683,10 +2448,9 @@ func (a *IdentityProviderAPIService) GetIdentityProviderKeyExecute(r ApiGetIdent
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2696,7 +2460,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderKeyExecute(r ApiGetIdent
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.GetIdentityProviderKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2724,7 +2487,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderKeyExecute(r ApiGetIdent
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2741,13 +2503,11 @@ func (a *IdentityProviderAPIService) GetIdentityProviderKeyExecute(r ApiGetIdent
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2756,7 +2516,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderKeyExecute(r ApiGetIdent
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2771,12 +2530,10 @@ func (a *IdentityProviderAPIService) GetIdentityProviderKeyExecute(r ApiGetIdent
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2785,12 +2542,10 @@ func (a *IdentityProviderAPIService) GetIdentityProviderKeyExecute(r ApiGetIdent
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2799,13 +2554,11 @@ func (a *IdentityProviderAPIService) GetIdentityProviderKeyExecute(r ApiGetIdent
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2814,23 +2567,19 @@ func (a *IdentityProviderAPIService) GetIdentityProviderKeyExecute(r ApiGetIdent
 }
 
 type ApiGetIdentityProviderSigningKeyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	idpKeyId string
-	// TODU
+	idpId      string
+	idpKeyId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetIdentityProviderSigningKeyRequest) Data (data interface{}) ApiGetIdentityProviderSigningKeyRequest {
+func (r ApiGetIdentityProviderSigningKeyRequest) Data(data interface{}) ApiGetIdentityProviderSigningKeyRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetIdentityProviderSigningKeyRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetIdentityProviderSigningKeyExecute(r)
 }
@@ -2845,14 +2594,13 @@ Retrieves a specific IdP Key Credential by `kid`
  @param idpKeyId `id` of IdP Key
  @return ApiGetIdentityProviderSigningKeyRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) GetIdentityProviderSigningKey(ctx context.Context, idpId string, idpKeyId string) ApiGetIdentityProviderSigningKeyRequest {
 	return ApiGetIdentityProviderSigningKeyRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		idpKeyId: idpKeyId,
+		ctx:        ctx,
+		idpId:      idpId,
+		idpKeyId:   idpKeyId,
 		retryCount: 0,
 	}
 }
@@ -2865,10 +2613,9 @@ func (a *IdentityProviderAPIService) GetIdentityProviderSigningKeyExecute(r ApiG
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2878,7 +2625,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderSigningKeyExecute(r ApiG
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.GetIdentityProviderSigningKey")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2907,7 +2653,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderSigningKeyExecute(r ApiG
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2924,13 +2669,11 @@ func (a *IdentityProviderAPIService) GetIdentityProviderSigningKeyExecute(r ApiG
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2939,7 +2682,6 @@ func (a *IdentityProviderAPIService) GetIdentityProviderSigningKeyExecute(r ApiG
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2954,12 +2696,10 @@ func (a *IdentityProviderAPIService) GetIdentityProviderSigningKeyExecute(r ApiG
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2968,12 +2708,10 @@ func (a *IdentityProviderAPIService) GetIdentityProviderSigningKeyExecute(r ApiG
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2982,13 +2720,11 @@ func (a *IdentityProviderAPIService) GetIdentityProviderSigningKeyExecute(r ApiG
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2997,14 +2733,13 @@ func (a *IdentityProviderAPIService) GetIdentityProviderSigningKeyExecute(r ApiG
 }
 
 type ApiLinkUserToIdentityProviderRequest struct {
-	ctx context.Context
-	ApiService IdentityProviderAPI
-	idpId string
-	userId string
+	ctx                             context.Context
+	ApiService                      IdentityProviderAPI
+	idpId                           string
+	userId                          string
 	userIdentityProviderLinkRequest *UserIdentityProviderLinkRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                            interface{}
+	retryCount                      int32
 }
 
 func (r ApiLinkUserToIdentityProviderRequest) UserIdentityProviderLinkRequest(userIdentityProviderLinkRequest UserIdentityProviderLinkRequest) ApiLinkUserToIdentityProviderRequest {
@@ -3012,14 +2747,11 @@ func (r ApiLinkUserToIdentityProviderRequest) UserIdentityProviderLinkRequest(us
 	return r
 }
 
-
-// TODU
-func (r ApiLinkUserToIdentityProviderRequest) Data (data interface{}) ApiLinkUserToIdentityProviderRequest {
+func (r ApiLinkUserToIdentityProviderRequest) Data(data interface{}) ApiLinkUserToIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiLinkUserToIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.LinkUserToIdentityProviderExecute(r)
 }
@@ -3034,14 +2766,13 @@ Links an Okta user to an existing Social Identity Provider. This does not suppor
  @param userId ID of an existing Okta user
  @return ApiLinkUserToIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) LinkUserToIdentityProvider(ctx context.Context, idpId string, userId string) ApiLinkUserToIdentityProviderRequest {
 	return ApiLinkUserToIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		userId: userId,
+		ctx:        ctx,
+		idpId:      idpId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -3054,10 +2785,9 @@ func (a *IdentityProviderAPIService) LinkUserToIdentityProviderExecute(r ApiLink
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3067,7 +2797,6 @@ func (a *IdentityProviderAPIService) LinkUserToIdentityProviderExecute(r ApiLink
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.LinkUserToIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3096,7 +2825,6 @@ func (a *IdentityProviderAPIService) LinkUserToIdentityProviderExecute(r ApiLink
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.userIdentityProviderLinkRequest
 	localVarPostBody = r.data
@@ -3116,13 +2844,11 @@ func (a *IdentityProviderAPIService) LinkUserToIdentityProviderExecute(r ApiLink
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3131,7 +2857,6 @@ func (a *IdentityProviderAPIService) LinkUserToIdentityProviderExecute(r ApiLink
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3146,12 +2871,10 @@ func (a *IdentityProviderAPIService) LinkUserToIdentityProviderExecute(r ApiLink
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3160,12 +2883,10 @@ func (a *IdentityProviderAPIService) LinkUserToIdentityProviderExecute(r ApiLink
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3174,12 +2895,10 @@ func (a *IdentityProviderAPIService) LinkUserToIdentityProviderExecute(r ApiLink
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3188,13 +2907,11 @@ func (a *IdentityProviderAPIService) LinkUserToIdentityProviderExecute(r ApiLink
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3203,22 +2920,18 @@ func (a *IdentityProviderAPIService) LinkUserToIdentityProviderExecute(r ApiLink
 }
 
 type ApiListCsrsForIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	// TODU
+	idpId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListCsrsForIdentityProviderRequest) Data (data interface{}) ApiListCsrsForIdentityProviderRequest {
+func (r ApiListCsrsForIdentityProviderRequest) Data(data interface{}) ApiListCsrsForIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListCsrsForIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListCsrsForIdentityProviderExecute(r)
 }
@@ -3232,13 +2945,12 @@ Lists all Certificate Signing Requests for an IdP
  @param idpId `id` of IdP
  @return ApiListCsrsForIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) ListCsrsForIdentityProvider(ctx context.Context, idpId string) ApiListCsrsForIdentityProviderRequest {
 	return ApiListCsrsForIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
@@ -3251,10 +2963,9 @@ func (a *IdentityProviderAPIService) ListCsrsForIdentityProviderExecute(r ApiLis
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3264,7 +2975,6 @@ func (a *IdentityProviderAPIService) ListCsrsForIdentityProviderExecute(r ApiLis
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.ListCsrsForIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3292,7 +3002,6 @@ func (a *IdentityProviderAPIService) ListCsrsForIdentityProviderExecute(r ApiLis
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3309,13 +3018,11 @@ func (a *IdentityProviderAPIService) ListCsrsForIdentityProviderExecute(r ApiLis
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3324,7 +3031,6 @@ func (a *IdentityProviderAPIService) ListCsrsForIdentityProviderExecute(r ApiLis
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3339,12 +3045,10 @@ func (a *IdentityProviderAPIService) ListCsrsForIdentityProviderExecute(r ApiLis
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3353,12 +3057,10 @@ func (a *IdentityProviderAPIService) ListCsrsForIdentityProviderExecute(r ApiLis
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3367,13 +3069,11 @@ func (a *IdentityProviderAPIService) ListCsrsForIdentityProviderExecute(r ApiLis
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3382,22 +3082,18 @@ func (a *IdentityProviderAPIService) ListCsrsForIdentityProviderExecute(r ApiLis
 }
 
 type ApiListIdentityProviderApplicationUsersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	// TODU
+	idpId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListIdentityProviderApplicationUsersRequest) Data (data interface{}) ApiListIdentityProviderApplicationUsersRequest {
+func (r ApiListIdentityProviderApplicationUsersRequest) Data(data interface{}) ApiListIdentityProviderApplicationUsersRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListIdentityProviderApplicationUsersRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListIdentityProviderApplicationUsersExecute(r)
 }
@@ -3411,13 +3107,12 @@ Lists all users linked to the identity provider
  @param idpId `id` of IdP
  @return ApiListIdentityProviderApplicationUsersRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) ListIdentityProviderApplicationUsers(ctx context.Context, idpId string) ApiListIdentityProviderApplicationUsersRequest {
 	return ApiListIdentityProviderApplicationUsersRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
@@ -3430,10 +3125,9 @@ func (a *IdentityProviderAPIService) ListIdentityProviderApplicationUsersExecute
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3443,7 +3137,6 @@ func (a *IdentityProviderAPIService) ListIdentityProviderApplicationUsersExecute
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.ListIdentityProviderApplicationUsers")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3471,7 +3164,6 @@ func (a *IdentityProviderAPIService) ListIdentityProviderApplicationUsersExecute
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3488,13 +3180,11 @@ func (a *IdentityProviderAPIService) ListIdentityProviderApplicationUsersExecute
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3503,7 +3193,6 @@ func (a *IdentityProviderAPIService) ListIdentityProviderApplicationUsersExecute
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3518,12 +3207,10 @@ func (a *IdentityProviderAPIService) ListIdentityProviderApplicationUsersExecute
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3532,12 +3219,10 @@ func (a *IdentityProviderAPIService) ListIdentityProviderApplicationUsersExecute
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3546,13 +3231,11 @@ func (a *IdentityProviderAPIService) ListIdentityProviderApplicationUsersExecute
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3561,11 +3244,10 @@ func (a *IdentityProviderAPIService) ListIdentityProviderApplicationUsersExecute
 }
 
 type ApiListIdentityProviderKeysRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	after *string
-	limit *int32
-	// TODU
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -3582,14 +3264,11 @@ func (r ApiListIdentityProviderKeysRequest) Limit(limit int32) ApiListIdentityPr
 	return r
 }
 
-
-// TODU
-func (r ApiListIdentityProviderKeysRequest) Data (data interface{}) ApiListIdentityProviderKeysRequest {
+func (r ApiListIdentityProviderKeysRequest) Data(data interface{}) ApiListIdentityProviderKeysRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListIdentityProviderKeysRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListIdentityProviderKeysExecute(r)
 }
@@ -3602,12 +3281,11 @@ Lists all IdP key credentials
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListIdentityProviderKeysRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) ListIdentityProviderKeys(ctx context.Context) ApiListIdentityProviderKeysRequest {
 	return ApiListIdentityProviderKeysRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -3620,10 +3298,9 @@ func (a *IdentityProviderAPIService) ListIdentityProviderKeysExecute(r ApiListId
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3633,7 +3310,6 @@ func (a *IdentityProviderAPIService) ListIdentityProviderKeysExecute(r ApiListId
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.ListIdentityProviderKeys")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3666,7 +3342,6 @@ func (a *IdentityProviderAPIService) ListIdentityProviderKeysExecute(r ApiListId
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3683,13 +3358,11 @@ func (a *IdentityProviderAPIService) ListIdentityProviderKeysExecute(r ApiListId
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3698,7 +3371,6 @@ func (a *IdentityProviderAPIService) ListIdentityProviderKeysExecute(r ApiListId
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3713,12 +3385,10 @@ func (a *IdentityProviderAPIService) ListIdentityProviderKeysExecute(r ApiListId
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3727,13 +3397,11 @@ func (a *IdentityProviderAPIService) ListIdentityProviderKeysExecute(r ApiListId
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3742,22 +3410,18 @@ func (a *IdentityProviderAPIService) ListIdentityProviderKeysExecute(r ApiListId
 }
 
 type ApiListIdentityProviderSigningKeysRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	// TODU
+	idpId      string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListIdentityProviderSigningKeysRequest) Data (data interface{}) ApiListIdentityProviderSigningKeysRequest {
+func (r ApiListIdentityProviderSigningKeysRequest) Data(data interface{}) ApiListIdentityProviderSigningKeysRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListIdentityProviderSigningKeysRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListIdentityProviderSigningKeysExecute(r)
 }
@@ -3771,13 +3435,12 @@ Lists all signing key credentials for an IdP
  @param idpId `id` of IdP
  @return ApiListIdentityProviderSigningKeysRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) ListIdentityProviderSigningKeys(ctx context.Context, idpId string) ApiListIdentityProviderSigningKeysRequest {
 	return ApiListIdentityProviderSigningKeysRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
@@ -3790,10 +3453,9 @@ func (a *IdentityProviderAPIService) ListIdentityProviderSigningKeysExecute(r Ap
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -3803,7 +3465,6 @@ func (a *IdentityProviderAPIService) ListIdentityProviderSigningKeysExecute(r Ap
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.ListIdentityProviderSigningKeys")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3831,7 +3492,6 @@ func (a *IdentityProviderAPIService) ListIdentityProviderSigningKeysExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3848,13 +3508,11 @@ func (a *IdentityProviderAPIService) ListIdentityProviderSigningKeysExecute(r Ap
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -3863,7 +3521,6 @@ func (a *IdentityProviderAPIService) ListIdentityProviderSigningKeysExecute(r Ap
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -3878,12 +3535,10 @@ func (a *IdentityProviderAPIService) ListIdentityProviderSigningKeysExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3892,12 +3547,10 @@ func (a *IdentityProviderAPIService) ListIdentityProviderSigningKeysExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3906,13 +3559,11 @@ func (a *IdentityProviderAPIService) ListIdentityProviderSigningKeysExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -3921,13 +3572,12 @@ func (a *IdentityProviderAPIService) ListIdentityProviderSigningKeysExecute(r Ap
 }
 
 type ApiListIdentityProvidersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	q *string
-	after *string
-	limit *int32
-	type_ *string
-	// TODU
+	q          *string
+	after      *string
+	limit      *int32
+	type_      *string
 	data       interface{}
 	retryCount int32
 }
@@ -3956,14 +3606,11 @@ func (r ApiListIdentityProvidersRequest) Type_(type_ string) ApiListIdentityProv
 	return r
 }
 
-
-// TODU
-func (r ApiListIdentityProvidersRequest) Data (data interface{}) ApiListIdentityProvidersRequest {
+func (r ApiListIdentityProvidersRequest) Data(data interface{}) ApiListIdentityProvidersRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListIdentityProvidersRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListIdentityProvidersExecute(r)
 }
@@ -3976,12 +3623,11 @@ Lists all identity provider integrations with pagination. A subset of IdPs can b
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListIdentityProvidersRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) ListIdentityProviders(ctx context.Context) ApiListIdentityProvidersRequest {
 	return ApiListIdentityProvidersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -3994,10 +3640,9 @@ func (a *IdentityProviderAPIService) ListIdentityProvidersExecute(r ApiListIdent
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4007,7 +3652,6 @@ func (a *IdentityProviderAPIService) ListIdentityProvidersExecute(r ApiListIdent
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.ListIdentityProviders")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4046,7 +3690,6 @@ func (a *IdentityProviderAPIService) ListIdentityProvidersExecute(r ApiListIdent
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4063,13 +3706,11 @@ func (a *IdentityProviderAPIService) ListIdentityProvidersExecute(r ApiListIdent
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4078,7 +3719,6 @@ func (a *IdentityProviderAPIService) ListIdentityProvidersExecute(r ApiListIdent
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4093,12 +3733,10 @@ func (a *IdentityProviderAPIService) ListIdentityProvidersExecute(r ApiListIdent
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4107,13 +3745,11 @@ func (a *IdentityProviderAPIService) ListIdentityProvidersExecute(r ApiListIdent
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4122,23 +3758,19 @@ func (a *IdentityProviderAPIService) ListIdentityProvidersExecute(r ApiListIdent
 }
 
 type ApiListSocialAuthTokensRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	userId string
-	// TODU
+	idpId      string
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiListSocialAuthTokensRequest) Data (data interface{}) ApiListSocialAuthTokensRequest {
+func (r ApiListSocialAuthTokensRequest) Data(data interface{}) ApiListSocialAuthTokensRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListSocialAuthTokensRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListSocialAuthTokensExecute(r)
 }
@@ -4153,14 +3785,13 @@ Lists the tokens minted by the Social Authentication Provider when the user auth
  @param userId ID of an existing Okta user
  @return ApiListSocialAuthTokensRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) ListSocialAuthTokens(ctx context.Context, idpId string, userId string) ApiListSocialAuthTokensRequest {
 	return ApiListSocialAuthTokensRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		userId: userId,
+		ctx:        ctx,
+		idpId:      idpId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -4173,10 +3804,9 @@ func (a *IdentityProviderAPIService) ListSocialAuthTokensExecute(r ApiListSocial
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4186,7 +3816,6 @@ func (a *IdentityProviderAPIService) ListSocialAuthTokensExecute(r ApiListSocial
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.ListSocialAuthTokens")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4215,7 +3844,6 @@ func (a *IdentityProviderAPIService) ListSocialAuthTokensExecute(r ApiListSocial
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4232,13 +3860,11 @@ func (a *IdentityProviderAPIService) ListSocialAuthTokensExecute(r ApiListSocial
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4247,7 +3873,6 @@ func (a *IdentityProviderAPIService) ListSocialAuthTokensExecute(r ApiListSocial
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4262,12 +3887,10 @@ func (a *IdentityProviderAPIService) ListSocialAuthTokensExecute(r ApiListSocial
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4276,12 +3899,10 @@ func (a *IdentityProviderAPIService) ListSocialAuthTokensExecute(r ApiListSocial
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4290,13 +3911,11 @@ func (a *IdentityProviderAPIService) ListSocialAuthTokensExecute(r ApiListSocial
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4305,12 +3924,11 @@ func (a *IdentityProviderAPIService) ListSocialAuthTokensExecute(r ApiListSocial
 }
 
 type ApiPublishCsrForIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	idpCsrId string
-	body **os.File
-	// TODU
+	idpId      string
+	idpCsrId   string
+	body       **os.File
 	data       interface{}
 	retryCount int32
 }
@@ -4320,14 +3938,11 @@ func (r ApiPublishCsrForIdentityProviderRequest) Body(body *os.File) ApiPublishC
 	return r
 }
 
-
-// TODU
-func (r ApiPublishCsrForIdentityProviderRequest) Data (data interface{}) ApiPublishCsrForIdentityProviderRequest {
+func (r ApiPublishCsrForIdentityProviderRequest) Data(data interface{}) ApiPublishCsrForIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiPublishCsrForIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.PublishCsrForIdentityProviderExecute(r)
 }
@@ -4342,14 +3957,13 @@ Publishes a certificate signing request with a signed X.509 certificate and adds
  @param idpCsrId `id` of the IdP CSR
  @return ApiPublishCsrForIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) PublishCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiPublishCsrForIdentityProviderRequest {
 	return ApiPublishCsrForIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		idpCsrId: idpCsrId,
+		ctx:        ctx,
+		idpId:      idpId,
+		idpCsrId:   idpCsrId,
 		retryCount: 0,
 	}
 }
@@ -4362,10 +3976,9 @@ func (a *IdentityProviderAPIService) PublishCsrForIdentityProviderExecute(r ApiP
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4375,7 +3988,6 @@ func (a *IdentityProviderAPIService) PublishCsrForIdentityProviderExecute(r ApiP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.PublishCsrForIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4404,7 +4016,6 @@ func (a *IdentityProviderAPIService) PublishCsrForIdentityProviderExecute(r ApiP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.body
 	localVarPostBody = r.data
@@ -4424,13 +4035,11 @@ func (a *IdentityProviderAPIService) PublishCsrForIdentityProviderExecute(r ApiP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4439,7 +4048,6 @@ func (a *IdentityProviderAPIService) PublishCsrForIdentityProviderExecute(r ApiP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4454,12 +4062,10 @@ func (a *IdentityProviderAPIService) PublishCsrForIdentityProviderExecute(r ApiP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -4468,12 +4074,10 @@ func (a *IdentityProviderAPIService) PublishCsrForIdentityProviderExecute(r ApiP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4482,12 +4086,10 @@ func (a *IdentityProviderAPIService) PublishCsrForIdentityProviderExecute(r ApiP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4496,13 +4098,11 @@ func (a *IdentityProviderAPIService) PublishCsrForIdentityProviderExecute(r ApiP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4511,13 +4111,12 @@ func (a *IdentityProviderAPIService) PublishCsrForIdentityProviderExecute(r ApiP
 }
 
 type ApiReplaceIdentityProviderRequest struct {
-	ctx context.Context
-	ApiService IdentityProviderAPI
-	idpId string
+	ctx              context.Context
+	ApiService       IdentityProviderAPI
+	idpId            string
 	identityProvider *IdentityProvider
-	// TODU
-	data       interface{}
-	retryCount int32
+	data             interface{}
+	retryCount       int32
 }
 
 func (r ApiReplaceIdentityProviderRequest) IdentityProvider(identityProvider IdentityProvider) ApiReplaceIdentityProviderRequest {
@@ -4525,14 +4124,11 @@ func (r ApiReplaceIdentityProviderRequest) IdentityProvider(identityProvider Ide
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceIdentityProviderRequest) Data (data interface{}) ApiReplaceIdentityProviderRequest {
+func (r ApiReplaceIdentityProviderRequest) Data(data interface{}) ApiReplaceIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceIdentityProviderExecute(r)
 }
@@ -4546,13 +4142,12 @@ Replaces an identity provider integration by `idpId`
  @param idpId `id` of IdP
  @return ApiReplaceIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) ReplaceIdentityProvider(ctx context.Context, idpId string) ApiReplaceIdentityProviderRequest {
 	return ApiReplaceIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
+		ctx:        ctx,
+		idpId:      idpId,
 		retryCount: 0,
 	}
 }
@@ -4565,10 +4160,9 @@ func (a *IdentityProviderAPIService) ReplaceIdentityProviderExecute(r ApiReplace
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4578,7 +4172,6 @@ func (a *IdentityProviderAPIService) ReplaceIdentityProviderExecute(r ApiReplace
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.ReplaceIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4606,7 +4199,6 @@ func (a *IdentityProviderAPIService) ReplaceIdentityProviderExecute(r ApiReplace
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.identityProvider
 	localVarPostBody = r.data
@@ -4626,13 +4218,11 @@ func (a *IdentityProviderAPIService) ReplaceIdentityProviderExecute(r ApiReplace
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4641,7 +4231,6 @@ func (a *IdentityProviderAPIService) ReplaceIdentityProviderExecute(r ApiReplace
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4656,12 +4245,10 @@ func (a *IdentityProviderAPIService) ReplaceIdentityProviderExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -4670,12 +4257,10 @@ func (a *IdentityProviderAPIService) ReplaceIdentityProviderExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4684,12 +4269,10 @@ func (a *IdentityProviderAPIService) ReplaceIdentityProviderExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4698,13 +4281,11 @@ func (a *IdentityProviderAPIService) ReplaceIdentityProviderExecute(r ApiReplace
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4713,23 +4294,19 @@ func (a *IdentityProviderAPIService) ReplaceIdentityProviderExecute(r ApiReplace
 }
 
 type ApiRevokeCsrForIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	idpCsrId string
-	// TODU
+	idpId      string
+	idpCsrId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeCsrForIdentityProviderRequest) Data (data interface{}) ApiRevokeCsrForIdentityProviderRequest {
+func (r ApiRevokeCsrForIdentityProviderRequest) Data(data interface{}) ApiRevokeCsrForIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeCsrForIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeCsrForIdentityProviderExecute(r)
 }
@@ -4744,14 +4321,13 @@ Revokes a certificate signing request and deletes the key pair from the IdP
  @param idpCsrId `id` of the IdP CSR
  @return ApiRevokeCsrForIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) RevokeCsrForIdentityProvider(ctx context.Context, idpId string, idpCsrId string) ApiRevokeCsrForIdentityProviderRequest {
 	return ApiRevokeCsrForIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		idpCsrId: idpCsrId,
+		ctx:        ctx,
+		idpId:      idpId,
+		idpCsrId:   idpCsrId,
 		retryCount: 0,
 	}
 }
@@ -4765,7 +4341,7 @@ func (a *IdentityProviderAPIService) RevokeCsrForIdentityProviderExecute(r ApiRe
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4775,7 +4351,6 @@ func (a *IdentityProviderAPIService) RevokeCsrForIdentityProviderExecute(r ApiRe
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.RevokeCsrForIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4804,7 +4379,6 @@ func (a *IdentityProviderAPIService) RevokeCsrForIdentityProviderExecute(r ApiRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4821,13 +4395,11 @@ func (a *IdentityProviderAPIService) RevokeCsrForIdentityProviderExecute(r ApiRe
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4836,7 +4408,6 @@ func (a *IdentityProviderAPIService) RevokeCsrForIdentityProviderExecute(r ApiRe
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -4851,12 +4422,10 @@ func (a *IdentityProviderAPIService) RevokeCsrForIdentityProviderExecute(r ApiRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -4865,12 +4434,10 @@ func (a *IdentityProviderAPIService) RevokeCsrForIdentityProviderExecute(r ApiRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -4879,13 +4446,11 @@ func (a *IdentityProviderAPIService) RevokeCsrForIdentityProviderExecute(r ApiRe
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -4894,23 +4459,19 @@ func (a *IdentityProviderAPIService) RevokeCsrForIdentityProviderExecute(r ApiRe
 }
 
 type ApiUnlinkUserFromIdentityProviderRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService IdentityProviderAPI
-	idpId string
-	userId string
-	// TODU
+	idpId      string
+	userId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiUnlinkUserFromIdentityProviderRequest) Data (data interface{}) ApiUnlinkUserFromIdentityProviderRequest {
+func (r ApiUnlinkUserFromIdentityProviderRequest) Data(data interface{}) ApiUnlinkUserFromIdentityProviderRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUnlinkUserFromIdentityProviderRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UnlinkUserFromIdentityProviderExecute(r)
 }
@@ -4925,14 +4486,13 @@ Unlinks the link between the Okta user and the IdP user
  @param userId ID of an existing Okta user
  @return ApiUnlinkUserFromIdentityProviderRequest
 */
-// TODU
 
 func (a *IdentityProviderAPIService) UnlinkUserFromIdentityProvider(ctx context.Context, idpId string, userId string) ApiUnlinkUserFromIdentityProviderRequest {
 	return ApiUnlinkUserFromIdentityProviderRequest{
 		ApiService: a,
-		ctx: ctx,
-		idpId: idpId,
-		userId: userId,
+		ctx:        ctx,
+		idpId:      idpId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
@@ -4946,7 +4506,7 @@ func (a *IdentityProviderAPIService) UnlinkUserFromIdentityProviderExecute(r Api
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -4956,7 +4516,6 @@ func (a *IdentityProviderAPIService) UnlinkUserFromIdentityProviderExecute(r Api
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityProviderAPIService.UnlinkUserFromIdentityProvider")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -4985,7 +4544,6 @@ func (a *IdentityProviderAPIService) UnlinkUserFromIdentityProviderExecute(r Api
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -5002,13 +4560,11 @@ func (a *IdentityProviderAPIService) UnlinkUserFromIdentityProviderExecute(r Api
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -5017,7 +4573,6 @@ func (a *IdentityProviderAPIService) UnlinkUserFromIdentityProviderExecute(r Api
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -5032,12 +4587,10 @@ func (a *IdentityProviderAPIService) UnlinkUserFromIdentityProviderExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -5046,12 +4599,10 @@ func (a *IdentityProviderAPIService) UnlinkUserFromIdentityProviderExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -5060,13 +4611,11 @@ func (a *IdentityProviderAPIService) UnlinkUserFromIdentityProviderExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

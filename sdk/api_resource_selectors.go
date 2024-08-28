@@ -17,20 +17,19 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ResourceSelectorsAPI interface {
 
 	/*
-	CreateResourceSelector Create a Resource Selector
+		CreateResourceSelector Create a Resource Selector
 
-	Creates a Resource Selector
+		Creates a Resource Selector
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateResourceSelectorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateResourceSelectorRequest
 	*/
 	CreateResourceSelector(ctx context.Context) ApiCreateResourceSelectorRequest
 
@@ -40,13 +39,13 @@ type ResourceSelectorsAPI interface {
 	CreateResourceSelectorExecute(r ApiCreateResourceSelectorRequest) (*APIResponse, error)
 
 	/*
-	DeleteResourceSelector Delete a Resource Selector
+		DeleteResourceSelector Delete a Resource Selector
 
-	Deletes a Resource Selector by `resourceSelectorId`
+		Deletes a Resource Selector by `resourceSelectorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSelectorId `id` of a Resource Selector
-	@return ApiDeleteResourceSelectorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSelectorId `id` of a Resource Selector
+		@return ApiDeleteResourceSelectorRequest
 	*/
 	DeleteResourceSelector(ctx context.Context, resourceSelectorId string) ApiDeleteResourceSelectorRequest
 
@@ -55,13 +54,13 @@ type ResourceSelectorsAPI interface {
 	DeleteResourceSelectorExecute(r ApiDeleteResourceSelectorRequest) (*APIResponse, error)
 
 	/*
-	GetResourceSelector Retrieve a Resource Selector
+		GetResourceSelector Retrieve a Resource Selector
 
-	Retrieves a Resource Selector by `resourceSelectorId`
+		Retrieves a Resource Selector by `resourceSelectorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSelectorId `id` of a Resource Selector
-	@return ApiGetResourceSelectorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSelectorId `id` of a Resource Selector
+		@return ApiGetResourceSelectorRequest
 	*/
 	GetResourceSelector(ctx context.Context, resourceSelectorId string) ApiGetResourceSelectorRequest
 
@@ -71,12 +70,12 @@ type ResourceSelectorsAPI interface {
 	GetResourceSelectorExecute(r ApiGetResourceSelectorRequest) (*APIResponse, error)
 
 	/*
-	ListResourceSelectors List all Resource Selectors
+		ListResourceSelectors List all Resource Selectors
 
-	Lists all Resource Selectors
+		Lists all Resource Selectors
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListResourceSelectorsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListResourceSelectorsRequest
 	*/
 	ListResourceSelectors(ctx context.Context) ApiListResourceSelectorsRequest
 
@@ -86,13 +85,13 @@ type ResourceSelectorsAPI interface {
 	ListResourceSelectorsExecute(r ApiListResourceSelectorsRequest) (*APIResponse, error)
 
 	/*
-	UpdateResourceSelector Update a Resource Selector
+		UpdateResourceSelector Update a Resource Selector
 
-	Updates a Resource Selector by `resourceSelectorId`
+		Updates a Resource Selector by `resourceSelectorId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceSelectorId `id` of a Resource Selector
-	@return ApiUpdateResourceSelectorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param resourceSelectorId `id` of a Resource Selector
+		@return ApiUpdateResourceSelectorRequest
 	*/
 	UpdateResourceSelector(ctx context.Context, resourceSelectorId string) ApiUpdateResourceSelectorRequest
 
@@ -106,9 +105,9 @@ type ResourceSelectorsAPI interface {
 type ResourceSelectorsAPIService service
 
 type ApiCreateResourceSelectorRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ResourceSelectorsAPI
-	instance *ResourceSelectorCreateRequestSchema
+	instance   *ResourceSelectorCreateRequestSchema
 	// TODU
 	data       interface{}
 	retryCount int32
@@ -119,9 +118,8 @@ func (r ApiCreateResourceSelectorRequest) Instance(instance ResourceSelectorCrea
 	return r
 }
 
-
 // TODU
-func (r ApiCreateResourceSelectorRequest) Data (data interface{}) ApiCreateResourceSelectorRequest {
+func (r ApiCreateResourceSelectorRequest) Data(data interface{}) ApiCreateResourceSelectorRequest {
 	r.data = data
 	return r
 }
@@ -144,7 +142,7 @@ Creates a Resource Selector
 func (a *ResourceSelectorsAPIService) CreateResourceSelector(ctx context.Context) ApiCreateResourceSelectorRequest {
 	return ApiCreateResourceSelectorRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -154,13 +152,13 @@ func (a *ResourceSelectorsAPIService) CreateResourceSelector(ctx context.Context
 
 func (a *ResourceSelectorsAPIService) CreateResourceSelectorExecute(r ApiCreateResourceSelectorRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -197,7 +195,7 @@ func (a *ResourceSelectorsAPIService) CreateResourceSelectorExecute(r ApiCreateR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data
@@ -290,17 +288,16 @@ func (a *ResourceSelectorsAPIService) CreateResourceSelectorExecute(r ApiCreateR
 }
 
 type ApiDeleteResourceSelectorRequest struct {
-	ctx context.Context
-	ApiService ResourceSelectorsAPI
+	ctx                context.Context
+	ApiService         ResourceSelectorsAPI
 	resourceSelectorId string
 	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
 // TODU
-func (r ApiDeleteResourceSelectorRequest) Data (data interface{}) ApiDeleteResourceSelectorRequest {
+func (r ApiDeleteResourceSelectorRequest) Data(data interface{}) ApiDeleteResourceSelectorRequest {
 	r.data = data
 	return r
 }
@@ -323,10 +320,10 @@ Deletes a Resource Selector by `resourceSelectorId`
 
 func (a *ResourceSelectorsAPIService) DeleteResourceSelector(ctx context.Context, resourceSelectorId string) ApiDeleteResourceSelectorRequest {
 	return ApiDeleteResourceSelectorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:         a,
+		ctx:                ctx,
 		resourceSelectorId: resourceSelectorId,
-		retryCount: 0,
+		retryCount:         0,
 	}
 }
 
@@ -339,7 +336,7 @@ func (a *ResourceSelectorsAPIService) DeleteResourceSelectorExecute(r ApiDeleteR
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -377,7 +374,7 @@ func (a *ResourceSelectorsAPIService) DeleteResourceSelectorExecute(r ApiDeleteR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -467,17 +464,16 @@ func (a *ResourceSelectorsAPIService) DeleteResourceSelectorExecute(r ApiDeleteR
 }
 
 type ApiGetResourceSelectorRequest struct {
-	ctx context.Context
-	ApiService ResourceSelectorsAPI
+	ctx                context.Context
+	ApiService         ResourceSelectorsAPI
 	resourceSelectorId string
 	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
 // TODU
-func (r ApiGetResourceSelectorRequest) Data (data interface{}) ApiGetResourceSelectorRequest {
+func (r ApiGetResourceSelectorRequest) Data(data interface{}) ApiGetResourceSelectorRequest {
 	r.data = data
 	return r
 }
@@ -500,10 +496,10 @@ Retrieves a Resource Selector by `resourceSelectorId`
 
 func (a *ResourceSelectorsAPIService) GetResourceSelector(ctx context.Context, resourceSelectorId string) ApiGetResourceSelectorRequest {
 	return ApiGetResourceSelectorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:         a,
+		ctx:                ctx,
 		resourceSelectorId: resourceSelectorId,
-		retryCount: 0,
+		retryCount:         0,
 	}
 }
 
@@ -512,13 +508,13 @@ func (a *ResourceSelectorsAPIService) GetResourceSelector(ctx context.Context, r
 
 func (a *ResourceSelectorsAPIService) GetResourceSelectorExecute(r ApiGetResourceSelectorRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -556,7 +552,7 @@ func (a *ResourceSelectorsAPIService) GetResourceSelectorExecute(r ApiGetResourc
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -632,10 +628,10 @@ func (a *ResourceSelectorsAPIService) GetResourceSelectorExecute(r ApiGetResourc
 }
 
 type ApiListResourceSelectorsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ResourceSelectorsAPI
-	after *string
-	limit *int32
+	after      *string
+	limit      *int32
 	// TODU
 	data       interface{}
 	retryCount int32
@@ -653,9 +649,8 @@ func (r ApiListResourceSelectorsRequest) Limit(limit int32) ApiListResourceSelec
 	return r
 }
 
-
 // TODU
-func (r ApiListResourceSelectorsRequest) Data (data interface{}) ApiListResourceSelectorsRequest {
+func (r ApiListResourceSelectorsRequest) Data(data interface{}) ApiListResourceSelectorsRequest {
 	r.data = data
 	return r
 }
@@ -678,7 +673,7 @@ Lists all Resource Selectors
 func (a *ResourceSelectorsAPIService) ListResourceSelectors(ctx context.Context) ApiListResourceSelectorsRequest {
 	return ApiListResourceSelectorsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -688,13 +683,13 @@ func (a *ResourceSelectorsAPIService) ListResourceSelectors(ctx context.Context)
 
 func (a *ResourceSelectorsAPIService) ListResourceSelectorsExecute(r ApiListResourceSelectorsRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -737,7 +732,7 @@ func (a *ResourceSelectorsAPIService) ListResourceSelectorsExecute(r ApiListReso
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -813,10 +808,10 @@ func (a *ResourceSelectorsAPIService) ListResourceSelectorsExecute(r ApiListReso
 }
 
 type ApiUpdateResourceSelectorRequest struct {
-	ctx context.Context
-	ApiService ResourceSelectorsAPI
+	ctx                context.Context
+	ApiService         ResourceSelectorsAPI
 	resourceSelectorId string
-	instance *ResourceSelectorPatchRequestSchema
+	instance           *ResourceSelectorPatchRequestSchema
 	// TODU
 	data       interface{}
 	retryCount int32
@@ -827,9 +822,8 @@ func (r ApiUpdateResourceSelectorRequest) Instance(instance ResourceSelectorPatc
 	return r
 }
 
-
 // TODU
-func (r ApiUpdateResourceSelectorRequest) Data (data interface{}) ApiUpdateResourceSelectorRequest {
+func (r ApiUpdateResourceSelectorRequest) Data(data interface{}) ApiUpdateResourceSelectorRequest {
 	r.data = data
 	return r
 }
@@ -852,10 +846,10 @@ Updates a Resource Selector by `resourceSelectorId`
 
 func (a *ResourceSelectorsAPIService) UpdateResourceSelector(ctx context.Context, resourceSelectorId string) ApiUpdateResourceSelectorRequest {
 	return ApiUpdateResourceSelectorRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:         a,
+		ctx:                ctx,
 		resourceSelectorId: resourceSelectorId,
-		retryCount: 0,
+		retryCount:         0,
 	}
 }
 
@@ -864,13 +858,13 @@ func (a *ResourceSelectorsAPIService) UpdateResourceSelector(ctx context.Context
 
 func (a *ResourceSelectorsAPIService) UpdateResourceSelectorExecute(r ApiUpdateResourceSelectorRequest) (*APIResponse, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPatch
+		localVarPostBody   interface{}
+		formFiles          []formFile
 		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -908,7 +902,7 @@ func (a *ResourceSelectorsAPIService) UpdateResourceSelectorExecute(r ApiUpdateR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
+	// TODU
 	// body params
 	// localVarPostBody = r.instance
 	localVarPostBody = r.data

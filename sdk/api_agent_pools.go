@@ -17,242 +17,227 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type AgentPoolsAPI interface {
 
 	/*
-	ActivateAgentPoolsUpdate Activate an Agent Pool update
+		ActivateAgentPoolsUpdate Activate an Agent Pool update
 
-	Activates scheduled Agent pool update
+		Activates scheduled Agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiActivateAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@param updateId Id of the update
+		@return ApiActivateAgentPoolsUpdateRequest
 	*/
 	ActivateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiActivateAgentPoolsUpdateRequest
 
 	// ActivateAgentPoolsUpdateExecute executes the request
 	//  @return AgentPoolUpdate
-	// TODU
 	ActivateAgentPoolsUpdateExecute(r ApiActivateAgentPoolsUpdateRequest) (*APIResponse, error)
 
 	/*
-	CreateAgentPoolsUpdate Create an Agent Pool update
+		CreateAgentPoolsUpdate Create an Agent Pool update
 
-	Creates an Agent pool update \n For user flow 2 manual update, starts the update immediately. \n For user flow 3, schedules the update based on the configured update window and delay.
+		Creates an Agent pool update \n For user flow 2 manual update, starts the update immediately. \n For user flow 3, schedules the update based on the configured update window and delay.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@return ApiCreateAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@return ApiCreateAgentPoolsUpdateRequest
 	*/
 	CreateAgentPoolsUpdate(ctx context.Context, poolId string) ApiCreateAgentPoolsUpdateRequest
 
 	// CreateAgentPoolsUpdateExecute executes the request
 	//  @return AgentPoolUpdate
-	// TODU
 	CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoolsUpdateRequest) (*APIResponse, error)
 
 	/*
-	DeactivateAgentPoolsUpdate Deactivate an Agent Pool update
+		DeactivateAgentPoolsUpdate Deactivate an Agent Pool update
 
-	Deactivates scheduled Agent pool update
+		Deactivates scheduled Agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiDeactivateAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@param updateId Id of the update
+		@return ApiDeactivateAgentPoolsUpdateRequest
 	*/
 	DeactivateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiDeactivateAgentPoolsUpdateRequest
 
 	// DeactivateAgentPoolsUpdateExecute executes the request
 	//  @return AgentPoolUpdate
-	// TODU
 	DeactivateAgentPoolsUpdateExecute(r ApiDeactivateAgentPoolsUpdateRequest) (*APIResponse, error)
 
 	/*
-	DeleteAgentPoolsUpdate Delete an Agent Pool update
+		DeleteAgentPoolsUpdate Delete an Agent Pool update
 
-	Deletes Agent pool update
+		Deletes Agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiDeleteAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@param updateId Id of the update
+		@return ApiDeleteAgentPoolsUpdateRequest
 	*/
 	DeleteAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiDeleteAgentPoolsUpdateRequest
 
 	// DeleteAgentPoolsUpdateExecute executes the request
-	// TODU
 	DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoolsUpdateRequest) (*APIResponse, error)
 
 	/*
-	GetAgentPoolsUpdateInstance Retrieve an Agent Pool update by id
+		GetAgentPoolsUpdateInstance Retrieve an Agent Pool update by id
 
-	Retrieves Agent pool update from updateId
+		Retrieves Agent pool update from updateId
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiGetAgentPoolsUpdateInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@param updateId Id of the update
+		@return ApiGetAgentPoolsUpdateInstanceRequest
 	*/
 	GetAgentPoolsUpdateInstance(ctx context.Context, poolId string, updateId string) ApiGetAgentPoolsUpdateInstanceRequest
 
 	// GetAgentPoolsUpdateInstanceExecute executes the request
 	//  @return AgentPoolUpdate
-	// TODU
 	GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentPoolsUpdateInstanceRequest) (*APIResponse, error)
 
 	/*
-	GetAgentPoolsUpdateSettings Retrieve an Agent Pool update's settings
+		GetAgentPoolsUpdateSettings Retrieve an Agent Pool update's settings
 
-	Retrieves the current state of the agent pool update instance settings
+		Retrieves the current state of the agent pool update instance settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@return ApiGetAgentPoolsUpdateSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@return ApiGetAgentPoolsUpdateSettingsRequest
 	*/
 	GetAgentPoolsUpdateSettings(ctx context.Context, poolId string) ApiGetAgentPoolsUpdateSettingsRequest
 
 	// GetAgentPoolsUpdateSettingsExecute executes the request
 	//  @return AgentPoolUpdateSetting
-	// TODU
 	GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentPoolsUpdateSettingsRequest) (*APIResponse, error)
 
 	/*
-	ListAgentPools List all Agent Pools
+		ListAgentPools List all Agent Pools
 
-	Lists all agent pools with pagination support
+		Lists all agent pools with pagination support
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAgentPoolsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiListAgentPoolsRequest
 	*/
 	ListAgentPools(ctx context.Context) ApiListAgentPoolsRequest
 
 	// ListAgentPoolsExecute executes the request
 	//  @return []AgentPool
-	// TODU
 	ListAgentPoolsExecute(r ApiListAgentPoolsRequest) (*APIResponse, error)
 
 	/*
-	ListAgentPoolsUpdates List all Agent Pool updates
+		ListAgentPoolsUpdates List all Agent Pool updates
 
-	Lists all agent pool updates
+		Lists all agent pool updates
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@return ApiListAgentPoolsUpdatesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@return ApiListAgentPoolsUpdatesRequest
 	*/
 	ListAgentPoolsUpdates(ctx context.Context, poolId string) ApiListAgentPoolsUpdatesRequest
 
 	// ListAgentPoolsUpdatesExecute executes the request
 	//  @return []AgentPoolUpdate
-	// TODU
 	ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsUpdatesRequest) (*APIResponse, error)
 
 	/*
-	PauseAgentPoolsUpdate Pause an Agent Pool update
+		PauseAgentPoolsUpdate Pause an Agent Pool update
 
-	Pauses running or queued Agent pool update
+		Pauses running or queued Agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiPauseAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@param updateId Id of the update
+		@return ApiPauseAgentPoolsUpdateRequest
 	*/
 	PauseAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiPauseAgentPoolsUpdateRequest
 
 	// PauseAgentPoolsUpdateExecute executes the request
 	//  @return AgentPoolUpdate
-	// TODU
 	PauseAgentPoolsUpdateExecute(r ApiPauseAgentPoolsUpdateRequest) (*APIResponse, error)
 
 	/*
-	ResumeAgentPoolsUpdate Resume an Agent Pool update
+		ResumeAgentPoolsUpdate Resume an Agent Pool update
 
-	Resumes running or queued Agent pool update
+		Resumes running or queued Agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiResumeAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@param updateId Id of the update
+		@return ApiResumeAgentPoolsUpdateRequest
 	*/
 	ResumeAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiResumeAgentPoolsUpdateRequest
 
 	// ResumeAgentPoolsUpdateExecute executes the request
 	//  @return AgentPoolUpdate
-	// TODU
 	ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoolsUpdateRequest) (*APIResponse, error)
 
 	/*
-	RetryAgentPoolsUpdate Retry an Agent Pool update
+		RetryAgentPoolsUpdate Retry an Agent Pool update
 
-	Retries Agent pool update
+		Retries Agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiRetryAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@param updateId Id of the update
+		@return ApiRetryAgentPoolsUpdateRequest
 	*/
 	RetryAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiRetryAgentPoolsUpdateRequest
 
 	// RetryAgentPoolsUpdateExecute executes the request
 	//  @return AgentPoolUpdate
-	// TODU
 	RetryAgentPoolsUpdateExecute(r ApiRetryAgentPoolsUpdateRequest) (*APIResponse, error)
 
 	/*
-	StopAgentPoolsUpdate Stop an Agent Pool update
+		StopAgentPoolsUpdate Stop an Agent Pool update
 
-	Stops Agent pool update
+		Stops Agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiStopAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@param updateId Id of the update
+		@return ApiStopAgentPoolsUpdateRequest
 	*/
 	StopAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiStopAgentPoolsUpdateRequest
 
 	// StopAgentPoolsUpdateExecute executes the request
 	//  @return AgentPoolUpdate
-	// TODU
 	StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUpdateRequest) (*APIResponse, error)
 
 	/*
-	UpdateAgentPoolsUpdate Update an Agent Pool update by id
+		UpdateAgentPoolsUpdate Update an Agent Pool update by id
 
-	Updates Agent pool update and return latest agent pool update
+		Updates Agent pool update and return latest agent pool update
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@param updateId Id of the update
-	@return ApiUpdateAgentPoolsUpdateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@param updateId Id of the update
+		@return ApiUpdateAgentPoolsUpdateRequest
 	*/
 	UpdateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiUpdateAgentPoolsUpdateRequest
 
 	// UpdateAgentPoolsUpdateExecute executes the request
 	//  @return AgentPoolUpdate
-	// TODU
 	UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoolsUpdateRequest) (*APIResponse, error)
 
 	/*
-	UpdateAgentPoolsUpdateSettings Update an Agent Pool update settings
+		UpdateAgentPoolsUpdateSettings Update an Agent Pool update settings
 
-	Updates an agent pool update settings
+		Updates an agent pool update settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param poolId Id of the agent pool for which the settings will apply
-	@return ApiUpdateAgentPoolsUpdateSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param poolId Id of the agent pool for which the settings will apply
+		@return ApiUpdateAgentPoolsUpdateSettingsRequest
 	*/
 	UpdateAgentPoolsUpdateSettings(ctx context.Context, poolId string) ApiUpdateAgentPoolsUpdateSettingsRequest
 
 	// UpdateAgentPoolsUpdateSettingsExecute executes the request
 	//  @return AgentPoolUpdateSetting
-	// TODU
 	UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdateAgentPoolsUpdateSettingsRequest) (*APIResponse, error)
 }
 
@@ -260,23 +245,19 @@ type AgentPoolsAPI interface {
 type AgentPoolsAPIService service
 
 type ApiActivateAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
-	// TODU
+	poolId     string
+	updateId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiActivateAgentPoolsUpdateRequest) Data (data interface{}) ApiActivateAgentPoolsUpdateRequest {
+func (r ApiActivateAgentPoolsUpdateRequest) Data(data interface{}) ApiActivateAgentPoolsUpdateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiActivateAgentPoolsUpdateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ActivateAgentPoolsUpdateExecute(r)
 }
@@ -291,14 +272,13 @@ Activates scheduled Agent pool update
  @param updateId Id of the update
  @return ApiActivateAgentPoolsUpdateRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiActivateAgentPoolsUpdateRequest {
 	return ApiActivateAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
@@ -311,10 +291,9 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -324,7 +303,6 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.ActivateAgentPoolsUpdate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -353,7 +331,6 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -370,13 +347,11 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -385,7 +360,6 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -400,12 +374,10 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -414,12 +386,10 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -428,13 +398,11 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -443,13 +411,12 @@ func (a *AgentPoolsAPIService) ActivateAgentPoolsUpdateExecute(r ApiActivateAgen
 }
 
 type ApiCreateAgentPoolsUpdateRequest struct {
-	ctx context.Context
-	ApiService AgentPoolsAPI
-	poolId string
+	ctx             context.Context
+	ApiService      AgentPoolsAPI
+	poolId          string
 	agentPoolUpdate *AgentPoolUpdate
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
 func (r ApiCreateAgentPoolsUpdateRequest) AgentPoolUpdate(agentPoolUpdate AgentPoolUpdate) ApiCreateAgentPoolsUpdateRequest {
@@ -457,14 +424,11 @@ func (r ApiCreateAgentPoolsUpdateRequest) AgentPoolUpdate(agentPoolUpdate AgentP
 	return r
 }
 
-
-// TODU
-func (r ApiCreateAgentPoolsUpdateRequest) Data (data interface{}) ApiCreateAgentPoolsUpdateRequest {
+func (r ApiCreateAgentPoolsUpdateRequest) Data(data interface{}) ApiCreateAgentPoolsUpdateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateAgentPoolsUpdateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateAgentPoolsUpdateExecute(r)
 }
@@ -478,13 +442,12 @@ Creates an Agent pool update \n For user flow 2 manual update, starts the update
  @param poolId Id of the agent pool for which the settings will apply
  @return ApiCreateAgentPoolsUpdateRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) CreateAgentPoolsUpdate(ctx context.Context, poolId string) ApiCreateAgentPoolsUpdateRequest {
 	return ApiCreateAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
+		ctx:        ctx,
+		poolId:     poolId,
 		retryCount: 0,
 	}
 }
@@ -497,10 +460,9 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -510,7 +472,6 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.CreateAgentPoolsUpdate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -538,7 +499,6 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.agentPoolUpdate
 	localVarPostBody = r.data
@@ -558,13 +518,11 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -573,7 +531,6 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -588,12 +545,10 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -602,12 +557,10 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -616,12 +569,10 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -630,13 +581,11 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -645,23 +594,19 @@ func (a *AgentPoolsAPIService) CreateAgentPoolsUpdateExecute(r ApiCreateAgentPoo
 }
 
 type ApiDeactivateAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
-	// TODU
+	poolId     string
+	updateId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeactivateAgentPoolsUpdateRequest) Data (data interface{}) ApiDeactivateAgentPoolsUpdateRequest {
+func (r ApiDeactivateAgentPoolsUpdateRequest) Data(data interface{}) ApiDeactivateAgentPoolsUpdateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeactivateAgentPoolsUpdateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeactivateAgentPoolsUpdateExecute(r)
 }
@@ -676,14 +621,13 @@ Deactivates scheduled Agent pool update
  @param updateId Id of the update
  @return ApiDeactivateAgentPoolsUpdateRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiDeactivateAgentPoolsUpdateRequest {
 	return ApiDeactivateAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
@@ -696,10 +640,9 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -709,7 +652,6 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.DeactivateAgentPoolsUpdate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -738,7 +680,6 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -755,13 +696,11 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -770,7 +709,6 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -785,12 +723,10 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -799,12 +735,10 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -813,13 +747,11 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -828,23 +760,19 @@ func (a *AgentPoolsAPIService) DeactivateAgentPoolsUpdateExecute(r ApiDeactivate
 }
 
 type ApiDeleteAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
-	// TODU
+	poolId     string
+	updateId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteAgentPoolsUpdateRequest) Data (data interface{}) ApiDeleteAgentPoolsUpdateRequest {
+func (r ApiDeleteAgentPoolsUpdateRequest) Data(data interface{}) ApiDeleteAgentPoolsUpdateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteAgentPoolsUpdateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteAgentPoolsUpdateExecute(r)
 }
@@ -859,14 +787,13 @@ Deletes Agent pool update
  @param updateId Id of the update
  @return ApiDeleteAgentPoolsUpdateRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiDeleteAgentPoolsUpdateRequest {
 	return ApiDeleteAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
@@ -880,7 +807,7 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -890,7 +817,6 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.DeleteAgentPoolsUpdate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -919,7 +845,6 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -936,13 +861,11 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -951,7 +874,6 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -966,12 +888,10 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -980,12 +900,10 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -994,13 +912,11 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1009,23 +925,19 @@ func (a *AgentPoolsAPIService) DeleteAgentPoolsUpdateExecute(r ApiDeleteAgentPoo
 }
 
 type ApiGetAgentPoolsUpdateInstanceRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
-	// TODU
+	poolId     string
+	updateId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetAgentPoolsUpdateInstanceRequest) Data (data interface{}) ApiGetAgentPoolsUpdateInstanceRequest {
+func (r ApiGetAgentPoolsUpdateInstanceRequest) Data(data interface{}) ApiGetAgentPoolsUpdateInstanceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetAgentPoolsUpdateInstanceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetAgentPoolsUpdateInstanceExecute(r)
 }
@@ -1040,14 +952,13 @@ Retrieves Agent pool update from updateId
  @param updateId Id of the update
  @return ApiGetAgentPoolsUpdateInstanceRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstance(ctx context.Context, poolId string, updateId string) ApiGetAgentPoolsUpdateInstanceRequest {
 	return ApiGetAgentPoolsUpdateInstanceRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
@@ -1060,10 +971,9 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1073,7 +983,6 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.GetAgentPoolsUpdateInstance")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1102,7 +1011,6 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1119,13 +1027,11 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1134,7 +1040,6 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1149,12 +1054,10 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1163,12 +1066,10 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1177,13 +1078,11 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1192,22 +1091,18 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateInstanceExecute(r ApiGetAgentP
 }
 
 type ApiGetAgentPoolsUpdateSettingsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	// TODU
+	poolId     string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetAgentPoolsUpdateSettingsRequest) Data (data interface{}) ApiGetAgentPoolsUpdateSettingsRequest {
+func (r ApiGetAgentPoolsUpdateSettingsRequest) Data(data interface{}) ApiGetAgentPoolsUpdateSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetAgentPoolsUpdateSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetAgentPoolsUpdateSettingsExecute(r)
 }
@@ -1221,13 +1116,12 @@ Retrieves the current state of the agent pool update instance settings
  @param poolId Id of the agent pool for which the settings will apply
  @return ApiGetAgentPoolsUpdateSettingsRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettings(ctx context.Context, poolId string) ApiGetAgentPoolsUpdateSettingsRequest {
 	return ApiGetAgentPoolsUpdateSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
+		ctx:        ctx,
+		poolId:     poolId,
 		retryCount: 0,
 	}
 }
@@ -1240,10 +1134,9 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1253,7 +1146,6 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.GetAgentPoolsUpdateSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1281,7 +1173,6 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1298,13 +1189,11 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1313,7 +1202,6 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1328,12 +1216,10 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1342,12 +1228,10 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1356,13 +1240,11 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1371,14 +1253,13 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentP
 }
 
 type ApiListAgentPoolsRequest struct {
-	ctx context.Context
-	ApiService AgentPoolsAPI
+	ctx              context.Context
+	ApiService       AgentPoolsAPI
 	limitPerPoolType *int32
-	poolType *string
-	after *string
-	// TODU
-	data       interface{}
-	retryCount int32
+	poolType         *string
+	after            *string
+	data             interface{}
+	retryCount       int32
 }
 
 // Maximum number of AgentPools being returned
@@ -1399,14 +1280,11 @@ func (r ApiListAgentPoolsRequest) After(after string) ApiListAgentPoolsRequest {
 	return r
 }
 
-
-// TODU
-func (r ApiListAgentPoolsRequest) Data (data interface{}) ApiListAgentPoolsRequest {
+func (r ApiListAgentPoolsRequest) Data(data interface{}) ApiListAgentPoolsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListAgentPoolsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListAgentPoolsExecute(r)
 }
@@ -1419,12 +1297,11 @@ Lists all agent pools with pagination support
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListAgentPoolsRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) ListAgentPools(ctx context.Context) ApiListAgentPoolsRequest {
 	return ApiListAgentPoolsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1437,10 +1314,9 @@ func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest)
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1450,7 +1326,6 @@ func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest)
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.ListAgentPools")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1486,7 +1361,6 @@ func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1503,13 +1377,11 @@ func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1518,7 +1390,6 @@ func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest)
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1533,12 +1404,10 @@ func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1547,13 +1416,11 @@ func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest)
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1562,11 +1429,10 @@ func (a *AgentPoolsAPIService) ListAgentPoolsExecute(r ApiListAgentPoolsRequest)
 }
 
 type ApiListAgentPoolsUpdatesRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	scheduled *bool
-	// TODU
+	poolId     string
+	scheduled  *bool
 	data       interface{}
 	retryCount int32
 }
@@ -1577,14 +1443,11 @@ func (r ApiListAgentPoolsUpdatesRequest) Scheduled(scheduled bool) ApiListAgentP
 	return r
 }
 
-
-// TODU
-func (r ApiListAgentPoolsUpdatesRequest) Data (data interface{}) ApiListAgentPoolsUpdatesRequest {
+func (r ApiListAgentPoolsUpdatesRequest) Data(data interface{}) ApiListAgentPoolsUpdatesRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListAgentPoolsUpdatesRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListAgentPoolsUpdatesExecute(r)
 }
@@ -1598,13 +1461,12 @@ Lists all agent pool updates
  @param poolId Id of the agent pool for which the settings will apply
  @return ApiListAgentPoolsUpdatesRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) ListAgentPoolsUpdates(ctx context.Context, poolId string) ApiListAgentPoolsUpdatesRequest {
 	return ApiListAgentPoolsUpdatesRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
+		ctx:        ctx,
+		poolId:     poolId,
 		retryCount: 0,
 	}
 }
@@ -1617,10 +1479,9 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1630,7 +1491,6 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.ListAgentPoolsUpdates")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1661,7 +1521,6 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1678,13 +1537,11 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1693,7 +1550,6 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1708,12 +1564,10 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1722,12 +1576,10 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1736,13 +1588,11 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1751,23 +1601,19 @@ func (a *AgentPoolsAPIService) ListAgentPoolsUpdatesExecute(r ApiListAgentPoolsU
 }
 
 type ApiPauseAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
-	// TODU
+	poolId     string
+	updateId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiPauseAgentPoolsUpdateRequest) Data (data interface{}) ApiPauseAgentPoolsUpdateRequest {
+func (r ApiPauseAgentPoolsUpdateRequest) Data(data interface{}) ApiPauseAgentPoolsUpdateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiPauseAgentPoolsUpdateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.PauseAgentPoolsUpdateExecute(r)
 }
@@ -1782,14 +1628,13 @@ Pauses running or queued Agent pool update
  @param updateId Id of the update
  @return ApiPauseAgentPoolsUpdateRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) PauseAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiPauseAgentPoolsUpdateRequest {
 	return ApiPauseAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
@@ -1802,10 +1647,9 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1815,7 +1659,6 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.PauseAgentPoolsUpdate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1844,7 +1687,6 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1861,13 +1703,11 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1876,7 +1716,6 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1891,12 +1730,10 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1905,12 +1742,10 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1919,13 +1754,11 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1934,23 +1767,19 @@ func (a *AgentPoolsAPIService) PauseAgentPoolsUpdateExecute(r ApiPauseAgentPools
 }
 
 type ApiResumeAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
-	// TODU
+	poolId     string
+	updateId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiResumeAgentPoolsUpdateRequest) Data (data interface{}) ApiResumeAgentPoolsUpdateRequest {
+func (r ApiResumeAgentPoolsUpdateRequest) Data(data interface{}) ApiResumeAgentPoolsUpdateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiResumeAgentPoolsUpdateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ResumeAgentPoolsUpdateExecute(r)
 }
@@ -1965,14 +1794,13 @@ Resumes running or queued Agent pool update
  @param updateId Id of the update
  @return ApiResumeAgentPoolsUpdateRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiResumeAgentPoolsUpdateRequest {
 	return ApiResumeAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
@@ -1985,10 +1813,9 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1998,7 +1825,6 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.ResumeAgentPoolsUpdate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2027,7 +1853,6 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2044,13 +1869,11 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2059,7 +1882,6 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2074,12 +1896,10 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2088,12 +1908,10 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2102,13 +1920,11 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2117,23 +1933,19 @@ func (a *AgentPoolsAPIService) ResumeAgentPoolsUpdateExecute(r ApiResumeAgentPoo
 }
 
 type ApiRetryAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
-	// TODU
+	poolId     string
+	updateId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRetryAgentPoolsUpdateRequest) Data (data interface{}) ApiRetryAgentPoolsUpdateRequest {
+func (r ApiRetryAgentPoolsUpdateRequest) Data(data interface{}) ApiRetryAgentPoolsUpdateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRetryAgentPoolsUpdateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RetryAgentPoolsUpdateExecute(r)
 }
@@ -2148,14 +1960,13 @@ Retries Agent pool update
  @param updateId Id of the update
  @return ApiRetryAgentPoolsUpdateRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) RetryAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiRetryAgentPoolsUpdateRequest {
 	return ApiRetryAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
@@ -2168,10 +1979,9 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2181,7 +1991,6 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.RetryAgentPoolsUpdate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2210,7 +2019,6 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2227,13 +2035,11 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2242,7 +2048,6 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2257,12 +2062,10 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2271,12 +2074,10 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2285,13 +2086,11 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2300,23 +2099,19 @@ func (a *AgentPoolsAPIService) RetryAgentPoolsUpdateExecute(r ApiRetryAgentPools
 }
 
 type ApiStopAgentPoolsUpdateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
-	// TODU
+	poolId     string
+	updateId   string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiStopAgentPoolsUpdateRequest) Data (data interface{}) ApiStopAgentPoolsUpdateRequest {
+func (r ApiStopAgentPoolsUpdateRequest) Data(data interface{}) ApiStopAgentPoolsUpdateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiStopAgentPoolsUpdateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.StopAgentPoolsUpdateExecute(r)
 }
@@ -2331,14 +2126,13 @@ Stops Agent pool update
  @param updateId Id of the update
  @return ApiStopAgentPoolsUpdateRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) StopAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiStopAgentPoolsUpdateRequest {
 	return ApiStopAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
@@ -2351,10 +2145,9 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2364,7 +2157,6 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.StopAgentPoolsUpdate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2393,7 +2185,6 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2410,13 +2201,11 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2425,7 +2214,6 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2440,12 +2228,10 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2454,12 +2240,10 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2468,13 +2252,11 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2483,14 +2265,13 @@ func (a *AgentPoolsAPIService) StopAgentPoolsUpdateExecute(r ApiStopAgentPoolsUp
 }
 
 type ApiUpdateAgentPoolsUpdateRequest struct {
-	ctx context.Context
-	ApiService AgentPoolsAPI
-	poolId string
-	updateId string
+	ctx             context.Context
+	ApiService      AgentPoolsAPI
+	poolId          string
+	updateId        string
 	agentPoolUpdate *AgentPoolUpdate
-	// TODU
-	data       interface{}
-	retryCount int32
+	data            interface{}
+	retryCount      int32
 }
 
 func (r ApiUpdateAgentPoolsUpdateRequest) AgentPoolUpdate(agentPoolUpdate AgentPoolUpdate) ApiUpdateAgentPoolsUpdateRequest {
@@ -2498,14 +2279,11 @@ func (r ApiUpdateAgentPoolsUpdateRequest) AgentPoolUpdate(agentPoolUpdate AgentP
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateAgentPoolsUpdateRequest) Data (data interface{}) ApiUpdateAgentPoolsUpdateRequest {
+func (r ApiUpdateAgentPoolsUpdateRequest) Data(data interface{}) ApiUpdateAgentPoolsUpdateRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateAgentPoolsUpdateRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateAgentPoolsUpdateExecute(r)
 }
@@ -2520,14 +2298,13 @@ Updates Agent pool update and return latest agent pool update
  @param updateId Id of the update
  @return ApiUpdateAgentPoolsUpdateRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdate(ctx context.Context, poolId string, updateId string) ApiUpdateAgentPoolsUpdateRequest {
 	return ApiUpdateAgentPoolsUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
-		updateId: updateId,
+		ctx:        ctx,
+		poolId:     poolId,
+		updateId:   updateId,
 		retryCount: 0,
 	}
 }
@@ -2540,10 +2317,9 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2553,7 +2329,6 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.UpdateAgentPoolsUpdate")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2582,7 +2357,6 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.agentPoolUpdate
 	localVarPostBody = r.data
@@ -2602,13 +2376,11 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2617,7 +2389,6 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2632,12 +2403,10 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2646,12 +2415,10 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2660,12 +2427,10 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2674,13 +2439,11 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -2689,13 +2452,12 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 }
 
 type ApiUpdateAgentPoolsUpdateSettingsRequest struct {
-	ctx context.Context
-	ApiService AgentPoolsAPI
-	poolId string
+	ctx                    context.Context
+	ApiService             AgentPoolsAPI
+	poolId                 string
 	agentPoolUpdateSetting *AgentPoolUpdateSetting
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                   interface{}
+	retryCount             int32
 }
 
 func (r ApiUpdateAgentPoolsUpdateSettingsRequest) AgentPoolUpdateSetting(agentPoolUpdateSetting AgentPoolUpdateSetting) ApiUpdateAgentPoolsUpdateSettingsRequest {
@@ -2703,14 +2465,11 @@ func (r ApiUpdateAgentPoolsUpdateSettingsRequest) AgentPoolUpdateSetting(agentPo
 	return r
 }
 
-
-// TODU
-func (r ApiUpdateAgentPoolsUpdateSettingsRequest) Data (data interface{}) ApiUpdateAgentPoolsUpdateSettingsRequest {
+func (r ApiUpdateAgentPoolsUpdateSettingsRequest) Data(data interface{}) ApiUpdateAgentPoolsUpdateSettingsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUpdateAgentPoolsUpdateSettingsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UpdateAgentPoolsUpdateSettingsExecute(r)
 }
@@ -2724,13 +2483,12 @@ Updates an agent pool update settings
  @param poolId Id of the agent pool for which the settings will apply
  @return ApiUpdateAgentPoolsUpdateSettingsRequest
 */
-// TODU
 
 func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettings(ctx context.Context, poolId string) ApiUpdateAgentPoolsUpdateSettingsRequest {
 	return ApiUpdateAgentPoolsUpdateSettingsRequest{
 		ApiService: a,
-		ctx: ctx,
-		poolId: poolId,
+		ctx:        ctx,
+		poolId:     poolId,
 		retryCount: 0,
 	}
 }
@@ -2743,10 +2501,9 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -2756,7 +2513,6 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AgentPoolsAPIService.UpdateAgentPoolsUpdateSettings")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2784,7 +2540,6 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.agentPoolUpdateSetting
 	localVarPostBody = r.data
@@ -2804,13 +2559,11 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -2819,7 +2572,6 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -2834,12 +2586,10 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2848,12 +2598,10 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2862,12 +2610,10 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2876,13 +2622,11 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

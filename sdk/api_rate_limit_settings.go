@@ -20,97 +20,90 @@ import (
 	"time"
 )
 
-
 type RateLimitSettingsAPI interface {
 
 	/*
-	GetRateLimitSettingsAdminNotifications Retrieve the Rate Limit Admin Notification Settings
+		GetRateLimitSettingsAdminNotifications Retrieve the Rate Limit Admin Notification Settings
 
-	Retrieves the currently configured Rate Limit Admin Notification Settings
+		Retrieves the currently configured Rate Limit Admin Notification Settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetRateLimitSettingsAdminNotificationsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetRateLimitSettingsAdminNotificationsRequest
 	*/
 	GetRateLimitSettingsAdminNotifications(ctx context.Context) ApiGetRateLimitSettingsAdminNotificationsRequest
 
 	// GetRateLimitSettingsAdminNotificationsExecute executes the request
 	//  @return RateLimitAdminNotifications
-	// TODU
 	GetRateLimitSettingsAdminNotificationsExecute(r ApiGetRateLimitSettingsAdminNotificationsRequest) (*APIResponse, error)
 
 	/*
-	GetRateLimitSettingsPerClient Retrieve the Per-Client Rate Limit Settings
+		GetRateLimitSettingsPerClient Retrieve the Per-Client Rate Limit Settings
 
-	Retrieves the currently configured Per-Client Rate Limit Settings
+		Retrieves the currently configured Per-Client Rate Limit Settings
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetRateLimitSettingsPerClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetRateLimitSettingsPerClientRequest
 	*/
 	GetRateLimitSettingsPerClient(ctx context.Context) ApiGetRateLimitSettingsPerClientRequest
 
 	// GetRateLimitSettingsPerClientExecute executes the request
 	//  @return PerClientRateLimitSettings
-	// TODU
 	GetRateLimitSettingsPerClientExecute(r ApiGetRateLimitSettingsPerClientRequest) (*APIResponse, error)
 
 	/*
-	GetRateLimitSettingsWarningThreshold Retrieve the Rate Limit Warning Threshold Percentage
+		GetRateLimitSettingsWarningThreshold Retrieve the Rate Limit Warning Threshold Percentage
 
-	Retrieves the currently configured threshold for warning notifications when the API's rate limit is exceeded
+		Retrieves the currently configured threshold for warning notifications when the API's rate limit is exceeded
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetRateLimitSettingsWarningThresholdRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetRateLimitSettingsWarningThresholdRequest
 	*/
 	GetRateLimitSettingsWarningThreshold(ctx context.Context) ApiGetRateLimitSettingsWarningThresholdRequest
 
 	// GetRateLimitSettingsWarningThresholdExecute executes the request
 	//  @return RateLimitWarningThresholdResponse
-	// TODU
 	GetRateLimitSettingsWarningThresholdExecute(r ApiGetRateLimitSettingsWarningThresholdRequest) (*APIResponse, error)
 
 	/*
-	ReplaceRateLimitSettingsAdminNotifications Replace the Rate Limit Admin Notification Settings
+		ReplaceRateLimitSettingsAdminNotifications Replace the Rate Limit Admin Notification Settings
 
-	Replaces the Rate Limit Admin Notification Settings and returns the configured properties
+		Replaces the Rate Limit Admin Notification Settings and returns the configured properties
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceRateLimitSettingsAdminNotificationsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceRateLimitSettingsAdminNotificationsRequest
 	*/
 	ReplaceRateLimitSettingsAdminNotifications(ctx context.Context) ApiReplaceRateLimitSettingsAdminNotificationsRequest
 
 	// ReplaceRateLimitSettingsAdminNotificationsExecute executes the request
 	//  @return RateLimitAdminNotifications
-	// TODU
 	ReplaceRateLimitSettingsAdminNotificationsExecute(r ApiReplaceRateLimitSettingsAdminNotificationsRequest) (*APIResponse, error)
 
 	/*
-	ReplaceRateLimitSettingsPerClient Replace the Per-Client Rate Limit Settings
+		ReplaceRateLimitSettingsPerClient Replace the Per-Client Rate Limit Settings
 
-	Replaces the Per-Client Rate Limit Settings and returns the configured properties
+		Replaces the Per-Client Rate Limit Settings and returns the configured properties
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceRateLimitSettingsPerClientRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceRateLimitSettingsPerClientRequest
 	*/
 	ReplaceRateLimitSettingsPerClient(ctx context.Context) ApiReplaceRateLimitSettingsPerClientRequest
 
 	// ReplaceRateLimitSettingsPerClientExecute executes the request
 	//  @return PerClientRateLimitSettings
-	// TODU
 	ReplaceRateLimitSettingsPerClientExecute(r ApiReplaceRateLimitSettingsPerClientRequest) (*APIResponse, error)
 
 	/*
-	ReplaceRateLimitSettingsWarningThreshold Replace the Rate Limit Warning Threshold Percentage
+		ReplaceRateLimitSettingsWarningThreshold Replace the Rate Limit Warning Threshold Percentage
 
-	Replaces the Rate Limit Warning Threshold Percentage and returns the configured property
+		Replaces the Rate Limit Warning Threshold Percentage and returns the configured property
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiReplaceRateLimitSettingsWarningThresholdRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplaceRateLimitSettingsWarningThresholdRequest
 	*/
 	ReplaceRateLimitSettingsWarningThreshold(ctx context.Context) ApiReplaceRateLimitSettingsWarningThresholdRequest
 
 	// ReplaceRateLimitSettingsWarningThresholdExecute executes the request
 	//  @return RateLimitWarningThresholdResponse
-	// TODU
 	ReplaceRateLimitSettingsWarningThresholdExecute(r ApiReplaceRateLimitSettingsWarningThresholdRequest) (*APIResponse, error)
 }
 
@@ -118,21 +111,17 @@ type RateLimitSettingsAPI interface {
 type RateLimitSettingsAPIService service
 
 type ApiGetRateLimitSettingsAdminNotificationsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RateLimitSettingsAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetRateLimitSettingsAdminNotificationsRequest) Data (data interface{}) ApiGetRateLimitSettingsAdminNotificationsRequest {
+func (r ApiGetRateLimitSettingsAdminNotificationsRequest) Data(data interface{}) ApiGetRateLimitSettingsAdminNotificationsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetRateLimitSettingsAdminNotificationsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetRateLimitSettingsAdminNotificationsExecute(r)
 }
@@ -145,12 +134,11 @@ Retrieves the currently configured Rate Limit Admin Notification Settings
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetRateLimitSettingsAdminNotificationsRequest
 */
-// TODU
 
 func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotifications(ctx context.Context) ApiGetRateLimitSettingsAdminNotificationsRequest {
 	return ApiGetRateLimitSettingsAdminNotificationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -163,10 +151,9 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotificationsExec
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -176,7 +163,6 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotificationsExec
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RateLimitSettingsAPIService.GetRateLimitSettingsAdminNotifications")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -203,7 +189,6 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotificationsExec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -220,13 +205,11 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotificationsExec
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -235,7 +218,6 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotificationsExec
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -250,12 +232,10 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotificationsExec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -264,13 +244,11 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotificationsExec
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -279,21 +257,17 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsAdminNotificationsExec
 }
 
 type ApiGetRateLimitSettingsPerClientRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RateLimitSettingsAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetRateLimitSettingsPerClientRequest) Data (data interface{}) ApiGetRateLimitSettingsPerClientRequest {
+func (r ApiGetRateLimitSettingsPerClientRequest) Data(data interface{}) ApiGetRateLimitSettingsPerClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetRateLimitSettingsPerClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetRateLimitSettingsPerClientExecute(r)
 }
@@ -306,12 +280,11 @@ Retrieves the currently configured Per-Client Rate Limit Settings
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetRateLimitSettingsPerClientRequest
 */
-// TODU
 
 func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClient(ctx context.Context) ApiGetRateLimitSettingsPerClientRequest {
 	return ApiGetRateLimitSettingsPerClientRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -324,10 +297,9 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClientExecute(r Api
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -337,7 +309,6 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClientExecute(r Api
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RateLimitSettingsAPIService.GetRateLimitSettingsPerClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -364,7 +335,6 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClientExecute(r Api
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -381,13 +351,11 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClientExecute(r Api
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -396,7 +364,6 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClientExecute(r Api
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -411,12 +378,10 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClientExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -425,13 +390,11 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClientExecute(r Api
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -440,21 +403,17 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsPerClientExecute(r Api
 }
 
 type ApiGetRateLimitSettingsWarningThresholdRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService RateLimitSettingsAPI
-	// TODU
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiGetRateLimitSettingsWarningThresholdRequest) Data (data interface{}) ApiGetRateLimitSettingsWarningThresholdRequest {
+func (r ApiGetRateLimitSettingsWarningThresholdRequest) Data(data interface{}) ApiGetRateLimitSettingsWarningThresholdRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetRateLimitSettingsWarningThresholdRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetRateLimitSettingsWarningThresholdExecute(r)
 }
@@ -467,12 +426,11 @@ Retrieves the currently configured threshold for warning notifications when the 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetRateLimitSettingsWarningThresholdRequest
 */
-// TODU
 
 func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThreshold(ctx context.Context) ApiGetRateLimitSettingsWarningThresholdRequest {
 	return ApiGetRateLimitSettingsWarningThresholdRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -485,10 +443,9 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThresholdExecut
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -498,7 +455,6 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThresholdExecut
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RateLimitSettingsAPIService.GetRateLimitSettingsWarningThreshold")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -525,7 +481,6 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThresholdExecut
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -542,13 +497,11 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThresholdExecut
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -557,7 +510,6 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThresholdExecut
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -572,12 +524,10 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThresholdExecut
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -586,13 +536,11 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThresholdExecut
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -601,12 +549,11 @@ func (a *RateLimitSettingsAPIService) GetRateLimitSettingsWarningThresholdExecut
 }
 
 type ApiReplaceRateLimitSettingsAdminNotificationsRequest struct {
-	ctx context.Context
-	ApiService RateLimitSettingsAPI
+	ctx                         context.Context
+	ApiService                  RateLimitSettingsAPI
 	rateLimitAdminNotifications *RateLimitAdminNotifications
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                        interface{}
+	retryCount                  int32
 }
 
 func (r ApiReplaceRateLimitSettingsAdminNotificationsRequest) RateLimitAdminNotifications(rateLimitAdminNotifications RateLimitAdminNotifications) ApiReplaceRateLimitSettingsAdminNotificationsRequest {
@@ -614,14 +561,11 @@ func (r ApiReplaceRateLimitSettingsAdminNotificationsRequest) RateLimitAdminNoti
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceRateLimitSettingsAdminNotificationsRequest) Data (data interface{}) ApiReplaceRateLimitSettingsAdminNotificationsRequest {
+func (r ApiReplaceRateLimitSettingsAdminNotificationsRequest) Data(data interface{}) ApiReplaceRateLimitSettingsAdminNotificationsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceRateLimitSettingsAdminNotificationsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceRateLimitSettingsAdminNotificationsExecute(r)
 }
@@ -634,12 +578,11 @@ Replaces the Rate Limit Admin Notification Settings and returns the configured p
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiReplaceRateLimitSettingsAdminNotificationsRequest
 */
-// TODU
 
 func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications(ctx context.Context) ApiReplaceRateLimitSettingsAdminNotificationsRequest {
 	return ApiReplaceRateLimitSettingsAdminNotificationsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -652,10 +595,9 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -665,7 +607,6 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RateLimitSettingsAPIService.ReplaceRateLimitSettingsAdminNotifications")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -692,7 +633,6 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.rateLimitAdminNotifications
 	localVarPostBody = r.data
@@ -712,13 +652,11 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -727,7 +665,6 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -742,12 +679,10 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -756,12 +691,10 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -770,13 +703,11 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -785,12 +716,11 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsAdminNotifications
 }
 
 type ApiReplaceRateLimitSettingsPerClientRequest struct {
-	ctx context.Context
-	ApiService RateLimitSettingsAPI
+	ctx                        context.Context
+	ApiService                 RateLimitSettingsAPI
 	perClientRateLimitSettings *PerClientRateLimitSettings
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                       interface{}
+	retryCount                 int32
 }
 
 func (r ApiReplaceRateLimitSettingsPerClientRequest) PerClientRateLimitSettings(perClientRateLimitSettings PerClientRateLimitSettings) ApiReplaceRateLimitSettingsPerClientRequest {
@@ -798,14 +728,11 @@ func (r ApiReplaceRateLimitSettingsPerClientRequest) PerClientRateLimitSettings(
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceRateLimitSettingsPerClientRequest) Data (data interface{}) ApiReplaceRateLimitSettingsPerClientRequest {
+func (r ApiReplaceRateLimitSettingsPerClientRequest) Data(data interface{}) ApiReplaceRateLimitSettingsPerClientRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceRateLimitSettingsPerClientRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceRateLimitSettingsPerClientExecute(r)
 }
@@ -818,12 +745,11 @@ Replaces the Per-Client Rate Limit Settings and returns the configured propertie
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiReplaceRateLimitSettingsPerClientRequest
 */
-// TODU
 
 func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClient(ctx context.Context) ApiReplaceRateLimitSettingsPerClientRequest {
 	return ApiReplaceRateLimitSettingsPerClientRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -836,10 +762,9 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -849,7 +774,6 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RateLimitSettingsAPIService.ReplaceRateLimitSettingsPerClient")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -876,7 +800,6 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.perClientRateLimitSettings
 	localVarPostBody = r.data
@@ -896,13 +819,11 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -911,7 +832,6 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -926,12 +846,10 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -940,12 +858,10 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -954,13 +870,11 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -969,12 +883,11 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsPerClientExecute(r
 }
 
 type ApiReplaceRateLimitSettingsWarningThresholdRequest struct {
-	ctx context.Context
-	ApiService RateLimitSettingsAPI
+	ctx                       context.Context
+	ApiService                RateLimitSettingsAPI
 	rateLimitWarningThreshold *RateLimitWarningThresholdRequest
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                      interface{}
+	retryCount                int32
 }
 
 func (r ApiReplaceRateLimitSettingsWarningThresholdRequest) RateLimitWarningThreshold(rateLimitWarningThreshold RateLimitWarningThresholdRequest) ApiReplaceRateLimitSettingsWarningThresholdRequest {
@@ -982,14 +895,11 @@ func (r ApiReplaceRateLimitSettingsWarningThresholdRequest) RateLimitWarningThre
 	return r
 }
 
-
-// TODU
-func (r ApiReplaceRateLimitSettingsWarningThresholdRequest) Data (data interface{}) ApiReplaceRateLimitSettingsWarningThresholdRequest {
+func (r ApiReplaceRateLimitSettingsWarningThresholdRequest) Data(data interface{}) ApiReplaceRateLimitSettingsWarningThresholdRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiReplaceRateLimitSettingsWarningThresholdRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ReplaceRateLimitSettingsWarningThresholdExecute(r)
 }
@@ -1002,12 +912,11 @@ Replaces the Rate Limit Warning Threshold Percentage and returns the configured 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiReplaceRateLimitSettingsWarningThresholdRequest
 */
-// TODU
 
 func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThreshold(ctx context.Context) ApiReplaceRateLimitSettingsWarningThresholdRequest {
 	return ApiReplaceRateLimitSettingsWarningThresholdRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 		retryCount: 0,
 	}
 }
@@ -1020,10 +929,9 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThresholdEx
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1033,7 +941,6 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThresholdEx
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RateLimitSettingsAPIService.ReplaceRateLimitSettingsWarningThreshold")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1060,7 +967,6 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThresholdEx
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.rateLimitWarningThreshold
 	localVarPostBody = r.data
@@ -1080,13 +986,11 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThresholdEx
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1095,7 +999,6 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThresholdEx
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1110,12 +1013,10 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThresholdEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1124,12 +1025,10 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThresholdEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1138,13 +1037,11 @@ func (a *RateLimitSettingsAPIService) ReplaceRateLimitSettingsWarningThresholdEx
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

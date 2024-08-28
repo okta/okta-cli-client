@@ -17,59 +17,55 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type GroupOwnerAPI interface {
 
 	/*
-	AssignGroupOwner Assign a Group Owner
+		AssignGroupOwner Assign a Group Owner
 
-	Assigns a group owner
+		Assigns a group owner
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiAssignGroupOwnerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiAssignGroupOwnerRequest
 	*/
 	AssignGroupOwner(ctx context.Context, groupId string) ApiAssignGroupOwnerRequest
 
 	// AssignGroupOwnerExecute executes the request
 	//  @return GroupOwner
-	// TODU
 	AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequest) (*APIResponse, error)
 
 	/*
-	DeleteGroupOwner Delete a Group Owner
+		DeleteGroupOwner Delete a Group Owner
 
-	Deletes a group owner from a specific group
+		Deletes a group owner from a specific group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@param ownerId The `id` of the group owner
-	@return ApiDeleteGroupOwnerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param ownerId The `id` of the group owner
+		@return ApiDeleteGroupOwnerRequest
 	*/
 	DeleteGroupOwner(ctx context.Context, groupId string, ownerId string) ApiDeleteGroupOwnerRequest
 
 	// DeleteGroupOwnerExecute executes the request
-	// TODU
 	DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequest) (*APIResponse, error)
 
 	/*
-	ListGroupOwners List all Group Owners
+		ListGroupOwners List all Group Owners
 
-	Lists all owners for a specific group
+		Lists all owners for a specific group
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param groupId The `id` of the group
-	@return ApiListGroupOwnersRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@return ApiListGroupOwnersRequest
 	*/
 	ListGroupOwners(ctx context.Context, groupId string) ApiListGroupOwnersRequest
 
 	// ListGroupOwnersExecute executes the request
 	//  @return []GroupOwner
-	// TODU
 	ListGroupOwnersExecute(r ApiListGroupOwnersRequest) (*APIResponse, error)
 }
 
@@ -77,13 +73,12 @@ type GroupOwnerAPI interface {
 type GroupOwnerAPIService service
 
 type ApiAssignGroupOwnerRequest struct {
-	ctx context.Context
-	ApiService GroupOwnerAPI
-	groupId string
+	ctx                         context.Context
+	ApiService                  GroupOwnerAPI
+	groupId                     string
 	assignGroupOwnerRequestBody *AssignGroupOwnerRequestBody
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                        interface{}
+	retryCount                  int32
 }
 
 func (r ApiAssignGroupOwnerRequest) AssignGroupOwnerRequestBody(assignGroupOwnerRequestBody AssignGroupOwnerRequestBody) ApiAssignGroupOwnerRequest {
@@ -91,14 +86,11 @@ func (r ApiAssignGroupOwnerRequest) AssignGroupOwnerRequestBody(assignGroupOwner
 	return r
 }
 
-
-// TODU
-func (r ApiAssignGroupOwnerRequest) Data (data interface{}) ApiAssignGroupOwnerRequest {
+func (r ApiAssignGroupOwnerRequest) Data(data interface{}) ApiAssignGroupOwnerRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiAssignGroupOwnerRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.AssignGroupOwnerExecute(r)
 }
@@ -112,13 +104,12 @@ Assigns a group owner
  @param groupId The `id` of the group
  @return ApiAssignGroupOwnerRequest
 */
-// TODU
 
 func (a *GroupOwnerAPIService) AssignGroupOwner(ctx context.Context, groupId string) ApiAssignGroupOwnerRequest {
 	return ApiAssignGroupOwnerRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -131,10 +122,9 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -144,7 +134,6 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupOwnerAPIService.AssignGroupOwner")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -172,7 +161,6 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.assignGroupOwnerRequestBody
 	localVarPostBody = r.data
@@ -192,13 +180,11 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -207,7 +193,6 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -222,12 +207,10 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -236,12 +219,10 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -250,12 +231,10 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -264,13 +243,11 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -279,23 +256,19 @@ func (a *GroupOwnerAPIService) AssignGroupOwnerExecute(r ApiAssignGroupOwnerRequ
 }
 
 type ApiDeleteGroupOwnerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupOwnerAPI
-	groupId string
-	ownerId string
-	// TODU
+	groupId    string
+	ownerId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiDeleteGroupOwnerRequest) Data (data interface{}) ApiDeleteGroupOwnerRequest {
+func (r ApiDeleteGroupOwnerRequest) Data(data interface{}) ApiDeleteGroupOwnerRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteGroupOwnerRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteGroupOwnerExecute(r)
 }
@@ -310,14 +283,13 @@ Deletes a group owner from a specific group
  @param ownerId The `id` of the group owner
  @return ApiDeleteGroupOwnerRequest
 */
-// TODU
 
 func (a *GroupOwnerAPIService) DeleteGroupOwner(ctx context.Context, groupId string, ownerId string) ApiDeleteGroupOwnerRequest {
 	return ApiDeleteGroupOwnerRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
-		ownerId: ownerId,
+		ctx:        ctx,
+		groupId:    groupId,
+		ownerId:    ownerId,
 		retryCount: 0,
 	}
 }
@@ -331,7 +303,7 @@ func (a *GroupOwnerAPIService) DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequ
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -341,7 +313,6 @@ func (a *GroupOwnerAPIService) DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequ
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupOwnerAPIService.DeleteGroupOwner")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -370,7 +341,6 @@ func (a *GroupOwnerAPIService) DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -387,13 +357,11 @@ func (a *GroupOwnerAPIService) DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequ
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -402,7 +370,6 @@ func (a *GroupOwnerAPIService) DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequ
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -417,12 +384,10 @@ func (a *GroupOwnerAPIService) DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -431,12 +396,10 @@ func (a *GroupOwnerAPIService) DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -445,13 +408,11 @@ func (a *GroupOwnerAPIService) DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequ
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -460,13 +421,12 @@ func (a *GroupOwnerAPIService) DeleteGroupOwnerExecute(r ApiDeleteGroupOwnerRequ
 }
 
 type ApiListGroupOwnersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService GroupOwnerAPI
-	groupId string
-	search *string
-	after *string
-	limit *int32
-	// TODU
+	groupId    string
+	search     *string
+	after      *string
+	limit      *int32
 	data       interface{}
 	retryCount int32
 }
@@ -489,14 +449,11 @@ func (r ApiListGroupOwnersRequest) Limit(limit int32) ApiListGroupOwnersRequest 
 	return r
 }
 
-
-// TODU
-func (r ApiListGroupOwnersRequest) Data (data interface{}) ApiListGroupOwnersRequest {
+func (r ApiListGroupOwnersRequest) Data(data interface{}) ApiListGroupOwnersRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListGroupOwnersRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListGroupOwnersExecute(r)
 }
@@ -510,13 +467,12 @@ Lists all owners for a specific group
  @param groupId The `id` of the group
  @return ApiListGroupOwnersRequest
 */
-// TODU
 
 func (a *GroupOwnerAPIService) ListGroupOwners(ctx context.Context, groupId string) ApiListGroupOwnersRequest {
 	return ApiListGroupOwnersRequest{
 		ApiService: a,
-		ctx: ctx,
-		groupId: groupId,
+		ctx:        ctx,
+		groupId:    groupId,
 		retryCount: 0,
 	}
 }
@@ -529,10 +485,9 @@ func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersReques
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -542,7 +497,6 @@ func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersReques
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupOwnerAPIService.ListGroupOwners")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -579,7 +533,6 @@ func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -596,13 +549,11 @@ func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -611,7 +562,6 @@ func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersReques
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -626,12 +576,10 @@ func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -640,12 +588,10 @@ func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -654,13 +600,11 @@ func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersReques
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

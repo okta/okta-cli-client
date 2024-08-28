@@ -17,76 +17,71 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type ApplicationGrantsAPI interface {
 
 	/*
-	GetScopeConsentGrant Retrieve an app Grant
+		GetScopeConsentGrant Retrieve an app Grant
 
-	Retrieves a single scope consent Grant object for the app
+		Retrieves a single scope consent Grant object for the app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param grantId Grant ID
-	@return ApiGetScopeConsentGrantRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param grantId Grant ID
+		@return ApiGetScopeConsentGrantRequest
 	*/
 	GetScopeConsentGrant(ctx context.Context, appId string, grantId string) ApiGetScopeConsentGrantRequest
 
 	// GetScopeConsentGrantExecute executes the request
 	//  @return OAuth2ScopeConsentGrant
-	// TODU
 	GetScopeConsentGrantExecute(r ApiGetScopeConsentGrantRequest) (*APIResponse, error)
 
 	/*
-	GrantConsentToScope Grant consent to scope
+		GrantConsentToScope Grant consent to scope
 
-	Grants consent for the app to request an OAuth 2.0 Okta scope
+		Grants consent for the app to request an OAuth 2.0 Okta scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiGrantConsentToScopeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiGrantConsentToScopeRequest
 	*/
 	GrantConsentToScope(ctx context.Context, appId string) ApiGrantConsentToScopeRequest
 
 	// GrantConsentToScopeExecute executes the request
 	//  @return OAuth2ScopeConsentGrant
-	// TODU
 	GrantConsentToScopeExecute(r ApiGrantConsentToScopeRequest) (*APIResponse, error)
 
 	/*
-	ListScopeConsentGrants List all app Grants
+		ListScopeConsentGrants List all app Grants
 
-	Lists all scope consent Grants for the app
+		Lists all scope consent Grants for the app
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@return ApiListScopeConsentGrantsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiListScopeConsentGrantsRequest
 	*/
 	ListScopeConsentGrants(ctx context.Context, appId string) ApiListScopeConsentGrantsRequest
 
 	// ListScopeConsentGrantsExecute executes the request
 	//  @return []OAuth2ScopeConsentGrant
-	// TODU
 	ListScopeConsentGrantsExecute(r ApiListScopeConsentGrantsRequest) (*APIResponse, error)
 
 	/*
-	RevokeScopeConsentGrant Revoke an app Grant
+		RevokeScopeConsentGrant Revoke an app Grant
 
-	Revokes permission for the app to grant the given scope
+		Revokes permission for the app to grant the given scope
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param appId Application ID
-	@param grantId Grant ID
-	@return ApiRevokeScopeConsentGrantRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param grantId Grant ID
+		@return ApiRevokeScopeConsentGrantRequest
 	*/
 	RevokeScopeConsentGrant(ctx context.Context, appId string, grantId string) ApiRevokeScopeConsentGrantRequest
 
 	// RevokeScopeConsentGrantExecute executes the request
-	// TODU
 	RevokeScopeConsentGrantExecute(r ApiRevokeScopeConsentGrantRequest) (*APIResponse, error)
 }
 
@@ -94,12 +89,11 @@ type ApplicationGrantsAPI interface {
 type ApplicationGrantsAPIService service
 
 type ApiGetScopeConsentGrantRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGrantsAPI
-	appId string
-	grantId string
-	expand *string
-	// TODU
+	appId      string
+	grantId    string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -110,14 +104,11 @@ func (r ApiGetScopeConsentGrantRequest) Expand(expand string) ApiGetScopeConsent
 	return r
 }
 
-
-// TODU
-func (r ApiGetScopeConsentGrantRequest) Data (data interface{}) ApiGetScopeConsentGrantRequest {
+func (r ApiGetScopeConsentGrantRequest) Data(data interface{}) ApiGetScopeConsentGrantRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetScopeConsentGrantRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetScopeConsentGrantExecute(r)
 }
@@ -132,14 +123,13 @@ Retrieves a single scope consent Grant object for the app
  @param grantId Grant ID
  @return ApiGetScopeConsentGrantRequest
 */
-// TODU
 
 func (a *ApplicationGrantsAPIService) GetScopeConsentGrant(ctx context.Context, appId string, grantId string) ApiGetScopeConsentGrantRequest {
 	return ApiGetScopeConsentGrantRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		grantId: grantId,
+		ctx:        ctx,
+		appId:      appId,
+		grantId:    grantId,
 		retryCount: 0,
 	}
 }
@@ -152,10 +142,9 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -165,7 +154,6 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationGrantsAPIService.GetScopeConsentGrant")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -197,7 +185,6 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -214,13 +201,11 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -229,7 +214,6 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -244,12 +228,10 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -258,12 +240,10 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -272,13 +252,11 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -287,13 +265,12 @@ func (a *ApplicationGrantsAPIService) GetScopeConsentGrantExecute(r ApiGetScopeC
 }
 
 type ApiGrantConsentToScopeRequest struct {
-	ctx context.Context
-	ApiService ApplicationGrantsAPI
-	appId string
+	ctx                     context.Context
+	ApiService              ApplicationGrantsAPI
+	appId                   string
 	oAuth2ScopeConsentGrant *OAuth2ScopeConsentGrant
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                    interface{}
+	retryCount              int32
 }
 
 func (r ApiGrantConsentToScopeRequest) OAuth2ScopeConsentGrant(oAuth2ScopeConsentGrant OAuth2ScopeConsentGrant) ApiGrantConsentToScopeRequest {
@@ -301,14 +278,11 @@ func (r ApiGrantConsentToScopeRequest) OAuth2ScopeConsentGrant(oAuth2ScopeConsen
 	return r
 }
 
-
-// TODU
-func (r ApiGrantConsentToScopeRequest) Data (data interface{}) ApiGrantConsentToScopeRequest {
+func (r ApiGrantConsentToScopeRequest) Data(data interface{}) ApiGrantConsentToScopeRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGrantConsentToScopeRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GrantConsentToScopeExecute(r)
 }
@@ -322,13 +296,12 @@ Grants consent for the app to request an OAuth 2.0 Okta scope
  @param appId Application ID
  @return ApiGrantConsentToScopeRequest
 */
-// TODU
 
 func (a *ApplicationGrantsAPIService) GrantConsentToScope(ctx context.Context, appId string) ApiGrantConsentToScopeRequest {
 	return ApiGrantConsentToScopeRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -341,10 +314,9 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -354,7 +326,6 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationGrantsAPIService.GrantConsentToScope")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -382,7 +353,6 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.oAuth2ScopeConsentGrant
 	localVarPostBody = r.data
@@ -402,13 +372,11 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -417,7 +385,6 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -432,12 +399,10 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -446,12 +411,10 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -460,12 +423,10 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -474,13 +435,11 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -489,11 +448,10 @@ func (a *ApplicationGrantsAPIService) GrantConsentToScopeExecute(r ApiGrantConse
 }
 
 type ApiListScopeConsentGrantsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGrantsAPI
-	appId string
-	expand *string
-	// TODU
+	appId      string
+	expand     *string
 	data       interface{}
 	retryCount int32
 }
@@ -504,14 +462,11 @@ func (r ApiListScopeConsentGrantsRequest) Expand(expand string) ApiListScopeCons
 	return r
 }
 
-
-// TODU
-func (r ApiListScopeConsentGrantsRequest) Data (data interface{}) ApiListScopeConsentGrantsRequest {
+func (r ApiListScopeConsentGrantsRequest) Data(data interface{}) ApiListScopeConsentGrantsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListScopeConsentGrantsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListScopeConsentGrantsExecute(r)
 }
@@ -525,13 +480,12 @@ Lists all scope consent Grants for the app
  @param appId Application ID
  @return ApiListScopeConsentGrantsRequest
 */
-// TODU
 
 func (a *ApplicationGrantsAPIService) ListScopeConsentGrants(ctx context.Context, appId string) ApiListScopeConsentGrantsRequest {
 	return ApiListScopeConsentGrantsRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
+		ctx:        ctx,
+		appId:      appId,
 		retryCount: 0,
 	}
 }
@@ -544,10 +498,9 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -557,7 +510,6 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationGrantsAPIService.ListScopeConsentGrants")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -588,7 +540,6 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -605,13 +556,11 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -620,7 +569,6 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -635,12 +583,10 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -649,12 +595,10 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -663,13 +607,11 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -678,23 +620,19 @@ func (a *ApplicationGrantsAPIService) ListScopeConsentGrantsExecute(r ApiListSco
 }
 
 type ApiRevokeScopeConsentGrantRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService ApplicationGrantsAPI
-	appId string
-	grantId string
-	// TODU
+	appId      string
+	grantId    string
 	data       interface{}
 	retryCount int32
 }
 
-
-// TODU
-func (r ApiRevokeScopeConsentGrantRequest) Data (data interface{}) ApiRevokeScopeConsentGrantRequest {
+func (r ApiRevokeScopeConsentGrantRequest) Data(data interface{}) ApiRevokeScopeConsentGrantRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiRevokeScopeConsentGrantRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.RevokeScopeConsentGrantExecute(r)
 }
@@ -709,14 +647,13 @@ Revokes permission for the app to grant the given scope
  @param grantId Grant ID
  @return ApiRevokeScopeConsentGrantRequest
 */
-// TODU
 
 func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrant(ctx context.Context, appId string, grantId string) ApiRevokeScopeConsentGrantRequest {
 	return ApiRevokeScopeConsentGrantRequest{
 		ApiService: a,
-		ctx: ctx,
-		appId: appId,
-		grantId: grantId,
+		ctx:        ctx,
+		appId:      appId,
+		grantId:    grantId,
 		retryCount: 0,
 	}
 }
@@ -730,7 +667,7 @@ func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrantExecute(r ApiRevoke
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -740,7 +677,6 @@ func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrantExecute(r ApiRevoke
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationGrantsAPIService.RevokeScopeConsentGrant")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -769,7 +705,6 @@ func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrantExecute(r ApiRevoke
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -786,13 +721,11 @@ func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrantExecute(r ApiRevoke
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -801,7 +734,6 @@ func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrantExecute(r ApiRevoke
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -816,12 +748,10 @@ func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrantExecute(r ApiRevoke
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -830,12 +760,10 @@ func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrantExecute(r ApiRevoke
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -844,13 +772,11 @@ func (a *ApplicationGrantsAPIService) RevokeScopeConsentGrantExecute(r ApiRevoke
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 

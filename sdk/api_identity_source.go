@@ -17,125 +17,117 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 )
-
 
 type IdentitySourceAPI interface {
 
 	/*
-	CreateIdentitySourceSession Create an Identity Source Session
+		CreateIdentitySourceSession Create an Identity Source Session
 
-	Creates an identity source session for the given identity source instance
+		Creates an identity source session for the given identity source instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@return ApiCreateIdentitySourceSessionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId
+		@return ApiCreateIdentitySourceSessionRequest
 	*/
 	CreateIdentitySourceSession(ctx context.Context, identitySourceId string) ApiCreateIdentitySourceSessionRequest
 
 	// CreateIdentitySourceSessionExecute executes the request
 	//  @return []IdentitySourceSession
-	// TODU
 	CreateIdentitySourceSessionExecute(r ApiCreateIdentitySourceSessionRequest) (*APIResponse, error)
 
 	/*
-	DeleteIdentitySourceSession Delete an Identity Source Session
+		DeleteIdentitySourceSession Delete an Identity Source Session
 
-	Deletes an identity source session for a given `identitySourceId` and `sessionId`
+		Deletes an identity source session for a given `identitySourceId` and `sessionId`
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@param sessionId
-	@return ApiDeleteIdentitySourceSessionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId
+		@param sessionId
+		@return ApiDeleteIdentitySourceSessionRequest
 	*/
 	DeleteIdentitySourceSession(ctx context.Context, identitySourceId string, sessionId string) ApiDeleteIdentitySourceSessionRequest
 
 	// DeleteIdentitySourceSessionExecute executes the request
-	// TODU
 	DeleteIdentitySourceSessionExecute(r ApiDeleteIdentitySourceSessionRequest) (*APIResponse, error)
 
 	/*
-	GetIdentitySourceSession Retrieve an Identity Source Session
+		GetIdentitySourceSession Retrieve an Identity Source Session
 
-	Retrieves an identity source session for a given identity source id and session id
+		Retrieves an identity source session for a given identity source id and session id
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@param sessionId
-	@return ApiGetIdentitySourceSessionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId
+		@param sessionId
+		@return ApiGetIdentitySourceSessionRequest
 	*/
 	GetIdentitySourceSession(ctx context.Context, identitySourceId string, sessionId string) ApiGetIdentitySourceSessionRequest
 
 	// GetIdentitySourceSessionExecute executes the request
 	//  @return IdentitySourceSession
-	// TODU
 	GetIdentitySourceSessionExecute(r ApiGetIdentitySourceSessionRequest) (*APIResponse, error)
 
 	/*
-	ListIdentitySourceSessions List all Identity Source Sessions
+		ListIdentitySourceSessions List all Identity Source Sessions
 
-	Lists all identity source sessions for the given identity source instance
+		Lists all identity source sessions for the given identity source instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@return ApiListIdentitySourceSessionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId
+		@return ApiListIdentitySourceSessionsRequest
 	*/
 	ListIdentitySourceSessions(ctx context.Context, identitySourceId string) ApiListIdentitySourceSessionsRequest
 
 	// ListIdentitySourceSessionsExecute executes the request
 	//  @return []IdentitySourceSession
-	// TODU
 	ListIdentitySourceSessionsExecute(r ApiListIdentitySourceSessionsRequest) (*APIResponse, error)
 
 	/*
-	StartImportFromIdentitySource Start the import from the Identity Source
+		StartImportFromIdentitySource Start the import from the Identity Source
 
-	Starts the import from the identity source described by the uploaded bulk operations
+		Starts the import from the identity source described by the uploaded bulk operations
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@param sessionId
-	@return ApiStartImportFromIdentitySourceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId
+		@param sessionId
+		@return ApiStartImportFromIdentitySourceRequest
 	*/
 	StartImportFromIdentitySource(ctx context.Context, identitySourceId string, sessionId string) ApiStartImportFromIdentitySourceRequest
 
 	// StartImportFromIdentitySourceExecute executes the request
 	//  @return []IdentitySourceSession
-	// TODU
 	StartImportFromIdentitySourceExecute(r ApiStartImportFromIdentitySourceRequest) (*APIResponse, error)
 
 	/*
-	UploadIdentitySourceDataForDelete Upload the data to be deleted in Okta
+		UploadIdentitySourceDataForDelete Upload the data to be deleted in Okta
 
-	Uploads entities that need to be deleted in Okta from the identity source for the given session
+		Uploads entities that need to be deleted in Okta from the identity source for the given session
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@param sessionId
-	@return ApiUploadIdentitySourceDataForDeleteRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId
+		@param sessionId
+		@return ApiUploadIdentitySourceDataForDeleteRequest
 	*/
 	UploadIdentitySourceDataForDelete(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceDataForDeleteRequest
 
 	// UploadIdentitySourceDataForDeleteExecute executes the request
-	// TODU
 	UploadIdentitySourceDataForDeleteExecute(r ApiUploadIdentitySourceDataForDeleteRequest) (*APIResponse, error)
 
 	/*
-	UploadIdentitySourceDataForUpsert Upload the data to be upserted in Okta
+		UploadIdentitySourceDataForUpsert Upload the data to be upserted in Okta
 
-	Uploads entities that need to be upserted in Okta from the identity source for the given session
+		Uploads entities that need to be upserted in Okta from the identity source for the given session
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param identitySourceId
-	@param sessionId
-	@return ApiUploadIdentitySourceDataForUpsertRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId
+		@param sessionId
+		@return ApiUploadIdentitySourceDataForUpsertRequest
 	*/
 	UploadIdentitySourceDataForUpsert(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceDataForUpsertRequest
 
 	// UploadIdentitySourceDataForUpsertExecute executes the request
-	// TODU
 	UploadIdentitySourceDataForUpsertExecute(r ApiUploadIdentitySourceDataForUpsertRequest) (*APIResponse, error)
 }
 
@@ -143,22 +135,18 @@ type IdentitySourceAPI interface {
 type IdentitySourceAPIService service
 
 type ApiCreateIdentitySourceSessionRequest struct {
-	ctx context.Context
-	ApiService IdentitySourceAPI
+	ctx              context.Context
+	ApiService       IdentitySourceAPI
 	identitySourceId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiCreateIdentitySourceSessionRequest) Data (data interface{}) ApiCreateIdentitySourceSessionRequest {
+func (r ApiCreateIdentitySourceSessionRequest) Data(data interface{}) ApiCreateIdentitySourceSessionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiCreateIdentitySourceSessionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.CreateIdentitySourceSessionExecute(r)
 }
@@ -172,14 +160,13 @@ Creates an identity source session for the given identity source instance
  @param identitySourceId
  @return ApiCreateIdentitySourceSessionRequest
 */
-// TODU
 
 func (a *IdentitySourceAPIService) CreateIdentitySourceSession(ctx context.Context, identitySourceId string) ApiCreateIdentitySourceSessionRequest {
 	return ApiCreateIdentitySourceSessionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		identitySourceId: identitySourceId,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -191,10 +178,9 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -204,7 +190,6 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.CreateIdentitySourceSession")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -232,7 +217,6 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -249,13 +233,11 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -264,7 +246,6 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -279,12 +260,10 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -293,12 +272,10 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -307,13 +284,11 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -322,23 +297,19 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 }
 
 type ApiDeleteIdentitySourceSessionRequest struct {
-	ctx context.Context
-	ApiService IdentitySourceAPI
+	ctx              context.Context
+	ApiService       IdentitySourceAPI
 	identitySourceId string
-	sessionId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	sessionId        string
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiDeleteIdentitySourceSessionRequest) Data (data interface{}) ApiDeleteIdentitySourceSessionRequest {
+func (r ApiDeleteIdentitySourceSessionRequest) Data(data interface{}) ApiDeleteIdentitySourceSessionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiDeleteIdentitySourceSessionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.DeleteIdentitySourceSessionExecute(r)
 }
@@ -353,15 +324,14 @@ Deletes an identity source session for a given `identitySourceId` and `sessionId
  @param sessionId
  @return ApiDeleteIdentitySourceSessionRequest
 */
-// TODU
 
 func (a *IdentitySourceAPIService) DeleteIdentitySourceSession(ctx context.Context, identitySourceId string, sessionId string) ApiDeleteIdentitySourceSessionRequest {
 	return ApiDeleteIdentitySourceSessionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		identitySourceId: identitySourceId,
-		sessionId: sessionId,
-		retryCount: 0,
+		sessionId:        sessionId,
+		retryCount:       0,
 	}
 }
 
@@ -374,7 +344,7 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -384,7 +354,6 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.DeleteIdentitySourceSession")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -413,7 +382,6 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -430,13 +398,11 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -445,7 +411,6 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -460,12 +425,10 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -474,12 +437,10 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -488,13 +449,11 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -503,23 +462,19 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 }
 
 type ApiGetIdentitySourceSessionRequest struct {
-	ctx context.Context
-	ApiService IdentitySourceAPI
+	ctx              context.Context
+	ApiService       IdentitySourceAPI
 	identitySourceId string
-	sessionId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	sessionId        string
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiGetIdentitySourceSessionRequest) Data (data interface{}) ApiGetIdentitySourceSessionRequest {
+func (r ApiGetIdentitySourceSessionRequest) Data(data interface{}) ApiGetIdentitySourceSessionRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiGetIdentitySourceSessionRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.GetIdentitySourceSessionExecute(r)
 }
@@ -534,15 +489,14 @@ Retrieves an identity source session for a given identity source id and session 
  @param sessionId
  @return ApiGetIdentitySourceSessionRequest
 */
-// TODU
 
 func (a *IdentitySourceAPIService) GetIdentitySourceSession(ctx context.Context, identitySourceId string, sessionId string) ApiGetIdentitySourceSessionRequest {
 	return ApiGetIdentitySourceSessionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		identitySourceId: identitySourceId,
-		sessionId: sessionId,
-		retryCount: 0,
+		sessionId:        sessionId,
+		retryCount:       0,
 	}
 }
 
@@ -554,10 +508,9 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -567,7 +520,6 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.GetIdentitySourceSession")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -596,7 +548,6 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -613,13 +564,11 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -628,7 +577,6 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -643,12 +591,10 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -657,12 +603,10 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -671,13 +615,11 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -686,22 +628,18 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 }
 
 type ApiListIdentitySourceSessionsRequest struct {
-	ctx context.Context
-	ApiService IdentitySourceAPI
+	ctx              context.Context
+	ApiService       IdentitySourceAPI
 	identitySourceId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiListIdentitySourceSessionsRequest) Data (data interface{}) ApiListIdentitySourceSessionsRequest {
+func (r ApiListIdentitySourceSessionsRequest) Data(data interface{}) ApiListIdentitySourceSessionsRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiListIdentitySourceSessionsRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.ListIdentitySourceSessionsExecute(r)
 }
@@ -715,14 +653,13 @@ Lists all identity source sessions for the given identity source instance
  @param identitySourceId
  @return ApiListIdentitySourceSessionsRequest
 */
-// TODU
 
 func (a *IdentitySourceAPIService) ListIdentitySourceSessions(ctx context.Context, identitySourceId string) ApiListIdentitySourceSessionsRequest {
 	return ApiListIdentitySourceSessionsRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		identitySourceId: identitySourceId,
-		retryCount: 0,
+		retryCount:       0,
 	}
 }
 
@@ -734,10 +671,9 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -747,7 +683,6 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.ListIdentitySourceSessions")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -775,7 +710,6 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -792,13 +726,11 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -807,7 +739,6 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -822,12 +753,10 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -836,12 +765,10 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -850,13 +777,11 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -865,23 +790,19 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 }
 
 type ApiStartImportFromIdentitySourceRequest struct {
-	ctx context.Context
-	ApiService IdentitySourceAPI
+	ctx              context.Context
+	ApiService       IdentitySourceAPI
 	identitySourceId string
-	sessionId string
-	// TODU
-	data       interface{}
-	retryCount int32
+	sessionId        string
+	data             interface{}
+	retryCount       int32
 }
 
-
-// TODU
-func (r ApiStartImportFromIdentitySourceRequest) Data (data interface{}) ApiStartImportFromIdentitySourceRequest {
+func (r ApiStartImportFromIdentitySourceRequest) Data(data interface{}) ApiStartImportFromIdentitySourceRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiStartImportFromIdentitySourceRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.StartImportFromIdentitySourceExecute(r)
 }
@@ -896,15 +817,14 @@ Starts the import from the identity source described by the uploaded bulk operat
  @param sessionId
  @return ApiStartImportFromIdentitySourceRequest
 */
-// TODU
 
 func (a *IdentitySourceAPIService) StartImportFromIdentitySource(ctx context.Context, identitySourceId string, sessionId string) ApiStartImportFromIdentitySourceRequest {
 	return ApiStartImportFromIdentitySourceRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		identitySourceId: identitySourceId,
-		sessionId: sessionId,
-		retryCount: 0,
+		sessionId:        sessionId,
+		retryCount:       0,
 	}
 }
 
@@ -916,10 +836,9 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		// TODU
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -929,7 +848,6 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.StartImportFromIdentitySource")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -958,7 +876,6 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -975,13 +892,11 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -990,7 +905,6 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1005,12 +919,10 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1019,12 +931,10 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1033,13 +943,11 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1048,14 +956,13 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 }
 
 type ApiUploadIdentitySourceDataForDeleteRequest struct {
-	ctx context.Context
-	ApiService IdentitySourceAPI
-	identitySourceId string
-	sessionId string
+	ctx                   context.Context
+	ApiService            IdentitySourceAPI
+	identitySourceId      string
+	sessionId             string
 	bulkDeleteRequestBody *BulkDeleteRequestBody
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                  interface{}
+	retryCount            int32
 }
 
 func (r ApiUploadIdentitySourceDataForDeleteRequest) BulkDeleteRequestBody(bulkDeleteRequestBody BulkDeleteRequestBody) ApiUploadIdentitySourceDataForDeleteRequest {
@@ -1063,14 +970,11 @@ func (r ApiUploadIdentitySourceDataForDeleteRequest) BulkDeleteRequestBody(bulkD
 	return r
 }
 
-
-// TODU
-func (r ApiUploadIdentitySourceDataForDeleteRequest) Data (data interface{}) ApiUploadIdentitySourceDataForDeleteRequest {
+func (r ApiUploadIdentitySourceDataForDeleteRequest) Data(data interface{}) ApiUploadIdentitySourceDataForDeleteRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUploadIdentitySourceDataForDeleteRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UploadIdentitySourceDataForDeleteExecute(r)
 }
@@ -1085,15 +989,14 @@ Uploads entities that need to be deleted in Okta from the identity source for th
  @param sessionId
  @return ApiUploadIdentitySourceDataForDeleteRequest
 */
-// TODU
 
 func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDelete(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceDataForDeleteRequest {
 	return ApiUploadIdentitySourceDataForDeleteRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		identitySourceId: identitySourceId,
-		sessionId: sessionId,
-		retryCount: 0,
+		sessionId:        sessionId,
+		retryCount:       0,
 	}
 }
 
@@ -1106,7 +1009,7 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1116,7 +1019,6 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.UploadIdentitySourceDataForDelete")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1145,7 +1047,6 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.bulkDeleteRequestBody
 	localVarPostBody = r.data
@@ -1165,13 +1066,11 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1180,7 +1079,6 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1195,12 +1093,10 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1209,12 +1105,10 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1223,12 +1117,10 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1237,13 +1129,11 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
@@ -1252,14 +1142,13 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForDeleteExecute(r Ap
 }
 
 type ApiUploadIdentitySourceDataForUpsertRequest struct {
-	ctx context.Context
-	ApiService IdentitySourceAPI
-	identitySourceId string
-	sessionId string
+	ctx                   context.Context
+	ApiService            IdentitySourceAPI
+	identitySourceId      string
+	sessionId             string
 	bulkUpsertRequestBody *BulkUpsertRequestBody
-	// TODU
-	data       interface{}
-	retryCount int32
+	data                  interface{}
+	retryCount            int32
 }
 
 func (r ApiUploadIdentitySourceDataForUpsertRequest) BulkUpsertRequestBody(bulkUpsertRequestBody BulkUpsertRequestBody) ApiUploadIdentitySourceDataForUpsertRequest {
@@ -1267,14 +1156,11 @@ func (r ApiUploadIdentitySourceDataForUpsertRequest) BulkUpsertRequestBody(bulkU
 	return r
 }
 
-
-// TODU
-func (r ApiUploadIdentitySourceDataForUpsertRequest) Data (data interface{}) ApiUploadIdentitySourceDataForUpsertRequest {
+func (r ApiUploadIdentitySourceDataForUpsertRequest) Data(data interface{}) ApiUploadIdentitySourceDataForUpsertRequest {
 	r.data = data
 	return r
 }
 
-// TODU
 func (r ApiUploadIdentitySourceDataForUpsertRequest) Execute() (*APIResponse, error) {
 	return r.ApiService.UploadIdentitySourceDataForUpsertExecute(r)
 }
@@ -1289,15 +1175,14 @@ Uploads entities that need to be upserted in Okta from the identity source for t
  @param sessionId
  @return ApiUploadIdentitySourceDataForUpsertRequest
 */
-// TODU
 
 func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsert(ctx context.Context, identitySourceId string, sessionId string) ApiUploadIdentitySourceDataForUpsertRequest {
 	return ApiUploadIdentitySourceDataForUpsertRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:       a,
+		ctx:              ctx,
 		identitySourceId: identitySourceId,
-		sessionId: sessionId,
-		retryCount: 0,
+		sessionId:        sessionId,
+		retryCount:       0,
 	}
 }
 
@@ -1310,7 +1195,7 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsertExecute(r Ap
 		formFiles            []formFile
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
-		err 				 error
+		err                  error
 	)
 
 	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
@@ -1320,7 +1205,6 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsertExecute(r Ap
 	}
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.UploadIdentitySourceDataForUpsert")
 	if err != nil {
-		// TODU
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1349,7 +1233,6 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsertExecute(r Ap
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-// TODU
 	// body params
 	// localVarPostBody = r.bulkUpsertRequestBody
 	localVarPostBody = r.data
@@ -1369,13 +1252,11 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsertExecute(r Ap
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		// TODU
 		return nil, err
 	}
 	localVarHTTPResponse, err = a.client.do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
@@ -1384,7 +1265,6 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsertExecute(r Ap
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, err
 	}
 
@@ -1399,12 +1279,10 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsertExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1413,12 +1291,10 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsertExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1427,12 +1303,10 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsertExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			// TODU
 			return localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1441,13 +1315,11 @@ func (a *IdentitySourceAPIService) UploadIdentitySourceDataForUpsertExecute(r Ap
 			if err != nil {
 				newErr.error = err.Error()
 				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				// TODU
 				return localAPIResponse, newErr
 			}
 			newErr.model = v
 		}
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		// TODU
 		return localAPIResponse, newErr
 	}
 
