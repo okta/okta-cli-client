@@ -17,12 +17,12 @@ import (
 
 // WsFederationApplicationSettings struct for WsFederationApplicationSettings
 type WsFederationApplicationSettings struct {
-	IdentityStoreId *string `json:"identityStoreId,omitempty"`
-	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
-	InlineHookId *string `json:"inlineHookId,omitempty"`
-	Notes *ApplicationSettingsNotes `json:"notes,omitempty"`
-	Notifications *ApplicationSettingsNotifications `json:"notifications,omitempty"`
-	App *WsFederationApplicationSettingsApplication `json:"app,omitempty"`
+	IdentityStoreId      *string                                     `json:"identityStoreId,omitempty"`
+	ImplicitAssignment   *bool                                       `json:"implicitAssignment,omitempty"`
+	InlineHookId         *string                                     `json:"inlineHookId,omitempty"`
+	Notes                *ApplicationSettingsNotes                   `json:"notes,omitempty"`
+	Notifications        *ApplicationSettingsNotifications           `json:"notifications,omitempty"`
+	App                  *WsFederationApplicationSettingsApplication `json:"app,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -328,4 +328,3 @@ func (v *NullableWsFederationApplicationSettings) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

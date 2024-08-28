@@ -20,7 +20,7 @@ import (
 // UserFactorWebAuthn struct for UserFactorWebAuthn
 type UserFactorWebAuthn struct {
 	UserFactor
-	Profile *UserFactorWebAuthnProfile `json:"profile,omitempty"`
+	Profile              *UserFactorWebAuthnProfile `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -188,4 +188,3 @@ func (v *NullableUserFactorWebAuthn) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

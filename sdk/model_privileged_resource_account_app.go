@@ -21,11 +21,11 @@ import (
 type PrivilegedResourceAccountApp struct {
 	PrivilegedResource
 	// The application ID associated with the privileged account
-	ContainerId string `json:"containerId"`
+	ContainerId string                         `json:"containerId"`
 	Credentials *PrivilegedResourceCredentials `json:"credentials,omitempty"`
 	// Human-readable name of the container that owns the privileged resource
-	ContainerDisplayName *string `json:"containerDisplayName,omitempty"`
-	Links *AppLink `json:"_links,omitempty"`
+	ContainerDisplayName *string  `json:"containerDisplayName,omitempty"`
+	Links                *AppLink `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -202,11 +202,11 @@ func (o PrivilegedResourceAccountApp) MarshalJSON() ([]byte, error) {
 func (o *PrivilegedResourceAccountApp) UnmarshalJSON(bytes []byte) (err error) {
 	type PrivilegedResourceAccountAppWithoutEmbeddedStruct struct {
 		// The application ID associated with the privileged account
-		ContainerId string `json:"containerId"`
+		ContainerId string                         `json:"containerId"`
 		Credentials *PrivilegedResourceCredentials `json:"credentials,omitempty"`
 		// Human-readable name of the container that owns the privileged resource
-		ContainerDisplayName *string `json:"containerDisplayName,omitempty"`
-		Links *AppLink `json:"_links,omitempty"`
+		ContainerDisplayName *string  `json:"containerDisplayName,omitempty"`
+		Links                *AppLink `json:"_links,omitempty"`
 	}
 
 	varPrivilegedResourceAccountAppWithoutEmbeddedStruct := PrivilegedResourceAccountAppWithoutEmbeddedStruct{}
@@ -302,4 +302,3 @@ func (v *NullablePrivilegedResourceAccountApp) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

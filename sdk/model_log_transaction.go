@@ -17,9 +17,9 @@ import (
 
 // LogTransaction struct for LogTransaction
 type LogTransaction struct {
-	Detail map[string]map[string]interface{} `json:"detail,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Detail               map[string]map[string]interface{} `json:"detail,omitempty"`
+	Id                   *string                           `json:"id,omitempty"`
+	Type                 *string                           `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -217,4 +217,3 @@ func (v *NullableLogTransaction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

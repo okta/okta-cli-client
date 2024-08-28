@@ -17,11 +17,11 @@ import (
 
 // AuthenticatorMethodTotpAllOfSettings struct for AuthenticatorMethodTotpAllOfSettings
 type AuthenticatorMethodTotpAllOfSettings struct {
-	TimeIntervalInSeconds *int32 `json:"timeIntervalInSeconds,omitempty"`
-	Encoding *string `json:"encoding,omitempty"`
-	Algorithm *string `json:"algorithm,omitempty"`
-	PassCodeLength *int32 `json:"passCodeLength,omitempty"`
-	AdditionalProperties map[string]interface{}
+	TimeIntervalInSeconds *int32  `json:"timeIntervalInSeconds,omitempty"`
+	Encoding              *string `json:"encoding,omitempty"`
+	Algorithm             *string `json:"algorithm,omitempty"`
+	PassCodeLength        *int32  `json:"passCodeLength,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _AuthenticatorMethodTotpAllOfSettings AuthenticatorMethodTotpAllOfSettings
@@ -254,4 +254,3 @@ func (v *NullableAuthenticatorMethodTotpAllOfSettings) UnmarshalJSON(src []byte)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

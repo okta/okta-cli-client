@@ -17,9 +17,9 @@ import (
 
 // FeatureLinks struct for FeatureLinks
 type FeatureLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Dependents *FeatureLinksAllOfDependents `json:"dependents,omitempty"`
-	Dependencies *FeatureLinksAllOfDependencies `json:"dependencies,omitempty"`
+	Self                 *HrefObjectSelfLink            `json:"self,omitempty"`
+	Dependents           *FeatureLinksAllOfDependents   `json:"dependents,omitempty"`
+	Dependencies         *FeatureLinksAllOfDependencies `json:"dependencies,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -217,4 +217,3 @@ func (v *NullableFeatureLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

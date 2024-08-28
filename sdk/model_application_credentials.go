@@ -17,8 +17,8 @@ import (
 
 // ApplicationCredentials Credentials for the specified `signOnMode`
 type ApplicationCredentials struct {
-	Signing *ApplicationCredentialsSigning `json:"signing,omitempty"`
-	UserNameTemplate *ApplicationCredentialsUsernameTemplate `json:"userNameTemplate,omitempty"`
+	Signing              *ApplicationCredentialsSigning          `json:"signing,omitempty"`
+	UserNameTemplate     *ApplicationCredentialsUsernameTemplate `json:"userNameTemplate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableApplicationCredentials) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

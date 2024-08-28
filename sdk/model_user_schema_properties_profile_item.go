@@ -17,7 +17,7 @@ import (
 
 // UserSchemaPropertiesProfileItem struct for UserSchemaPropertiesProfileItem
 type UserSchemaPropertiesProfileItem struct {
-	Ref *string `json:"$ref,omitempty"`
+	Ref                  *string `json:"$ref,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableUserSchemaPropertiesProfileItem) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

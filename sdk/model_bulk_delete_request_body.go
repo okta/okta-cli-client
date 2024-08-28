@@ -17,8 +17,8 @@ import (
 
 // BulkDeleteRequestBody struct for BulkDeleteRequestBody
 type BulkDeleteRequestBody struct {
-	EntityType *string `json:"entityType,omitempty"`
-	Profiles []IdentitySourceUserProfileForDelete `json:"profiles,omitempty"`
+	EntityType           *string                              `json:"entityType,omitempty"`
+	Profiles             []IdentitySourceUserProfileForDelete `json:"profiles,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableBulkDeleteRequestBody) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -17,7 +17,7 @@ import (
 
 // RiskPolicyRuleCondition struct for RiskPolicyRuleCondition
 type RiskPolicyRuleCondition struct {
-	Behaviors []string `json:"behaviors,omitempty"`
+	Behaviors            []string `json:"behaviors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableRiskPolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

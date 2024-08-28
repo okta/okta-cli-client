@@ -20,7 +20,7 @@ import (
 // BehaviorRuleAnomalousLocation struct for BehaviorRuleAnomalousLocation
 type BehaviorRuleAnomalousLocation struct {
 	BehaviorRule
-	Settings *BehaviorRuleSettingsAnomalousLocation `json:"settings,omitempty"`
+	Settings             *BehaviorRuleSettingsAnomalousLocation `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -190,4 +190,3 @@ func (v *NullableBehaviorRuleAnomalousLocation) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

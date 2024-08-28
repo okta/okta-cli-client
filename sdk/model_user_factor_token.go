@@ -20,7 +20,7 @@ import (
 // UserFactorToken struct for UserFactorToken
 type UserFactorToken struct {
 	UserFactor
-	Profile *UserFactorTokenProfile `json:"profile,omitempty"`
+	Profile              *UserFactorTokenProfile `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -188,4 +188,3 @@ func (v *NullableUserFactorToken) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

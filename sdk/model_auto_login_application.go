@@ -22,8 +22,8 @@ type AutoLoginApplication struct {
 	Application
 	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// Unique key for the application definition
-	Name *string `json:"name,omitempty"`
-	Settings *AutoLoginApplicationSettings `json:"settings,omitempty"`
+	Name                 *string                       `json:"name,omitempty"`
+	Settings             *AutoLoginApplicationSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *AutoLoginApplication) UnmarshalJSON(bytes []byte) (err error) {
 	type AutoLoginApplicationWithoutEmbeddedStruct struct {
 		Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 		// Unique key for the application definition
-		Name *string `json:"name,omitempty"`
+		Name     *string                       `json:"name,omitempty"`
 		Settings *AutoLoginApplicationSettings `json:"settings,omitempty"`
 	}
 
@@ -268,4 +268,3 @@ func (v *NullableAutoLoginApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -22,9 +22,9 @@ type EnrollmentInitializationRequest struct {
 	// Name of the fulfillment provider for the WebAuthn Preregistration Factor
 	FulfillmentProvider *string `json:"fulfillmentProvider,omitempty"`
 	// ID of an existing Okta user
-	UserId *string `json:"userId,omitempty"`
+	UserId                *string   `json:"userId,omitempty"`
 	YubicoTransportKeyJWK *ECKeyJWK `json:"yubicoTransportKeyJWK,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties  map[string]interface{}
 }
 
 type _EnrollmentInitializationRequest EnrollmentInitializationRequest
@@ -257,4 +257,3 @@ func (v *NullableEnrollmentInitializationRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

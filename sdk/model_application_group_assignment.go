@@ -18,12 +18,12 @@ import (
 
 // ApplicationGroupAssignment struct for ApplicationGroupAssignment
 type ApplicationGroupAssignment struct {
-	Id *string `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	Priority *int32 `json:"priority,omitempty"`
-	Profile map[string]interface{} `json:"profile,omitempty"`
-	Embedded map[string]map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Id                   *string                           `json:"id,omitempty"`
+	LastUpdated          *time.Time                        `json:"lastUpdated,omitempty"`
+	Priority             *int32                            `json:"priority,omitempty"`
+	Profile              map[string]interface{}            `json:"profile,omitempty"`
+	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
+	Links                *LinksSelf                        `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -329,4 +329,3 @@ func (v *NullableApplicationGroupAssignment) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

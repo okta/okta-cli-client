@@ -17,7 +17,7 @@ import (
 
 // ProfileMappingRequest The updated request body properties
 type ProfileMappingRequest struct {
-	Properties map[string]ProfileMappingProperty `json:"properties"`
+	Properties           map[string]ProfileMappingProperty `json:"properties"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -136,4 +136,3 @@ func (v *NullableProfileMappingRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

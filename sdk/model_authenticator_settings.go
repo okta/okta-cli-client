@@ -17,13 +17,13 @@ import (
 
 // AuthenticatorSettings struct for AuthenticatorSettings
 type AuthenticatorSettings struct {
-	AllowedFor *string `json:"allowedFor,omitempty"`
-	AppInstanceId *string `json:"appInstanceId,omitempty"`
-	ChannelBinding *ChannelBinding `json:"channelBinding,omitempty"`
-	Compliance *Compliance `json:"compliance,omitempty"`
-	TokenLifetimeInMinutes *int32 `json:"tokenLifetimeInMinutes,omitempty"`
+	AllowedFor             *string         `json:"allowedFor,omitempty"`
+	AppInstanceId          *string         `json:"appInstanceId,omitempty"`
+	ChannelBinding         *ChannelBinding `json:"channelBinding,omitempty"`
+	Compliance             *Compliance     `json:"compliance,omitempty"`
+	TokenLifetimeInMinutes *int32          `json:"tokenLifetimeInMinutes,omitempty"`
 	// User verification setting
-	UserVerification *string `json:"userVerification,omitempty"`
+	UserVerification     *string `json:"userVerification,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -329,4 +329,3 @@ func (v *NullableAuthenticatorSettings) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

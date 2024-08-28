@@ -16,15 +16,15 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // ListAuthenticatorMethods200ResponseInner - struct for ListAuthenticatorMethods200ResponseInner
 type ListAuthenticatorMethods200ResponseInner struct {
-	AuthenticatorMethodOtp *AuthenticatorMethodOtp
-	AuthenticatorMethodPush *AuthenticatorMethodPush
-	AuthenticatorMethodSignedNonce *AuthenticatorMethodSignedNonce
-	AuthenticatorMethodSimple *AuthenticatorMethodSimple
-	AuthenticatorMethodTotp *AuthenticatorMethodTotp
-	AuthenticatorMethodWebAuthn *AuthenticatorMethodWebAuthn
+	AuthenticatorMethodOtp                      *AuthenticatorMethodOtp
+	AuthenticatorMethodPush                     *AuthenticatorMethodPush
+	AuthenticatorMethodSignedNonce              *AuthenticatorMethodSignedNonce
+	AuthenticatorMethodSimple                   *AuthenticatorMethodSimple
+	AuthenticatorMethodTotp                     *AuthenticatorMethodTotp
+	AuthenticatorMethodWebAuthn                 *AuthenticatorMethodWebAuthn
 	AuthenticatorMethodWithVerifiableProperties *AuthenticatorMethodWithVerifiableProperties
 }
 
@@ -76,7 +76,6 @@ func AuthenticatorMethodWithVerifiablePropertiesAsListAuthenticatorMethods200Res
 		AuthenticatorMethodWithVerifiableProperties: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *ListAuthenticatorMethods200ResponseInner) UnmarshalJSON(data []byte) error {
@@ -365,7 +364,7 @@ func (src ListAuthenticatorMethods200ResponseInner) MarshalJSON() ([]byte, error
 }
 
 // Get the actual instance
-func (obj *ListAuthenticatorMethods200ResponseInner) GetActualInstance() (interface{}) {
+func (obj *ListAuthenticatorMethods200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -436,4 +435,3 @@ func (v *NullableListAuthenticatorMethods200ResponseInner) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

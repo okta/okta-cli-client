@@ -20,16 +20,16 @@ import (
 type WellKnownAppAuthenticatorConfiguration struct {
 	AppAuthenticatorEnrollEndpoint *string `json:"appAuthenticatorEnrollEndpoint,omitempty"`
 	// The unique identifier of the app authenticator
-	AuthenticatorId *string `json:"authenticatorId,omitempty"`
-	CreatedDate *time.Time `json:"createdDate,omitempty"`
-	Key *string `json:"key,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	AuthenticatorId *string    `json:"authenticatorId,omitempty"`
+	CreatedDate     *time.Time `json:"createdDate,omitempty"`
+	Key             *string    `json:"key,omitempty"`
+	LastUpdated     *time.Time `json:"lastUpdated,omitempty"`
 	// The authenticator display name
-	Name *string `json:"name,omitempty"`
-	OrgId *string `json:"orgId,omitempty"`
-	Settings *WellKnownAppAuthenticatorConfigurationSettings `json:"settings,omitempty"`
-	SupportedMethods []SupportedMethods `json:"supportedMethods,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Name                 *string                                         `json:"name,omitempty"`
+	OrgId                *string                                         `json:"orgId,omitempty"`
+	Settings             *WellKnownAppAuthenticatorConfigurationSettings `json:"settings,omitempty"`
+	SupportedMethods     []SupportedMethods                              `json:"supportedMethods,omitempty"`
+	Type                 *string                                         `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -479,4 +479,3 @@ func (v *NullableWellKnownAppAuthenticatorConfiguration) UnmarshalJSON(src []byt
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

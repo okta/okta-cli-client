@@ -17,8 +17,8 @@ import (
 
 // LinksSelfAndRoles struct for LinksSelfAndRoles
 type LinksSelfAndRoles struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Roles *HrefObject `json:"roles,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Roles                *HrefObject         `json:"roles,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableLinksSelfAndRoles) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

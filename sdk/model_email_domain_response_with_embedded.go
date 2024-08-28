@@ -17,9 +17,9 @@ import (
 
 // EmailDomainResponseWithEmbedded struct for EmailDomainResponseWithEmbedded
 type EmailDomainResponseWithEmbedded struct {
-	Embedded *map[string]interface{} `json:"_embedded,omitempty"`
-	DisplayName string `json:"displayName"`
-	UserName string `json:"userName"`
+	Embedded             *map[string]interface{} `json:"_embedded,omitempty"`
+	DisplayName          string                  `json:"displayName"`
+	UserName             string                  `json:"userName"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -203,4 +203,3 @@ func (v *NullableEmailDomainResponseWithEmbedded) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

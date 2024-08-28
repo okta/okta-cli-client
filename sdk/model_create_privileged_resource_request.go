@@ -16,10 +16,10 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // CreatePrivilegedResourceRequest - struct for CreatePrivilegedResourceRequest
 type CreatePrivilegedResourceRequest struct {
-	PrivilegedResourceAccountApp *PrivilegedResourceAccountApp
+	PrivilegedResourceAccountApp  *PrivilegedResourceAccountApp
 	PrivilegedResourceAccountOkta *PrivilegedResourceAccountOkta
 }
 
@@ -36,7 +36,6 @@ func PrivilegedResourceAccountOktaAsCreatePrivilegedResourceRequest(v *Privilege
 		PrivilegedResourceAccountOkta: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *CreatePrivilegedResourceRequest) UnmarshalJSON(data []byte) error {
@@ -113,7 +112,7 @@ func (src CreatePrivilegedResourceRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *CreatePrivilegedResourceRequest) GetActualInstance() (interface{}) {
+func (obj *CreatePrivilegedResourceRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -164,4 +163,3 @@ func (v *NullableCreatePrivilegedResourceRequest) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

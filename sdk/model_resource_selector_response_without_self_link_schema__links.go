@@ -17,7 +17,7 @@ import (
 
 // ResourceSelectorResponseWithoutSelfLinkSchemaLinks struct for ResourceSelectorResponseWithoutSelfLinkSchemaLinks
 type ResourceSelectorResponseWithoutSelfLinkSchemaLinks struct {
-	Resources *HrefObject `json:"resources,omitempty"`
+	Resources            *HrefObject `json:"resources,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableResourceSelectorResponseWithoutSelfLinkSchemaLinks) UnmarshalJS
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -17,11 +17,11 @@ import (
 
 // GroupLinks struct for GroupLinks
 type GroupLinks struct {
-	Self *HrefObjectSelfLink `json:"self,omitempty"`
-	Apps *HrefObject `json:"apps,omitempty"`
-	Logo []HrefObject `json:"logo,omitempty"`
-	Source *HrefObject `json:"source,omitempty"`
-	Users *HrefObject `json:"users,omitempty"`
+	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
+	Apps                 *HrefObject         `json:"apps,omitempty"`
+	Logo                 []HrefObject        `json:"logo,omitempty"`
+	Source               *HrefObject         `json:"source,omitempty"`
+	Users                *HrefObject         `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -291,4 +291,3 @@ func (v *NullableGroupLinks) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

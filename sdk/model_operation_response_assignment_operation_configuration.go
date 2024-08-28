@@ -17,10 +17,10 @@ import (
 
 // OperationResponseAssignmentOperationConfiguration struct for OperationResponseAssignmentOperationConfiguration
 type OperationResponseAssignmentOperationConfiguration struct {
-	Actions *OperationResponseAssignmentOperationConfigurationActions `json:"actions,omitempty"`
-	Conditions *Conditions `json:"conditions,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Actions              *OperationResponseAssignmentOperationConfigurationActions `json:"actions,omitempty"`
+	Conditions           *Conditions                                               `json:"conditions,omitempty"`
+	Id                   *string                                                   `json:"id,omitempty"`
+	Name                 *string                                                   `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -254,4 +254,3 @@ func (v *NullableOperationResponseAssignmentOperationConfiguration) UnmarshalJSO
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -17,16 +17,16 @@ import (
 
 // Brand struct for Brand
 type Brand struct {
-	AgreeToCustomPrivacyPolicy *bool `json:"agreeToCustomPrivacyPolicy,omitempty"`
-	CustomPrivacyPolicyUrl *string `json:"customPrivacyPolicyUrl,omitempty"`
-	DefaultApp *DefaultApp `json:"defaultApp,omitempty"`
-	EmailDomainId *string `json:"emailDomainId,omitempty"`
-	Id *string `json:"id,omitempty"`
-	IsDefault *bool `json:"isDefault,omitempty"`
+	AgreeToCustomPrivacyPolicy *bool       `json:"agreeToCustomPrivacyPolicy,omitempty"`
+	CustomPrivacyPolicyUrl     *string     `json:"customPrivacyPolicyUrl,omitempty"`
+	DefaultApp                 *DefaultApp `json:"defaultApp,omitempty"`
+	EmailDomainId              *string     `json:"emailDomainId,omitempty"`
+	Id                         *string     `json:"id,omitempty"`
+	IsDefault                  *bool       `json:"isDefault,omitempty"`
 	// The language specified as an [IETF BCP 47 language tag](https://datatracker.ietf.org/doc/html/rfc5646)
-	Locale *string `json:"locale,omitempty"`
-	Name *string `json:"name,omitempty"`
-	RemovePoweredByOkta *bool `json:"removePoweredByOkta,omitempty"`
+	Locale               *string `json:"locale,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	RemovePoweredByOkta  *bool   `json:"removePoweredByOkta,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -440,4 +440,3 @@ func (v *NullableBrand) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

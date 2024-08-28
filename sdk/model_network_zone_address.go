@@ -20,7 +20,7 @@ type NetworkZoneAddress struct {
 	// Format of the value
 	Type *string `json:"type,omitempty"`
 	// Value in CIDR/range form depending on the type specified
-	Value *string `json:"value,omitempty"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -182,4 +182,3 @@ func (v *NullableNetworkZoneAddress) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

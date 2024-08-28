@@ -17,7 +17,7 @@ import (
 
 // OperationResponseAssignmentOperationConfigurationActions struct for OperationResponseAssignmentOperationConfigurationActions
 type OperationResponseAssignmentOperationConfigurationActions struct {
-	AssignUserToRealm *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm `json:"assignUserToRealm,omitempty"`
+	AssignUserToRealm    *OperationResponseAssignmentOperationConfigurationActionsAssignUserToRealm `json:"assignUserToRealm,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableOperationResponseAssignmentOperationConfigurationActions) Unmar
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

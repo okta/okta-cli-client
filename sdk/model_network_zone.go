@@ -43,8 +43,8 @@ type NetworkZone struct {
 	// The type of network zone
 	Type *string `json:"type,omitempty"`
 	// The usage of the network zone
-	Usage *string `json:"usage,omitempty"`
-	Links *NetworkZoneLinks `json:"_links,omitempty"`
+	Usage                *string           `json:"usage,omitempty"`
+	Links                *NetworkZoneLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -639,4 +639,3 @@ func (v *NullableNetworkZone) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

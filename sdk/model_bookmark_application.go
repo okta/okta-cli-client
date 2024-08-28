@@ -22,8 +22,8 @@ type BookmarkApplication struct {
 	Application
 	Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 	// Unique key for the app definition
-	Name *string `json:"name,omitempty"`
-	Settings *BookmarkApplicationSettings `json:"settings,omitempty"`
+	Name                 *string                      `json:"name,omitempty"`
+	Settings             *BookmarkApplicationSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -177,7 +177,7 @@ func (o *BookmarkApplication) UnmarshalJSON(bytes []byte) (err error) {
 	type BookmarkApplicationWithoutEmbeddedStruct struct {
 		Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 		// Unique key for the app definition
-		Name *string `json:"name,omitempty"`
+		Name     *string                      `json:"name,omitempty"`
 		Settings *BookmarkApplicationSettings `json:"settings,omitempty"`
 	}
 
@@ -272,4 +272,3 @@ func (v *NullableBookmarkApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

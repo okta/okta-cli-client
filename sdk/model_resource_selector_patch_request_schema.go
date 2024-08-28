@@ -22,7 +22,7 @@ type ResourceSelectorPatchRequestSchema struct {
 	// SCIM filter of the Resource Selector
 	Filter *string `json:"filter,omitempty"`
 	// Name of the Resource Selector
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -220,4 +220,3 @@ func (v *NullableResourceSelectorPatchRequestSchema) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

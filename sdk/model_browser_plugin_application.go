@@ -22,8 +22,8 @@ type BrowserPluginApplication struct {
 	Application
 	Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 	// Unique key for the app definition
-	Name *string `json:"name,omitempty"`
-	Settings *SwaApplicationSettings `json:"settings,omitempty"`
+	Name                 *string                 `json:"name,omitempty"`
+	Settings             *SwaApplicationSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -173,7 +173,7 @@ func (o *BrowserPluginApplication) UnmarshalJSON(bytes []byte) (err error) {
 	type BrowserPluginApplicationWithoutEmbeddedStruct struct {
 		Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 		// Unique key for the app definition
-		Name *string `json:"name,omitempty"`
+		Name     *string                 `json:"name,omitempty"`
 		Settings *SwaApplicationSettings `json:"settings,omitempty"`
 	}
 
@@ -268,4 +268,3 @@ func (v *NullableBrowserPluginApplication) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

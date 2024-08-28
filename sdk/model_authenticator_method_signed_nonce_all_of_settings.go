@@ -17,9 +17,9 @@ import (
 
 // AuthenticatorMethodSignedNonceAllOfSettings struct for AuthenticatorMethodSignedNonceAllOfSettings
 type AuthenticatorMethodSignedNonceAllOfSettings struct {
-	Algorithms []string `json:"algorithms,omitempty"`
-	KeyProtection *string `json:"keyProtection,omitempty"`
-	ShowSignInWithOV *string `json:"showSignInWithOV,omitempty"`
+	Algorithms           []string `json:"algorithms,omitempty"`
+	KeyProtection        *string  `json:"keyProtection,omitempty"`
+	ShowSignInWithOV     *string  `json:"showSignInWithOV,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -217,4 +217,3 @@ func (v *NullableAuthenticatorMethodSignedNonceAllOfSettings) UnmarshalJSON(src 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

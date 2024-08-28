@@ -17,10 +17,10 @@ import (
 
 // VerificationMethod struct for VerificationMethod
 type VerificationMethod struct {
-	Constraints []AccessPolicyConstraints `json:"constraints,omitempty"`
-	FactorMode *string `json:"factorMode,omitempty"`
-	ReauthenticateIn *string `json:"reauthenticateIn,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Constraints          []AccessPolicyConstraints `json:"constraints,omitempty"`
+	FactorMode           *string                   `json:"factorMode,omitempty"`
+	ReauthenticateIn     *string                   `json:"reauthenticateIn,omitempty"`
+	Type                 *string                   `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -254,4 +254,3 @@ func (v *NullableVerificationMethod) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -20,7 +20,7 @@ type ImportScheduleObjectIncrementalImport struct {
 	// The import schedule in UNIX cron format
 	Expression string `json:"expression"`
 	// The import schedule time zone in Internet Assigned Numbers Authority (IANA) time zone name format
-	Timezone *string `json:"timezone,omitempty"`
+	Timezone             *string `json:"timezone,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -175,4 +175,3 @@ func (v *NullableImportScheduleObjectIncrementalImport) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

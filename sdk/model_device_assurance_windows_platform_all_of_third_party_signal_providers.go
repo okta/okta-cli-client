@@ -17,7 +17,7 @@ import (
 
 // DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders Settings for third-party signal providers (based on the `WINDOWS` platform)
 type DeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders struct {
-	Dtc *DTCWindows `json:"dtc,omitempty"`
+	Dtc                  *DTCWindows `json:"dtc,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableDeviceAssuranceWindowsPlatformAllOfThirdPartySignalProviders) U
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

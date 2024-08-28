@@ -17,14 +17,14 @@ import (
 
 // ProfileEnrollmentPolicyRuleAction struct for ProfileEnrollmentPolicyRuleAction
 type ProfileEnrollmentPolicyRuleAction struct {
-	Access *string `json:"access,omitempty"`
-	ActivationRequirements *ProfileEnrollmentPolicyRuleActivationRequirement `json:"activationRequirements,omitempty"`
-	PreRegistrationInlineHooks []PreRegistrationInlineHook `json:"preRegistrationInlineHooks,omitempty"`
-	ProfileAttributes []ProfileEnrollmentPolicyRuleProfileAttribute `json:"profileAttributes,omitempty"`
-	ProgressiveProfilingAction *string `json:"progressiveProfilingAction,omitempty"`
-	TargetGroupIds []string `json:"targetGroupIds,omitempty"`
-	UnknownUserAction *string `json:"unknownUserAction,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Access                     *string                                           `json:"access,omitempty"`
+	ActivationRequirements     *ProfileEnrollmentPolicyRuleActivationRequirement `json:"activationRequirements,omitempty"`
+	PreRegistrationInlineHooks []PreRegistrationInlineHook                       `json:"preRegistrationInlineHooks,omitempty"`
+	ProfileAttributes          []ProfileEnrollmentPolicyRuleProfileAttribute     `json:"profileAttributes,omitempty"`
+	ProgressiveProfilingAction *string                                           `json:"progressiveProfilingAction,omitempty"`
+	TargetGroupIds             []string                                          `json:"targetGroupIds,omitempty"`
+	UnknownUserAction          *string                                           `json:"unknownUserAction,omitempty"`
+	AdditionalProperties       map[string]interface{}
 }
 
 type _ProfileEnrollmentPolicyRuleAction ProfileEnrollmentPolicyRuleAction
@@ -365,4 +365,3 @@ func (v *NullableProfileEnrollmentPolicyRuleAction) UnmarshalJSON(src []byte) er
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -17,7 +17,7 @@ import (
 
 // PasswordPolicyRecoveryQuestionProperties struct for PasswordPolicyRecoveryQuestionProperties
 type PasswordPolicyRecoveryQuestionProperties struct {
-	Complexity *PasswordPolicyRecoveryQuestionComplexity `json:"complexity,omitempty"`
+	Complexity           *PasswordPolicyRecoveryQuestionComplexity `json:"complexity,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullablePasswordPolicyRecoveryQuestionProperties) UnmarshalJSON(src []b
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

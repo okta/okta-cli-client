@@ -20,7 +20,7 @@ import (
 // UserProvisioningApplicationFeature struct for UserProvisioningApplicationFeature
 type UserProvisioningApplicationFeature struct {
 	ApplicationFeature
-	Capabilities *CapabilitiesObject `json:"capabilities,omitempty"`
+	Capabilities         *CapabilitiesObject `json:"capabilities,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -188,4 +188,3 @@ func (v *NullableUserProvisioningApplicationFeature) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -20,7 +20,7 @@ import (
 // BehaviorRuleVelocity struct for BehaviorRuleVelocity
 type BehaviorRuleVelocity struct {
 	BehaviorRule
-	Settings *BehaviorRuleSettingsVelocity `json:"settings,omitempty"`
+	Settings             *BehaviorRuleSettingsVelocity `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -190,4 +190,3 @@ func (v *NullableBehaviorRuleVelocity) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

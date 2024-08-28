@@ -17,7 +17,7 @@ import (
 
 // ImageUploadResponse struct for ImageUploadResponse
 type ImageUploadResponse struct {
-	Url *string `json:"url,omitempty"`
+	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableImageUploadResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

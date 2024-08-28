@@ -27,7 +27,7 @@ type TestInfoSamlTestConfiguration struct {
 	SpInitiateUrl string `json:"spInitiateUrl"`
 	// Instructions on how to sign in to your app using the SP-initiated flow (required if `sp = true`)
 	SpInitiateDescription *string `json:"spInitiateDescription,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties  map[string]interface{}
 }
 
 type _TestInfoSamlTestConfiguration TestInfoSamlTestConfiguration
@@ -289,4 +289,3 @@ func (v *NullableTestInfoSamlTestConfiguration) UnmarshalJSON(src []byte) error 
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

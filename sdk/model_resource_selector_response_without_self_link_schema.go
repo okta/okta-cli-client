@@ -24,8 +24,8 @@ type ResourceSelectorResponseWithoutSelfLinkSchema struct {
 	// Name of the Resource Selector
 	Name *string `json:"name,omitempty"`
 	// An Okta resource name
-	Orn *string `json:"orn,omitempty"`
-	Links *ResourceSelectorResponseWithoutSelfLinkSchemaLinks `json:"_links,omitempty"`
+	Orn                  *string                                             `json:"orn,omitempty"`
+	Links                *ResourceSelectorResponseWithoutSelfLinkSchemaLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -295,4 +295,3 @@ func (v *NullableResourceSelectorResponseWithoutSelfLinkSchema) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

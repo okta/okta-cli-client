@@ -17,7 +17,7 @@ import (
 
 // UserLink struct for UserLink
 type UserLink struct {
-	User *HrefObjectUserLink `json:"user,omitempty"`
+	User                 *HrefObjectUserLink `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableUserLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -17,7 +17,7 @@ import (
 
 // ErrorErrorCausesInner struct for ErrorErrorCausesInner
 type ErrorErrorCausesInner struct {
-	ErrorSummary *string `json:"errorSummary,omitempty"`
+	ErrorSummary         *string `json:"errorSummary,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableErrorErrorCausesInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

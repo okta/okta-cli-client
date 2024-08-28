@@ -17,8 +17,8 @@ import (
 
 // EmailTemplateEmbedded struct for EmailTemplateEmbedded
 type EmailTemplateEmbedded struct {
-	Settings *EmailSettings `json:"settings,omitempty"`
-	CustomizationCount *int32 `json:"customizationCount,omitempty"`
+	Settings             *EmailSettings `json:"settings,omitempty"`
+	CustomizationCount   *int32         `json:"customizationCount,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableEmailTemplateEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

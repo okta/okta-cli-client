@@ -20,9 +20,9 @@ import (
 // DeviceAssuranceIOSPlatform struct for DeviceAssuranceIOSPlatform
 type DeviceAssuranceIOSPlatform struct {
 	DeviceAssurance
-	Jailbreak *bool `json:"jailbreak,omitempty"`
-	OsVersion *OSVersion `json:"osVersion,omitempty"`
-	ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
+	Jailbreak            *bool                                              `json:"jailbreak,omitempty"`
+	OsVersion            *OSVersion                                         `json:"osVersion,omitempty"`
+	ScreenLockType       *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -170,8 +170,8 @@ func (o DeviceAssuranceIOSPlatform) MarshalJSON() ([]byte, error) {
 
 func (o *DeviceAssuranceIOSPlatform) UnmarshalJSON(bytes []byte) (err error) {
 	type DeviceAssuranceIOSPlatformWithoutEmbeddedStruct struct {
-		Jailbreak *bool `json:"jailbreak,omitempty"`
-		OsVersion *OSVersion `json:"osVersion,omitempty"`
+		Jailbreak      *bool                                              `json:"jailbreak,omitempty"`
+		OsVersion      *OSVersion                                         `json:"osVersion,omitempty"`
 		ScreenLockType *DeviceAssuranceAndroidPlatformAllOfScreenLockType `json:"screenLockType,omitempty"`
 	}
 
@@ -266,4 +266,3 @@ func (v *NullableDeviceAssuranceIOSPlatform) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

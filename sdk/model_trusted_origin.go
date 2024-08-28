@@ -18,16 +18,16 @@ import (
 
 // TrustedOrigin struct for TrustedOrigin
 type TrustedOrigin struct {
-	Created *time.Time `json:"created,omitempty"`
-	CreatedBy *string `json:"createdBy,omitempty"`
-	Id *string `json:"id,omitempty"`
-	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	LastUpdatedBy *string `json:"lastUpdatedBy,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Origin *string `json:"origin,omitempty"`
-	Scopes []TrustedOriginScope `json:"scopes,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
+	Created              *time.Time           `json:"created,omitempty"`
+	CreatedBy            *string              `json:"createdBy,omitempty"`
+	Id                   *string              `json:"id,omitempty"`
+	LastUpdated          *time.Time           `json:"lastUpdated,omitempty"`
+	LastUpdatedBy        *string              `json:"lastUpdatedBy,omitempty"`
+	Name                 *string              `json:"name,omitempty"`
+	Origin               *string              `json:"origin,omitempty"`
+	Scopes               []TrustedOriginScope `json:"scopes,omitempty"`
+	Status               *string              `json:"status,omitempty"`
+	Links                *LinksSelf           `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -477,4 +477,3 @@ func (v *NullableTrustedOrigin) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

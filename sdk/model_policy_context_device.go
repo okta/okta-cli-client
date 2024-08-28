@@ -22,7 +22,7 @@ type PolicyContextDevice struct {
 	// If the device is registered
 	Registered *bool `json:"registered,omitempty"`
 	// If the device is managed
-	Managed *bool `json:"managed,omitempty"`
+	Managed              *bool `json:"managed,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -220,4 +220,3 @@ func (v *NullablePolicyContextDevice) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -17,8 +17,8 @@ import (
 
 // TrustedOriginScope struct for TrustedOriginScope
 type TrustedOriginScope struct {
-	AllowedOktaApps []string `json:"allowedOktaApps,omitempty"`
-	Type *string `json:"type,omitempty"`
+	AllowedOktaApps      []string `json:"allowedOktaApps,omitempty"`
+	Type                 *string  `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -180,4 +180,3 @@ func (v *NullableTrustedOriginScope) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

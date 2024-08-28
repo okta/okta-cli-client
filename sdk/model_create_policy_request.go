@@ -16,14 +16,14 @@ import (
 	"fmt"
 )
 
-//model_oneof.mustache
+// model_oneof.mustache
 // CreatePolicyRequest - struct for CreatePolicyRequest
 type CreatePolicyRequest struct {
-	AccessPolicy *AccessPolicy
+	AccessPolicy                *AccessPolicy
 	MultifactorEnrollmentPolicy *MultifactorEnrollmentPolicy
-	OktaSignOnPolicy *OktaSignOnPolicy
-	PasswordPolicy *PasswordPolicy
-	ProfileEnrollmentPolicy *ProfileEnrollmentPolicy
+	OktaSignOnPolicy            *OktaSignOnPolicy
+	PasswordPolicy              *PasswordPolicy
+	ProfileEnrollmentPolicy     *ProfileEnrollmentPolicy
 }
 
 // AccessPolicyAsCreatePolicyRequest is a convenience function that returns AccessPolicy wrapped in CreatePolicyRequest
@@ -60,7 +60,6 @@ func ProfileEnrollmentPolicyAsCreatePolicyRequest(v *ProfileEnrollmentPolicy) Cr
 		ProfileEnrollmentPolicy: v,
 	}
 }
-
 
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *CreatePolicyRequest) UnmarshalJSON(data []byte) error {
@@ -221,7 +220,7 @@ func (src CreatePolicyRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *CreatePolicyRequest) GetActualInstance() (interface{}) {
+func (obj *CreatePolicyRequest) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -284,4 +283,3 @@ func (v *NullableCreatePolicyRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

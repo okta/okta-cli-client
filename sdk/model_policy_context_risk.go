@@ -17,7 +17,7 @@ import (
 
 // PolicyContextRisk The risk rule condition level
 type PolicyContextRisk struct {
-	Level *string `json:"level,omitempty"`
+	Level                *string `json:"level,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullablePolicyContextRisk) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

@@ -18,14 +18,14 @@ import (
 // UserPolicyRuleCondition Specifies a set of Users to be included or excluded
 type UserPolicyRuleCondition struct {
 	// Users to be excluded
-	Exclude []string `json:"exclude,omitempty"`
+	Exclude    []string                       `json:"exclude,omitempty"`
 	Inactivity *InactivityPolicyRuleCondition `json:"inactivity,omitempty"`
 	// Users to be included
-	Include []string `json:"include,omitempty"`
-	LifecycleExpiration *LifecycleExpirationPolicyRuleCondition `json:"lifecycleExpiration,omitempty"`
-	PasswordExpiration *PasswordExpirationPolicyRuleCondition `json:"passwordExpiration,omitempty"`
+	Include                []string                                   `json:"include,omitempty"`
+	LifecycleExpiration    *LifecycleExpirationPolicyRuleCondition    `json:"lifecycleExpiration,omitempty"`
+	PasswordExpiration     *PasswordExpirationPolicyRuleCondition     `json:"passwordExpiration,omitempty"`
 	UserLifecycleAttribute *UserLifecycleAttributePolicyRuleCondition `json:"userLifecycleAttribute,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties   map[string]interface{}
 }
 
 type _UserPolicyRuleCondition UserPolicyRuleCondition
@@ -330,4 +330,3 @@ func (v *NullableUserPolicyRuleCondition) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

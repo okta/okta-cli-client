@@ -18,7 +18,7 @@ import (
 // PrivilegedResourceAccountOktaAllOfCredentials Credentials for the privileged account
 type PrivilegedResourceAccountOktaAllOfCredentials struct {
 	// The username associated with the privileged resource
-	UserName *string `json:"userName,omitempty"`
+	UserName             *string `json:"userName,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -144,4 +144,3 @@ func (v *NullablePrivilegedResourceAccountOktaAllOfCredentials) UnmarshalJSON(sr
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

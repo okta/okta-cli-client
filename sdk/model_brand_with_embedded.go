@@ -17,18 +17,18 @@ import (
 
 // BrandWithEmbedded struct for BrandWithEmbedded
 type BrandWithEmbedded struct {
-	Embedded *map[string]interface{} `json:"_embedded,omitempty"`
-	Links *LinksSelf `json:"_links,omitempty"`
-	AgreeToCustomPrivacyPolicy *bool `json:"agreeToCustomPrivacyPolicy,omitempty"`
-	CustomPrivacyPolicyUrl *string `json:"customPrivacyPolicyUrl,omitempty"`
-	DefaultApp *DefaultApp `json:"defaultApp,omitempty"`
-	EmailDomainId *string `json:"emailDomainId,omitempty"`
-	Id *string `json:"id,omitempty"`
-	IsDefault *bool `json:"isDefault,omitempty"`
+	Embedded                   *map[string]interface{} `json:"_embedded,omitempty"`
+	Links                      *LinksSelf              `json:"_links,omitempty"`
+	AgreeToCustomPrivacyPolicy *bool                   `json:"agreeToCustomPrivacyPolicy,omitempty"`
+	CustomPrivacyPolicyUrl     *string                 `json:"customPrivacyPolicyUrl,omitempty"`
+	DefaultApp                 *DefaultApp             `json:"defaultApp,omitempty"`
+	EmailDomainId              *string                 `json:"emailDomainId,omitempty"`
+	Id                         *string                 `json:"id,omitempty"`
+	IsDefault                  *bool                   `json:"isDefault,omitempty"`
 	// The language specified as an [IETF BCP 47 language tag](https://datatracker.ietf.org/doc/html/rfc5646)
-	Locale *string `json:"locale,omitempty"`
-	Name *string `json:"name,omitempty"`
-	RemovePoweredByOkta *bool `json:"removePoweredByOkta,omitempty"`
+	Locale               *string `json:"locale,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	RemovePoweredByOkta  *bool   `json:"removePoweredByOkta,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -514,4 +514,3 @@ func (v *NullableBrandWithEmbedded) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

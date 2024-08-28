@@ -17,7 +17,7 @@ import (
 
 // AccessPolicyRuleActions struct for AccessPolicyRuleActions
 type AccessPolicyRuleActions struct {
-	AppSignOn *AccessPolicyRuleApplicationSignOn `json:"appSignOn,omitempty"`
+	AppSignOn            *AccessPolicyRuleApplicationSignOn `json:"appSignOn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -143,4 +143,3 @@ func (v *NullableAccessPolicyRuleActions) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

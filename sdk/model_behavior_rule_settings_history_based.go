@@ -17,9 +17,9 @@ import (
 
 // BehaviorRuleSettingsHistoryBased struct for BehaviorRuleSettingsHistoryBased
 type BehaviorRuleSettingsHistoryBased struct {
-	MaxEventsUsedForEvaluation *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
+	MaxEventsUsedForEvaluation   *int32 `json:"maxEventsUsedForEvaluation,omitempty"`
 	MinEventsNeededForEvaluation *int32 `json:"minEventsNeededForEvaluation,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AdditionalProperties         map[string]interface{}
 }
 
 type _BehaviorRuleSettingsHistoryBased BehaviorRuleSettingsHistoryBased
@@ -188,4 +188,3 @@ func (v *NullableBehaviorRuleSettingsHistoryBased) UnmarshalJSON(src []byte) err
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

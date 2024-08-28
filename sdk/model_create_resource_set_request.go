@@ -20,8 +20,8 @@ type CreateResourceSetRequest struct {
 	// Description of the Resource Set
 	Description *string `json:"description,omitempty"`
 	// Unique label for the Resource Set
-	Label *string `json:"label,omitempty"`
-	Resources []string `json:"resources,omitempty"`
+	Label                *string  `json:"label,omitempty"`
+	Resources            []string `json:"resources,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -219,4 +219,3 @@ func (v *NullableCreateResourceSetRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-

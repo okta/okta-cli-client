@@ -17,11 +17,11 @@ import (
 
 // UserFactorActivateRequest struct for UserFactorActivateRequest
 type UserFactorActivateRequest struct {
-	Attestation *string `json:"attestation,omitempty"`
-	ClientData *string `json:"clientData,omitempty"`
-	PassCode *string `json:"passCode,omitempty"`
-	RegistrationData *string `json:"registrationData,omitempty"`
-	StateToken *string `json:"stateToken,omitempty"`
+	Attestation          *string `json:"attestation,omitempty"`
+	ClientData           *string `json:"clientData,omitempty"`
+	PassCode             *string `json:"passCode,omitempty"`
+	RegistrationData     *string `json:"registrationData,omitempty"`
+	StateToken           *string `json:"stateToken,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -291,4 +291,3 @@ func (v *NullableUserFactorActivateRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
