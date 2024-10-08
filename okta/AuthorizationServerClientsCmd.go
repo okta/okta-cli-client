@@ -34,7 +34,7 @@ func NewListOAuth2ClientsForAuthorizationServerCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -72,7 +72,7 @@ func NewListRefreshTokensForAuthorizationServerAndClientCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -113,7 +113,7 @@ func NewRevokeRefreshTokensForAuthorizationServerAndClientCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -156,7 +156,7 @@ func NewGetRefreshTokenForAuthorizationServerAndClientCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -202,7 +202,7 @@ func NewRevokeRefreshTokenForAuthorizationServerAndClientCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}

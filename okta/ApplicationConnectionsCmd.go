@@ -42,7 +42,7 @@ func NewUpdateDefaultProvisioningConnectionForApplicationCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -79,7 +79,7 @@ func NewGetDefaultProvisioningConnectionForApplicationCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -121,7 +121,7 @@ func NewActivateDefaultProvisioningConnectionForApplicationCmd() *cobra.Command 
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -166,7 +166,7 @@ func NewDeactivateDefaultProvisioningConnectionForApplicationCmd() *cobra.Comman
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -213,7 +213,7 @@ func NewVerifyProvisioningConnectionForApplicationCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}

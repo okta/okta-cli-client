@@ -11,7 +11,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:  "okta-cli-client",
-	Long: "A command line tool for management API",
+	Long: "A command line tool for management API\n\nhttps://github.com/okta/okta-cli-client",
 }
 
 func Execute() {
