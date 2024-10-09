@@ -196,11 +196,7 @@ func init() {
 	LogStreamCmd.AddCommand(DeleteLogStreamCmd)
 }
 
-var (
-	ActivateLogStreamlogStreamId string
-
-	ActivateLogStreamdata string
-)
+var ActivateLogStreamlogStreamId string
 
 func NewActivateLogStreamCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -208,10 +204,6 @@ func NewActivateLogStreamCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LogStreamAPI.ActivateLogStream(apiClient.GetConfig().Context, ActivateLogStreamlogStreamId)
-
-			if ActivateLogStreamdata != "" {
-				req = req.Data(ActivateLogStreamdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -230,9 +222,6 @@ func NewActivateLogStreamCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateLogStreamlogStreamId, "logStreamId", "", "", "")
 	cmd.MarkFlagRequired("logStreamId")
 
-	cmd.Flags().StringVarP(&ActivateLogStreamdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -241,11 +230,7 @@ func init() {
 	LogStreamCmd.AddCommand(ActivateLogStreamCmd)
 }
 
-var (
-	DeactivateLogStreamlogStreamId string
-
-	DeactivateLogStreamdata string
-)
+var DeactivateLogStreamlogStreamId string
 
 func NewDeactivateLogStreamCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -253,10 +238,6 @@ func NewDeactivateLogStreamCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LogStreamAPI.DeactivateLogStream(apiClient.GetConfig().Context, DeactivateLogStreamlogStreamId)
-
-			if DeactivateLogStreamdata != "" {
-				req = req.Data(DeactivateLogStreamdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -274,9 +255,6 @@ func NewDeactivateLogStreamCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateLogStreamlogStreamId, "logStreamId", "", "", "")
 	cmd.MarkFlagRequired("logStreamId")
-
-	cmd.Flags().StringVarP(&DeactivateLogStreamdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

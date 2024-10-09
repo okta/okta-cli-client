@@ -241,11 +241,7 @@ func init() {
 	InlineHookCmd.AddCommand(ExecuteInlineHookCmd)
 }
 
-var (
-	ActivateInlineHookinlineHookId string
-
-	ActivateInlineHookdata string
-)
+var ActivateInlineHookinlineHookId string
 
 func NewActivateInlineHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -253,10 +249,6 @@ func NewActivateInlineHookCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.InlineHookAPI.ActivateInlineHook(apiClient.GetConfig().Context, ActivateInlineHookinlineHookId)
-
-			if ActivateInlineHookdata != "" {
-				req = req.Data(ActivateInlineHookdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -275,9 +267,6 @@ func NewActivateInlineHookCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateInlineHookinlineHookId, "inlineHookId", "", "", "")
 	cmd.MarkFlagRequired("inlineHookId")
 
-	cmd.Flags().StringVarP(&ActivateInlineHookdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -286,11 +275,7 @@ func init() {
 	InlineHookCmd.AddCommand(ActivateInlineHookCmd)
 }
 
-var (
-	DeactivateInlineHookinlineHookId string
-
-	DeactivateInlineHookdata string
-)
+var DeactivateInlineHookinlineHookId string
 
 func NewDeactivateInlineHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -298,10 +283,6 @@ func NewDeactivateInlineHookCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.InlineHookAPI.DeactivateInlineHook(apiClient.GetConfig().Context, DeactivateInlineHookinlineHookId)
-
-			if DeactivateInlineHookdata != "" {
-				req = req.Data(DeactivateInlineHookdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -319,9 +300,6 @@ func NewDeactivateInlineHookCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateInlineHookinlineHookId, "inlineHookId", "", "", "")
 	cmd.MarkFlagRequired("inlineHookId")
-
-	cmd.Flags().StringVarP(&DeactivateInlineHookdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

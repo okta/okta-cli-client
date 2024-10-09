@@ -339,8 +339,6 @@ var (
 	ActivateAgentPoolsUpdatepoolId string
 
 	ActivateAgentPoolsUpdateupdateId string
-
-	ActivateAgentPoolsUpdatedata string
 )
 
 func NewActivateAgentPoolsUpdateCmd() *cobra.Command {
@@ -349,10 +347,6 @@ func NewActivateAgentPoolsUpdateCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.ActivateAgentPoolsUpdate(apiClient.GetConfig().Context, ActivateAgentPoolsUpdatepoolId, ActivateAgentPoolsUpdateupdateId)
-
-			if ActivateAgentPoolsUpdatedata != "" {
-				req = req.Data(ActivateAgentPoolsUpdatedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -374,9 +368,6 @@ func NewActivateAgentPoolsUpdateCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateAgentPoolsUpdateupdateId, "updateId", "", "", "")
 	cmd.MarkFlagRequired("updateId")
 
-	cmd.Flags().StringVarP(&ActivateAgentPoolsUpdatedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -389,8 +380,6 @@ var (
 	DeactivateAgentPoolsUpdatepoolId string
 
 	DeactivateAgentPoolsUpdateupdateId string
-
-	DeactivateAgentPoolsUpdatedata string
 )
 
 func NewDeactivateAgentPoolsUpdateCmd() *cobra.Command {
@@ -399,10 +388,6 @@ func NewDeactivateAgentPoolsUpdateCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.DeactivateAgentPoolsUpdate(apiClient.GetConfig().Context, DeactivateAgentPoolsUpdatepoolId, DeactivateAgentPoolsUpdateupdateId)
-
-			if DeactivateAgentPoolsUpdatedata != "" {
-				req = req.Data(DeactivateAgentPoolsUpdatedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -424,9 +409,6 @@ func NewDeactivateAgentPoolsUpdateCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&DeactivateAgentPoolsUpdateupdateId, "updateId", "", "", "")
 	cmd.MarkFlagRequired("updateId")
 
-	cmd.Flags().StringVarP(&DeactivateAgentPoolsUpdatedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -439,8 +421,6 @@ var (
 	PauseAgentPoolsUpdatepoolId string
 
 	PauseAgentPoolsUpdateupdateId string
-
-	PauseAgentPoolsUpdatedata string
 )
 
 func NewPauseAgentPoolsUpdateCmd() *cobra.Command {
@@ -449,10 +429,6 @@ func NewPauseAgentPoolsUpdateCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.PauseAgentPoolsUpdate(apiClient.GetConfig().Context, PauseAgentPoolsUpdatepoolId, PauseAgentPoolsUpdateupdateId)
-
-			if PauseAgentPoolsUpdatedata != "" {
-				req = req.Data(PauseAgentPoolsUpdatedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -474,9 +450,6 @@ func NewPauseAgentPoolsUpdateCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&PauseAgentPoolsUpdateupdateId, "updateId", "", "", "")
 	cmd.MarkFlagRequired("updateId")
 
-	cmd.Flags().StringVarP(&PauseAgentPoolsUpdatedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -489,8 +462,6 @@ var (
 	ResumeAgentPoolsUpdatepoolId string
 
 	ResumeAgentPoolsUpdateupdateId string
-
-	ResumeAgentPoolsUpdatedata string
 )
 
 func NewResumeAgentPoolsUpdateCmd() *cobra.Command {
@@ -499,10 +470,6 @@ func NewResumeAgentPoolsUpdateCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.ResumeAgentPoolsUpdate(apiClient.GetConfig().Context, ResumeAgentPoolsUpdatepoolId, ResumeAgentPoolsUpdateupdateId)
-
-			if ResumeAgentPoolsUpdatedata != "" {
-				req = req.Data(ResumeAgentPoolsUpdatedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -524,9 +491,6 @@ func NewResumeAgentPoolsUpdateCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ResumeAgentPoolsUpdateupdateId, "updateId", "", "", "")
 	cmd.MarkFlagRequired("updateId")
 
-	cmd.Flags().StringVarP(&ResumeAgentPoolsUpdatedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -539,8 +503,6 @@ var (
 	RetryAgentPoolsUpdatepoolId string
 
 	RetryAgentPoolsUpdateupdateId string
-
-	RetryAgentPoolsUpdatedata string
 )
 
 func NewRetryAgentPoolsUpdateCmd() *cobra.Command {
@@ -549,10 +511,6 @@ func NewRetryAgentPoolsUpdateCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.RetryAgentPoolsUpdate(apiClient.GetConfig().Context, RetryAgentPoolsUpdatepoolId, RetryAgentPoolsUpdateupdateId)
-
-			if RetryAgentPoolsUpdatedata != "" {
-				req = req.Data(RetryAgentPoolsUpdatedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -574,9 +532,6 @@ func NewRetryAgentPoolsUpdateCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&RetryAgentPoolsUpdateupdateId, "updateId", "", "", "")
 	cmd.MarkFlagRequired("updateId")
 
-	cmd.Flags().StringVarP(&RetryAgentPoolsUpdatedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -589,8 +544,6 @@ var (
 	StopAgentPoolsUpdatepoolId string
 
 	StopAgentPoolsUpdateupdateId string
-
-	StopAgentPoolsUpdatedata string
 )
 
 func NewStopAgentPoolsUpdateCmd() *cobra.Command {
@@ -599,10 +552,6 @@ func NewStopAgentPoolsUpdateCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.StopAgentPoolsUpdate(apiClient.GetConfig().Context, StopAgentPoolsUpdatepoolId, StopAgentPoolsUpdateupdateId)
-
-			if StopAgentPoolsUpdatedata != "" {
-				req = req.Data(StopAgentPoolsUpdatedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -623,9 +572,6 @@ func NewStopAgentPoolsUpdateCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&StopAgentPoolsUpdateupdateId, "updateId", "", "", "")
 	cmd.MarkFlagRequired("updateId")
-
-	cmd.Flags().StringVarP(&StopAgentPoolsUpdatedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

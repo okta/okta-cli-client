@@ -689,11 +689,7 @@ func init() {
 	UserCmd.AddCommand(ChangeRecoveryQuestionCmd)
 }
 
-var (
-	ForgotPassworduserId string
-
-	ForgotPassworddata string
-)
+var ForgotPassworduserId string
 
 func NewForgotPasswordCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -701,10 +697,6 @@ func NewForgotPasswordCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ForgotPassword(apiClient.GetConfig().Context, ForgotPassworduserId)
-
-			if ForgotPassworddata != "" {
-				req = req.Data(ForgotPassworddata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -722,9 +714,6 @@ func NewForgotPasswordCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&ForgotPassworduserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
-
-	cmd.Flags().StringVarP(&ForgotPassworddata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -997,11 +986,7 @@ func init() {
 	UserCmd.AddCommand(ListUserIdentityProvidersCmd)
 }
 
-var (
-	ActivateUseruserId string
-
-	ActivateUserdata string
-)
+var ActivateUseruserId string
 
 func NewActivateUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -1009,10 +994,6 @@ func NewActivateUserCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ActivateUser(apiClient.GetConfig().Context, ActivateUseruserId)
-
-			if ActivateUserdata != "" {
-				req = req.Data(ActivateUserdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1031,9 +1012,6 @@ func NewActivateUserCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateUseruserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
 
-	cmd.Flags().StringVarP(&ActivateUserdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -1042,11 +1020,7 @@ func init() {
 	UserCmd.AddCommand(ActivateUserCmd)
 }
 
-var (
-	DeactivateUseruserId string
-
-	DeactivateUserdata string
-)
+var DeactivateUseruserId string
 
 func NewDeactivateUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -1054,10 +1028,6 @@ func NewDeactivateUserCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.DeactivateUser(apiClient.GetConfig().Context, DeactivateUseruserId)
-
-			if DeactivateUserdata != "" {
-				req = req.Data(DeactivateUserdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1076,9 +1046,6 @@ func NewDeactivateUserCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&DeactivateUseruserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
 
-	cmd.Flags().StringVarP(&DeactivateUserdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -1087,11 +1054,7 @@ func init() {
 	UserCmd.AddCommand(DeactivateUserCmd)
 }
 
-var (
-	ExpirePassworduserId string
-
-	ExpirePassworddata string
-)
+var ExpirePassworduserId string
 
 func NewExpirePasswordCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -1099,10 +1062,6 @@ func NewExpirePasswordCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ExpirePassword(apiClient.GetConfig().Context, ExpirePassworduserId)
-
-			if ExpirePassworddata != "" {
-				req = req.Data(ExpirePassworddata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1121,9 +1080,6 @@ func NewExpirePasswordCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ExpirePassworduserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
 
-	cmd.Flags().StringVarP(&ExpirePassworddata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -1132,11 +1088,7 @@ func init() {
 	UserCmd.AddCommand(ExpirePasswordCmd)
 }
 
-var (
-	ExpirePasswordAndGetTemporaryPassworduserId string
-
-	ExpirePasswordAndGetTemporaryPassworddata string
-)
+var ExpirePasswordAndGetTemporaryPassworduserId string
 
 func NewExpirePasswordAndGetTemporaryPasswordCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -1144,10 +1096,6 @@ func NewExpirePasswordAndGetTemporaryPasswordCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ExpirePasswordAndGetTemporaryPassword(apiClient.GetConfig().Context, ExpirePasswordAndGetTemporaryPassworduserId)
-
-			if ExpirePasswordAndGetTemporaryPassworddata != "" {
-				req = req.Data(ExpirePasswordAndGetTemporaryPassworddata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1166,9 +1114,6 @@ func NewExpirePasswordAndGetTemporaryPasswordCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ExpirePasswordAndGetTemporaryPassworduserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
 
-	cmd.Flags().StringVarP(&ExpirePasswordAndGetTemporaryPassworddata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -1177,11 +1122,7 @@ func init() {
 	UserCmd.AddCommand(ExpirePasswordAndGetTemporaryPasswordCmd)
 }
 
-var (
-	ReactivateUseruserId string
-
-	ReactivateUserdata string
-)
+var ReactivateUseruserId string
 
 func NewReactivateUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -1189,10 +1130,6 @@ func NewReactivateUserCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ReactivateUser(apiClient.GetConfig().Context, ReactivateUseruserId)
-
-			if ReactivateUserdata != "" {
-				req = req.Data(ReactivateUserdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1211,9 +1148,6 @@ func NewReactivateUserCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ReactivateUseruserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
 
-	cmd.Flags().StringVarP(&ReactivateUserdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -1222,11 +1156,7 @@ func init() {
 	UserCmd.AddCommand(ReactivateUserCmd)
 }
 
-var (
-	ResetFactorsuserId string
-
-	ResetFactorsdata string
-)
+var ResetFactorsuserId string
 
 func NewResetFactorsCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -1234,10 +1164,6 @@ func NewResetFactorsCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ResetFactors(apiClient.GetConfig().Context, ResetFactorsuserId)
-
-			if ResetFactorsdata != "" {
-				req = req.Data(ResetFactorsdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1256,9 +1182,6 @@ func NewResetFactorsCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ResetFactorsuserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
 
-	cmd.Flags().StringVarP(&ResetFactorsdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -1267,11 +1190,7 @@ func init() {
 	UserCmd.AddCommand(ResetFactorsCmd)
 }
 
-var (
-	GenerateResetPasswordTokenuserId string
-
-	GenerateResetPasswordTokendata string
-)
+var GenerateResetPasswordTokenuserId string
 
 func NewGenerateResetPasswordTokenCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -1279,10 +1198,6 @@ func NewGenerateResetPasswordTokenCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.GenerateResetPasswordToken(apiClient.GetConfig().Context, GenerateResetPasswordTokenuserId)
-
-			if GenerateResetPasswordTokendata != "" {
-				req = req.Data(GenerateResetPasswordTokendata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1301,9 +1216,6 @@ func NewGenerateResetPasswordTokenCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&GenerateResetPasswordTokenuserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
 
-	cmd.Flags().StringVarP(&GenerateResetPasswordTokendata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -1312,11 +1224,7 @@ func init() {
 	UserCmd.AddCommand(GenerateResetPasswordTokenCmd)
 }
 
-var (
-	SuspendUseruserId string
-
-	SuspendUserdata string
-)
+var SuspendUseruserId string
 
 func NewSuspendUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -1324,10 +1232,6 @@ func NewSuspendUserCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.SuspendUser(apiClient.GetConfig().Context, SuspendUseruserId)
-
-			if SuspendUserdata != "" {
-				req = req.Data(SuspendUserdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1346,9 +1250,6 @@ func NewSuspendUserCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&SuspendUseruserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
 
-	cmd.Flags().StringVarP(&SuspendUserdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -1357,11 +1258,7 @@ func init() {
 	UserCmd.AddCommand(SuspendUserCmd)
 }
 
-var (
-	UnlockUseruserId string
-
-	UnlockUserdata string
-)
+var UnlockUseruserId string
 
 func NewUnlockUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -1369,10 +1266,6 @@ func NewUnlockUserCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.UnlockUser(apiClient.GetConfig().Context, UnlockUseruserId)
-
-			if UnlockUserdata != "" {
-				req = req.Data(UnlockUserdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1391,9 +1284,6 @@ func NewUnlockUserCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&UnlockUseruserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
 
-	cmd.Flags().StringVarP(&UnlockUserdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -1402,11 +1292,7 @@ func init() {
 	UserCmd.AddCommand(UnlockUserCmd)
 }
 
-var (
-	UnsuspendUseruserId string
-
-	UnsuspendUserdata string
-)
+var UnsuspendUseruserId string
 
 func NewUnsuspendUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -1414,10 +1300,6 @@ func NewUnsuspendUserCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.UnsuspendUser(apiClient.GetConfig().Context, UnsuspendUseruserId)
-
-			if UnsuspendUserdata != "" {
-				req = req.Data(UnsuspendUserdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1436,9 +1318,6 @@ func NewUnsuspendUserCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&UnsuspendUseruserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
 
-	cmd.Flags().StringVarP(&UnsuspendUserdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -1453,8 +1332,6 @@ var (
 	SetLinkedObjectForUserprimaryRelationshipName string
 
 	SetLinkedObjectForUserprimaryUserId string
-
-	SetLinkedObjectForUserdata string
 )
 
 func NewSetLinkedObjectForUserCmd() *cobra.Command {
@@ -1463,10 +1340,6 @@ func NewSetLinkedObjectForUserCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.SetLinkedObjectForUser(apiClient.GetConfig().Context, SetLinkedObjectForUseruserId, SetLinkedObjectForUserprimaryRelationshipName, SetLinkedObjectForUserprimaryUserId)
-
-			if SetLinkedObjectForUserdata != "" {
-				req = req.Data(SetLinkedObjectForUserdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1490,9 +1363,6 @@ func NewSetLinkedObjectForUserCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&SetLinkedObjectForUserprimaryUserId, "primaryUserId", "", "", "")
 	cmd.MarkFlagRequired("primaryUserId")
-
-	cmd.Flags().StringVarP(&SetLinkedObjectForUserdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

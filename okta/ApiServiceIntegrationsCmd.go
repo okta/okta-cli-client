@@ -151,11 +151,7 @@ func init() {
 	ApiServiceIntegrationsCmd.AddCommand(DeleteApiServiceIntegrationInstanceCmd)
 }
 
-var (
-	CreateApiServiceIntegrationInstanceSecretapiServiceId string
-
-	CreateApiServiceIntegrationInstanceSecretdata string
-)
+var CreateApiServiceIntegrationInstanceSecretapiServiceId string
 
 func NewCreateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -163,10 +159,6 @@ func NewCreateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, CreateApiServiceIntegrationInstanceSecretapiServiceId)
-
-			if CreateApiServiceIntegrationInstanceSecretdata != "" {
-				req = req.Data(CreateApiServiceIntegrationInstanceSecretdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -184,9 +176,6 @@ func NewCreateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&CreateApiServiceIntegrationInstanceSecretapiServiceId, "apiServiceId", "", "", "")
 	cmd.MarkFlagRequired("apiServiceId")
-
-	cmd.Flags().StringVarP(&CreateApiServiceIntegrationInstanceSecretdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -275,8 +264,6 @@ var (
 	ActivateApiServiceIntegrationInstanceSecretapiServiceId string
 
 	ActivateApiServiceIntegrationInstanceSecretsecretId string
-
-	ActivateApiServiceIntegrationInstanceSecretdata string
 )
 
 func NewActivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
@@ -285,10 +272,6 @@ func NewActivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.ActivateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, ActivateApiServiceIntegrationInstanceSecretapiServiceId, ActivateApiServiceIntegrationInstanceSecretsecretId)
-
-			if ActivateApiServiceIntegrationInstanceSecretdata != "" {
-				req = req.Data(ActivateApiServiceIntegrationInstanceSecretdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -310,9 +293,6 @@ func NewActivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateApiServiceIntegrationInstanceSecretsecretId, "secretId", "", "", "")
 	cmd.MarkFlagRequired("secretId")
 
-	cmd.Flags().StringVarP(&ActivateApiServiceIntegrationInstanceSecretdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -325,8 +305,6 @@ var (
 	DeactivateApiServiceIntegrationInstanceSecretapiServiceId string
 
 	DeactivateApiServiceIntegrationInstanceSecretsecretId string
-
-	DeactivateApiServiceIntegrationInstanceSecretdata string
 )
 
 func NewDeactivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
@@ -335,10 +313,6 @@ func NewDeactivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.DeactivateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, DeactivateApiServiceIntegrationInstanceSecretapiServiceId, DeactivateApiServiceIntegrationInstanceSecretsecretId)
-
-			if DeactivateApiServiceIntegrationInstanceSecretdata != "" {
-				req = req.Data(DeactivateApiServiceIntegrationInstanceSecretdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -359,9 +333,6 @@ func NewDeactivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateApiServiceIntegrationInstanceSecretsecretId, "secretId", "", "", "")
 	cmd.MarkFlagRequired("secretId")
-
-	cmd.Flags().StringVarP(&DeactivateApiServiceIntegrationInstanceSecretdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

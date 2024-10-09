@@ -196,11 +196,7 @@ func init() {
 	NetworkZoneCmd.AddCommand(DeleteNetworkZoneCmd)
 }
 
-var (
-	ActivateNetworkZonezoneId string
-
-	ActivateNetworkZonedata string
-)
+var ActivateNetworkZonezoneId string
 
 func NewActivateNetworkZoneCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -208,10 +204,6 @@ func NewActivateNetworkZoneCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.NetworkZoneAPI.ActivateNetworkZone(apiClient.GetConfig().Context, ActivateNetworkZonezoneId)
-
-			if ActivateNetworkZonedata != "" {
-				req = req.Data(ActivateNetworkZonedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -230,9 +222,6 @@ func NewActivateNetworkZoneCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateNetworkZonezoneId, "zoneId", "", "", "")
 	cmd.MarkFlagRequired("zoneId")
 
-	cmd.Flags().StringVarP(&ActivateNetworkZonedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -241,11 +230,7 @@ func init() {
 	NetworkZoneCmd.AddCommand(ActivateNetworkZoneCmd)
 }
 
-var (
-	DeactivateNetworkZonezoneId string
-
-	DeactivateNetworkZonedata string
-)
+var DeactivateNetworkZonezoneId string
 
 func NewDeactivateNetworkZoneCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -253,10 +238,6 @@ func NewDeactivateNetworkZoneCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.NetworkZoneAPI.DeactivateNetworkZone(apiClient.GetConfig().Context, DeactivateNetworkZonezoneId)
-
-			if DeactivateNetworkZonedata != "" {
-				req = req.Data(DeactivateNetworkZonedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -274,9 +255,6 @@ func NewDeactivateNetworkZoneCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateNetworkZonezoneId, "zoneId", "", "", "")
 	cmd.MarkFlagRequired("zoneId")
-
-	cmd.Flags().StringVarP(&DeactivateNetworkZonedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

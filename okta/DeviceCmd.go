@@ -113,11 +113,7 @@ func init() {
 	DeviceCmd.AddCommand(DeleteDeviceCmd)
 }
 
-var (
-	ActivateDevicedeviceId string
-
-	ActivateDevicedata string
-)
+var ActivateDevicedeviceId string
 
 func NewActivateDeviceCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -125,10 +121,6 @@ func NewActivateDeviceCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.ActivateDevice(apiClient.GetConfig().Context, ActivateDevicedeviceId)
-
-			if ActivateDevicedata != "" {
-				req = req.Data(ActivateDevicedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -147,9 +139,6 @@ func NewActivateDeviceCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateDevicedeviceId, "deviceId", "", "", "")
 	cmd.MarkFlagRequired("deviceId")
 
-	cmd.Flags().StringVarP(&ActivateDevicedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -158,11 +147,7 @@ func init() {
 	DeviceCmd.AddCommand(ActivateDeviceCmd)
 }
 
-var (
-	DeactivateDevicedeviceId string
-
-	DeactivateDevicedata string
-)
+var DeactivateDevicedeviceId string
 
 func NewDeactivateDeviceCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -170,10 +155,6 @@ func NewDeactivateDeviceCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.DeactivateDevice(apiClient.GetConfig().Context, DeactivateDevicedeviceId)
-
-			if DeactivateDevicedata != "" {
-				req = req.Data(DeactivateDevicedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -192,9 +173,6 @@ func NewDeactivateDeviceCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&DeactivateDevicedeviceId, "deviceId", "", "", "")
 	cmd.MarkFlagRequired("deviceId")
 
-	cmd.Flags().StringVarP(&DeactivateDevicedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -203,11 +181,7 @@ func init() {
 	DeviceCmd.AddCommand(DeactivateDeviceCmd)
 }
 
-var (
-	SuspendDevicedeviceId string
-
-	SuspendDevicedata string
-)
+var SuspendDevicedeviceId string
 
 func NewSuspendDeviceCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -215,10 +189,6 @@ func NewSuspendDeviceCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.SuspendDevice(apiClient.GetConfig().Context, SuspendDevicedeviceId)
-
-			if SuspendDevicedata != "" {
-				req = req.Data(SuspendDevicedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -237,9 +207,6 @@ func NewSuspendDeviceCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&SuspendDevicedeviceId, "deviceId", "", "", "")
 	cmd.MarkFlagRequired("deviceId")
 
-	cmd.Flags().StringVarP(&SuspendDevicedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -248,11 +215,7 @@ func init() {
 	DeviceCmd.AddCommand(SuspendDeviceCmd)
 }
 
-var (
-	UnsuspendDevicedeviceId string
-
-	UnsuspendDevicedata string
-)
+var UnsuspendDevicedeviceId string
 
 func NewUnsuspendDeviceCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -260,10 +223,6 @@ func NewUnsuspendDeviceCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.UnsuspendDevice(apiClient.GetConfig().Context, UnsuspendDevicedeviceId)
-
-			if UnsuspendDevicedata != "" {
-				req = req.Data(UnsuspendDevicedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -281,9 +240,6 @@ func NewUnsuspendDeviceCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&UnsuspendDevicedeviceId, "deviceId", "", "", "")
 	cmd.MarkFlagRequired("deviceId")
-
-	cmd.Flags().StringVarP(&UnsuspendDevicedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

@@ -241,11 +241,7 @@ func init() {
 	CustomDomainCmd.AddCommand(UpsertCertificateCmd)
 }
 
-var (
-	VerifyDomaindomainId string
-
-	VerifyDomaindata string
-)
+var VerifyDomaindomainId string
 
 func NewVerifyDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -253,10 +249,6 @@ func NewVerifyDomainCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomDomainAPI.VerifyDomain(apiClient.GetConfig().Context, VerifyDomaindomainId)
-
-			if VerifyDomaindata != "" {
-				req = req.Data(VerifyDomaindata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -274,9 +266,6 @@ func NewVerifyDomainCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&VerifyDomaindomainId, "domainId", "", "", "")
 	cmd.MarkFlagRequired("domainId")
-
-	cmd.Flags().StringVarP(&VerifyDomaindata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

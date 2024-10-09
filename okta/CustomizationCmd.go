@@ -1508,8 +1508,6 @@ var (
 	SendTestEmailbrandId string
 
 	SendTestEmailtemplateName string
-
-	SendTestEmaildata string
 )
 
 func NewSendTestEmailCmd() *cobra.Command {
@@ -1518,10 +1516,6 @@ func NewSendTestEmailCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.SendTestEmail(apiClient.GetConfig().Context, SendTestEmailbrandId, SendTestEmailtemplateName)
-
-			if SendTestEmaildata != "" {
-				req = req.Data(SendTestEmaildata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -1542,9 +1536,6 @@ func NewSendTestEmailCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&SendTestEmailtemplateName, "templateName", "", "", "")
 	cmd.MarkFlagRequired("templateName")
-
-	cmd.Flags().StringVarP(&SendTestEmaildata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

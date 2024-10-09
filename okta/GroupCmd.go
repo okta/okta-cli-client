@@ -263,11 +263,7 @@ func init() {
 	GroupCmd.AddCommand(DeleteGroupRuleCmd)
 }
 
-var (
-	ActivateGroupRulegroupRuleId string
-
-	ActivateGroupRuledata string
-)
+var ActivateGroupRulegroupRuleId string
 
 func NewActivateGroupRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -275,10 +271,6 @@ func NewActivateGroupRuleCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.ActivateGroupRule(apiClient.GetConfig().Context, ActivateGroupRulegroupRuleId)
-
-			if ActivateGroupRuledata != "" {
-				req = req.Data(ActivateGroupRuledata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -297,9 +289,6 @@ func NewActivateGroupRuleCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateGroupRulegroupRuleId, "groupRuleId", "", "", "")
 	cmd.MarkFlagRequired("groupRuleId")
 
-	cmd.Flags().StringVarP(&ActivateGroupRuledata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -308,11 +297,7 @@ func init() {
 	GroupCmd.AddCommand(ActivateGroupRuleCmd)
 }
 
-var (
-	DeactivateGroupRulegroupRuleId string
-
-	DeactivateGroupRuledata string
-)
+var DeactivateGroupRulegroupRuleId string
 
 func NewDeactivateGroupRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -320,10 +305,6 @@ func NewDeactivateGroupRuleCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.DeactivateGroupRule(apiClient.GetConfig().Context, DeactivateGroupRulegroupRuleId)
-
-			if DeactivateGroupRuledata != "" {
-				req = req.Data(DeactivateGroupRuledata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -341,9 +322,6 @@ func NewDeactivateGroupRuleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateGroupRulegroupRuleId, "groupRuleId", "", "", "")
 	cmd.MarkFlagRequired("groupRuleId")
-
-	cmd.Flags().StringVarP(&DeactivateGroupRuledata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -538,8 +516,6 @@ var (
 	AssignUserToGroupgroupId string
 
 	AssignUserToGroupuserId string
-
-	AssignUserToGroupdata string
 )
 
 func NewAssignUserToGroupCmd() *cobra.Command {
@@ -548,10 +524,6 @@ func NewAssignUserToGroupCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.AssignUserToGroup(apiClient.GetConfig().Context, AssignUserToGroupgroupId, AssignUserToGroupuserId)
-
-			if AssignUserToGroupdata != "" {
-				req = req.Data(AssignUserToGroupdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -572,9 +544,6 @@ func NewAssignUserToGroupCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignUserToGroupuserId, "userId", "", "", "")
 	cmd.MarkFlagRequired("userId")
-
-	cmd.Flags().StringVarP(&AssignUserToGroupdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

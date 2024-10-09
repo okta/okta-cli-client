@@ -196,11 +196,7 @@ func init() {
 	AuthorizationServerCmd.AddCommand(DeleteAuthorizationServerCmd)
 }
 
-var (
-	ActivateAuthorizationServerauthServerId string
-
-	ActivateAuthorizationServerdata string
-)
+var ActivateAuthorizationServerauthServerId string
 
 func NewActivateAuthorizationServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -208,10 +204,6 @@ func NewActivateAuthorizationServerCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAPI.ActivateAuthorizationServer(apiClient.GetConfig().Context, ActivateAuthorizationServerauthServerId)
-
-			if ActivateAuthorizationServerdata != "" {
-				req = req.Data(ActivateAuthorizationServerdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -230,9 +222,6 @@ func NewActivateAuthorizationServerCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateAuthorizationServerauthServerId, "authServerId", "", "", "")
 	cmd.MarkFlagRequired("authServerId")
 
-	cmd.Flags().StringVarP(&ActivateAuthorizationServerdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -241,11 +230,7 @@ func init() {
 	AuthorizationServerCmd.AddCommand(ActivateAuthorizationServerCmd)
 }
 
-var (
-	DeactivateAuthorizationServerauthServerId string
-
-	DeactivateAuthorizationServerdata string
-)
+var DeactivateAuthorizationServerauthServerId string
 
 func NewDeactivateAuthorizationServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -253,10 +238,6 @@ func NewDeactivateAuthorizationServerCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAPI.DeactivateAuthorizationServer(apiClient.GetConfig().Context, DeactivateAuthorizationServerauthServerId)
-
-			if DeactivateAuthorizationServerdata != "" {
-				req = req.Data(DeactivateAuthorizationServerdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -274,9 +255,6 @@ func NewDeactivateAuthorizationServerCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateAuthorizationServerauthServerId, "authServerId", "", "", "")
 	cmd.MarkFlagRequired("authServerId")
-
-	cmd.Flags().StringVarP(&DeactivateAuthorizationServerdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

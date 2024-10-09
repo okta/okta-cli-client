@@ -151,8 +151,6 @@ var (
 	UpdateFeatureLifecyclefeatureId string
 
 	UpdateFeatureLifecyclelifecycle string
-
-	UpdateFeatureLifecycledata string
 )
 
 func NewUpdateFeatureLifecycleCmd() *cobra.Command {
@@ -161,10 +159,6 @@ func NewUpdateFeatureLifecycleCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.FeatureAPI.UpdateFeatureLifecycle(apiClient.GetConfig().Context, UpdateFeatureLifecyclefeatureId, UpdateFeatureLifecyclelifecycle)
-
-			if UpdateFeatureLifecycledata != "" {
-				req = req.Data(UpdateFeatureLifecycledata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -185,9 +179,6 @@ func NewUpdateFeatureLifecycleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&UpdateFeatureLifecyclelifecycle, "lifecycle", "", "", "")
 	cmd.MarkFlagRequired("lifecycle")
-
-	cmd.Flags().StringVarP(&UpdateFeatureLifecycledata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

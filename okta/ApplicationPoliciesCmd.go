@@ -20,8 +20,6 @@ var (
 	AssignApplicationPolicyappId string
 
 	AssignApplicationPolicypolicyId string
-
-	AssignApplicationPolicydata string
 )
 
 func NewAssignApplicationPolicyCmd() *cobra.Command {
@@ -30,10 +28,6 @@ func NewAssignApplicationPolicyCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationPoliciesAPI.AssignApplicationPolicy(apiClient.GetConfig().Context, AssignApplicationPolicyappId, AssignApplicationPolicypolicyId)
-
-			if AssignApplicationPolicydata != "" {
-				req = req.Data(AssignApplicationPolicydata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -54,9 +48,6 @@ func NewAssignApplicationPolicyCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignApplicationPolicypolicyId, "policyId", "", "", "")
 	cmd.MarkFlagRequired("policyId")
-
-	cmd.Flags().StringVarP(&AssignApplicationPolicydata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

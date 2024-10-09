@@ -63,8 +63,6 @@ var (
 	AssignAppTargetToAdminRoleForGrouproleId string
 
 	AssignAppTargetToAdminRoleForGroupappName string
-
-	AssignAppTargetToAdminRoleForGroupdata string
 )
 
 func NewAssignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
@@ -73,10 +71,6 @@ func NewAssignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppTargetToAdminRoleForGroup(apiClient.GetConfig().Context, AssignAppTargetToAdminRoleForGroupgroupId, AssignAppTargetToAdminRoleForGrouproleId, AssignAppTargetToAdminRoleForGroupappName)
-
-			if AssignAppTargetToAdminRoleForGroupdata != "" {
-				req = req.Data(AssignAppTargetToAdminRoleForGroupdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -100,9 +94,6 @@ func NewAssignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignAppTargetToAdminRoleForGroupappName, "appName", "", "", "")
 	cmd.MarkFlagRequired("appName")
-
-	cmd.Flags().StringVarP(&AssignAppTargetToAdminRoleForGroupdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -166,8 +157,6 @@ var (
 	AssignAppInstanceTargetToAppAdminRoleForGroupappName string
 
 	AssignAppInstanceTargetToAppAdminRoleForGroupappId string
-
-	AssignAppInstanceTargetToAppAdminRoleForGroupdata string
 )
 
 func NewAssignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
@@ -176,10 +165,6 @@ func NewAssignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForGroup(apiClient.GetConfig().Context, AssignAppInstanceTargetToAppAdminRoleForGroupgroupId, AssignAppInstanceTargetToAppAdminRoleForGrouproleId, AssignAppInstanceTargetToAppAdminRoleForGroupappName, AssignAppInstanceTargetToAppAdminRoleForGroupappId)
-
-			if AssignAppInstanceTargetToAppAdminRoleForGroupdata != "" {
-				req = req.Data(AssignAppInstanceTargetToAppAdminRoleForGroupdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -206,9 +191,6 @@ func NewAssignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignAppInstanceTargetToAppAdminRoleForGroupappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
-
-	cmd.Flags().StringVarP(&AssignAppInstanceTargetToAppAdminRoleForGroupdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -316,8 +298,6 @@ var (
 	AssignGroupTargetToGroupAdminRoleroleId string
 
 	AssignGroupTargetToGroupAdminRoletargetGroupId string
-
-	AssignGroupTargetToGroupAdminRoledata string
 )
 
 func NewAssignGroupTargetToGroupAdminRoleCmd() *cobra.Command {
@@ -326,10 +306,6 @@ func NewAssignGroupTargetToGroupAdminRoleCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignGroupTargetToGroupAdminRole(apiClient.GetConfig().Context, AssignGroupTargetToGroupAdminRolegroupId, AssignGroupTargetToGroupAdminRoleroleId, AssignGroupTargetToGroupAdminRoletargetGroupId)
-
-			if AssignGroupTargetToGroupAdminRoledata != "" {
-				req = req.Data(AssignGroupTargetToGroupAdminRoledata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -353,9 +329,6 @@ func NewAssignGroupTargetToGroupAdminRoleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignGroupTargetToGroupAdminRoletargetGroupId, "targetGroupId", "", "", "")
 	cmd.MarkFlagRequired("targetGroupId")
-
-	cmd.Flags().StringVarP(&AssignGroupTargetToGroupAdminRoledata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -456,8 +429,6 @@ var (
 	AssignAllAppsAsTargetToRoleForUseruserId string
 
 	AssignAllAppsAsTargetToRoleForUserroleId string
-
-	AssignAllAppsAsTargetToRoleForUserdata string
 )
 
 func NewAssignAllAppsAsTargetToRoleForUserCmd() *cobra.Command {
@@ -466,10 +437,6 @@ func NewAssignAllAppsAsTargetToRoleForUserCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAllAppsAsTargetToRoleForUser(apiClient.GetConfig().Context, AssignAllAppsAsTargetToRoleForUseruserId, AssignAllAppsAsTargetToRoleForUserroleId)
-
-			if AssignAllAppsAsTargetToRoleForUserdata != "" {
-				req = req.Data(AssignAllAppsAsTargetToRoleForUserdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -491,9 +458,6 @@ func NewAssignAllAppsAsTargetToRoleForUserCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&AssignAllAppsAsTargetToRoleForUserroleId, "roleId", "", "", "")
 	cmd.MarkFlagRequired("roleId")
 
-	cmd.Flags().StringVarP(&AssignAllAppsAsTargetToRoleForUserdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -508,8 +472,6 @@ var (
 	AssignAppTargetToAdminRoleForUserroleId string
 
 	AssignAppTargetToAdminRoleForUserappName string
-
-	AssignAppTargetToAdminRoleForUserdata string
 )
 
 func NewAssignAppTargetToAdminRoleForUserCmd() *cobra.Command {
@@ -518,10 +480,6 @@ func NewAssignAppTargetToAdminRoleForUserCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppTargetToAdminRoleForUser(apiClient.GetConfig().Context, AssignAppTargetToAdminRoleForUseruserId, AssignAppTargetToAdminRoleForUserroleId, AssignAppTargetToAdminRoleForUserappName)
-
-			if AssignAppTargetToAdminRoleForUserdata != "" {
-				req = req.Data(AssignAppTargetToAdminRoleForUserdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -545,9 +503,6 @@ func NewAssignAppTargetToAdminRoleForUserCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignAppTargetToAdminRoleForUserappName, "appName", "", "", "")
 	cmd.MarkFlagRequired("appName")
-
-	cmd.Flags().StringVarP(&AssignAppTargetToAdminRoleForUserdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -611,8 +566,6 @@ var (
 	AssignAppInstanceTargetToAppAdminRoleForUserappName string
 
 	AssignAppInstanceTargetToAppAdminRoleForUserappId string
-
-	AssignAppInstanceTargetToAppAdminRoleForUserdata string
 )
 
 func NewAssignAppInstanceTargetToAppAdminRoleForUserCmd() *cobra.Command {
@@ -621,10 +574,6 @@ func NewAssignAppInstanceTargetToAppAdminRoleForUserCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForUser(apiClient.GetConfig().Context, AssignAppInstanceTargetToAppAdminRoleForUseruserId, AssignAppInstanceTargetToAppAdminRoleForUserroleId, AssignAppInstanceTargetToAppAdminRoleForUserappName, AssignAppInstanceTargetToAppAdminRoleForUserappId)
-
-			if AssignAppInstanceTargetToAppAdminRoleForUserdata != "" {
-				req = req.Data(AssignAppInstanceTargetToAppAdminRoleForUserdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -651,9 +600,6 @@ func NewAssignAppInstanceTargetToAppAdminRoleForUserCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignAppInstanceTargetToAppAdminRoleForUserappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
-
-	cmd.Flags().StringVarP(&AssignAppInstanceTargetToAppAdminRoleForUserdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -761,8 +707,6 @@ var (
 	AssignGroupTargetToUserRoleroleId string
 
 	AssignGroupTargetToUserRolegroupId string
-
-	AssignGroupTargetToUserRoledata string
 )
 
 func NewAssignGroupTargetToUserRoleCmd() *cobra.Command {
@@ -771,10 +715,6 @@ func NewAssignGroupTargetToUserRoleCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignGroupTargetToUserRole(apiClient.GetConfig().Context, AssignGroupTargetToUserRoleuserId, AssignGroupTargetToUserRoleroleId, AssignGroupTargetToUserRolegroupId)
-
-			if AssignGroupTargetToUserRoledata != "" {
-				req = req.Data(AssignGroupTargetToUserRoledata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -798,9 +738,6 @@ func NewAssignGroupTargetToUserRoleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignGroupTargetToUserRolegroupId, "groupId", "", "", "")
 	cmd.MarkFlagRequired("groupId")
-
-	cmd.Flags().StringVarP(&AssignGroupTargetToUserRoledata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

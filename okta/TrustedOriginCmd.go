@@ -196,11 +196,7 @@ func init() {
 	TrustedOriginCmd.AddCommand(DeleteTrustedOriginCmd)
 }
 
-var (
-	ActivateTrustedOrigintrustedOriginId string
-
-	ActivateTrustedOrigindata string
-)
+var ActivateTrustedOrigintrustedOriginId string
 
 func NewActivateTrustedOriginCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -208,10 +204,6 @@ func NewActivateTrustedOriginCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TrustedOriginAPI.ActivateTrustedOrigin(apiClient.GetConfig().Context, ActivateTrustedOrigintrustedOriginId)
-
-			if ActivateTrustedOrigindata != "" {
-				req = req.Data(ActivateTrustedOrigindata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -230,9 +222,6 @@ func NewActivateTrustedOriginCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateTrustedOrigintrustedOriginId, "trustedOriginId", "", "", "")
 	cmd.MarkFlagRequired("trustedOriginId")
 
-	cmd.Flags().StringVarP(&ActivateTrustedOrigindata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -241,11 +230,7 @@ func init() {
 	TrustedOriginCmd.AddCommand(ActivateTrustedOriginCmd)
 }
 
-var (
-	DeactivateTrustedOrigintrustedOriginId string
-
-	DeactivateTrustedOrigindata string
-)
+var DeactivateTrustedOrigintrustedOriginId string
 
 func NewDeactivateTrustedOriginCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -253,10 +238,6 @@ func NewDeactivateTrustedOriginCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TrustedOriginAPI.DeactivateTrustedOrigin(apiClient.GetConfig().Context, DeactivateTrustedOrigintrustedOriginId)
-
-			if DeactivateTrustedOrigindata != "" {
-				req = req.Data(DeactivateTrustedOrigindata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -274,9 +255,6 @@ func NewDeactivateTrustedOriginCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateTrustedOrigintrustedOriginId, "trustedOriginId", "", "", "")
 	cmd.MarkFlagRequired("trustedOriginId")
-
-	cmd.Flags().StringVarP(&DeactivateTrustedOrigindata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

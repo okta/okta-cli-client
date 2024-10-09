@@ -268,11 +268,7 @@ func init() {
 	PolicyCmd.AddCommand(ListPolicyAppsCmd)
 }
 
-var (
-	ClonePolicypolicyId string
-
-	ClonePolicydata string
-)
+var ClonePolicypolicyId string
 
 func NewClonePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -280,10 +276,6 @@ func NewClonePolicyCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ClonePolicy(apiClient.GetConfig().Context, ClonePolicypolicyId)
-
-			if ClonePolicydata != "" {
-				req = req.Data(ClonePolicydata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -302,9 +294,6 @@ func NewClonePolicyCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ClonePolicypolicyId, "policyId", "", "", "")
 	cmd.MarkFlagRequired("policyId")
 
-	cmd.Flags().StringVarP(&ClonePolicydata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -313,11 +302,7 @@ func init() {
 	PolicyCmd.AddCommand(ClonePolicyCmd)
 }
 
-var (
-	ActivatePolicypolicyId string
-
-	ActivatePolicydata string
-)
+var ActivatePolicypolicyId string
 
 func NewActivatePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -325,10 +310,6 @@ func NewActivatePolicyCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ActivatePolicy(apiClient.GetConfig().Context, ActivatePolicypolicyId)
-
-			if ActivatePolicydata != "" {
-				req = req.Data(ActivatePolicydata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -347,9 +328,6 @@ func NewActivatePolicyCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivatePolicypolicyId, "policyId", "", "", "")
 	cmd.MarkFlagRequired("policyId")
 
-	cmd.Flags().StringVarP(&ActivatePolicydata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -358,11 +336,7 @@ func init() {
 	PolicyCmd.AddCommand(ActivatePolicyCmd)
 }
 
-var (
-	DeactivatePolicypolicyId string
-
-	DeactivatePolicydata string
-)
+var DeactivatePolicypolicyId string
 
 func NewDeactivatePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -370,10 +344,6 @@ func NewDeactivatePolicyCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.DeactivatePolicy(apiClient.GetConfig().Context, DeactivatePolicypolicyId)
-
-			if DeactivatePolicydata != "" {
-				req = req.Data(DeactivatePolicydata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -391,9 +361,6 @@ func NewDeactivatePolicyCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivatePolicypolicyId, "policyId", "", "", "")
 	cmd.MarkFlagRequired("policyId")
-
-	cmd.Flags().StringVarP(&DeactivatePolicydata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -779,8 +746,6 @@ var (
 	ActivatePolicyRulepolicyId string
 
 	ActivatePolicyRuleruleId string
-
-	ActivatePolicyRuledata string
 )
 
 func NewActivatePolicyRuleCmd() *cobra.Command {
@@ -789,10 +754,6 @@ func NewActivatePolicyRuleCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ActivatePolicyRule(apiClient.GetConfig().Context, ActivatePolicyRulepolicyId, ActivatePolicyRuleruleId)
-
-			if ActivatePolicyRuledata != "" {
-				req = req.Data(ActivatePolicyRuledata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -814,9 +775,6 @@ func NewActivatePolicyRuleCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivatePolicyRuleruleId, "ruleId", "", "", "")
 	cmd.MarkFlagRequired("ruleId")
 
-	cmd.Flags().StringVarP(&ActivatePolicyRuledata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -829,8 +787,6 @@ var (
 	DeactivatePolicyRulepolicyId string
 
 	DeactivatePolicyRuleruleId string
-
-	DeactivatePolicyRuledata string
 )
 
 func NewDeactivatePolicyRuleCmd() *cobra.Command {
@@ -839,10 +795,6 @@ func NewDeactivatePolicyRuleCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.DeactivatePolicyRule(apiClient.GetConfig().Context, DeactivatePolicyRulepolicyId, DeactivatePolicyRuleruleId)
-
-			if DeactivatePolicyRuledata != "" {
-				req = req.Data(DeactivatePolicyRuledata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -863,9 +815,6 @@ func NewDeactivatePolicyRuleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivatePolicyRuleruleId, "ruleId", "", "", "")
 	cmd.MarkFlagRequired("ruleId")
-
-	cmd.Flags().StringVarP(&DeactivatePolicyRuledata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

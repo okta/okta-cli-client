@@ -196,11 +196,7 @@ func init() {
 	EmailDomainCmd.AddCommand(DeleteEmailDomainCmd)
 }
 
-var (
-	VerifyEmailDomainemailDomainId string
-
-	VerifyEmailDomaindata string
-)
+var VerifyEmailDomainemailDomainId string
 
 func NewVerifyEmailDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -208,10 +204,6 @@ func NewVerifyEmailDomainCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailDomainAPI.VerifyEmailDomain(apiClient.GetConfig().Context, VerifyEmailDomainemailDomainId)
-
-			if VerifyEmailDomaindata != "" {
-				req = req.Data(VerifyEmailDomaindata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -229,9 +221,6 @@ func NewVerifyEmailDomainCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&VerifyEmailDomainemailDomainId, "emailDomainId", "", "", "")
 	cmd.MarkFlagRequired("emailDomainId")
-
-	cmd.Flags().StringVarP(&VerifyEmailDomaindata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
