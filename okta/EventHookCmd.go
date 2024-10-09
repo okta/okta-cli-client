@@ -38,7 +38,7 @@ func NewCreateEventHookCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -70,7 +70,7 @@ func NewListEventHooksCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -101,7 +101,7 @@ func NewGetEventHookCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -143,7 +143,7 @@ func NewReplaceEventHookCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -180,7 +180,7 @@ func NewDeleteEventHookCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -222,7 +222,7 @@ func NewActivateEventHookCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -267,7 +267,7 @@ func NewDeactivateEventHookCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -312,7 +312,7 @@ func NewVerifyEventHookCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}

@@ -38,7 +38,7 @@ func NewCreateApiServiceIntegrationInstanceCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -70,7 +70,7 @@ func NewListApiServiceIntegrationInstancesCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -101,7 +101,7 @@ func NewGetApiServiceIntegrationInstanceCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -135,7 +135,7 @@ func NewDeleteApiServiceIntegrationInstanceCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -177,7 +177,7 @@ func NewCreateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -214,7 +214,7 @@ func NewListApiServiceIntegrationInstanceSecretsCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -252,7 +252,7 @@ func NewDeleteApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -299,7 +299,7 @@ func NewActivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -349,7 +349,7 @@ func NewDeactivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}

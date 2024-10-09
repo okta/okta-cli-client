@@ -32,7 +32,7 @@ func NewListApiTokensCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -61,7 +61,7 @@ func NewRevokeCurrentApiTokenCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -92,7 +92,7 @@ func NewGetApiTokenCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -126,7 +126,7 @@ func NewRevokeApiTokenCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}

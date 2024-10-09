@@ -42,7 +42,7 @@ func NewCreateOAuth2ScopeCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -79,7 +79,7 @@ func NewListOAuth2ScopesCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -117,7 +117,7 @@ func NewGetOAuth2ScopeCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -164,7 +164,7 @@ func NewReplaceOAuth2ScopeCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -208,7 +208,7 @@ func NewDeleteOAuth2ScopeCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}

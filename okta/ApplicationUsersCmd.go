@@ -42,7 +42,7 @@ func NewAssignUserToApplicationCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -79,7 +79,7 @@ func NewListApplicationUsersCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -123,7 +123,7 @@ func NewUpdateApplicationUserCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -167,7 +167,7 @@ func NewGetApplicationUserCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -208,7 +208,7 @@ func NewUnassignUserFromApplicationCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}

@@ -38,7 +38,7 @@ func NewListApplicationTargetsForApplicationAdministratorRoleForGroupCmd() *cobr
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -87,7 +87,7 @@ func NewAssignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -136,7 +136,7 @@ func NewUnassignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -190,7 +190,7 @@ func NewAssignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -244,7 +244,7 @@ func NewUnassignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -291,7 +291,7 @@ func NewListGroupTargetsForGroupRoleCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -340,7 +340,7 @@ func NewAssignGroupTargetToGroupAdminRoleCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -389,7 +389,7 @@ func NewUnassignGroupTargetFromGroupAdminRoleCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -433,7 +433,7 @@ func NewListApplicationTargetsForApplicationAdministratorRoleForUserCmd() *cobra
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -480,7 +480,7 @@ func NewAssignAllAppsAsTargetToRoleForUserCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -532,7 +532,7 @@ func NewAssignAppTargetToAdminRoleForUserCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -581,7 +581,7 @@ func NewUnassignAppTargetFromAppAdminRoleForUserCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -635,7 +635,7 @@ func NewAssignAppInstanceTargetToAppAdminRoleForUserCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -689,7 +689,7 @@ func NewUnassignAppInstanceTargetFromAdminRoleForUserCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -736,7 +736,7 @@ func NewListGroupTargetsForRoleCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -785,7 +785,7 @@ func NewAssignGroupTargetToUserRoleCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
@@ -834,7 +834,7 @@ func NewUnassignGroupTargetFromUserAdminRoleCmd() *cobra.Command {
 				return err
 			}
 			utils.PrettyPrintByte(d)
-			cmd.Println(string(d))
+			// cmd.Println(string(d))
 			return nil
 		},
 	}
