@@ -199,7 +199,7 @@ In the Okta CLI current form, we only support `stdout` as output.
 
 ## Need help?
  
-If you run into problems using the Okta PowerShell module, you can
+If you run into problems using the Okta CLI, you can
  
 * Ask questions on the [Okta Developer Forums][devforum]
 * Post [issues][github-issues] here on GitHub (for code errors)
