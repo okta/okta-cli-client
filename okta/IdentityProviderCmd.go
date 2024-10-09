@@ -576,11 +576,7 @@ func init() {
 	IdentityProviderCmd.AddCommand(ListIdentityProviderSigningKeysCmd)
 }
 
-var (
-	GenerateIdentityProviderSigningKeyidpId string
-
-	GenerateIdentityProviderSigningKeydata string
-)
+var GenerateIdentityProviderSigningKeyidpId string
 
 func NewGenerateIdentityProviderSigningKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -588,10 +584,6 @@ func NewGenerateIdentityProviderSigningKeyCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.GenerateIdentityProviderSigningKey(apiClient.GetConfig().Context, GenerateIdentityProviderSigningKeyidpId)
-
-			if GenerateIdentityProviderSigningKeydata != "" {
-				req = req.Data(GenerateIdentityProviderSigningKeydata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -609,9 +601,6 @@ func NewGenerateIdentityProviderSigningKeyCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&GenerateIdentityProviderSigningKeyidpId, "idpId", "", "", "")
 	cmd.MarkFlagRequired("idpId")
-
-	cmd.Flags().StringVarP(&GenerateIdentityProviderSigningKeydata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -666,8 +655,6 @@ var (
 	CloneIdentityProviderKeyidpId string
 
 	CloneIdentityProviderKeyidpKeyId string
-
-	CloneIdentityProviderKeydata string
 )
 
 func NewCloneIdentityProviderKeyCmd() *cobra.Command {
@@ -676,10 +663,6 @@ func NewCloneIdentityProviderKeyCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.CloneIdentityProviderKey(apiClient.GetConfig().Context, CloneIdentityProviderKeyidpId, CloneIdentityProviderKeyidpKeyId)
-
-			if CloneIdentityProviderKeydata != "" {
-				req = req.Data(CloneIdentityProviderKeydata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -701,9 +684,6 @@ func NewCloneIdentityProviderKeyCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&CloneIdentityProviderKeyidpKeyId, "idpKeyId", "", "", "")
 	cmd.MarkFlagRequired("idpKeyId")
 
-	cmd.Flags().StringVarP(&CloneIdentityProviderKeydata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -712,11 +692,7 @@ func init() {
 	IdentityProviderCmd.AddCommand(CloneIdentityProviderKeyCmd)
 }
 
-var (
-	ActivateIdentityProvideridpId string
-
-	ActivateIdentityProviderdata string
-)
+var ActivateIdentityProvideridpId string
 
 func NewActivateIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -724,10 +700,6 @@ func NewActivateIdentityProviderCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.ActivateIdentityProvider(apiClient.GetConfig().Context, ActivateIdentityProvideridpId)
-
-			if ActivateIdentityProviderdata != "" {
-				req = req.Data(ActivateIdentityProviderdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -746,9 +718,6 @@ func NewActivateIdentityProviderCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateIdentityProvideridpId, "idpId", "", "", "")
 	cmd.MarkFlagRequired("idpId")
 
-	cmd.Flags().StringVarP(&ActivateIdentityProviderdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -757,11 +726,7 @@ func init() {
 	IdentityProviderCmd.AddCommand(ActivateIdentityProviderCmd)
 }
 
-var (
-	DeactivateIdentityProvideridpId string
-
-	DeactivateIdentityProviderdata string
-)
+var DeactivateIdentityProvideridpId string
 
 func NewDeactivateIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -769,10 +734,6 @@ func NewDeactivateIdentityProviderCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.DeactivateIdentityProvider(apiClient.GetConfig().Context, DeactivateIdentityProvideridpId)
-
-			if DeactivateIdentityProviderdata != "" {
-				req = req.Data(DeactivateIdentityProviderdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -790,9 +751,6 @@ func NewDeactivateIdentityProviderCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateIdentityProvideridpId, "idpId", "", "", "")
 	cmd.MarkFlagRequired("idpId")
-
-	cmd.Flags().StringVarP(&DeactivateIdentityProviderdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

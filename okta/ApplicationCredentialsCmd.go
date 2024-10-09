@@ -261,11 +261,7 @@ func init() {
 	ApplicationCredentialsCmd.AddCommand(ListApplicationKeysCmd)
 }
 
-var (
-	GenerateApplicationKeyappId string
-
-	GenerateApplicationKeydata string
-)
+var GenerateApplicationKeyappId string
 
 func NewGenerateApplicationKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -273,10 +269,6 @@ func NewGenerateApplicationKeyCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationCredentialsAPI.GenerateApplicationKey(apiClient.GetConfig().Context, GenerateApplicationKeyappId)
-
-			if GenerateApplicationKeydata != "" {
-				req = req.Data(GenerateApplicationKeydata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -294,9 +286,6 @@ func NewGenerateApplicationKeyCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&GenerateApplicationKeyappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
-
-	cmd.Flags().StringVarP(&GenerateApplicationKeydata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -351,8 +340,6 @@ var (
 	CloneApplicationKeyappId string
 
 	CloneApplicationKeykeyId string
-
-	CloneApplicationKeydata string
 )
 
 func NewCloneApplicationKeyCmd() *cobra.Command {
@@ -361,10 +348,6 @@ func NewCloneApplicationKeyCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationCredentialsAPI.CloneApplicationKey(apiClient.GetConfig().Context, CloneApplicationKeyappId, CloneApplicationKeykeyId)
-
-			if CloneApplicationKeydata != "" {
-				req = req.Data(CloneApplicationKeydata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -385,9 +368,6 @@ func NewCloneApplicationKeyCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&CloneApplicationKeykeyId, "keyId", "", "", "")
 	cmd.MarkFlagRequired("keyId")
-
-	cmd.Flags().StringVarP(&CloneApplicationKeydata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

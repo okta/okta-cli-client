@@ -16,11 +16,7 @@ func init() {
 	rootCmd.AddCommand(IdentitySourceCmd)
 }
 
-var (
-	CreateIdentitySourceSessionidentitySourceId string
-
-	CreateIdentitySourceSessiondata string
-)
+var CreateIdentitySourceSessionidentitySourceId string
 
 func NewCreateIdentitySourceSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -28,10 +24,6 @@ func NewCreateIdentitySourceSessionCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentitySourceAPI.CreateIdentitySourceSession(apiClient.GetConfig().Context, CreateIdentitySourceSessionidentitySourceId)
-
-			if CreateIdentitySourceSessiondata != "" {
-				req = req.Data(CreateIdentitySourceSessiondata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -49,9 +41,6 @@ func NewCreateIdentitySourceSessionCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&CreateIdentitySourceSessionidentitySourceId, "identitySourceId", "", "", "")
 	cmd.MarkFlagRequired("identitySourceId")
-
-	cmd.Flags().StringVarP(&CreateIdentitySourceSessiondata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -281,8 +270,6 @@ var (
 	StartImportFromIdentitySourceidentitySourceId string
 
 	StartImportFromIdentitySourcesessionId string
-
-	StartImportFromIdentitySourcedata string
 )
 
 func NewStartImportFromIdentitySourceCmd() *cobra.Command {
@@ -291,10 +278,6 @@ func NewStartImportFromIdentitySourceCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentitySourceAPI.StartImportFromIdentitySource(apiClient.GetConfig().Context, StartImportFromIdentitySourceidentitySourceId, StartImportFromIdentitySourcesessionId)
-
-			if StartImportFromIdentitySourcedata != "" {
-				req = req.Data(StartImportFromIdentitySourcedata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -315,9 +298,6 @@ func NewStartImportFromIdentitySourceCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&StartImportFromIdentitySourcesessionId, "sessionId", "", "", "")
 	cmd.MarkFlagRequired("sessionId")
-
-	cmd.Flags().StringVarP(&StartImportFromIdentitySourcedata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

@@ -191,11 +191,7 @@ func init() {
 	AuthenticatorCmd.AddCommand(ReplaceAuthenticatorCmd)
 }
 
-var (
-	ActivateAuthenticatorauthenticatorId string
-
-	ActivateAuthenticatordata string
-)
+var ActivateAuthenticatorauthenticatorId string
 
 func NewActivateAuthenticatorCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -203,10 +199,6 @@ func NewActivateAuthenticatorCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.ActivateAuthenticator(apiClient.GetConfig().Context, ActivateAuthenticatorauthenticatorId)
-
-			if ActivateAuthenticatordata != "" {
-				req = req.Data(ActivateAuthenticatordata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -225,9 +217,6 @@ func NewActivateAuthenticatorCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateAuthenticatorauthenticatorId, "authenticatorId", "", "", "")
 	cmd.MarkFlagRequired("authenticatorId")
 
-	cmd.Flags().StringVarP(&ActivateAuthenticatordata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -236,11 +225,7 @@ func init() {
 	AuthenticatorCmd.AddCommand(ActivateAuthenticatorCmd)
 }
 
-var (
-	DeactivateAuthenticatorauthenticatorId string
-
-	DeactivateAuthenticatordata string
-)
+var DeactivateAuthenticatorauthenticatorId string
 
 func NewDeactivateAuthenticatorCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -248,10 +233,6 @@ func NewDeactivateAuthenticatorCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.DeactivateAuthenticator(apiClient.GetConfig().Context, DeactivateAuthenticatorauthenticatorId)
-
-			if DeactivateAuthenticatordata != "" {
-				req = req.Data(DeactivateAuthenticatordata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -269,9 +250,6 @@ func NewDeactivateAuthenticatorCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateAuthenticatorauthenticatorId, "authenticatorId", "", "", "")
 	cmd.MarkFlagRequired("authenticatorId")
-
-	cmd.Flags().StringVarP(&DeactivateAuthenticatordata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -410,8 +388,6 @@ var (
 	ActivateAuthenticatorMethodauthenticatorId string
 
 	ActivateAuthenticatorMethodmethodType string
-
-	ActivateAuthenticatorMethoddata string
 )
 
 func NewActivateAuthenticatorMethodCmd() *cobra.Command {
@@ -420,10 +396,6 @@ func NewActivateAuthenticatorMethodCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.ActivateAuthenticatorMethod(apiClient.GetConfig().Context, ActivateAuthenticatorMethodauthenticatorId, ActivateAuthenticatorMethodmethodType)
-
-			if ActivateAuthenticatorMethoddata != "" {
-				req = req.Data(ActivateAuthenticatorMethoddata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -445,9 +417,6 @@ func NewActivateAuthenticatorMethodCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateAuthenticatorMethodmethodType, "methodType", "", "", "")
 	cmd.MarkFlagRequired("methodType")
 
-	cmd.Flags().StringVarP(&ActivateAuthenticatorMethoddata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -460,8 +429,6 @@ var (
 	DeactivateAuthenticatorMethodauthenticatorId string
 
 	DeactivateAuthenticatorMethodmethodType string
-
-	DeactivateAuthenticatorMethoddata string
 )
 
 func NewDeactivateAuthenticatorMethodCmd() *cobra.Command {
@@ -470,10 +437,6 @@ func NewDeactivateAuthenticatorMethodCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.DeactivateAuthenticatorMethod(apiClient.GetConfig().Context, DeactivateAuthenticatorMethodauthenticatorId, DeactivateAuthenticatorMethodmethodType)
-
-			if DeactivateAuthenticatorMethoddata != "" {
-				req = req.Data(DeactivateAuthenticatorMethoddata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -494,9 +457,6 @@ func NewDeactivateAuthenticatorMethodCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateAuthenticatorMethodmethodType, "methodType", "", "", "")
 	cmd.MarkFlagRequired("methodType")
-
-	cmd.Flags().StringVarP(&DeactivateAuthenticatorMethoddata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

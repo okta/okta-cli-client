@@ -231,8 +231,6 @@ var (
 	ActivateAuthorizationServerPolicyauthServerId string
 
 	ActivateAuthorizationServerPolicypolicyId string
-
-	ActivateAuthorizationServerPolicydata string
 )
 
 func NewActivateAuthorizationServerPolicyCmd() *cobra.Command {
@@ -241,10 +239,6 @@ func NewActivateAuthorizationServerPolicyCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerPoliciesAPI.ActivateAuthorizationServerPolicy(apiClient.GetConfig().Context, ActivateAuthorizationServerPolicyauthServerId, ActivateAuthorizationServerPolicypolicyId)
-
-			if ActivateAuthorizationServerPolicydata != "" {
-				req = req.Data(ActivateAuthorizationServerPolicydata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -266,9 +260,6 @@ func NewActivateAuthorizationServerPolicyCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateAuthorizationServerPolicypolicyId, "policyId", "", "", "")
 	cmd.MarkFlagRequired("policyId")
 
-	cmd.Flags().StringVarP(&ActivateAuthorizationServerPolicydata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -281,8 +272,6 @@ var (
 	DeactivateAuthorizationServerPolicyauthServerId string
 
 	DeactivateAuthorizationServerPolicypolicyId string
-
-	DeactivateAuthorizationServerPolicydata string
 )
 
 func NewDeactivateAuthorizationServerPolicyCmd() *cobra.Command {
@@ -291,10 +280,6 @@ func NewDeactivateAuthorizationServerPolicyCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerPoliciesAPI.DeactivateAuthorizationServerPolicy(apiClient.GetConfig().Context, DeactivateAuthorizationServerPolicyauthServerId, DeactivateAuthorizationServerPolicypolicyId)
-
-			if DeactivateAuthorizationServerPolicydata != "" {
-				req = req.Data(DeactivateAuthorizationServerPolicydata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -315,9 +300,6 @@ func NewDeactivateAuthorizationServerPolicyCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateAuthorizationServerPolicypolicyId, "policyId", "", "", "")
 	cmd.MarkFlagRequired("policyId")
-
-	cmd.Flags().StringVarP(&DeactivateAuthorizationServerPolicydata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

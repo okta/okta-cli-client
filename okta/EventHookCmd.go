@@ -196,11 +196,7 @@ func init() {
 	EventHookCmd.AddCommand(DeleteEventHookCmd)
 }
 
-var (
-	ActivateEventHookeventHookId string
-
-	ActivateEventHookdata string
-)
+var ActivateEventHookeventHookId string
 
 func NewActivateEventHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -208,10 +204,6 @@ func NewActivateEventHookCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EventHookAPI.ActivateEventHook(apiClient.GetConfig().Context, ActivateEventHookeventHookId)
-
-			if ActivateEventHookdata != "" {
-				req = req.Data(ActivateEventHookdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -230,9 +222,6 @@ func NewActivateEventHookCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateEventHookeventHookId, "eventHookId", "", "", "")
 	cmd.MarkFlagRequired("eventHookId")
 
-	cmd.Flags().StringVarP(&ActivateEventHookdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -241,11 +230,7 @@ func init() {
 	EventHookCmd.AddCommand(ActivateEventHookCmd)
 }
 
-var (
-	DeactivateEventHookeventHookId string
-
-	DeactivateEventHookdata string
-)
+var DeactivateEventHookeventHookId string
 
 func NewDeactivateEventHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -253,10 +238,6 @@ func NewDeactivateEventHookCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EventHookAPI.DeactivateEventHook(apiClient.GetConfig().Context, DeactivateEventHookeventHookId)
-
-			if DeactivateEventHookdata != "" {
-				req = req.Data(DeactivateEventHookdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -275,9 +256,6 @@ func NewDeactivateEventHookCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&DeactivateEventHookeventHookId, "eventHookId", "", "", "")
 	cmd.MarkFlagRequired("eventHookId")
 
-	cmd.Flags().StringVarP(&DeactivateEventHookdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -286,11 +264,7 @@ func init() {
 	EventHookCmd.AddCommand(DeactivateEventHookCmd)
 }
 
-var (
-	VerifyEventHookeventHookId string
-
-	VerifyEventHookdata string
-)
+var VerifyEventHookeventHookId string
 
 func NewVerifyEventHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -298,10 +272,6 @@ func NewVerifyEventHookCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EventHookAPI.VerifyEventHook(apiClient.GetConfig().Context, VerifyEventHookeventHookId)
-
-			if VerifyEventHookdata != "" {
-				req = req.Data(VerifyEventHookdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -319,9 +289,6 @@ func NewVerifyEventHookCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&VerifyEventHookeventHookId, "eventHookId", "", "", "")
 	cmd.MarkFlagRequired("eventHookId")
-
-	cmd.Flags().StringVarP(&VerifyEventHookdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

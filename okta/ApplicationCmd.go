@@ -196,11 +196,7 @@ func init() {
 	ApplicationCmd.AddCommand(DeleteApplicationCmd)
 }
 
-var (
-	ActivateApplicationappId string
-
-	ActivateApplicationdata string
-)
+var ActivateApplicationappId string
 
 func NewActivateApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -208,10 +204,6 @@ func NewActivateApplicationCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationAPI.ActivateApplication(apiClient.GetConfig().Context, ActivateApplicationappId)
-
-			if ActivateApplicationdata != "" {
-				req = req.Data(ActivateApplicationdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -230,9 +222,6 @@ func NewActivateApplicationCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateApplicationappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
 
-	cmd.Flags().StringVarP(&ActivateApplicationdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -241,11 +230,7 @@ func init() {
 	ApplicationCmd.AddCommand(ActivateApplicationCmd)
 }
 
-var (
-	DeactivateApplicationappId string
-
-	DeactivateApplicationdata string
-)
+var DeactivateApplicationappId string
 
 func NewDeactivateApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -253,10 +238,6 @@ func NewDeactivateApplicationCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationAPI.DeactivateApplication(apiClient.GetConfig().Context, DeactivateApplicationappId)
-
-			if DeactivateApplicationdata != "" {
-				req = req.Data(DeactivateApplicationdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -274,9 +255,6 @@ func NewDeactivateApplicationCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateApplicationappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
-
-	cmd.Flags().StringVarP(&DeactivateApplicationdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

@@ -112,18 +112,12 @@ func init() {
 	SessionCmd.AddCommand(CloseCurrentSessionCmd)
 }
 
-var RefreshCurrentSessiondata string
-
 func NewRefreshCurrentSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "refreshCurrent",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SessionAPI.RefreshCurrentSession(apiClient.GetConfig().Context)
-
-			if RefreshCurrentSessiondata != "" {
-				req = req.Data(RefreshCurrentSessiondata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -138,9 +132,6 @@ func NewRefreshCurrentSessionCmd() *cobra.Command {
 			return nil
 		},
 	}
-
-	cmd.Flags().StringVarP(&RefreshCurrentSessiondata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -218,11 +209,7 @@ func init() {
 	SessionCmd.AddCommand(RevokeSessionCmd)
 }
 
-var (
-	RefreshSessionsessionId string
-
-	RefreshSessiondata string
-)
+var RefreshSessionsessionId string
 
 func NewRefreshSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -230,10 +217,6 @@ func NewRefreshSessionCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SessionAPI.RefreshSession(apiClient.GetConfig().Context, RefreshSessionsessionId)
-
-			if RefreshSessiondata != "" {
-				req = req.Data(RefreshSessiondata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -251,9 +234,6 @@ func NewRefreshSessionCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&RefreshSessionsessionId, "sessionId", "", "", "")
 	cmd.MarkFlagRequired("sessionId")
-
-	cmd.Flags().StringVarP(&RefreshSessiondata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

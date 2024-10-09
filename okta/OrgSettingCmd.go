@@ -334,18 +334,12 @@ func init() {
 	OrgSettingCmd.AddCommand(UploadOrgLogoCmd)
 }
 
-var UpdateThirdPartyAdminSettingdata string
-
 func NewUpdateThirdPartyAdminSettingCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "updateThirdPartyAdminSetting",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.UpdateThirdPartyAdminSetting(apiClient.GetConfig().Context)
-
-			if UpdateThirdPartyAdminSettingdata != "" {
-				req = req.Data(UpdateThirdPartyAdminSettingdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -360,9 +354,6 @@ func NewUpdateThirdPartyAdminSettingCmd() *cobra.Command {
 			return nil
 		},
 	}
-
-	cmd.Flags().StringVarP(&UpdateThirdPartyAdminSettingdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -430,18 +421,12 @@ func init() {
 	OrgSettingCmd.AddCommand(GetOrgPreferencesCmd)
 }
 
-var UpdateOrgHideOktaUIFooterdata string
-
 func NewUpdateOrgHideOktaUIFooterCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "updateOrgHideOktaUIFooter",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.UpdateOrgHideOktaUIFooter(apiClient.GetConfig().Context)
-
-			if UpdateOrgHideOktaUIFooterdata != "" {
-				req = req.Data(UpdateOrgHideOktaUIFooterdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -456,9 +441,6 @@ func NewUpdateOrgHideOktaUIFooterCmd() *cobra.Command {
 			return nil
 		},
 	}
-
-	cmd.Flags().StringVarP(&UpdateOrgHideOktaUIFooterdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -468,18 +450,12 @@ func init() {
 	OrgSettingCmd.AddCommand(UpdateOrgHideOktaUIFooterCmd)
 }
 
-var UpdateOrgShowOktaUIFooterdata string
-
 func NewUpdateOrgShowOktaUIFooterCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "updateOrgShowOktaUIFooter",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.UpdateOrgShowOktaUIFooter(apiClient.GetConfig().Context)
-
-			if UpdateOrgShowOktaUIFooterdata != "" {
-				req = req.Data(UpdateOrgShowOktaUIFooterdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -494,9 +470,6 @@ func NewUpdateOrgShowOktaUIFooterCmd() *cobra.Command {
 			return nil
 		},
 	}
-
-	cmd.Flags().StringVarP(&UpdateOrgShowOktaUIFooterdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -535,18 +508,12 @@ func init() {
 	OrgSettingCmd.AddCommand(GetOktaCommunicationSettingsCmd)
 }
 
-var OptInUsersToOktaCommunicationEmailsdata string
-
 func NewOptInUsersToOktaCommunicationEmailsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "optInUsersToOktaCommunicationEmails",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.OptInUsersToOktaCommunicationEmails(apiClient.GetConfig().Context)
-
-			if OptInUsersToOktaCommunicationEmailsdata != "" {
-				req = req.Data(OptInUsersToOktaCommunicationEmailsdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -561,9 +528,6 @@ func NewOptInUsersToOktaCommunicationEmailsCmd() *cobra.Command {
 			return nil
 		},
 	}
-
-	cmd.Flags().StringVarP(&OptInUsersToOktaCommunicationEmailsdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -573,18 +537,12 @@ func init() {
 	OrgSettingCmd.AddCommand(OptInUsersToOktaCommunicationEmailsCmd)
 }
 
-var OptOutUsersFromOktaCommunicationEmailsdata string
-
 func NewOptOutUsersFromOktaCommunicationEmailsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "optOutUsersFromOktaCommunicationEmails",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.OptOutUsersFromOktaCommunicationEmails(apiClient.GetConfig().Context)
-
-			if OptOutUsersFromOktaCommunicationEmailsdata != "" {
-				req = req.Data(OptOutUsersFromOktaCommunicationEmailsdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -599,9 +557,6 @@ func NewOptOutUsersFromOktaCommunicationEmailsCmd() *cobra.Command {
 			return nil
 		},
 	}
-
-	cmd.Flags().StringVarP(&OptOutUsersFromOktaCommunicationEmailsdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -640,18 +595,12 @@ func init() {
 	OrgSettingCmd.AddCommand(GetOrgOktaSupportSettingsCmd)
 }
 
-var ExtendOktaSupportdata string
-
 func NewExtendOktaSupportCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "extendOktaSupport",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.ExtendOktaSupport(apiClient.GetConfig().Context)
-
-			if ExtendOktaSupportdata != "" {
-				req = req.Data(ExtendOktaSupportdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -666,9 +615,6 @@ func NewExtendOktaSupportCmd() *cobra.Command {
 			return nil
 		},
 	}
-
-	cmd.Flags().StringVarP(&ExtendOktaSupportdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -678,18 +624,12 @@ func init() {
 	OrgSettingCmd.AddCommand(ExtendOktaSupportCmd)
 }
 
-var GrantOktaSupportdata string
-
 func NewGrantOktaSupportCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "grantOktaSupport",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.GrantOktaSupport(apiClient.GetConfig().Context)
-
-			if GrantOktaSupportdata != "" {
-				req = req.Data(GrantOktaSupportdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -704,9 +644,6 @@ func NewGrantOktaSupportCmd() *cobra.Command {
 			return nil
 		},
 	}
-
-	cmd.Flags().StringVarP(&GrantOktaSupportdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
@@ -716,18 +653,12 @@ func init() {
 	OrgSettingCmd.AddCommand(GrantOktaSupportCmd)
 }
 
-var RevokeOktaSupportdata string
-
 func NewRevokeOktaSupportCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use: "revokeOktaSupport",
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.RevokeOktaSupport(apiClient.GetConfig().Context)
-
-			if RevokeOktaSupportdata != "" {
-				req = req.Data(RevokeOktaSupportdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -742,9 +673,6 @@ func NewRevokeOktaSupportCmd() *cobra.Command {
 			return nil
 		},
 	}
-
-	cmd.Flags().StringVarP(&RevokeOktaSupportdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

@@ -196,11 +196,7 @@ func init() {
 	BehaviorCmd.AddCommand(DeleteBehaviorDetectionRuleCmd)
 }
 
-var (
-	ActivateBehaviorDetectionRulebehaviorId string
-
-	ActivateBehaviorDetectionRuledata string
-)
+var ActivateBehaviorDetectionRulebehaviorId string
 
 func NewActivateBehaviorDetectionRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -208,10 +204,6 @@ func NewActivateBehaviorDetectionRuleCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.BehaviorAPI.ActivateBehaviorDetectionRule(apiClient.GetConfig().Context, ActivateBehaviorDetectionRulebehaviorId)
-
-			if ActivateBehaviorDetectionRuledata != "" {
-				req = req.Data(ActivateBehaviorDetectionRuledata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -230,9 +222,6 @@ func NewActivateBehaviorDetectionRuleCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateBehaviorDetectionRulebehaviorId, "behaviorId", "", "", "")
 	cmd.MarkFlagRequired("behaviorId")
 
-	cmd.Flags().StringVarP(&ActivateBehaviorDetectionRuledata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -241,11 +230,7 @@ func init() {
 	BehaviorCmd.AddCommand(ActivateBehaviorDetectionRuleCmd)
 }
 
-var (
-	DeactivateBehaviorDetectionRulebehaviorId string
-
-	DeactivateBehaviorDetectionRuledata string
-)
+var DeactivateBehaviorDetectionRulebehaviorId string
 
 func NewDeactivateBehaviorDetectionRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -253,10 +238,6 @@ func NewDeactivateBehaviorDetectionRuleCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.BehaviorAPI.DeactivateBehaviorDetectionRule(apiClient.GetConfig().Context, DeactivateBehaviorDetectionRulebehaviorId)
-
-			if DeactivateBehaviorDetectionRuledata != "" {
-				req = req.Data(DeactivateBehaviorDetectionRuledata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -274,9 +255,6 @@ func NewDeactivateBehaviorDetectionRuleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateBehaviorDetectionRulebehaviorId, "behaviorId", "", "", "")
 	cmd.MarkFlagRequired("behaviorId")
-
-	cmd.Flags().StringVarP(&DeactivateBehaviorDetectionRuledata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

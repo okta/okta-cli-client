@@ -263,11 +263,7 @@ func init() {
 	RealmAssignmentCmd.AddCommand(DeleteRealmAssignmentCmd)
 }
 
-var (
-	ActivateRealmAssignmentassignmentId string
-
-	ActivateRealmAssignmentdata string
-)
+var ActivateRealmAssignmentassignmentId string
 
 func NewActivateRealmAssignmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -275,10 +271,6 @@ func NewActivateRealmAssignmentCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAssignmentAPI.ActivateRealmAssignment(apiClient.GetConfig().Context, ActivateRealmAssignmentassignmentId)
-
-			if ActivateRealmAssignmentdata != "" {
-				req = req.Data(ActivateRealmAssignmentdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -297,9 +289,6 @@ func NewActivateRealmAssignmentCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateRealmAssignmentassignmentId, "assignmentId", "", "", "")
 	cmd.MarkFlagRequired("assignmentId")
 
-	cmd.Flags().StringVarP(&ActivateRealmAssignmentdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -308,11 +297,7 @@ func init() {
 	RealmAssignmentCmd.AddCommand(ActivateRealmAssignmentCmd)
 }
 
-var (
-	DeactivateRealmAssignmentassignmentId string
-
-	DeactivateRealmAssignmentdata string
-)
+var DeactivateRealmAssignmentassignmentId string
 
 func NewDeactivateRealmAssignmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -320,10 +305,6 @@ func NewDeactivateRealmAssignmentCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAssignmentAPI.DeactivateRealmAssignment(apiClient.GetConfig().Context, DeactivateRealmAssignmentassignmentId)
-
-			if DeactivateRealmAssignmentdata != "" {
-				req = req.Data(DeactivateRealmAssignmentdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -341,9 +322,6 @@ func NewDeactivateRealmAssignmentCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateRealmAssignmentassignmentId, "assignmentId", "", "", "")
 	cmd.MarkFlagRequired("assignmentId")
-
-	cmd.Flags().StringVarP(&DeactivateRealmAssignmentdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

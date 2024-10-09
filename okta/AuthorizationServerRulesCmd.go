@@ -260,8 +260,6 @@ var (
 	ActivateAuthorizationServerPolicyRulepolicyId string
 
 	ActivateAuthorizationServerPolicyRuleruleId string
-
-	ActivateAuthorizationServerPolicyRuledata string
 )
 
 func NewActivateAuthorizationServerPolicyRuleCmd() *cobra.Command {
@@ -270,10 +268,6 @@ func NewActivateAuthorizationServerPolicyRuleCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerRulesAPI.ActivateAuthorizationServerPolicyRule(apiClient.GetConfig().Context, ActivateAuthorizationServerPolicyRuleauthServerId, ActivateAuthorizationServerPolicyRulepolicyId, ActivateAuthorizationServerPolicyRuleruleId)
-
-			if ActivateAuthorizationServerPolicyRuledata != "" {
-				req = req.Data(ActivateAuthorizationServerPolicyRuledata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -298,9 +292,6 @@ func NewActivateAuthorizationServerPolicyRuleCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ActivateAuthorizationServerPolicyRuleruleId, "ruleId", "", "", "")
 	cmd.MarkFlagRequired("ruleId")
 
-	cmd.Flags().StringVarP(&ActivateAuthorizationServerPolicyRuledata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -315,8 +306,6 @@ var (
 	DeactivateAuthorizationServerPolicyRulepolicyId string
 
 	DeactivateAuthorizationServerPolicyRuleruleId string
-
-	DeactivateAuthorizationServerPolicyRuledata string
 )
 
 func NewDeactivateAuthorizationServerPolicyRuleCmd() *cobra.Command {
@@ -325,10 +314,6 @@ func NewDeactivateAuthorizationServerPolicyRuleCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerRulesAPI.DeactivateAuthorizationServerPolicyRule(apiClient.GetConfig().Context, DeactivateAuthorizationServerPolicyRuleauthServerId, DeactivateAuthorizationServerPolicyRulepolicyId, DeactivateAuthorizationServerPolicyRuleruleId)
-
-			if DeactivateAuthorizationServerPolicyRuledata != "" {
-				req = req.Data(DeactivateAuthorizationServerPolicyRuledata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -352,9 +337,6 @@ func NewDeactivateAuthorizationServerPolicyRuleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeactivateAuthorizationServerPolicyRuleruleId, "ruleId", "", "", "")
 	cmd.MarkFlagRequired("ruleId")
-
-	cmd.Flags().StringVarP(&DeactivateAuthorizationServerPolicyRuledata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }

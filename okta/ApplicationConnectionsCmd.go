@@ -95,11 +95,7 @@ func init() {
 	ApplicationConnectionsCmd.AddCommand(GetDefaultProvisioningConnectionForApplicationCmd)
 }
 
-var (
-	ActivateDefaultProvisioningConnectionForApplicationappId string
-
-	ActivateDefaultProvisioningConnectionForApplicationdata string
-)
+var ActivateDefaultProvisioningConnectionForApplicationappId string
 
 func NewActivateDefaultProvisioningConnectionForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -107,10 +103,6 @@ func NewActivateDefaultProvisioningConnectionForApplicationCmd() *cobra.Command 
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationConnectionsAPI.ActivateDefaultProvisioningConnectionForApplication(apiClient.GetConfig().Context, ActivateDefaultProvisioningConnectionForApplicationappId)
-
-			if ActivateDefaultProvisioningConnectionForApplicationdata != "" {
-				req = req.Data(ActivateDefaultProvisioningConnectionForApplicationdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -129,9 +121,6 @@ func NewActivateDefaultProvisioningConnectionForApplicationCmd() *cobra.Command 
 	cmd.Flags().StringVarP(&ActivateDefaultProvisioningConnectionForApplicationappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
 
-	cmd.Flags().StringVarP(&ActivateDefaultProvisioningConnectionForApplicationdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -140,11 +129,7 @@ func init() {
 	ApplicationConnectionsCmd.AddCommand(ActivateDefaultProvisioningConnectionForApplicationCmd)
 }
 
-var (
-	DeactivateDefaultProvisioningConnectionForApplicationappId string
-
-	DeactivateDefaultProvisioningConnectionForApplicationdata string
-)
+var DeactivateDefaultProvisioningConnectionForApplicationappId string
 
 func NewDeactivateDefaultProvisioningConnectionForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
@@ -152,10 +137,6 @@ func NewDeactivateDefaultProvisioningConnectionForApplicationCmd() *cobra.Comman
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationConnectionsAPI.DeactivateDefaultProvisioningConnectionForApplication(apiClient.GetConfig().Context, DeactivateDefaultProvisioningConnectionForApplicationappId)
-
-			if DeactivateDefaultProvisioningConnectionForApplicationdata != "" {
-				req = req.Data(DeactivateDefaultProvisioningConnectionForApplicationdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -174,9 +155,6 @@ func NewDeactivateDefaultProvisioningConnectionForApplicationCmd() *cobra.Comman
 	cmd.Flags().StringVarP(&DeactivateDefaultProvisioningConnectionForApplicationappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
 
-	cmd.Flags().StringVarP(&DeactivateDefaultProvisioningConnectionForApplicationdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
-
 	return cmd
 }
 
@@ -189,8 +167,6 @@ var (
 	VerifyProvisioningConnectionForApplicationappName string
 
 	VerifyProvisioningConnectionForApplicationappId string
-
-	VerifyProvisioningConnectionForApplicationdata string
 )
 
 func NewVerifyProvisioningConnectionForApplicationCmd() *cobra.Command {
@@ -199,10 +175,6 @@ func NewVerifyProvisioningConnectionForApplicationCmd() *cobra.Command {
 
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationConnectionsAPI.VerifyProvisioningConnectionForApplication(apiClient.GetConfig().Context, VerifyProvisioningConnectionForApplicationappName, VerifyProvisioningConnectionForApplicationappId)
-
-			if VerifyProvisioningConnectionForApplicationdata != "" {
-				req = req.Data(VerifyProvisioningConnectionForApplicationdata)
-			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -223,9 +195,6 @@ func NewVerifyProvisioningConnectionForApplicationCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&VerifyProvisioningConnectionForApplicationappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
-
-	cmd.Flags().StringVarP(&VerifyProvisioningConnectionForApplicationdata, "data", "", "", "")
-	cmd.MarkFlagRequired("data")
 
 	return cmd
 }
