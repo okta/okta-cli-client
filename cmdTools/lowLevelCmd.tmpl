@@ -30,6 +30,25 @@ func New{{ .operationId }}Cmd() *cobra.Command {
             {{end}}
             resp, err := req.Execute()
             if err != nil {
+		// option 1: pretty print and bad requests
+		/*
+		if resp != nil && resp.StatusCode == http.StatusBadRequest {
+			d, err := io.ReadAll(resp.Body)
+			if err == nil {
+				utils.PrettyPrintByte(d)
+			}
+		}
+		*/
+		// option 2: or pretty print all errors that have a body
+		/*
+		if resp != nil && resp.Body != nil {
+			d, err := io.ReadAll(resp.Body)
+			if err == nil {
+				utils.PrettyPrintByte(d)
+			}
+		}
+		*/
+			
                 return err
             }
 		    d, err := io.ReadAll(resp.Body)
