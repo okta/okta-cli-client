@@ -1,4 +1,4 @@
-# okta-client-cli - The official Okta CLI for the Okta Management API
+# okta-cli-client - The official Okta CLI for the Okta Management API
 
 :warning: The Okta CLI is in beta. We'd love for you to play with it and give us your thoughts, but we don't recommend using it in production applications just yet. We'll be iterating it towards a stable 1.0 release over the next few weeks, based on the feedback we receive. There may be minor interface breaking changes before we stabilize at 1.0. 
 
@@ -205,5 +205,5 @@ If you run into problems using the Okta CLI, you can
 * Post [issues][github-issues] here on GitHub (for code errors)
 
 [devforum]: https://devforum.okta.com/
-[github-issues]: https://github.com/okta/okta-client-cli/issues
-[github-releases]: https://github.com/okta/okta-client-cli/releases
+[github-issues]: https://github.com/okta/okta-cli-client/issues
+[github-releases]: https://github.com/okta/okta-cli-client/releases
