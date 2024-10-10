@@ -32,7 +32,7 @@ This library uses semantic versioning and follows Okta's [library version policy
 Build the source code locally by executing the following command:
 
 ```sh
-$ make install
+make install
 ```
 
 ## Configuration
@@ -107,91 +107,91 @@ variable name with the `_` (underscore) character:
 #### Get a group by ID
 
 ```shell
-$ okta-cli-client group get --groupId <GROUP_ID>
+okta-cli-client group get --groupId <GROUP_ID>
 ```
 
 #### Create a new group
 
 ```shell
-$ okta-cli-client group create --data '{ "profile": { "description": "test", "name": "Test" }, "type": "OKTA_GROUP"}'
+okta-cli-client group create --data '{ "profile": { "description": "test", "name": "Test" }, "type": "OKTA_GROUP"}'
 ```
 
 #### Update an existing group
 
 ```shell
-$ okta-cli-client  group replace --groupId <GROUP_ID> --data '{ "profile": { "description": "test", "name": "Test2" }, "type": "OKTA_GROUP"}'
+okta-cli-client  group replace --groupId <GROUP_ID> --data '{ "profile": { "description": "test", "name": "Test2" }, "type": "OKTA_GROUP"}'
 ```
 #### Delete a group
 
 ```shell
-$ okta-cli-client  group delete --groupId <GROUP_ID>
+okta-cli-client  group delete --groupId <GROUP_ID>
 ```
 
 #### List groups
 
 ```shell
-$ okta-cli-client group lists
+okta-cli-client group lists
 ```
 #### Assign a group to an application
 
 ```sh
-$ okta-cli-client applicationGroups assignGroupToApplication --appId <APP_ID> --groupId <GROUP_ID> --data ""
+okta-cli-client applicationGroups assignGroupToApplication --appId <APP_ID> --groupId <GROUP_ID> --data ""
 ```
 
 #### List groups assigned to an application
 
 ```sh
-$ okta-cli-client applicationGroups listApplicationGroupAssignments --appId <APP_ID>
+okta-cli-client applicationGroups listApplicationGroupAssignments --appId <APP_ID>
 ```
 
 #### Create a new OIDC application
 
 ```sh
-$ okta-cli-client application create --data '{"label":"Oktane Testing API Org2Org App”,”name":"okta_org2org","signOnMode":"SAML_2_0"}'
+okta-cli-client application create --data '{"label":"Oktane Testing API Org2Org App”,”name":"okta_org2org","signOnMode":"SAML_2_0"}'
 ```
 
 #### Get an application by ID
 
 ```sh
-$ okta-cli-client application get --appId <APP_ID>
+okta-cli-client application get --appId <APP_ID>
 ```
 
 #### Deactive and Delete an existing application
 
 ```sh
-$ okta-cli-client application deactivate --appId <APP_ID>
+okta-cli-client application deactivate --appId <APP_ID>
 
-$ okta-cli-client application delete --appId <APP_ID>
+okta-cli-client application delete --appId <APP_ID>
 ```
 
 #### Create a new user
 
 ```sh
-$ okta-cli-client user create --data '{"credentials":{"password":{"value":"Hell4W0rld"}},"profile":{"email":"firstname.lastname@gmail.com","firstName":"ExampleFirstName","lastName":"ExampleLastName","login":"firstname.lastname@gmail.com"}}'
+okta-cli-client user create --data '{"credentials":{"password":{"value":"Hell4W0rld"}},"profile":{"email":"firstname.lastname@gmail.com","firstName":"ExampleFirstName","lastName":"ExampleLastName","login":"firstname.lastname@gmail.com"}}'
 ```
 
 #### Get a user by ID
 
 ```sh
-$ okta-cli-client user get --userId <USER_ID>
+okta-cli-client user get --userId <USER_ID>
 ```
 
 #### Delete a user
 
 ```sh
-$ okta-cli-client user delete --userId <USER_ID>
+okta-cli-client user delete --userId <USER_ID>
 ```
 
 #### Assign a user to a group
 
 ```sh
-$ okta-cli-client group assignUserTo --userId <USER_ID> --groupId <GROUP_ID>
+okta-cli-client group assignUserTo --userId <USER_ID> --groupId <GROUP_ID>
 
 ```
 #### List users assigned to a group
 
 ```sh
-$ okta-cli-client group listUsers --groupId <GROUP_ID>
+okta-cli-client group listUsers --groupId <GROUP_ID>
 ```
 
 ## Notes
