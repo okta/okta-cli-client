@@ -147,7 +147,7 @@ $ okta-cli-client applicationGroups listApplicationGroupAssignments --appId <APP
 #### Create a new OIDC application
 
 ```sh
-$ okta-cli-client application create --data '{"label":"My new services App","name":"oidc_client","signOnMode":"OPENID_CONNECT","settings":{"oauthClient":{"application_type":"service","grant_types":["client_credentials"]}}}'
+$ okta-cli-client application create --data '{"label":"Oktane Testing API Org2Org App”,”name":"okta_org2org","signOnMode":"SAML_2_0"}'
 ```
 
 #### Get an application by ID
