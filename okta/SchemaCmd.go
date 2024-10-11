@@ -35,6 +35,12 @@ func NewUpdateApplicationUserProfileCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -72,6 +78,12 @@ func NewGetApplicationUserSchemaCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -110,6 +122,12 @@ func NewUpdateGroupSchemaCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -142,6 +160,12 @@ func NewGetGroupSchemaCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -171,6 +195,12 @@ func NewListLogStreamSchemasCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -202,6 +232,12 @@ func NewGetLogStreamSchemaCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -244,6 +280,12 @@ func NewUpdateUserProfileCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -281,6 +323,12 @@ func NewGetUserSchemaCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)

@@ -31,6 +31,12 @@ func NewCreateRoleCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -63,6 +69,12 @@ func NewListRolesCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -94,6 +106,12 @@ func NewGetRoleCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -136,6 +154,12 @@ func NewReplaceRoleCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -173,6 +197,12 @@ func NewDeleteRoleCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -207,6 +237,12 @@ func NewListRolePermissionsCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -251,6 +287,12 @@ func NewCreateRolePermissionCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -295,6 +337,12 @@ func NewGetRolePermissionCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -342,6 +390,12 @@ func NewReplaceRolePermissionCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -386,6 +440,12 @@ func NewDeleteRolePermissionCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)

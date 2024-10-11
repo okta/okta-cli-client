@@ -31,6 +31,12 @@ func NewCreateRealmAssignmentCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -63,6 +69,12 @@ func NewListRealmAssignmentsCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -98,6 +110,12 @@ func NewExecuteRealmAssignmentCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -130,6 +148,12 @@ func NewListRealmAssignmentOperationsCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -161,6 +185,12 @@ func NewGetRealmAssignmentCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -203,6 +233,12 @@ func NewReplaceRealmAssignmentCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -240,6 +276,12 @@ func NewDeleteRealmAssignmentCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -274,6 +316,12 @@ func NewActivateRealmAssignmentCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -308,6 +356,12 @@ func NewDeactivateRealmAssignmentCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)

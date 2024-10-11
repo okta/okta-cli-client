@@ -35,6 +35,12 @@ func NewEnrollFactorCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -72,6 +78,12 @@ func NewListFactorsCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -106,6 +118,12 @@ func NewListSupportedFactorsCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -140,6 +158,12 @@ func NewListSupportedSecurityQuestionsCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -178,6 +202,12 @@ func NewGetFactorCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -219,6 +249,12 @@ func NewUnenrollFactorCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -266,6 +302,12 @@ func NewActivateFactorCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -316,6 +358,12 @@ func NewResendEnrollFactorCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -362,6 +410,12 @@ func NewGetFactorTransactionStatusCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -412,6 +466,12 @@ func NewVerifyFactorCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)

@@ -35,6 +35,12 @@ func NewAssignRoleToGroupCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -72,6 +78,12 @@ func NewListGroupAssignedRolesCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -110,6 +122,12 @@ func NewGetGroupAssignedRoleCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -151,6 +169,12 @@ func NewUnassignRoleFromGroupCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -186,6 +210,12 @@ func NewListUsersWithRoleAssignmentsCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -225,6 +255,12 @@ func NewAssignRoleToUserCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -262,6 +298,12 @@ func NewListAssignedRolesForUserCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -300,6 +342,12 @@ func NewGetUserAssignedRoleCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
@@ -341,6 +389,12 @@ func NewUnassignRoleFromUserCmd() *cobra.Command {
 
 			resp, err := req.Execute()
 			if err != nil {
+				if resp != nil && resp.Body != nil {
+					d, err := io.ReadAll(resp.Body)
+					if err == nil {
+						utils.PrettyPrintByte(d)
+					}
+				}
 				return err
 			}
 			d, err := io.ReadAll(resp.Body)
