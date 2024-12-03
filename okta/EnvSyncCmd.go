@@ -5,7 +5,7 @@ import (
     "fmt"
     "io"
     "os"
-	"github.com/okta/okta-cli-client/utils"
+    "github.com/okta/okta-cli-client/utils"
     "github.com/spf13/cobra"
 )
 
@@ -32,13 +32,77 @@ type UserData struct {
 
 func init() {
 	rootCmd.AddCommand(EnvSyncCmd)
-	// Add the create command to EnvSyncPushCmd
-	EnvSyncPushCmd.AddCommand(NewEnvSyncPushUserCmd())
 }
 
+
+type User struct {
+    Profile struct {
+        Login string `json:"login"`
+    } `json:"profile"`
+}
+
+func NewEnvSyncPullUserCmd() *cobra.Command {
+    var GetUseruserId string
+
+    cmd := &cobra.Command{
+        Use: "pullUser",
+        RunE: func(cmd *cobra.Command, args []string) error {
+            req := apiClient.UserAPI.GetUser(apiClient.GetConfig().Context, GetUseruserId)
+            resp, err := req.Execute()
+            if err != nil {
+                if resp != nil && resp.Body != nil {
+                    d, err := io.ReadAll(resp.Body)
+                    if err == nil {
+                        utils.PrettyPrintByte(d)
+                    }
+                }
+                return err
+            }
+            d, err := io.ReadAll(resp.Body)
+            if err != nil {
+                return err
+            }
+
+            user := &User{}
+            err = json.Unmarshal(d, user)
+            if err != nil {
+                return err
+            }
+            oktaDomain := apiClient.GetConfig().Host // Adjust this line to get the Okta domain correctly
+            filePath := fmt.Sprintf("%s/.okta/%s/users/%s.json", os.Getenv("HOME"), oktaDomain, user.Profile.Login)
+
+			// DO NOT LEAVE THIS  HERE LONG TERM
+			// THIS SHOULD MOVE TO WHEREVER WE CALL THE FUNCTION FROM A BUNCH
+            dirPath := filepath.Dir(filePath)
+            err = os.MkdirAll(dirPath, 0755)
+            if err != nil {
+                return err
+            }
+			//END OF PART THAT NEEDS TO MOVE OUT
+
+            // Write to file
+            err = os.WriteFile(filePath, d, 0644)
+            if err != nil {
+                return err
+            }
+
+            return nil
+        },
+    }
+
+    cmd.Flags().StringVarP(&GetUseruserId, "userId", "", "", "ID of the user to fetch")
+    cmd.MarkFlagRequired("userId")
+
+    return cmd
+}
+
+func init() {
+    EnvSyncPullUserCmd := NewEnvSyncPullUserCmd()
+    EnvSyncCmd.AddCommand(EnvSyncPullUserCmd)
+}
 func NewEnvSyncPushUserCmd() *cobra.Command {
 	createCmd := &cobra.Command{
-		Use: "pushuser",
+		Use: "pushUser",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			// Read and parse the userdata file
 			userData, err := os.ReadFile(UserdataPath)
@@ -85,4 +149,9 @@ func NewEnvSyncPushUserCmd() *cobra.Command {
 	createCmd.MarkFlagRequired("userdata")
 
 	return createCmd
+}
+
+func init() {
+    EnvSyncPushUserCmd := NewEnvSyncPushUserCmd()
+    EnvSyncCmd.AddCommand(EnvSyncPushUserCmd)
 }
