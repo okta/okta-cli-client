@@ -1,10 +1,14 @@
 package okta
 
 import (
-	"io"
+    "encoding/json"
+    "fmt"
+    "io"
+    "os"
+    "path/filepath"
 
 	"github.com/okta/okta-cli-client/utils"
-	"github.com/spf13/cobra"
+    "github.com/spf13/cobra"
 )
 
 var UserCmd = &cobra.Command{
@@ -1720,4 +1724,71 @@ func NewRevokeUserSessionsCmd() *cobra.Command {
 func init() {
 	RevokeUserSessionsCmd := NewRevokeUserSessionsCmd()
 	UserCmd.AddCommand(RevokeUserSessionsCmd)
+}
+
+
+type User struct {
+    Profile struct {
+        Login string `json:"login"`
+    } `json:"profile"`
+}
+
+func NewWriteUserToFileCmd() *cobra.Command {
+    var GetUseruserId string
+
+    cmd := &cobra.Command{
+        Use: "writeUserToFile",
+        RunE: func(cmd *cobra.Command, args []string) error {
+            req := apiClient.UserAPI.GetUser(apiClient.GetConfig().Context, GetUseruserId)
+            resp, err := req.Execute()
+            if err != nil {
+                if resp != nil && resp.Body != nil {
+                    d, err := io.ReadAll(resp.Body)
+                    if err == nil {
+                        utils.PrettyPrintByte(d)
+                    }
+                }
+                return err
+            }
+            d, err := io.ReadAll(resp.Body)
+            if err != nil {
+                return err
+            }
+
+            user := &User{}
+            err = json.Unmarshal(d, user)
+            if err != nil {
+                return err
+            }
+            oktaDomain := apiClient.GetConfig().Host // Adjust this line to get the Okta domain correctly
+            filePath := fmt.Sprintf("%s/.okta/%s/users/%s.json", os.Getenv("HOME"), oktaDomain, user.Profile.Login)
+
+			// DO NOT LEAVE THIS  HERE LONG TERM
+			// THIS SHOULD MOVE TO WHEREVER WE CALL THE FUNCTION FROM A BUNCH
+            dirPath := filepath.Dir(filePath)
+            err = os.MkdirAll(dirPath, 0755)
+            if err != nil {
+                return err
+            }
+			//END OF PART THAT NEEDS TO MOVE OUT
+
+            // Write to file
+            err = os.WriteFile(filePath, d, 0644)
+            if err != nil {
+                return err
+            }
+
+            return nil
+        },
+    }
+
+    cmd.Flags().StringVarP(&GetUseruserId, "userId", "", "", "ID of the user to fetch")
+    cmd.MarkFlagRequired("userId")
+
+    return cmd
+}
+
+func init() {
+    WriteUserToFileCmd := NewWriteUserToFileCmd()
+    UserCmd.AddCommand(WriteUserToFileCmd)
 }
