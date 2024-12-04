@@ -1,11 +1,7 @@
 package okta
 
 import (
-    "encoding/json"
-    "fmt"
     "io"
-    "os"
-    "path/filepath"
 
 	"github.com/okta/okta-cli-client/utils"
     "github.com/spf13/cobra"
