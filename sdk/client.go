@@ -342,7 +342,7 @@ func (a *PrivateKeyAuth) Authorize(method, URL string) error {
 			return err
 		}
 
-		accessToken, nonce, privateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff)
+		accessToken, nonce, privateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff, a.clientId, a.privateKeySigner)
 		if err != nil {
 			return err
 		}
@@ -433,7 +433,7 @@ func (a *JWTAuth) Authorize(method, URL string) error {
 			}
 		}
 	} else {
-		accessToken, nonce, privateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, a.clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff)
+		accessToken, nonce, privateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, a.clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff, "", nil)
 		if err != nil {
 			return err
 		}
@@ -511,13 +511,13 @@ func createClientAssertion(orgURL, clientID string, privateKeySinger jose.Signer
 		Expiry:   jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(1))),
 		Issuer:   clientID,
 		Audience: orgURL + "/oauth2/v1/token",
+		ID:       uuid.New().String(),
 	}
 	jwtBuilder := jwt.Signed(privateKeySinger).Claims(claims)
 	return jwtBuilder.CompactSerialize()
 }
 
-func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertion, userAgent string, scopes []string, maxRetries int32, maxBackoff int64) (*RequestAccessToken, string, *rsa.PrivateKey, error) {
-	var tokenRequestBuff io.ReadWriter
+func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertion, userAgent string, scopes []string, maxRetries int32, maxBackoff int64, clientID string, signer jose.Signer) (*RequestAccessToken, string, *rsa.PrivateKey, error) {
 	query := url.Values{}
 	tokenRequestURL := orgURL + "/oauth2/v1/token"
 
@@ -525,8 +525,7 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 	query.Add("scope", strings.Join(scopes, " "))
 	query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
 	query.Add("client_assertion", clientAssertion)
-	tokenRequestURL += "?" + query.Encode()
-	tokenRequest, err := http.NewRequest("POST", tokenRequestURL, tokenRequestBuff)
+	tokenRequest, err := http.NewRequest("POST", tokenRequestURL, strings.NewReader(query.Encode()))
 	if err != nil {
 		return nil, "", nil, err
 	}
@@ -554,9 +553,14 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 	tokenResponse.Body = origResp
 	var accessToken *RequestAccessToken
 
+	newClientAssertion, err := createClientAssertion(orgURL, clientID, signer)
+	if err != nil {
+		return nil, "", nil, err
+	}
+
 	if tokenResponse.StatusCode >= 300 {
 		if strings.Contains(string(respBody), "invalid_dpop_proof") {
-			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, "", maxRetries, maxBackoff)
+			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, "", maxRetries, maxBackoff, newClientAssertion, strings.Join(scopes, " "), clientID, signer)
 		} else {
 			return nil, "", nil, err
 		}
@@ -569,7 +573,7 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 	return accessToken, "", nil, nil
 }
 
-func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *http.Client, orgURL, nonce string, maxRetries int32, maxBackoff int64) (*RequestAccessToken, string, *rsa.PrivateKey, error) {
+func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *http.Client, orgURL, nonce string, maxRetries int32, maxBackoff int64, clientAssertion string, scopes string, clientID string, signer jose.Signer) (*RequestAccessToken, string, *rsa.PrivateKey, error) {
 	privateKey, err := generatePrivateKey(2048)
 	if err != nil {
 		return nil, "", nil, err
@@ -578,6 +582,17 @@ func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *htt
 	if err != nil {
 		return nil, "", nil, err
 	}
+	newClientAssertion, err := createClientAssertion(orgURL, clientID, signer)
+	if err != nil {
+		return nil, "", nil, err
+	}
+
+	query := url.Values{}
+	query.Add("grant_type", "client_credentials")
+	query.Add("scope", scopes)
+	query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
+	query.Add("client_assertion", newClientAssertion)
+	tokenRequest.Body = io.NopCloser(strings.NewReader(query.Encode()))
 	tokenRequest.Header.Set("DPoP", dpopJWT)
 	bOff := &oktaBackoff{
 		ctx:             context.TODO(),
@@ -602,7 +617,7 @@ func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *htt
 	if tokenResponse.StatusCode >= 300 {
 		if strings.Contains(string(respBody), "use_dpop_nonce") {
 			newNonce := tokenResponse.Header.Get("Dpop-Nonce")
-			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, newNonce, maxRetries, maxBackoff)
+			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, newNonce, maxRetries, maxBackoff, clientAssertion, scopes, clientID, signer)
 		} else {
 			return nil, "", nil, err
 		}
@@ -943,7 +958,7 @@ func (c *APIClient) prepareRequest(
 		URL.Scheme = c.cfg.Scheme
 	}
 
-	var urlWithoutQuery = *URL
+	urlWithoutQuery := *URL
 
 	// Adding Query Param
 	query := URL.Query()
@@ -1456,7 +1471,7 @@ func generateDpopJWT(privateKey *rsa.PrivateKey, httpMethod, URL, nonce, accessT
 		return "", err
 	}
 	key := jose.SigningKey{Algorithm: jose.RS256, Key: privateKey}
-	var signerOpts = jose.SignerOptions{}
+	signerOpts := jose.SignerOptions{}
 	signerOpts.WithType("dpop+jwt")
 	signerOpts.WithHeader("jwk", set)
 	rsaSigner, err := jose.NewSigner(key, &signerOpts)
