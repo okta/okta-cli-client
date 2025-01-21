@@ -108,8 +108,16 @@ func NewRegisterCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "register",
 		Args:  cobra.NoArgs,
-		Short: "Create",
-		Long:  "Sign up for a new Okta account",
+		Short: "Sign up for a new Okta account",
+		Long: "Sign up for a new Okta account.\n\n" +
+			"To register interactively, use `okta-cli-client register` with no arguments.\n\n" +
+			"To register non-interactively, supply at least the first name, and type through the flags.",
+		Example: `okta-cli-client register
+okta-cli-client register --first-name firstName
+okta-cli-client register --first-name firstName --last-name lastName
+okta-cli-client register --first-name firstName --last-name lastName --email email 
+okta-cli-client register --first-name firstName --last-name lastName --email email --country country
+		`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if err := firstName.Ask(cmd, &inputs.FirstName, nil); err != nil {
 				return err

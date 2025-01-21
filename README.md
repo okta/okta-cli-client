@@ -102,6 +102,20 @@ variable name with the `_` (underscore) character:
 
 ## Usage guide
 
+### Register a new Org
+
+To register interactively, use `okta-cli-client register` with no arguments
+```shell
+okta-cli-client register
+```
+To register non-interactively, supply at least the first name, and type through the flags.
+```shell
+okta-cli-client register --first-name firstName
+okta-cli-client register --first-name firstName --last-name lastName
+okta-cli-client register --first-name firstName --last-name lastName --email email 
+okta-cli-client register --first-name firstName --last-name lastName --email email --country country
+```
+
 ### Manage your Okta resources
 
 #### Get a group by ID
