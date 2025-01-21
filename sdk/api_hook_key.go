@@ -24,17 +24,17 @@ import (
 type HookKeyAPI interface {
 
 	/*
-			CreateHookKey Create a key
+		CreateHookKey Create a key
 
-			Creates a key for use with other parts of the application, such as inline hooks
+		Creates a key for use with other parts of the application, such as inline hooks
 
-		Use the key name to access this key for inline hook operations.
+	Use the key name to access this key for inline hook operations.
 
-		The total number of keys that you can create in an Okta org is limited to 50.
+	The total number of keys that you can create in an Okta org is limited to 50.
 
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@return ApiCreateHookKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCreateHookKeyRequest
 	*/
 	CreateHookKey(ctx context.Context) ApiCreateHookKeyRequest
 
@@ -43,16 +43,16 @@ type HookKeyAPI interface {
 	CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*APIResponse, error)
 
 	/*
-			DeleteHookKey Delete a key
+		DeleteHookKey Delete a key
 
-			Deletes a key by `hookKeyId`. After being deleted, the key is unrecoverable.
+		Deletes a key by `hookKeyId`. After being deleted, the key is unrecoverable.
 
-		As a safety precaution, only keys that aren't being used are eligible for deletion.
+	As a safety precaution, only keys that aren't being used are eligible for deletion.
 
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param hookKeyId `id` of the Hook Key
-			@return ApiDeleteHookKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param hookKeyId `id` of the Hook Key
+		@return ApiDeleteHookKeyRequest
 	*/
 	DeleteHookKey(ctx context.Context, hookKeyId string) ApiDeleteHookKeyRequest
 
@@ -104,18 +104,18 @@ type HookKeyAPI interface {
 	ListHookKeysExecute(r ApiListHookKeysRequest) (*APIResponse, error)
 
 	/*
-			ReplaceHookKey Replace a key
+		ReplaceHookKey Replace a key
 
-			Replaces a key by `hookKeyId`
+		Replaces a key by `hookKeyId`
 
-		This request replaces existing properties after passing validation.
+	This request replaces existing properties after passing validation.
 
-		Note: The only parameter that you can update is the name of the key, which must be unique at all times.
+	Note: The only parameter that you can update is the name of the key, which must be unique at all times.
 
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param hookKeyId `id` of the Hook Key
-			@return ApiReplaceHookKeyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param hookKeyId `id` of the Hook Key
+		@return ApiReplaceHookKeyRequest
 	*/
 	ReplaceHookKey(ctx context.Context, hookKeyId string) ApiReplaceHookKeyRequest
 
@@ -234,11 +234,11 @@ func (a *HookKeyAPIService) CreateHookKeyExecute(r ApiCreateHookKeyRequest) (*AP
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -398,11 +398,11 @@ func (a *HookKeyAPIService) DeleteHookKeyExecute(r ApiDeleteHookKeyRequest) (*AP
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -560,11 +560,11 @@ func (a *HookKeyAPIService) GetHookKeyExecute(r ApiGetHookKeyRequest) (*APIRespo
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -722,11 +722,11 @@ func (a *HookKeyAPIService) GetPublicKeyExecute(r ApiGetPublicKeyRequest) (*APIR
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -880,11 +880,11 @@ func (a *HookKeyAPIService) ListHookKeysExecute(r ApiListHookKeysRequest) (*APIR
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1044,11 +1044,11 @@ func (a *HookKeyAPIService) ReplaceHookKeyExecute(r ApiReplaceHookKeyRequest) (*
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}

@@ -39,15 +39,15 @@ type FeatureAPI interface {
 	GetFeatureExecute(r ApiGetFeatureRequest) (*APIResponse, error)
 
 	/*
-			ListFeatureDependencies List all dependencies
+		ListFeatureDependencies List all dependencies
 
-			Lists all feature dependencies for a specified feature.
+		Lists all feature dependencies for a specified feature.
 
-		A feature's dependencies are the features that it requires to be enabled in order for itself to be enabled.
+	A feature's dependencies are the features that it requires to be enabled in order for itself to be enabled.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param featureId `id` of the feature
-			@return ApiListFeatureDependenciesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param featureId `id` of the feature
+		@return ApiListFeatureDependenciesRequest
 	*/
 	ListFeatureDependencies(ctx context.Context, featureId string) ApiListFeatureDependenciesRequest
 
@@ -56,15 +56,15 @@ type FeatureAPI interface {
 	ListFeatureDependenciesExecute(r ApiListFeatureDependenciesRequest) (*APIResponse, error)
 
 	/*
-			ListFeatureDependents List all dependents
+		ListFeatureDependents List all dependents
 
-			Lists all feature dependents for the specified feature.
+		Lists all feature dependents for the specified feature.
 
-		A feature's dependents are the features that need to be disabled in order for the feature itself to be disabled.
+	A feature's dependents are the features that need to be disabled in order for the feature itself to be disabled.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param featureId `id` of the feature
-			@return ApiListFeatureDependentsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param featureId `id` of the feature
+		@return ApiListFeatureDependentsRequest
 	*/
 	ListFeatureDependents(ctx context.Context, featureId string) ApiListFeatureDependentsRequest
 
@@ -87,24 +87,24 @@ type FeatureAPI interface {
 	ListFeaturesExecute(r ApiListFeaturesRequest) (*APIResponse, error)
 
 	/*
-			UpdateFeatureLifecycle Update a Feature lifecycle
+		UpdateFeatureLifecycle Update a Feature lifecycle
 
-			Updates a feature's lifecycle status. Use this endpoint to enable or disable a feature for your org.
+		Updates a feature's lifecycle status. Use this endpoint to enable or disable a feature for your org.
 
-		Use the `mode=force` parameter to override dependency restrictions for a particular feature. Normally, you can't enable a feature if it has one or more dependencies that aren't enabled.
+	Use the `mode=force` parameter to override dependency restrictions for a particular feature. Normally, you can't enable a feature if it has one or more dependencies that aren't enabled.
 
-		When you use the `mode=force` parameter while enabling a feature, Okta first tries to enable any disabled features that this feature may have as dependencies. If you don't pass the `mode=force` parameter and the feature has dependencies that need to be enabled before the feature is enabled, a 400 error is returned.
+	When you use the `mode=force` parameter while enabling a feature, Okta first tries to enable any disabled features that this feature may have as dependencies. If you don't pass the `mode=force` parameter and the feature has dependencies that need to be enabled before the feature is enabled, a 400 error is returned.
 
-		When you use the `mode=force` parameter while disabling a feature, Okta first tries to disable any enabled features that this feature may have as dependents. If you don't pass the `mode=force` parameter and the feature has dependents that need to be disabled before the feature is disabled, a 400 error is returned.
+	When you use the `mode=force` parameter while disabling a feature, Okta first tries to disable any enabled features that this feature may have as dependents. If you don't pass the `mode=force` parameter and the feature has dependents that need to be disabled before the feature is disabled, a 400 error is returned.
 
-		The following chart shows the different state transitions for a feature.
+	The following chart shows the different state transitions for a feature.
 
-		![State transitions of a feature](../../../../../images/features/update-ssfeat-flowchart.png '#width=500px;')
+	![State transitions of a feature](../../../../../images/features/update-ssfeat-flowchart.png '#width=500px;')
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param featureId `id` of the feature
-			@param lifecycle Whether to `ENABLE` or `DISABLE` the feature
-			@return ApiUpdateFeatureLifecycleRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param featureId `id` of the feature
+		@param lifecycle Whether to `ENABLE` or `DISABLE` the feature
+		@return ApiUpdateFeatureLifecycleRequest
 	*/
 	UpdateFeatureLifecycle(ctx context.Context, featureId string, lifecycle string) ApiUpdateFeatureLifecycleRequest
 
@@ -213,11 +213,11 @@ func (a *FeatureAPIService) GetFeatureExecute(r ApiGetFeatureRequest) (*APIRespo
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -377,11 +377,11 @@ func (a *FeatureAPIService) ListFeatureDependenciesExecute(r ApiListFeatureDepen
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -541,11 +541,11 @@ func (a *FeatureAPIService) ListFeatureDependentsExecute(r ApiListFeatureDepende
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -699,11 +699,11 @@ func (a *FeatureAPIService) ListFeaturesExecute(r ApiListFeaturesRequest) (*APIR
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -873,11 +873,11 @@ func (a *FeatureAPIService) UpdateFeatureLifecycleExecute(r ApiUpdateFeatureLife
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}

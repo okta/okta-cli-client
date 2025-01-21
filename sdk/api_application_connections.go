@@ -82,16 +82,16 @@ type ApplicationConnectionsAPI interface {
 	UpdateDefaultProvisioningConnectionForApplicationExecute(r ApiUpdateDefaultProvisioningConnectionForApplicationRequest) (*APIResponse, error)
 
 	/*
-			VerifyProvisioningConnectionForApplication Verify the Provisioning Connection
+		VerifyProvisioningConnectionForApplication Verify the Provisioning Connection
 
-			Verifies the OAuth 2.0-based connection as part of the OAuth 2.0 consent flow. The validation of the consent flow is the last step of the provisioning setup for an OAuth 2.0-based connection.
-		Currently, this operation only supports `office365`,`google`, `zoomus`, and `slack` apps.
+		Verifies the OAuth 2.0-based connection as part of the OAuth 2.0 consent flow. The validation of the consent flow is the last step of the provisioning setup for an OAuth 2.0-based connection.
+	Currently, this operation only supports `office365`,`google`, `zoomus`, and `slack` apps.
 
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param appName
-			@param appId Application ID
-			@return ApiVerifyProvisioningConnectionForApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appName
+		@param appId Application ID
+		@return ApiVerifyProvisioningConnectionForApplicationRequest
 	*/
 	VerifyProvisioningConnectionForApplication(ctx context.Context, appName string, appId string) ApiVerifyProvisioningConnectionForApplicationRequest
 
@@ -198,11 +198,11 @@ func (a *ApplicationConnectionsAPIService) ActivateDefaultProvisioningConnection
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -359,11 +359,11 @@ func (a *ApplicationConnectionsAPIService) DeactivateDefaultProvisioningConnecti
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -521,11 +521,11 @@ func (a *ApplicationConnectionsAPIService) GetDefaultProvisioningConnectionForAp
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -702,11 +702,11 @@ func (a *ApplicationConnectionsAPIService) UpdateDefaultProvisioningConnectionFo
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -899,11 +899,11 @@ func (a *ApplicationConnectionsAPIService) VerifyProvisioningConnectionForApplic
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}

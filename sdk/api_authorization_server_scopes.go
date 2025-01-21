@@ -210,11 +210,11 @@ func (a *AuthorizationServerScopesAPIService) CreateOAuth2ScopeExecute(r ApiCrea
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -387,11 +387,11 @@ func (a *AuthorizationServerScopesAPIService) DeleteOAuth2ScopeExecute(r ApiDele
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -553,11 +553,11 @@ func (a *AuthorizationServerScopesAPIService) GetOAuth2ScopeExecute(r ApiGetOAut
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -751,11 +751,11 @@ func (a *AuthorizationServerScopesAPIService) ListOAuth2ScopesExecute(r ApiListO
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -926,11 +926,11 @@ func (a *AuthorizationServerScopesAPIService) ReplaceOAuth2ScopeExecute(r ApiRep
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}

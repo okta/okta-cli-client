@@ -20,7 +20,7 @@ type CreateUserRequest struct {
 	Credentials *UserCredentials `json:"credentials,omitempty"`
 	GroupIds    []string         `json:"groupIds,omitempty"`
 	Profile     UserProfile      `json:"profile"`
-	// The ID of the realm in which the user is residing
+	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle></div>The ID of the realm in which the user is residing
 	RealmId              *string                `json:"realmId,omitempty"`
 	Type                 *CreateUserRequestType `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}

@@ -24,18 +24,18 @@ import (
 type ApplicationPoliciesAPI interface {
 
 	/*
-			AssignApplicationPolicy Assign an application to a Policy
+		AssignApplicationPolicy Assign an application to a Policy
 
-			Assigns an application to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
-		If the application was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
+		Assigns an application to an [authentication policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
+	If the application was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
 
-		> **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
-		the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email.
+	> **Note:** When you [merge duplicate authentication policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
+	the policy and mapping CRUD operations may be unavailable during the consolidation. When the consolidation is complete, you receive an email.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param appId Application ID
-			@param policyId `id` of the Policy
-			@return ApiAssignApplicationPolicyRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param policyId `id` of the Policy
+		@return ApiAssignApplicationPolicyRequest
 	*/
 	AssignApplicationPolicy(ctx context.Context, appId string, policyId string) ApiAssignApplicationPolicyRequest
 
@@ -150,11 +150,11 @@ func (a *ApplicationPoliciesAPIService) AssignApplicationPolicyExecute(r ApiAssi
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}

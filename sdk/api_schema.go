@@ -24,38 +24,6 @@ import (
 type SchemaAPI interface {
 
 	/*
-		GetAppUISchema Retrieve the UI schema for a section
-
-		Retrieves the UI schema for an Application given `appName`, `section` and `operation`
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param appName Application name for the app type
-		@param section
-		@param operation
-		@return ApiGetAppUISchemaRequest
-	*/
-	GetAppUISchema(ctx context.Context, appName string, section string, operation string) ApiGetAppUISchemaRequest
-
-	// GetAppUISchemaExecute executes the request
-	//  @return ApplicationLayout
-	GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*APIResponse, error)
-
-	/*
-		GetAppUISchemaLinks Retrieve the links for UI schemas for an Application
-
-		Retrieves the links for UI schemas for an Application given `appName`
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param appName Application name for the app type
-		@return ApiGetAppUISchemaLinksRequest
-	*/
-	GetAppUISchemaLinks(ctx context.Context, appName string) ApiGetAppUISchemaLinksRequest
-
-	// GetAppUISchemaLinksExecute executes the request
-	//  @return ApplicationLayouts
-	GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRequest) (*APIResponse, error)
-
-	/*
 		GetApplicationUserSchema Retrieve the default Application User Schema for an Application
 
 		Retrieves the Schema for an App User
@@ -176,338 +144,6 @@ type SchemaAPI interface {
 // SchemaAPIService SchemaAPI service
 type SchemaAPIService service
 
-type ApiGetAppUISchemaRequest struct {
-	ctx        context.Context
-	ApiService SchemaAPI
-	appName    string
-	section    string
-	operation  string
-	data       interface{}
-	retryCount int32
-}
-
-func (r ApiGetAppUISchemaRequest) Data(data interface{}) ApiGetAppUISchemaRequest {
-	r.data = data
-	return r
-}
-
-func (r ApiGetAppUISchemaRequest) Execute() (*APIResponse, error) {
-	return r.ApiService.GetAppUISchemaExecute(r)
-}
-
-/*
-GetAppUISchema Retrieve the UI schema for a section
-
-Retrieves the UI schema for an Application given `appName`, `section` and `operation`
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appName Application name for the app type
- @param section
- @param operation
- @return ApiGetAppUISchemaRequest
-*/
-
-func (a *SchemaAPIService) GetAppUISchema(ctx context.Context, appName string, section string, operation string) ApiGetAppUISchemaRequest {
-	return ApiGetAppUISchemaRequest{
-		ApiService: a,
-		ctx:        ctx,
-		appName:    appName,
-		section:    section,
-		operation:  operation,
-		retryCount: 0,
-	}
-}
-
-// Execute executes the request
-//  @return ApplicationLayout
-
-func (a *SchemaAPIService) GetAppUISchemaExecute(r ApiGetAppUISchemaRequest) (*APIResponse, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarHTTPResponse *http.Response
-		localAPIResponse     *APIResponse
-		err                  error
-	)
-
-	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
-		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
-		r.ctx = localctx
-		defer cancel()
-	}
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.GetAppUISchema")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/meta/layouts/apps/{appName}/sections/{section}/{operation}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appName"+"}", url.PathEscape(parameterToString(r.appName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"section"+"}", url.PathEscape(parameterToString(r.section, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"operation"+"}", url.PathEscape(parameterToString(r.operation, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["apiToken"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		return localAPIResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-		}
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		return localAPIResponse, newErr
-	}
-
-	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-	return localAPIResponse, nil
-}
-
-type ApiGetAppUISchemaLinksRequest struct {
-	ctx        context.Context
-	ApiService SchemaAPI
-	appName    string
-	data       interface{}
-	retryCount int32
-}
-
-func (r ApiGetAppUISchemaLinksRequest) Data(data interface{}) ApiGetAppUISchemaLinksRequest {
-	r.data = data
-	return r
-}
-
-func (r ApiGetAppUISchemaLinksRequest) Execute() (*APIResponse, error) {
-	return r.ApiService.GetAppUISchemaLinksExecute(r)
-}
-
-/*
-GetAppUISchemaLinks Retrieve the links for UI schemas for an Application
-
-Retrieves the links for UI schemas for an Application given `appName`
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param appName Application name for the app type
- @return ApiGetAppUISchemaLinksRequest
-*/
-
-func (a *SchemaAPIService) GetAppUISchemaLinks(ctx context.Context, appName string) ApiGetAppUISchemaLinksRequest {
-	return ApiGetAppUISchemaLinksRequest{
-		ApiService: a,
-		ctx:        ctx,
-		appName:    appName,
-		retryCount: 0,
-	}
-}
-
-// Execute executes the request
-//  @return ApplicationLayouts
-
-func (a *SchemaAPIService) GetAppUISchemaLinksExecute(r ApiGetAppUISchemaLinksRequest) (*APIResponse, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarHTTPResponse *http.Response
-		localAPIResponse     *APIResponse
-		err                  error
-	)
-
-	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
-		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
-		r.ctx = localctx
-		defer cancel()
-	}
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SchemaAPIService.GetAppUISchemaLinks")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v1/meta/layouts/apps/{appName}"
-	localVarPath = strings.Replace(localVarPath, "{"+"appName"+"}", url.PathEscape(parameterToString(r.appName, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["apiToken"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		return localAPIResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-		}
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		return localAPIResponse, newErr
-	}
-
-	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-	return localAPIResponse, nil
-}
-
 type ApiGetApplicationUserSchemaRequest struct {
 	ctx        context.Context
 	ApiService SchemaAPI
@@ -605,11 +241,11 @@ func (a *SchemaAPIService) GetApplicationUserSchemaExecute(r ApiGetApplicationUs
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -763,11 +399,11 @@ func (a *SchemaAPIService) GetGroupSchemaExecute(r ApiGetGroupSchemaRequest) (*A
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -913,11 +549,11 @@ func (a *SchemaAPIService) GetLogStreamSchemaExecute(r ApiGetLogStreamSchemaRequ
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1075,11 +711,11 @@ func (a *SchemaAPIService) GetUserSchemaExecute(r ApiGetUserSchemaRequest) (*API
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1233,11 +869,11 @@ func (a *SchemaAPIService) ListLogStreamSchemasExecute(r ApiListLogStreamSchemas
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1392,11 +1028,11 @@ func (a *SchemaAPIService) UpdateApplicationUserProfileExecute(r ApiUpdateApplic
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1571,11 +1207,11 @@ func (a *SchemaAPIService) UpdateGroupSchemaExecute(r ApiUpdateGroupSchemaReques
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1742,11 +1378,11 @@ func (a *SchemaAPIService) UpdateUserProfileExecute(r ApiUpdateUserProfileReques
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}

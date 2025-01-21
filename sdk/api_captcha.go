@@ -38,14 +38,14 @@ type CAPTCHAAPI interface {
 	CreateCaptchaInstanceExecute(r ApiCreateCaptchaInstanceRequest) (*APIResponse, error)
 
 	/*
-			DeleteCaptchaInstance Delete a CAPTCHA Instance
+		DeleteCaptchaInstance Delete a CAPTCHA Instance
 
-			Deletes a specified CAPTCHA instance
-		> **Note:** If your CAPTCHA instance is still associated with your org, the request fails. You must first update your Org-wide CAPTCHA settings to remove the CAPTCHA instance.
+		Deletes a specified CAPTCHA instance
+	> **Note:** If your CAPTCHA instance is still associated with your org, the request fails. You must first update your Org-wide CAPTCHA settings to remove the CAPTCHA instance.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param captchaId The unique key used to identify your CAPTCHA instance
-			@return ApiDeleteCaptchaInstanceRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param captchaId The unique key used to identify your CAPTCHA instance
+		@return ApiDeleteCaptchaInstanceRequest
 	*/
 	DeleteCaptchaInstance(ctx context.Context, captchaId string) ApiDeleteCaptchaInstanceRequest
 
@@ -81,13 +81,13 @@ type CAPTCHAAPI interface {
 	GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceRequest) (*APIResponse, error)
 
 	/*
-			GetOrgCaptchaSettings Retrieve the Org-wide CAPTCHA Settings
+		GetOrgCaptchaSettings Retrieve the Org-wide CAPTCHA Settings
 
-			Retrieves the CAPTCHA settings object for your organization.
-		> **Note**: If the current organization hasn't configured CAPTCHA Settings, the request returns an empty object.
+		Retrieves the CAPTCHA settings object for your organization.
+	> **Note**: If the current organization hasn't configured CAPTCHA Settings, the request returns an empty object.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@return ApiGetOrgCaptchaSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetOrgCaptchaSettingsRequest
 	*/
 	GetOrgCaptchaSettings(ctx context.Context) ApiGetOrgCaptchaSettingsRequest
 
@@ -125,13 +125,13 @@ type CAPTCHAAPI interface {
 	ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaInstanceRequest) (*APIResponse, error)
 
 	/*
-			ReplacesOrgCaptchaSettings Replace the Org-wide CAPTCHA Settings
+		ReplacesOrgCaptchaSettings Replace the Org-wide CAPTCHA Settings
 
-			Replaces the CAPTCHA settings object for your organization.
-		> **Note**: You can disable CAPTCHA for your organization by setting `captchaId` and `enabledPages` to `null`.
+		Replaces the CAPTCHA settings object for your organization.
+	> **Note**: You can disable CAPTCHA for your organization by setting `captchaId` and `enabledPages` to `null`.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@return ApiReplacesOrgCaptchaSettingsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiReplacesOrgCaptchaSettingsRequest
 	*/
 	ReplacesOrgCaptchaSettings(ctx context.Context) ApiReplacesOrgCaptchaSettingsRequest
 
@@ -260,11 +260,11 @@ func (a *CAPTCHAAPIService) CreateCaptchaInstanceExecute(r ApiCreateCaptchaInsta
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -422,11 +422,11 @@ func (a *CAPTCHAAPIService) DeleteCaptchaInstanceExecute(r ApiDeleteCaptchaInsta
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -579,11 +579,11 @@ func (a *CAPTCHAAPIService) DeleteOrgCaptchaSettingsExecute(r ApiDeleteOrgCaptch
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -741,11 +741,11 @@ func (a *CAPTCHAAPIService) GetCaptchaInstanceExecute(r ApiGetCaptchaInstanceReq
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -900,11 +900,11 @@ func (a *CAPTCHAAPIService) GetOrgCaptchaSettingsExecute(r ApiGetOrgCaptchaSetti
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1046,11 +1046,11 @@ func (a *CAPTCHAAPIService) ListCaptchaInstancesExecute(r ApiListCaptchaInstance
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1205,11 +1205,11 @@ func (a *CAPTCHAAPIService) ReplaceCaptchaInstanceExecute(r ApiReplaceCaptchaIns
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1385,11 +1385,11 @@ func (a *CAPTCHAAPIService) ReplacesOrgCaptchaSettingsExecute(r ApiReplacesOrgCa
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1556,11 +1556,11 @@ func (a *CAPTCHAAPIService) UpdateCaptchaInstanceExecute(r ApiUpdateCaptchaInsta
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}

@@ -24,17 +24,17 @@ import (
 type UserFactorAPI interface {
 
 	/*
-			ActivateFactor Activate a Factor
+		ActivateFactor Activate a Factor
 
-			Activates a Factor. The `sms` and `token:software:totp` factor types require activation to complete the enrollment process.
+		Activates a Factor. The `sms` and `token:software:totp` factor types require activation to complete the enrollment process.
 
-		Okta enforces a rate limit of five activation attempts within five minutes.
-		After a user exceeds the rate limit, Okta returns an error message.
+	Okta enforces a rate limit of five activation attempts within five minutes.
+	After a user exceeds the rate limit, Okta returns an error message.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param userId ID of an existing Okta user
-			@param factorId ID of an existing User Factor
-			@return ApiActivateFactorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param factorId ID of an existing User Factor
+		@return ApiActivateFactorRequest
 	*/
 	ActivateFactor(ctx context.Context, userId string, factorId string) ApiActivateFactorRequest
 
@@ -136,18 +136,18 @@ type UserFactorAPI interface {
 	ListSupportedSecurityQuestionsExecute(r ApiListSupportedSecurityQuestionsRequest) (*APIResponse, error)
 
 	/*
-			ResendEnrollFactor Resend a Factor enrollment
+		ResendEnrollFactor Resend a Factor enrollment
 
-			Resends an `sms`, `call`, or `email` factor challenge as part of an enrollment flow.
+		Resends an `sms`, `call`, or `email` factor challenge as part of an enrollment flow.
 
-		For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge per device every 30 seconds. You can configure your `sms` and `call` factors to use a third-party telephony provider. See the [Telephony inline hook reference](https://developer.okta.com/docs/reference/telephony-hook/). Okta round-robins between SMS providers with every resend request to help ensure delivery of an SMS and Call OTPs across different carriers.
+	For `call` and `sms` factors, Okta enforces a rate limit of one OTP challenge per device every 30 seconds. You can configure your `sms` and `call` factors to use a third-party telephony provider. See the [Telephony inline hook reference](https://developer.okta.com/docs/reference/telephony-hook/). Okta round-robins between SMS providers with every resend request to help ensure delivery of an SMS and Call OTPs across different carriers.
 
-		> **Note**: Resend operations aren't allowed after a factor exceeds the activation rate limit. See [Activate a Factor](./#tag/UserFactor/operation/activateFactor).
+	> **Note**: Resend operations aren't allowed after a factor exceeds the activation rate limit. See [Activate a Factor](./#tag/UserFactor/operation/activateFactor).
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param userId ID of an existing Okta user
-			@param factorId ID of an existing User Factor
-			@return ApiResendEnrollFactorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param factorId ID of an existing User Factor
+		@return ApiResendEnrollFactorRequest
 	*/
 	ResendEnrollFactor(ctx context.Context, userId string, factorId string) ApiResendEnrollFactorRequest
 
@@ -156,16 +156,16 @@ type UserFactorAPI interface {
 	ResendEnrollFactorExecute(r ApiResendEnrollFactorRequest) (*APIResponse, error)
 
 	/*
-			UnenrollFactor Unenroll a Factor
+		UnenrollFactor Unenroll a Factor
 
-			Unenrolls an existing Factor for the specified user. This allows the user to enroll a new Factor.
+		Unenrolls an existing Factor for the specified user. This allows the user to enroll a new Factor.
 
-		> **Note**: If you unenroll the `push` or the `signed_nonce` Factors, Okta also unenrolls any other `totp`, `signed_nonce`, or Okta Verify `push` Factors associated with the user.
+	> **Note**: If you unenroll the `push` or the `signed_nonce` Factors, Okta also unenrolls any other `totp`, `signed_nonce`, or Okta Verify `push` Factors associated with the user.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param userId ID of an existing Okta user
-			@param factorId ID of an existing User Factor
-			@return ApiUnenrollFactorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param factorId ID of an existing User Factor
+		@return ApiUnenrollFactorRequest
 	*/
 	UnenrollFactor(ctx context.Context, userId string, factorId string) ApiUnenrollFactorRequest
 
@@ -173,16 +173,16 @@ type UserFactorAPI interface {
 	UnenrollFactorExecute(r ApiUnenrollFactorRequest) (*APIResponse, error)
 
 	/*
-			VerifyFactor Verify a Factor
+		VerifyFactor Verify a Factor
 
-			Verifies an OTP for a Factor. Some Factors (`call`, `email`, `push`, `sms`, `u2f`, and `webauthn`) require Okta to issue a challenge to initiate the transaction. Do this by making a request without a body. After a challenge is issued, make another request to verify the Factor.
+		Verifies an OTP for a Factor. Some Factors (`call`, `email`, `push`, `sms`, `u2f`, and `webauthn`) require Okta to issue a challenge to initiate the transaction. Do this by making a request without a body. After a challenge is issued, make another request to verify the Factor.
 
-		**Note**: To verify a `push` factor, use the **poll** link returned when you issue the challenge. See [Retrieve a Factor Transaction Status](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/getFactorTransactionStatus).
+	**Note**: To verify a `push` factor, use the **poll** link returned when you issue the challenge. See [Retrieve a Factor Transaction Status](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/getFactorTransactionStatus).
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param userId ID of an existing Okta user
-			@param factorId ID of an existing User Factor
-			@return ApiVerifyFactorRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param userId ID of an existing Okta user
+		@param factorId ID of an existing User Factor
+		@return ApiVerifyFactorRequest
 	*/
 	VerifyFactor(ctx context.Context, userId string, factorId string) ApiVerifyFactorRequest
 
@@ -307,11 +307,11 @@ func (a *UserFactorAPIService) ActivateFactorExecute(r ApiActivateFactorRequest)
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -531,11 +531,11 @@ func (a *UserFactorAPIService) EnrollFactorExecute(r ApiEnrollFactorRequest) (*A
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -709,11 +709,11 @@ func (a *UserFactorAPIService) GetFactorExecute(r ApiGetFactorRequest) (*APIResp
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -879,11 +879,11 @@ func (a *UserFactorAPIService) GetFactorTransactionStatusExecute(r ApiGetFactorT
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1041,11 +1041,11 @@ func (a *UserFactorAPIService) ListFactorsExecute(r ApiListFactorsRequest) (*API
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1203,11 +1203,11 @@ func (a *UserFactorAPIService) ListSupportedFactorsExecute(r ApiListSupportedFac
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1365,11 +1365,11 @@ func (a *UserFactorAPIService) ListSupportedSecurityQuestionsExecute(r ApiListSu
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1554,11 +1554,11 @@ func (a *UserFactorAPIService) ResendEnrollFactorExecute(r ApiResendEnrollFactor
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1743,11 +1743,11 @@ func (a *UserFactorAPIService) UnenrollFactorExecute(r ApiUnenrollFactorRequest)
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1970,11 +1970,11 @@ func (a *UserFactorAPIService) VerifyFactorExecute(r ApiVerifyFactorRequest) (*A
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}

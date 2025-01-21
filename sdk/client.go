@@ -533,15 +533,15 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 	tokenRequest.Header.Add("Accept", "application/json")
 	tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	tokenRequest.Header.Add("User-Agent", userAgent)
-	bOff := &oktaBackoff{
-		ctx:             context.TODO(),
-		maxRetries:      maxRetries,
-		backoffDuration: time.Duration(maxBackoff),
+	bOff := &OktaBackoff{
+		Ctx:             context.TODO(),
+		MaxRetries:      maxRetries,
+		BackoffDuration: time.Duration(maxBackoff),
 	}
 	var tokenResponse *http.Response
 	operation := func() error {
 		tokenResponse, err = httpClient.Do(tokenRequest)
-		bOff.retryCount++
+		bOff.RetryCount++
 		return err
 	}
 	err = backoff.Retry(operation, bOff)
@@ -594,15 +594,16 @@ func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *htt
 	query.Add("client_assertion", newClientAssertion)
 	tokenRequest.Body = io.NopCloser(strings.NewReader(query.Encode()))
 	tokenRequest.Header.Set("DPoP", dpopJWT)
-	bOff := &oktaBackoff{
-		ctx:             context.TODO(),
-		maxRetries:      maxRetries,
-		backoffDuration: time.Duration(maxBackoff),
+
+	bOff := &OktaBackoff{
+		Ctx:             context.TODO(),
+		MaxRetries:      maxRetries,
+		BackoffDuration: time.Duration(maxBackoff),
 	}
 	var tokenResponse *http.Response
 	operation := func() error {
 		tokenResponse, err = httpClient.Do(tokenRequest)
-		bOff.retryCount++
+		bOff.RetryCount++
 		return err
 	}
 	err = backoff.Retry(operation, bOff)
@@ -864,8 +865,8 @@ type formFile struct {
 	formFileName string
 }
 
-// prepareRequest build the request
-func (c *APIClient) prepareRequest(
+// PrepareRequest build the request
+func (c *APIClient) PrepareRequest(
 	ctx context.Context,
 	path string, method string,
 	postBody interface{},
@@ -1118,7 +1119,7 @@ func (c *APIClient) RefreshNext() *APIClient {
 	return c
 }
 
-func (c *APIClient) do(ctx context.Context, req *http.Request) (*http.Response, error) {
+func (c *APIClient) Do(ctx context.Context, req *http.Request) (*http.Response, error) {
 	cacheKey := CreateCacheKey(req)
 	if req.Method != http.MethodGet {
 		c.cache.Delete(cacheKey)
@@ -1157,9 +1158,9 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 		resp *http.Response
 		err  error
 	)
-	bOff := &oktaBackoff{
-		ctx:        ctx,
-		maxRetries: c.cfg.Okta.Client.RateLimit.MaxRetries,
+	bOff := &OktaBackoff{
+		Ctx:        ctx,
+		MaxRetries: c.cfg.Okta.Client.RateLimit.MaxRetries,
 	}
 	operation := func() error {
 		// Always rewind the request body when non-nil.
@@ -1187,10 +1188,10 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 		if c.cfg.Okta.Client.RateLimit.MaxBackoff < backoffDuration {
 			backoffDuration = c.cfg.Okta.Client.RateLimit.MaxBackoff
 		}
-		bOff.backoffDuration = time.Second * time.Duration(backoffDuration)
-		bOff.retryCount++
+		bOff.BackoffDuration = time.Second * time.Duration(backoffDuration)
+		bOff.RetryCount++
 		req.Header.Add("X-Okta-Retry-For", resp.Header.Get("X-Okta-Request-Id"))
-		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.retryCount))
+		req.Header.Add("X-Okta-Retry-Count", fmt.Sprint(bOff.RetryCount))
 		return errors.New("too many requests")
 	}
 	err = backoff.Retry(operation, bOff)
@@ -1357,27 +1358,27 @@ func (e GenericOpenAPIError) Model() interface{} {
 }
 
 // Okta Backoff
-type oktaBackoff struct {
-	retryCount, maxRetries int32
-	backoffDuration        time.Duration
-	ctx                    context.Context
+type OktaBackoff struct {
+	RetryCount, MaxRetries int32
+	BackoffDuration        time.Duration
+	Ctx                    context.Context
 }
 
 // NextBackOff returns the duration to wait before retrying the operation,
 // or backoff. Stop to indicate that no more retries should be made.
-func (o *oktaBackoff) NextBackOff() time.Duration {
+func (o *OktaBackoff) NextBackOff() time.Duration {
 	// stop retrying if operation reached retry limit
-	if o.retryCount > o.maxRetries {
+	if o.RetryCount > o.MaxRetries {
 		return backoff.Stop
 	}
-	return o.backoffDuration
+	return o.BackoffDuration
 }
 
 // Reset to initial state.
-func (o *oktaBackoff) Reset() {}
+func (o *OktaBackoff) Reset() {}
 
-func (o *oktaBackoff) Context() context.Context {
-	return o.ctx
+func (o *OktaBackoff) Context() context.Context {
+	return o.Ctx
 }
 
 func tooManyRequests(resp *http.Response) bool {

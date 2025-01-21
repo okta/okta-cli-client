@@ -93,19 +93,6 @@ type WebAuthnPreregistrationAPI interface {
 	// ListWebAuthnPreregistrationFactorsExecute executes the request
 	//  @return []WebAuthnPreregistrationFactor
 	ListWebAuthnPreregistrationFactorsExecute(r ApiListWebAuthnPreregistrationFactorsRequest) (*APIResponse, error)
-
-	/*
-		SendPin Send a PIN to user
-
-		Sends the decoded PIN for the specified WebAuthn Preregistration Enrollment. PINs are sent to the user's email. To resend the PIN, call this operation again.
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiSendPinRequest
-	*/
-	SendPin(ctx context.Context) ApiSendPinRequest
-
-	// SendPinExecute executes the request
-	SendPinExecute(r ApiSendPinRequest) (*APIResponse, error)
 }
 
 // WebAuthnPreregistrationAPIService WebAuthnPreregistrationAPI service
@@ -214,11 +201,11 @@ func (a *WebAuthnPreregistrationAPIService) ActivatePreregistrationEnrollmentExe
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -391,11 +378,11 @@ func (a *WebAuthnPreregistrationAPIService) DeleteWebAuthnPreregistrationFactorE
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -559,11 +546,11 @@ func (a *WebAuthnPreregistrationAPIService) EnrollPreregistrationEnrollmentExecu
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -738,11 +725,11 @@ func (a *WebAuthnPreregistrationAPIService) GenerateFulfillmentRequestExecute(r 
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -900,178 +887,11 @@ func (a *WebAuthnPreregistrationAPIService) ListWebAuthnPreregistrationFactorsEx
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		return localAPIResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-			return localAPIResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-				return localAPIResponse, newErr
-			}
-			newErr.model = v
-		}
-		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-		return localAPIResponse, newErr
-	}
-
-	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
-	return localAPIResponse, nil
-}
-
-type ApiSendPinRequest struct {
-	ctx        context.Context
-	ApiService WebAuthnPreregistrationAPI
-	body       *PinRequest
-	data       interface{}
-	retryCount int32
-}
-
-// Send PIN Request
-func (r ApiSendPinRequest) Body(body PinRequest) ApiSendPinRequest {
-	r.body = &body
-	return r
-}
-
-func (r ApiSendPinRequest) Data(data interface{}) ApiSendPinRequest {
-	r.data = data
-	return r
-}
-
-func (r ApiSendPinRequest) Execute() (*APIResponse, error) {
-	return r.ApiService.SendPinExecute(r)
-}
-
-/*
-SendPin Send a PIN to user
-
-Sends the decoded PIN for the specified WebAuthn Preregistration Enrollment. PINs are sent to the user's email. To resend the PIN, call this operation again.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSendPinRequest
-*/
-
-func (a *WebAuthnPreregistrationAPIService) SendPin(ctx context.Context) ApiSendPinRequest {
-	return ApiSendPinRequest{
-		ApiService: a,
-		ctx:        ctx,
-		retryCount: 0,
-	}
-}
-
-// Execute executes the request
-
-func (a *WebAuthnPreregistrationAPIService) SendPinExecute(r ApiSendPinRequest) (*APIResponse, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarHTTPResponse *http.Response
-		localAPIResponse     *APIResponse
-		err                  error
-	)
-
-	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
-		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
-		r.ctx = localctx
-		defer cancel()
-	}
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebAuthnPreregistrationAPIService.SendPin")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/webauthn-registration/api/v1/send-pin"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	// localVarPostBody = r.body
-	localVarPostBody = r.data
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["apiToken"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}

@@ -17,15 +17,15 @@ import (
 
 // AccessPolicyConstraint struct for AccessPolicyConstraint
 type AccessPolicyConstraint struct {
-	// This property specifies the precise authenticator and method for authentication.
+	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"lea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></div>This property specifies the precise authenticator and method for authentication.
 	AuthenticationMethods []AuthenticationMethodObject `json:"authenticationMethods,omitempty"`
-	// This property specifies the precise authenticator and method to exclude from authentication.
+	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"lea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></div>This property specifies the precise authenticator and method to exclude from authentication.
 	ExcludedAuthenticationMethods []AuthenticationMethodObject `json:"excludedAuthenticationMethods,omitempty"`
 	// The Authenticator methods that are permitted
 	Methods []string `json:"methods,omitempty"`
 	// The duration after which the user must re-authenticate regardless of user activity. This re-authentication interval overrides the Verification Method object's `reauthenticateIn` interval. The supported values use ISO 8601 period format for recurring time intervals (for example, `PT1H`).
 	ReauthenticateIn *string `json:"reauthenticateIn,omitempty"`
-	// This property indicates whether the knowledge or possession factor is required by the assurance. It's optional in the request, but is always returned in the response. By default, this field is `true`. If the knowledge or possession constraint has values for`excludedAuthenticationMethods` the `required` value is false.
+	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"lea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></div>This property indicates whether the knowledge or possession factor is required by the assurance. It's optional in the request, but is always returned in the response. By default, this field is `true`. If the knowledge or possession constraint has values for`excludedAuthenticationMethods` the `required` value is false.
 	Required *bool `json:"required,omitempty"`
 	// The Authenticator types that are permitted
 	Types                []string `json:"types,omitempty"`

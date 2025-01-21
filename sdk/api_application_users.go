@@ -24,24 +24,24 @@ import (
 type ApplicationUsersAPI interface {
 
 	/*
-			AssignUserToApplication Assign an Application User
+		AssignUserToApplication Assign an Application User
 
-			Assigns a user to an app for:
+		Assigns a user to an app for:
 
-		  * SSO only<br>
-		    Assignments to SSO apps typically don't include a user profile.
-		    However, if your SSO app requires a profile but doesn't have provisioning enabled, you can add profile attributes in the request body.
+	  * SSO only<br>
+	    Assignments to SSO apps typically don't include a user profile.
+	    However, if your SSO app requires a profile but doesn't have provisioning enabled, you can add profile attributes in the request body.
 
-		  * SSO and provisioning<br>
-		    Assignments to SSO and provisioning apps typically include credentials and an app-specific profile.
-		    Profile mappings defined for the app are applied first before applying any profile properties that are specified in the request body.
-		    > **Notes:**
-		    > * When Universal Directory is enabled, you can only specify profile properties that aren't defined in profile mappings.
-		    > * Omit mapped properties during assignment to minimize assignment errors.
+	  * SSO and provisioning<br>
+	    Assignments to SSO and provisioning apps typically include credentials and an app-specific profile.
+	    Profile mappings defined for the app are applied first before applying any profile properties that are specified in the request body.
+	    > **Notes:**
+	    > * When Universal Directory is enabled, you can only specify profile properties that aren't defined in profile mappings.
+	    > * Omit mapped properties during assignment to minimize assignment errors.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param appId Application ID
-			@return ApiAssignUserToApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@return ApiAssignUserToApplicationRequest
 	*/
 	AssignUserToApplication(ctx context.Context, appId string) ApiAssignUserToApplicationRequest
 
@@ -81,19 +81,19 @@ type ApplicationUsersAPI interface {
 	ListApplicationUsersExecute(r ApiListApplicationUsersRequest) (*APIResponse, error)
 
 	/*
-			UnassignUserFromApplication Unassign an Application User
+		UnassignUserFromApplication Unassign an Application User
 
-			Unassigns a user from an app
+		Unassigns a user from an app
 
-		For directories like Active Directory and LDAP, they act as the owner of the user's credential with Okta delegating authentication (DelAuth) to that directory.
-		If this request is successful for a user when DelAuth is enabled, then the user is in a state with no password. You can then reset the user's password.
+	For directories like Active Directory and LDAP, they act as the owner of the user's credential with Okta delegating authentication (DelAuth) to that directory.
+	If this request is successful for a user when DelAuth is enabled, then the user is in a state with no password. You can then reset the user's password.
 
-		> **Important:** This is a destructive operation. You can't recover the user's app profile. If the app is enabled for provisioning and configured to deactivate users, the user is also deactivated in the target app.
+	> **Important:** This is a destructive operation. You can't recover the user's app profile. If the app is enabled for provisioning and configured to deactivate users, the user is also deactivated in the target app.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param appId Application ID
-			@param userId ID of an existing Okta user
-			@return ApiUnassignUserFromApplicationRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param appId Application ID
+		@param userId ID of an existing Okta user
+		@return ApiUnassignUserFromApplicationRequest
 	*/
 	UnassignUserFromApplication(ctx context.Context, appId string, userId string) ApiUnassignUserFromApplicationRequest
 
@@ -237,11 +237,11 @@ func (a *ApplicationUsersAPIService) AssignUserToApplicationExecute(r ApiAssignU
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -425,11 +425,11 @@ func (a *ApplicationUsersAPIService) GetApplicationUserExecute(r ApiGetApplicati
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -627,11 +627,11 @@ func (a *ApplicationUsersAPIService) ListApplicationUsersExecute(r ApiListApplic
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -807,11 +807,11 @@ func (a *ApplicationUsersAPIService) UnassignUserFromApplicationExecute(r ApiUna
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -982,11 +982,11 @@ func (a *ApplicationUsersAPIService) UpdateApplicationUserExecute(r ApiUpdateApp
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}

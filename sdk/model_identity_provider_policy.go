@@ -18,7 +18,7 @@ import (
 // IdentityProviderPolicy struct for IdentityProviderPolicy
 type IdentityProviderPolicy struct {
 	AccountLink *PolicyAccountLink `json:"accountLink,omitempty"`
-	// Enable mapping AMR from IdP to Okta to downstream apps
+	// <div class=\"x-lifecycle-container\"><x-lifecycle class=\"ea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></div>Enable mapping AMR from IdP to Okta to downstream apps
 	MapAMRClaims         *bool          `json:"mapAMRClaims,omitempty"`
 	MaxClockSkew         *int32         `json:"maxClockSkew,omitempty"`
 	Provisioning         *Provisioning  `json:"provisioning,omitempty"`
