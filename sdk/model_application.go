@@ -31,7 +31,7 @@ type Application struct {
 	LastUpdated *time.Time            `json:"lastUpdated,omitempty"`
 	Licensing   *ApplicationLicensing `json:"licensing,omitempty"`
 	// Contains any valid JSON schema for specifying properties that can be referenced from a request (only available to OAuth 2.0 client apps)
-	Profile map[string]interface{} `json:"profile,omitempty"`
+	Profile map[string]map[string]interface{} `json:"profile,omitempty"`
 	// Authentication mode for the app
 	SignOnMode *string `json:"signOnMode,omitempty"`
 	// App instance status
@@ -286,9 +286,9 @@ func (o *Application) SetLicensing(v ApplicationLicensing) {
 }
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
-func (o *Application) GetProfile() map[string]interface{} {
+func (o *Application) GetProfile() map[string]map[string]interface{} {
 	if o == nil || o.Profile == nil {
-		var ret map[string]interface{}
+		var ret map[string]map[string]interface{}
 		return ret
 	}
 	return o.Profile
@@ -296,7 +296,7 @@ func (o *Application) GetProfile() map[string]interface{} {
 
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Application) GetProfileOk() (map[string]interface{}, bool) {
+func (o *Application) GetProfileOk() (map[string]map[string]interface{}, bool) {
 	if o == nil || o.Profile == nil {
 		return nil, false
 	}
@@ -312,8 +312,8 @@ func (o *Application) HasProfile() bool {
 	return false
 }
 
-// SetProfile gets a reference to the given map[string]interface{} and assigns it to the Profile field.
-func (o *Application) SetProfile(v map[string]interface{}) {
+// SetProfile gets a reference to the given map[string]map[string]interface{} and assigns it to the Profile field.
+func (o *Application) SetProfile(v map[string]map[string]interface{}) {
 	o.Profile = v
 }
 

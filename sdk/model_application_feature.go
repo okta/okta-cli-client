@@ -19,7 +19,7 @@ import (
 type ApplicationFeature struct {
 	// Description of the feature
 	Description *string `json:"description,omitempty"`
-	// Identifying name of the feature  | Value | Description   | | --------- | ------------- | | USER_PROVISIONING  | Represents the **To App** provisioning feature setting in the Admin Console |
+	// Identifying name of the feature  | Value | Description   | | --------- | ------------- | | USER_PROVISIONING  | Represents the **To App** provisioning feature setting in the Admin Console | | INBOUND_PROVISIONING | Represents the **To Okta** provisioning feature setting in the Admin Console |
 	Name                 *string                  `json:"name,omitempty"`
 	Status               *string                  `json:"status,omitempty"`
 	Links                *ApplicationFeatureLinks `json:"_links,omitempty"`

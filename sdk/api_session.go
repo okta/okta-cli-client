@@ -24,14 +24,14 @@ import (
 type SessionAPI interface {
 
 	/*
-			CloseCurrentSession Close the current Session
+		CloseCurrentSession Close the current Session
 
-			Closes the Session for the user who is currently signed in. Use this method in a browser-based application to sign out a user.
+		Closes the Session for the user who is currently signed in. Use this method in a browser-based application to sign out a user.
 
-		> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
+	> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@return ApiCloseCurrentSessionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiCloseCurrentSessionRequest
 	*/
 	CloseCurrentSession(ctx context.Context) ApiCloseCurrentSessionRequest
 
@@ -53,14 +53,14 @@ type SessionAPI interface {
 	CreateSessionExecute(r ApiCreateSessionRequest) (*APIResponse, error)
 
 	/*
-			GetCurrentSession Retrieve the current Session
+		GetCurrentSession Retrieve the current Session
 
-			Retrieves Session information for the current user. Use this method in a browser-based application to determine if the user is signed in.
+		Retrieves Session information for the current user. Use this method in a browser-based application to determine if the user is signed in.
 
-		> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
+	> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@return ApiGetCurrentSessionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiGetCurrentSessionRequest
 	*/
 	GetCurrentSession(ctx context.Context) ApiGetCurrentSessionRequest
 
@@ -84,14 +84,14 @@ type SessionAPI interface {
 	GetSessionExecute(r ApiGetSessionRequest) (*APIResponse, error)
 
 	/*
-			RefreshCurrentSession Refresh the current Session
+		RefreshCurrentSession Refresh the current Session
 
-			Refreshes the Session for the current user
+		Refreshes the Session for the current user
 
-		> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
+	> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
 
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@return ApiRefreshCurrentSessionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return ApiRefreshCurrentSessionRequest
 	*/
 	RefreshCurrentSession(ctx context.Context) ApiRefreshCurrentSessionRequest
 
@@ -221,11 +221,11 @@ func (a *SessionAPIService) CloseCurrentSessionExecute(r ApiCloseCurrentSessionR
 	if r.cookie != nil {
 		localVarHeaderParams["Cookie"] = parameterToString(*r.cookie, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -364,11 +364,11 @@ func (a *SessionAPIService) CreateSessionExecute(r ApiCreateSessionRequest) (*AP
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -507,11 +507,11 @@ func (a *SessionAPIService) GetCurrentSessionExecute(r ApiGetCurrentSessionReque
 	if r.cookie != nil {
 		localVarHeaderParams["Cookie"] = parameterToString(*r.cookie, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -635,11 +635,11 @@ func (a *SessionAPIService) GetSessionExecute(r ApiGetSessionRequest) (*APIRespo
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -778,11 +778,11 @@ func (a *SessionAPIService) RefreshCurrentSessionExecute(r ApiRefreshCurrentSess
 	if r.cookie != nil {
 		localVarHeaderParams["Cookie"] = parameterToString(*r.cookie, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -906,11 +906,11 @@ func (a *SessionAPIService) RefreshSessionExecute(r ApiRefreshSessionRequest) (*
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
@@ -1055,11 +1055,11 @@ func (a *SessionAPIService) RevokeSessionExecute(r ApiRevokeSessionRequest) (*AP
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
-	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	localVarHTTPResponse, err = a.client.Do(r.ctx, req)
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}

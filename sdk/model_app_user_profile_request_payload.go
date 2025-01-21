@@ -18,7 +18,7 @@ import (
 // AppUserProfileRequestPayload Updates the assigned user profile > **Note:** The Okta API currently doesn't support entity tags for conditional updates. As long as you're the only user updating the the user profile, Okta recommends you fetch the most recent profile with [Retrieve an Application User](/openapi/okta-management/management/tag/ApplicationUsers/#tag/ApplicationUsers/operation/getApplicationUser), apply your profile update, and then `POST` back the updated profile.
 type AppUserProfileRequestPayload struct {
 	// Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured.
-	Profile              map[string]interface{} `json:"profile,omitempty"`
+	Profile              map[string]map[string]interface{} `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -42,9 +42,9 @@ func NewAppUserProfileRequestPayloadWithDefaults() *AppUserProfileRequestPayload
 }
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
-func (o *AppUserProfileRequestPayload) GetProfile() map[string]interface{} {
+func (o *AppUserProfileRequestPayload) GetProfile() map[string]map[string]interface{} {
 	if o == nil || o.Profile == nil {
-		var ret map[string]interface{}
+		var ret map[string]map[string]interface{}
 		return ret
 	}
 	return o.Profile
@@ -52,7 +52,7 @@ func (o *AppUserProfileRequestPayload) GetProfile() map[string]interface{} {
 
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AppUserProfileRequestPayload) GetProfileOk() (map[string]interface{}, bool) {
+func (o *AppUserProfileRequestPayload) GetProfileOk() (map[string]map[string]interface{}, bool) {
 	if o == nil || o.Profile == nil {
 		return nil, false
 	}
@@ -68,8 +68,8 @@ func (o *AppUserProfileRequestPayload) HasProfile() bool {
 	return false
 }
 
-// SetProfile gets a reference to the given map[string]interface{} and assigns it to the Profile field.
-func (o *AppUserProfileRequestPayload) SetProfile(v map[string]interface{}) {
+// SetProfile gets a reference to the given map[string]map[string]interface{} and assigns it to the Profile field.
+func (o *AppUserProfileRequestPayload) SetProfile(v map[string]map[string]interface{}) {
 	o.Profile = v
 }
 

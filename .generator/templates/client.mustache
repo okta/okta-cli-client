@@ -653,8 +653,8 @@ type formFile struct {
 	formFileName string
 }
 
-// prepareRequest build the request
-func (c *APIClient) prepareRequest(
+// PrepareRequest build the request
+func (c *APIClient) PrepareRequest(
 	ctx context.Context,
 	path string, method string,
 	postBody interface{},
@@ -955,7 +955,7 @@ func (c *APIClient) RefreshNext() *APIClient {
 	return c
 }
 
-func (c *APIClient) do(ctx context.Context, req *http.Request) (*http.Response, error) {
+func (c *APIClient) Do(ctx context.Context, req *http.Request) (*http.Response, error) {
 	cacheKey := CreateCacheKey(req)
 	if req.Method != http.MethodGet {
 		c.cache.Delete(cacheKey)
