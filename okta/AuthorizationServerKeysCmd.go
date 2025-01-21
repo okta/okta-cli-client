@@ -20,8 +20,8 @@ var ListAuthorizationServerKeysauthServerId string
 
 func NewListAuthorizationServerKeysCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "list",
-
+		Use:  "list",
+		Long: "List all Credential Keys",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerKeysAPI.ListAuthorizationServerKeys(apiClient.GetConfig().Context, ListAuthorizationServerKeysauthServerId)
 
@@ -64,8 +64,8 @@ var (
 
 func NewRotateAuthorizationServerKeysCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "rotate",
-
+		Use:  "rotate",
+		Long: "Rotate all Credential Keys",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerKeysAPI.RotateAuthorizationServerKeys(apiClient.GetConfig().Context, RotateAuthorizationServerKeysauthServerId)
 

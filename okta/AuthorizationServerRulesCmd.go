@@ -26,8 +26,8 @@ var (
 
 func NewCreateAuthorizationServerPolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createAuthorizationServerPolicyRule",
-
+		Use:  "createAuthorizationServerPolicyRule",
+		Long: "Create a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerRulesAPI.CreateAuthorizationServerPolicyRule(apiClient.GetConfig().Context, CreateAuthorizationServerPolicyRuleauthServerId, CreateAuthorizationServerPolicyRulepolicyId)
 
@@ -80,8 +80,8 @@ var (
 
 func NewListAuthorizationServerPolicyRulesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listAuthorizationServerPolicyRules",
-
+		Use:  "listAuthorizationServerPolicyRules",
+		Long: "List all Policy Rules",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerRulesAPI.ListAuthorizationServerPolicyRules(apiClient.GetConfig().Context, ListAuthorizationServerPolicyRulesauthServerId, ListAuthorizationServerPolicyRulespolicyId)
 
@@ -129,8 +129,8 @@ var (
 
 func NewGetAuthorizationServerPolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getAuthorizationServerPolicyRule",
-
+		Use:  "getAuthorizationServerPolicyRule",
+		Long: "Retrieve a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerRulesAPI.GetAuthorizationServerPolicyRule(apiClient.GetConfig().Context, GetAuthorizationServerPolicyRuleauthServerId, GetAuthorizationServerPolicyRulepolicyId, GetAuthorizationServerPolicyRuleruleId)
 
@@ -183,8 +183,8 @@ var (
 
 func NewReplaceAuthorizationServerPolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceAuthorizationServerPolicyRule",
-
+		Use:  "replaceAuthorizationServerPolicyRule",
+		Long: "Replace a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerRulesAPI.ReplaceAuthorizationServerPolicyRule(apiClient.GetConfig().Context, ReplaceAuthorizationServerPolicyRuleauthServerId, ReplaceAuthorizationServerPolicyRulepolicyId, ReplaceAuthorizationServerPolicyRuleruleId)
 
@@ -242,8 +242,8 @@ var (
 
 func NewDeleteAuthorizationServerPolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteAuthorizationServerPolicyRule",
-
+		Use:  "deleteAuthorizationServerPolicyRule",
+		Long: "Delete a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerRulesAPI.DeleteAuthorizationServerPolicyRule(apiClient.GetConfig().Context, DeleteAuthorizationServerPolicyRuleauthServerId, DeleteAuthorizationServerPolicyRulepolicyId, DeleteAuthorizationServerPolicyRuleruleId)
 
@@ -294,8 +294,8 @@ var (
 
 func NewActivateAuthorizationServerPolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activateAuthorizationServerPolicyRule",
-
+		Use:  "activateAuthorizationServerPolicyRule",
+		Long: "Activate a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerRulesAPI.ActivateAuthorizationServerPolicyRule(apiClient.GetConfig().Context, ActivateAuthorizationServerPolicyRuleauthServerId, ActivateAuthorizationServerPolicyRulepolicyId, ActivateAuthorizationServerPolicyRuleruleId)
 
@@ -346,8 +346,8 @@ var (
 
 func NewDeactivateAuthorizationServerPolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivateAuthorizationServerPolicyRule",
-
+		Use:  "deactivateAuthorizationServerPolicyRule",
+		Long: "Deactivate a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerRulesAPI.DeactivateAuthorizationServerPolicyRule(apiClient.GetConfig().Context, DeactivateAuthorizationServerPolicyRuleauthServerId, DeactivateAuthorizationServerPolicyRulepolicyId, DeactivateAuthorizationServerPolicyRuleruleId)
 

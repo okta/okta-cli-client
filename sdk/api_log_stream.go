@@ -111,21 +111,21 @@ type LogStreamAPI interface {
 	ListLogStreamsExecute(r ApiListLogStreamsRequest) (*APIResponse, error)
 
 	/*
-		ReplaceLogStream Replace a Log Stream
+			ReplaceLogStream Replace a Log Stream
 
-		Replaces the Log Stream object properties for a given ID.
+			Replaces the Log Stream object properties for a given ID.
 
-	This operation is typically used to update the configuration of a Log Stream.
-	Depending on the type of Log Stream you want to update, certain properties can't be modified after the Log Stream is initially created.
-	Use the [Retrieve the Log Stream Schema for the schema type](/openapi/okta-management/management/tag/Schema/#tag/Schema/operation/getLogStreamSchema) request to determine which properties you can update for the specific Log Stream type.
-	Log Stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
-	You must still specify these `writeOnce` properties in the request body with the original values in the PUT request.
+		This operation is typically used to update the configuration of a Log Stream.
+		Depending on the type of Log Stream you want to update, certain properties can't be modified after the Log Stream is initially created.
+		Use the [Retrieve the Log Stream Schema for the schema type](/openapi/okta-management/management/tag/Schema/#tag/Schema/operation/getLogStreamSchema) request to determine which properties you can update for the specific Log Stream type.
+		Log Stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
+		You must still specify these `writeOnce` properties in the request body with the original values in the PUT request.
 
-	> **Note:** You don't have to specify properties that have both the `"writeOnce": true` and the `"writeOnly": true` attributes in the PUT request body. These property values are ignored even if you add them in the PUT request body.
+		> **Note:** You don't have to specify properties that have both the `"writeOnce": true` and the `"writeOnly": true` attributes in the PUT request body. These property values are ignored even if you add them in the PUT request body.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param logStreamId Unique identifier for the Log Stream
-		@return ApiReplaceLogStreamRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param logStreamId Unique identifier for the Log Stream
+			@return ApiReplaceLogStreamRequest
 	*/
 	ReplaceLogStream(ctx context.Context, logStreamId string) ApiReplaceLogStreamRequest
 

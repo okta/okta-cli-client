@@ -20,8 +20,8 @@ var CreateUserdata string
 
 func NewCreateUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.CreateUser(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListUsersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Users",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ListUsers(apiClient.GetConfig().Context)
 
@@ -103,8 +103,8 @@ var (
 
 func NewUpdateUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "update",
-
+		Use:  "update",
+		Long: "Update a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.UpdateUser(apiClient.GetConfig().Context, UpdateUseruserId)
 
@@ -150,8 +150,8 @@ var GetUseruserId string
 
 func NewGetUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.GetUser(apiClient.GetConfig().Context, GetUseruserId)
 
@@ -194,8 +194,8 @@ var (
 
 func NewReplaceUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ReplaceUser(apiClient.GetConfig().Context, ReplaceUseruserId)
 
@@ -241,8 +241,8 @@ var DeleteUseruserId string
 
 func NewDeleteUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.DeleteUser(apiClient.GetConfig().Context, DeleteUseruserId)
 
@@ -281,8 +281,8 @@ var ListAppLinksuserId string
 
 func NewListAppLinksCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listAppLinks",
-
+		Use:  "listAppLinks",
+		Long: "List all Assigned Application Links",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ListAppLinks(apiClient.GetConfig().Context, ListAppLinksuserId)
 
@@ -321,8 +321,8 @@ var ListUserBlocksuserId string
 
 func NewListUserBlocksCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listBlocks",
-
+		Use:  "listBlocks",
+		Long: "List all User Blocks",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ListUserBlocks(apiClient.GetConfig().Context, ListUserBlocksuserId)
 
@@ -361,8 +361,8 @@ var ListUserClientsuserId string
 
 func NewListUserClientsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listClients",
-
+		Use:  "listClients",
+		Long: "List all Clients",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ListUserClients(apiClient.GetConfig().Context, ListUserClientsuserId)
 
@@ -405,8 +405,8 @@ var (
 
 func NewListGrantsForUserAndClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listGrantsForAndClient",
-
+		Use:  "listGrantsForAndClient",
+		Long: "List all Grants for a Client",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ListGrantsForUserAndClient(apiClient.GetConfig().Context, ListGrantsForUserAndClientuserId, ListGrantsForUserAndClientclientId)
 
@@ -452,8 +452,8 @@ var (
 
 func NewRevokeGrantsForUserAndClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeGrantsForAndClient",
-
+		Use:  "revokeGrantsForAndClient",
+		Long: "Revoke all Grants for a Client",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.RevokeGrantsForUserAndClient(apiClient.GetConfig().Context, RevokeGrantsForUserAndClientuserId, RevokeGrantsForUserAndClientclientId)
 
@@ -499,8 +499,8 @@ var (
 
 func NewListRefreshTokensForUserAndClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listRefreshTokensForAndClient",
-
+		Use:  "listRefreshTokensForAndClient",
+		Long: "List all Refresh Tokens for a Client",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ListRefreshTokensForUserAndClient(apiClient.GetConfig().Context, ListRefreshTokensForUserAndClientuserId, ListRefreshTokensForUserAndClientclientId)
 
@@ -546,8 +546,8 @@ var (
 
 func NewRevokeTokensForUserAndClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeTokensForAndClient",
-
+		Use:  "revokeTokensForAndClient",
+		Long: "Revoke all Refresh Tokens for a Client",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.RevokeTokensForUserAndClient(apiClient.GetConfig().Context, RevokeTokensForUserAndClientuserId, RevokeTokensForUserAndClientclientId)
 
@@ -595,8 +595,8 @@ var (
 
 func NewGetRefreshTokenForUserAndClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getRefreshTokenForAndClient",
-
+		Use:  "getRefreshTokenForAndClient",
+		Long: "Retrieve a Refresh Token for a Client",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.GetRefreshTokenForUserAndClient(apiClient.GetConfig().Context, GetRefreshTokenForUserAndClientuserId, GetRefreshTokenForUserAndClientclientId, GetRefreshTokenForUserAndClienttokenId)
 
@@ -647,8 +647,8 @@ var (
 
 func NewRevokeTokenForUserAndClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeTokenForAndClient",
-
+		Use:  "revokeTokenForAndClient",
+		Long: "Revoke a Token for a Client",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.RevokeTokenForUserAndClient(apiClient.GetConfig().Context, RevokeTokenForUserAndClientuserId, RevokeTokenForUserAndClientclientId, RevokeTokenForUserAndClienttokenId)
 
@@ -697,8 +697,8 @@ var (
 
 func NewChangePasswordCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "changePassword",
-
+		Use:  "changePassword",
+		Long: "Change Password",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ChangePassword(apiClient.GetConfig().Context, ChangePassworduserId)
 
@@ -748,8 +748,8 @@ var (
 
 func NewChangeRecoveryQuestionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "changeRecoveryQuestion",
-
+		Use:  "changeRecoveryQuestion",
+		Long: "Change Recovery Question",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ChangeRecoveryQuestion(apiClient.GetConfig().Context, ChangeRecoveryQuestionuserId)
 
@@ -795,8 +795,8 @@ var ForgotPassworduserId string
 
 func NewForgotPasswordCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "forgotPassword",
-
+		Use:  "forgotPassword",
+		Long: "Initiate Forgot Password",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ForgotPassword(apiClient.GetConfig().Context, ForgotPassworduserId)
 
@@ -839,8 +839,8 @@ var (
 
 func NewForgotPasswordSetNewPasswordCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "forgotPasswordSetNewPassword",
-
+		Use:  "forgotPasswordSetNewPassword",
+		Long: "Reset Password with Recovery Question",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ForgotPasswordSetNewPassword(apiClient.GetConfig().Context, ForgotPasswordSetNewPassworduserId)
 
@@ -886,8 +886,8 @@ var ListUserGrantsuserId string
 
 func NewListUserGrantsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listGrants",
-
+		Use:  "listGrants",
+		Long: "List all User Grants",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ListUserGrants(apiClient.GetConfig().Context, ListUserGrantsuserId)
 
@@ -926,8 +926,8 @@ var RevokeUserGrantsuserId string
 
 func NewRevokeUserGrantsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeGrants",
-
+		Use:  "revokeGrants",
+		Long: "Revoke all User Grants",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.RevokeUserGrants(apiClient.GetConfig().Context, RevokeUserGrantsuserId)
 
@@ -970,8 +970,8 @@ var (
 
 func NewGetUserGrantCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getGrant",
-
+		Use:  "getGrant",
+		Long: "Retrieve a User Grant",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.GetUserGrant(apiClient.GetConfig().Context, GetUserGrantuserId, GetUserGrantgrantId)
 
@@ -1017,8 +1017,8 @@ var (
 
 func NewRevokeUserGrantCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeGrant",
-
+		Use:  "revokeGrant",
+		Long: "Revoke a User Grant",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.RevokeUserGrant(apiClient.GetConfig().Context, RevokeUserGrantuserId, RevokeUserGrantgrantId)
 
@@ -1060,8 +1060,8 @@ var ListUserGroupsuserId string
 
 func NewListUserGroupsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listGroups",
-
+		Use:  "listGroups",
+		Long: "List all Groups",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ListUserGroups(apiClient.GetConfig().Context, ListUserGroupsuserId)
 
@@ -1100,8 +1100,8 @@ var ListUserIdentityProvidersuserId string
 
 func NewListUserIdentityProvidersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listIdentityProviders",
-
+		Use:  "listIdentityProviders",
+		Long: "List all Identity Providers",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ListUserIdentityProviders(apiClient.GetConfig().Context, ListUserIdentityProvidersuserId)
 
@@ -1140,8 +1140,8 @@ var ActivateUseruserId string
 
 func NewActivateUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ActivateUser(apiClient.GetConfig().Context, ActivateUseruserId)
 
@@ -1180,8 +1180,8 @@ var DeactivateUseruserId string
 
 func NewDeactivateUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.DeactivateUser(apiClient.GetConfig().Context, DeactivateUseruserId)
 
@@ -1220,8 +1220,8 @@ var ExpirePassworduserId string
 
 func NewExpirePasswordCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "expirePassword",
-
+		Use:  "expirePassword",
+		Long: "Expire Password",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ExpirePassword(apiClient.GetConfig().Context, ExpirePassworduserId)
 
@@ -1260,8 +1260,8 @@ var ExpirePasswordAndGetTemporaryPassworduserId string
 
 func NewExpirePasswordAndGetTemporaryPasswordCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "expirePasswordAndGetTemporaryPassword",
-
+		Use:  "expirePasswordAndGetTemporaryPassword",
+		Long: "Expire Password and Set Temporary Password",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ExpirePasswordAndGetTemporaryPassword(apiClient.GetConfig().Context, ExpirePasswordAndGetTemporaryPassworduserId)
 
@@ -1300,8 +1300,8 @@ var ReactivateUseruserId string
 
 func NewReactivateUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "reactivate",
-
+		Use:  "reactivate",
+		Long: "Reactivate a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ReactivateUser(apiClient.GetConfig().Context, ReactivateUseruserId)
 
@@ -1340,8 +1340,8 @@ var ResetFactorsuserId string
 
 func NewResetFactorsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "resetFactors",
-
+		Use:  "resetFactors",
+		Long: "Reset all Factors",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ResetFactors(apiClient.GetConfig().Context, ResetFactorsuserId)
 
@@ -1380,8 +1380,8 @@ var GenerateResetPasswordTokenuserId string
 
 func NewGenerateResetPasswordTokenCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "generateResetPasswordToken",
-
+		Use:  "generateResetPasswordToken",
+		Long: "Generate a Reset Password Token",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.GenerateResetPasswordToken(apiClient.GetConfig().Context, GenerateResetPasswordTokenuserId)
 
@@ -1420,8 +1420,8 @@ var SuspendUseruserId string
 
 func NewSuspendUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "suspend",
-
+		Use:  "suspend",
+		Long: "Suspend a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.SuspendUser(apiClient.GetConfig().Context, SuspendUseruserId)
 
@@ -1460,8 +1460,8 @@ var UnlockUseruserId string
 
 func NewUnlockUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unlock",
-
+		Use:  "unlock",
+		Long: "Unlock a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.UnlockUser(apiClient.GetConfig().Context, UnlockUseruserId)
 
@@ -1500,8 +1500,8 @@ var UnsuspendUseruserId string
 
 func NewUnsuspendUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unsuspend",
-
+		Use:  "unsuspend",
+		Long: "Unsuspend a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.UnsuspendUser(apiClient.GetConfig().Context, UnsuspendUseruserId)
 
@@ -1546,8 +1546,8 @@ var (
 
 func NewSetLinkedObjectForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "setLinkedObjectFor",
-
+		Use:  "setLinkedObjectFor",
+		Long: "Create a Linked Object for two Users",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.SetLinkedObjectForUser(apiClient.GetConfig().Context, SetLinkedObjectForUseruserId, SetLinkedObjectForUserprimaryRelationshipName, SetLinkedObjectForUserprimaryUserId)
 
@@ -1596,8 +1596,8 @@ var (
 
 func NewListLinkedObjectsForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listLinkedObjectsFor",
-
+		Use:  "listLinkedObjectsFor",
+		Long: "List all Linked Objects",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ListLinkedObjectsForUser(apiClient.GetConfig().Context, ListLinkedObjectsForUseruserId, ListLinkedObjectsForUserrelationshipName)
 
@@ -1643,8 +1643,8 @@ var (
 
 func NewDeleteLinkedObjectForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteLinkedObjectFor",
-
+		Use:  "deleteLinkedObjectFor",
+		Long: "Delete a Linked Object",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.DeleteLinkedObjectForUser(apiClient.GetConfig().Context, DeleteLinkedObjectForUseruserId, DeleteLinkedObjectForUserrelationshipName)
 
@@ -1686,8 +1686,8 @@ var RevokeUserSessionsuserId string
 
 func NewRevokeUserSessionsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeSessions",
-
+		Use:  "revokeSessions",
+		Long: "Revoke all User Sessions",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.RevokeUserSessions(apiClient.GetConfig().Context, RevokeUserSessionsuserId)
 

@@ -104,7 +104,7 @@ var (
 )
 
 func NewRegisterCmd() *cobra.Command {
-	var inputs = Registration{}
+	inputs := Registration{}
 	cmd := &cobra.Command{
 		Use:   "register",
 		Args:  cobra.NoArgs,
@@ -209,7 +209,7 @@ func createNewOrg(inputs Registration) (*OrgResponse, error) {
 
 func verifyOrg(identifier string) (*VerifyResponse, *string, error) {
 	var status string
-	var respBody = VerifyResponse{}
+	respBody := VerifyResponse{}
 	reqHeader := map[string]string{}
 	req, err := apiClient.PrepareRequest(apiClient.GetConfig().Context, fmt.Sprintf("%v/api/internal/v1/developer/redeem/%v", DefaultRegistrationBaseURL, identifier), http.MethodGet, nil, reqHeader, nil, nil, nil)
 	if err != nil {
@@ -266,7 +266,7 @@ func writeConfigFile(resp *VerifyResponse) error {
 	if err != nil {
 		return err
 	}
-	file, err := os.OpenFile(configPath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
+	file, err := os.OpenFile(configPath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0o600)
 	if err != nil {
 		return err
 	}

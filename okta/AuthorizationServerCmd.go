@@ -20,8 +20,8 @@ var CreateAuthorizationServerdata string
 
 func NewCreateAuthorizationServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create an Authorization Server",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAPI.CreateAuthorizationServer(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListAuthorizationServersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Authorization Servers",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAPI.ListAuthorizationServers(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetAuthorizationServerauthServerId string
 
 func NewGetAuthorizationServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve an Authorization Server",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAPI.GetAuthorizationServer(apiClient.GetConfig().Context, GetAuthorizationServerauthServerId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceAuthorizationServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace an Authorization Server",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAPI.ReplaceAuthorizationServer(apiClient.GetConfig().Context, ReplaceAuthorizationServerauthServerId)
 
@@ -190,8 +190,8 @@ var DeleteAuthorizationServerauthServerId string
 
 func NewDeleteAuthorizationServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete an Authorization Server",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAPI.DeleteAuthorizationServer(apiClient.GetConfig().Context, DeleteAuthorizationServerauthServerId)
 
@@ -230,8 +230,8 @@ var ActivateAuthorizationServerauthServerId string
 
 func NewActivateAuthorizationServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate an Authorization Server",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAPI.ActivateAuthorizationServer(apiClient.GetConfig().Context, ActivateAuthorizationServerauthServerId)
 
@@ -270,8 +270,8 @@ var DeactivateAuthorizationServerauthServerId string
 
 func NewDeactivateAuthorizationServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate an Authorization Server",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAPI.DeactivateAuthorizationServer(apiClient.GetConfig().Context, DeactivateAuthorizationServerauthServerId)
 

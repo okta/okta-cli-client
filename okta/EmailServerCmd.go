@@ -20,8 +20,8 @@ var CreateEmailServerdata string
 
 func NewCreateEmailServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a custom SMTP server",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailServerAPI.CreateEmailServer(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListEmailServersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all enrolled SMTP servers",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailServerAPI.ListEmailServers(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetEmailServeremailServerId string
 
 func NewGetEmailServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve an SMTP Server configuration",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailServerAPI.GetEmailServer(apiClient.GetConfig().Context, GetEmailServeremailServerId)
 
@@ -139,8 +139,8 @@ var DeleteEmailServeremailServerId string
 
 func NewDeleteEmailServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete an SMTP Server configuration",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailServerAPI.DeleteEmailServer(apiClient.GetConfig().Context, DeleteEmailServeremailServerId)
 
@@ -183,8 +183,8 @@ var (
 
 func NewUpdateEmailServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "update",
-
+		Use:  "update",
+		Long: "Update an SMTP Server configuration",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailServerAPI.UpdateEmailServer(apiClient.GetConfig().Context, UpdateEmailServeremailServerId)
 
@@ -234,8 +234,8 @@ var (
 
 func NewTestEmailServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "test",
-
+		Use:  "test",
+		Long: "Test an SMTP Server configuration",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailServerAPI.TestEmailServer(apiClient.GetConfig().Context, TestEmailServeremailServerId)
 

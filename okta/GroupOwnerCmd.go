@@ -24,8 +24,8 @@ var (
 
 func NewAssignGroupOwnerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assign",
-
+		Use:  "assign",
+		Long: "Assign a Group Owner",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupOwnerAPI.AssignGroupOwner(apiClient.GetConfig().Context, AssignGroupOwnergroupId)
 
@@ -71,8 +71,8 @@ var ListGroupOwnersgroupId string
 
 func NewListGroupOwnersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Group Owners",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupOwnerAPI.ListGroupOwners(apiClient.GetConfig().Context, ListGroupOwnersgroupId)
 
@@ -115,8 +115,8 @@ var (
 
 func NewDeleteGroupOwnerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Group Owner",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupOwnerAPI.DeleteGroupOwner(apiClient.GetConfig().Context, DeleteGroupOwnergroupId, DeleteGroupOwnerownerId)
 

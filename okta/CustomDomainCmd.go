@@ -20,8 +20,8 @@ var CreateCustomDomaindata string
 
 func NewCreateCustomDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Custom Domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomDomainAPI.CreateCustomDomain(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListCustomDomainsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Custom Domains",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomDomainAPI.ListCustomDomains(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetCustomDomaindomainId string
 
 func NewGetCustomDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Custom Domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomDomainAPI.GetCustomDomain(apiClient.GetConfig().Context, GetCustomDomaindomainId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceCustomDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a Custom Domain's Brand",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomDomainAPI.ReplaceCustomDomain(apiClient.GetConfig().Context, ReplaceCustomDomaindomainId)
 
@@ -190,8 +190,8 @@ var DeleteCustomDomaindomainId string
 
 func NewDeleteCustomDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Custom Domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomDomainAPI.DeleteCustomDomain(apiClient.GetConfig().Context, DeleteCustomDomaindomainId)
 
@@ -234,8 +234,8 @@ var (
 
 func NewUpsertCertificateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "upsertCertificate",
-
+		Use:  "upsertCertificate",
+		Long: "Upsert the Custom Domain's Certificate",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomDomainAPI.UpsertCertificate(apiClient.GetConfig().Context, UpsertCertificatedomainId)
 
@@ -281,8 +281,8 @@ var VerifyDomaindomainId string
 
 func NewVerifyDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "verifyDomain",
-
+		Use:  "verifyDomain",
+		Long: "Verify a Custom Domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomDomainAPI.VerifyDomain(apiClient.GetConfig().Context, VerifyDomaindomainId)
 

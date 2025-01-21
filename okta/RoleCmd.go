@@ -20,8 +20,8 @@ var CreateRoledata string
 
 func NewCreateRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAPI.CreateRole(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListRolesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Roles",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAPI.ListRoles(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetRoleroleIdOrLabel string
 
 func NewGetRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAPI.GetRole(apiClient.GetConfig().Context, GetRoleroleIdOrLabel)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAPI.ReplaceRole(apiClient.GetConfig().Context, ReplaceRoleroleIdOrLabel)
 
@@ -190,8 +190,8 @@ var DeleteRoleroleIdOrLabel string
 
 func NewDeleteRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAPI.DeleteRole(apiClient.GetConfig().Context, DeleteRoleroleIdOrLabel)
 
@@ -230,8 +230,8 @@ var ListRolePermissionsroleIdOrLabel string
 
 func NewListRolePermissionsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listPermissions",
-
+		Use:  "listPermissions",
+		Long: "List all Permissions",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAPI.ListRolePermissions(apiClient.GetConfig().Context, ListRolePermissionsroleIdOrLabel)
 
@@ -276,8 +276,8 @@ var (
 
 func NewCreateRolePermissionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createPermission",
-
+		Use:  "createPermission",
+		Long: "Create a Permission",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAPI.CreateRolePermission(apiClient.GetConfig().Context, CreateRolePermissionroleIdOrLabel, CreateRolePermissionpermissionType)
 
@@ -330,8 +330,8 @@ var (
 
 func NewGetRolePermissionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getPermission",
-
+		Use:  "getPermission",
+		Long: "Retrieve a Permission",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAPI.GetRolePermission(apiClient.GetConfig().Context, GetRolePermissionroleIdOrLabel, GetRolePermissionpermissionType)
 
@@ -379,8 +379,8 @@ var (
 
 func NewReplaceRolePermissionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replacePermission",
-
+		Use:  "replacePermission",
+		Long: "Replace a Permission",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAPI.ReplaceRolePermission(apiClient.GetConfig().Context, ReplaceRolePermissionroleIdOrLabel, ReplaceRolePermissionpermissionType)
 
@@ -433,8 +433,8 @@ var (
 
 func NewDeleteRolePermissionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deletePermission",
-
+		Use:  "deletePermission",
+		Long: "Delete a Permission",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAPI.DeleteRolePermission(apiClient.GetConfig().Context, DeleteRolePermissionroleIdOrLabel, DeleteRolePermissionpermissionType)
 

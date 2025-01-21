@@ -20,8 +20,8 @@ var CreatePushProviderdata string
 
 func NewCreatePushProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Push Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PushProviderAPI.CreatePushProvider(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListPushProvidersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Push Providers",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PushProviderAPI.ListPushProviders(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetPushProviderpushProviderId string
 
 func NewGetPushProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Push Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PushProviderAPI.GetPushProvider(apiClient.GetConfig().Context, GetPushProviderpushProviderId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplacePushProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a Push Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PushProviderAPI.ReplacePushProvider(apiClient.GetConfig().Context, ReplacePushProviderpushProviderId)
 
@@ -190,8 +190,8 @@ var DeletePushProviderpushProviderId string
 
 func NewDeletePushProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Push Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PushProviderAPI.DeletePushProvider(apiClient.GetConfig().Context, DeletePushProviderpushProviderId)
 

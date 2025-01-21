@@ -39,16 +39,16 @@ type ProfileMappingAPI interface {
 	GetProfileMappingExecute(r ApiGetProfileMappingRequest) (*APIResponse, error)
 
 	/*
-		ListProfileMappings List all Profile Mappings
+			ListProfileMappings List all Profile Mappings
 
-		Lists all profile mappings in your organization with [pagination](https://developer.okta.com/docs/api/#pagination). You can return a subset of profile mappings that match a supported `sourceId` and/or `targetId`.
-	The results are [paginated](/#pagination) according to the limit parameter. If there are multiple pages of results, the Link header contains a `next` link that should be treated as an opaque value (follow it, don't parse it).
+			Lists all profile mappings in your organization with [pagination](https://developer.okta.com/docs/api/#pagination). You can return a subset of profile mappings that match a supported `sourceId` and/or `targetId`.
+		The results are [paginated](/#pagination) according to the limit parameter. If there are multiple pages of results, the Link header contains a `next` link that should be treated as an opaque value (follow it, don't parse it).
 
-	The response is a collection of profile mappings that include a subset of the profile mapping object's parameters. The profile mapping object describes
-	the properties mapping between an Okta User and an App User Profile using [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04).
+		The response is a collection of profile mappings that include a subset of the profile mapping object's parameters. The profile mapping object describes
+		the properties mapping between an Okta User and an App User Profile using [JSON Schema Draft 4](https://datatracker.ietf.org/doc/html/draft-zyp-json-schema-04).
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListProfileMappingsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListProfileMappingsRequest
 	*/
 	ListProfileMappings(ctx context.Context) ApiListProfileMappingsRequest
 

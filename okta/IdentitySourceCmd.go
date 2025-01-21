@@ -20,8 +20,8 @@ var CreateIdentitySourceSessionidentitySourceId string
 
 func NewCreateIdentitySourceSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createSession",
-
+		Use:  "createSession",
+		Long: "Create an Identity Source Session",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentitySourceAPI.CreateIdentitySourceSession(apiClient.GetConfig().Context, CreateIdentitySourceSessionidentitySourceId)
 
@@ -60,8 +60,8 @@ var ListIdentitySourceSessionsidentitySourceId string
 
 func NewListIdentitySourceSessionsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listSessions",
-
+		Use:  "listSessions",
+		Long: "List all Identity Source Sessions",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentitySourceAPI.ListIdentitySourceSessions(apiClient.GetConfig().Context, ListIdentitySourceSessionsidentitySourceId)
 
@@ -104,8 +104,8 @@ var (
 
 func NewGetIdentitySourceSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getSession",
-
+		Use:  "getSession",
+		Long: "Retrieve an Identity Source Session",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentitySourceAPI.GetIdentitySourceSession(apiClient.GetConfig().Context, GetIdentitySourceSessionidentitySourceId, GetIdentitySourceSessionsessionId)
 
@@ -151,8 +151,8 @@ var (
 
 func NewDeleteIdentitySourceSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteSession",
-
+		Use:  "deleteSession",
+		Long: "Delete an Identity Source Session",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentitySourceAPI.DeleteIdentitySourceSession(apiClient.GetConfig().Context, DeleteIdentitySourceSessionidentitySourceId, DeleteIdentitySourceSessionsessionId)
 
@@ -200,8 +200,8 @@ var (
 
 func NewUploadIdentitySourceDataForDeleteCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "uploadDataForDelete",
-
+		Use:  "uploadDataForDelete",
+		Long: "Upload the data to be deleted in Okta",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentitySourceAPI.UploadIdentitySourceDataForDelete(apiClient.GetConfig().Context, UploadIdentitySourceDataForDeleteidentitySourceId, UploadIdentitySourceDataForDeletesessionId)
 
@@ -256,8 +256,8 @@ var (
 
 func NewUploadIdentitySourceDataForUpsertCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "uploadDataForUpsert",
-
+		Use:  "uploadDataForUpsert",
+		Long: "Upload the data to be upserted in Okta",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentitySourceAPI.UploadIdentitySourceDataForUpsert(apiClient.GetConfig().Context, UploadIdentitySourceDataForUpsertidentitySourceId, UploadIdentitySourceDataForUpsertsessionId)
 
@@ -310,8 +310,8 @@ var (
 
 func NewStartImportFromIdentitySourceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "startImportFrom",
-
+		Use:  "startImportFrom",
+		Long: "Start the import from the Identity Source",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentitySourceAPI.StartImportFromIdentitySource(apiClient.GetConfig().Context, StartImportFromIdentitySourceidentitySourceId, StartImportFromIdentitySourcesessionId)
 

@@ -20,8 +20,8 @@ var CreateApiServiceIntegrationInstancedata string
 
 func NewCreateApiServiceIntegrationInstanceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createApiServiceIntegrationInstance",
-
+		Use:  "createApiServiceIntegrationInstance",
+		Long: "Create an API Service Integration instance",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstance(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListApiServiceIntegrationInstancesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listApiServiceIntegrationInstances",
-
+		Use:  "listApiServiceIntegrationInstances",
+		Long: "List all API Service Integration instances",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetApiServiceIntegrationInstanceapiServiceId string
 
 func NewGetApiServiceIntegrationInstanceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getApiServiceIntegrationInstance",
-
+		Use:  "getApiServiceIntegrationInstance",
+		Long: "Retrieve an API Service Integration instance",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.GetApiServiceIntegrationInstance(apiClient.GetConfig().Context, GetApiServiceIntegrationInstanceapiServiceId)
 
@@ -139,8 +139,8 @@ var DeleteApiServiceIntegrationInstanceapiServiceId string
 
 func NewDeleteApiServiceIntegrationInstanceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteApiServiceIntegrationInstance",
-
+		Use:  "deleteApiServiceIntegrationInstance",
+		Long: "Delete an API Service Integration instance",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstance(apiClient.GetConfig().Context, DeleteApiServiceIntegrationInstanceapiServiceId)
 
@@ -179,8 +179,8 @@ var CreateApiServiceIntegrationInstanceSecretapiServiceId string
 
 func NewCreateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createApiServiceIntegrationInstanceSecret",
-
+		Use:  "createApiServiceIntegrationInstanceSecret",
+		Long: "Create an API Service Integration instance Secret",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.CreateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, CreateApiServiceIntegrationInstanceSecretapiServiceId)
 
@@ -219,8 +219,8 @@ var ListApiServiceIntegrationInstanceSecretsapiServiceId string
 
 func NewListApiServiceIntegrationInstanceSecretsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listApiServiceIntegrationInstanceSecrets",
-
+		Use:  "listApiServiceIntegrationInstanceSecrets",
+		Long: "List all API Service Integration instance Secrets",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstanceSecrets(apiClient.GetConfig().Context, ListApiServiceIntegrationInstanceSecretsapiServiceId)
 
@@ -263,8 +263,8 @@ var (
 
 func NewDeleteApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteApiServiceIntegrationInstanceSecret",
-
+		Use:  "deleteApiServiceIntegrationInstanceSecret",
+		Long: "Delete an API Service Integration instance Secret",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.DeleteApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, DeleteApiServiceIntegrationInstanceSecretapiServiceId, DeleteApiServiceIntegrationInstanceSecretsecretId)
 
@@ -310,8 +310,8 @@ var (
 
 func NewActivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activateApiServiceIntegrationInstanceSecret",
-
+		Use:  "activateApiServiceIntegrationInstanceSecret",
+		Long: "Activate an API Service Integration instance Secret",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.ActivateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, ActivateApiServiceIntegrationInstanceSecretapiServiceId, ActivateApiServiceIntegrationInstanceSecretsecretId)
 
@@ -357,8 +357,8 @@ var (
 
 func NewDeactivateApiServiceIntegrationInstanceSecretCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivateApiServiceIntegrationInstanceSecret",
-
+		Use:  "deactivateApiServiceIntegrationInstanceSecret",
+		Long: "Deactivate an API Service Integration instance Secret",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiServiceIntegrationsAPI.DeactivateApiServiceIntegrationInstanceSecret(apiClient.GetConfig().Context, DeactivateApiServiceIntegrationInstanceSecretapiServiceId, DeactivateApiServiceIntegrationInstanceSecretsecretId)
 

@@ -24,8 +24,8 @@ var (
 
 func NewAssignRoleToGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignRoleToGroup",
-
+		Use:  "assignRoleToGroup",
+		Long: "Assign a Role to a Group",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAssignmentAPI.AssignRoleToGroup(apiClient.GetConfig().Context, AssignRoleToGroupgroupId)
 
@@ -71,8 +71,8 @@ var ListGroupAssignedRolesgroupId string
 
 func NewListGroupAssignedRolesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listGroupAssignedRoles",
-
+		Use:  "listGroupAssignedRoles",
+		Long: "List all Assigned Roles of Group",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAssignmentAPI.ListGroupAssignedRoles(apiClient.GetConfig().Context, ListGroupAssignedRolesgroupId)
 
@@ -115,8 +115,8 @@ var (
 
 func NewGetGroupAssignedRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getGroupAssignedRole",
-
+		Use:  "getGroupAssignedRole",
+		Long: "Retrieve a Role assigned to Group",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAssignmentAPI.GetGroupAssignedRole(apiClient.GetConfig().Context, GetGroupAssignedRolegroupId, GetGroupAssignedRoleroleId)
 
@@ -162,8 +162,8 @@ var (
 
 func NewUnassignRoleFromGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignRoleFromGroup",
-
+		Use:  "unassignRoleFromGroup",
+		Long: "Unassign a Role from a Group",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAssignmentAPI.UnassignRoleFromGroup(apiClient.GetConfig().Context, UnassignRoleFromGroupgroupId, UnassignRoleFromGrouproleId)
 
@@ -203,8 +203,8 @@ func init() {
 
 func NewListUsersWithRoleAssignmentsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listUsersWiths",
-
+		Use:  "listUsersWiths",
+		Long: "List all Users with Role Assignments",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAssignmentAPI.ListUsersWithRoleAssignments(apiClient.GetConfig().Context)
 
@@ -244,8 +244,8 @@ var (
 
 func NewAssignRoleToUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignRoleToUser",
-
+		Use:  "assignRoleToUser",
+		Long: "Assign a Role to a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAssignmentAPI.AssignRoleToUser(apiClient.GetConfig().Context, AssignRoleToUseruserId)
 
@@ -291,8 +291,8 @@ var ListAssignedRolesForUseruserId string
 
 func NewListAssignedRolesForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listAssignedRolesForUser",
-
+		Use:  "listAssignedRolesForUser",
+		Long: "List all Roles assigned to a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAssignmentAPI.ListAssignedRolesForUser(apiClient.GetConfig().Context, ListAssignedRolesForUseruserId)
 
@@ -335,8 +335,8 @@ var (
 
 func NewGetUserAssignedRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getUserAssignedRole",
-
+		Use:  "getUserAssignedRole",
+		Long: "Retrieve a Role assigned to a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAssignmentAPI.GetUserAssignedRole(apiClient.GetConfig().Context, GetUserAssignedRoleuserId, GetUserAssignedRoleroleId)
 
@@ -382,8 +382,8 @@ var (
 
 func NewUnassignRoleFromUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignRoleFromUser",
-
+		Use:  "unassignRoleFromUser",
+		Long: "Unassign a Role from a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleAssignmentAPI.UnassignRoleFromUser(apiClient.GetConfig().Context, UnassignRoleFromUseruserId, UnassignRoleFromUserroleId)
 

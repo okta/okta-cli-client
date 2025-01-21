@@ -24,8 +24,8 @@ var (
 
 func NewCreateAssociatedServersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createAssociatedServers",
-
+		Use:  "createAssociatedServers",
+		Long: "Create an associated Authorization Server",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAssocAPI.CreateAssociatedServers(apiClient.GetConfig().Context, CreateAssociatedServersauthServerId)
 
@@ -71,8 +71,8 @@ var ListAssociatedServersByTrustedTypeauthServerId string
 
 func NewListAssociatedServersByTrustedTypeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listAssociatedServersByTrustedType",
-
+		Use:  "listAssociatedServersByTrustedType",
+		Long: "List all associated Authorization Servers",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAssocAPI.ListAssociatedServersByTrustedType(apiClient.GetConfig().Context, ListAssociatedServersByTrustedTypeauthServerId)
 
@@ -115,8 +115,8 @@ var (
 
 func NewDeleteAssociatedServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteAssociatedServer",
-
+		Use:  "deleteAssociatedServer",
+		Long: "Delete an associated Authorization Server",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerAssocAPI.DeleteAssociatedServer(apiClient.GetConfig().Context, DeleteAssociatedServerauthServerId, DeleteAssociatedServerassociatedServerId)
 

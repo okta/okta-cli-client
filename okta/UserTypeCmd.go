@@ -20,8 +20,8 @@ var CreateUserTypedata string
 
 func NewCreateUserTypeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a User Type",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserTypeAPI.CreateUserType(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListUserTypesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all User Types",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserTypeAPI.ListUserTypes(apiClient.GetConfig().Context)
 
@@ -103,8 +103,8 @@ var (
 
 func NewUpdateUserTypeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "update",
-
+		Use:  "update",
+		Long: "Update a User Type",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserTypeAPI.UpdateUserType(apiClient.GetConfig().Context, UpdateUserTypetypeId)
 
@@ -150,8 +150,8 @@ var GetUserTypetypeId string
 
 func NewGetUserTypeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a User Type",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserTypeAPI.GetUserType(apiClient.GetConfig().Context, GetUserTypetypeId)
 
@@ -194,8 +194,8 @@ var (
 
 func NewReplaceUserTypeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a User Type",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserTypeAPI.ReplaceUserType(apiClient.GetConfig().Context, ReplaceUserTypetypeId)
 
@@ -241,8 +241,8 @@ var DeleteUserTypetypeId string
 
 func NewDeleteUserTypeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a User Type",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserTypeAPI.DeleteUserType(apiClient.GetConfig().Context, DeleteUserTypetypeId)
 

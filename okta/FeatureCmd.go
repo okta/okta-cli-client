@@ -18,8 +18,8 @@ func init() {
 
 func NewListFeaturesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Features",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.FeatureAPI.ListFeatures(apiClient.GetConfig().Context)
 
@@ -55,8 +55,8 @@ var GetFeaturefeatureId string
 
 func NewGetFeatureCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Feature",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.FeatureAPI.GetFeature(apiClient.GetConfig().Context, GetFeaturefeatureId)
 
@@ -95,8 +95,8 @@ var ListFeatureDependenciesfeatureId string
 
 func NewListFeatureDependenciesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listDependencies",
-
+		Use:  "listDependencies",
+		Long: "List all dependencies",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.FeatureAPI.ListFeatureDependencies(apiClient.GetConfig().Context, ListFeatureDependenciesfeatureId)
 
@@ -135,8 +135,8 @@ var ListFeatureDependentsfeatureId string
 
 func NewListFeatureDependentsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listDependents",
-
+		Use:  "listDependents",
+		Long: "List all dependents",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.FeatureAPI.ListFeatureDependents(apiClient.GetConfig().Context, ListFeatureDependentsfeatureId)
 
@@ -179,8 +179,8 @@ var (
 
 func NewUpdateFeatureLifecycleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateLifecycle",
-
+		Use:  "updateLifecycle",
+		Long: "Update a Feature lifecycle",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.FeatureAPI.UpdateFeatureLifecycle(apiClient.GetConfig().Context, UpdateFeatureLifecyclefeatureId, UpdateFeatureLifecyclelifecycle)
 

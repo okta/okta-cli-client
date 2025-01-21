@@ -18,8 +18,8 @@ func init() {
 
 func NewGetAuthenticatorSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getAuthenticatorSettings",
-
+		Use:  "getAuthenticatorSettings",
+		Long: "Retrieve the Authenticator Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AttackProtectionAPI.GetAuthenticatorSettings(apiClient.GetConfig().Context)
 
@@ -55,8 +55,8 @@ var ReplaceAuthenticatorSettingsdata string
 
 func NewReplaceAuthenticatorSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceAuthenticatorSettings",
-
+		Use:  "replaceAuthenticatorSettings",
+		Long: "Replace the Authenticator Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AttackProtectionAPI.ReplaceAuthenticatorSettings(apiClient.GetConfig().Context)
 
@@ -97,8 +97,8 @@ func init() {
 
 func NewGetUserLockoutSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getUserLockoutSettings",
-
+		Use:  "getUserLockoutSettings",
+		Long: "Retrieve the User Lockout Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AttackProtectionAPI.GetUserLockoutSettings(apiClient.GetConfig().Context)
 
@@ -134,8 +134,8 @@ var ReplaceUserLockoutSettingsdata string
 
 func NewReplaceUserLockoutSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceUserLockoutSettings",
-
+		Use:  "replaceUserLockoutSettings",
+		Long: "Replace the User Lockout Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AttackProtectionAPI.ReplaceUserLockoutSettings(apiClient.GetConfig().Context)
 

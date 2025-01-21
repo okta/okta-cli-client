@@ -20,8 +20,8 @@ var CreateGroupdata string
 
 func NewCreateGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Group",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.CreateGroup(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListGroupsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Groups",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.ListGroups(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var CreateGroupRuledata string
 
 func NewCreateGroupRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createRule",
-
+		Use:  "createRule",
+		Long: "Create a Group Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.CreateGroupRule(apiClient.GetConfig().Context)
 
@@ -141,8 +141,8 @@ func init() {
 
 func NewListGroupRulesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listRules",
-
+		Use:  "listRules",
+		Long: "List all Group Rules",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.ListGroupRules(apiClient.GetConfig().Context)
 
@@ -178,8 +178,8 @@ var GetGroupRulegroupRuleId string
 
 func NewGetGroupRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getRule",
-
+		Use:  "getRule",
+		Long: "Retrieve a Group Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.GetGroupRule(apiClient.GetConfig().Context, GetGroupRulegroupRuleId)
 
@@ -222,8 +222,8 @@ var (
 
 func NewReplaceGroupRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceRule",
-
+		Use:  "replaceRule",
+		Long: "Replace a Group Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.ReplaceGroupRule(apiClient.GetConfig().Context, ReplaceGroupRulegroupRuleId)
 
@@ -269,8 +269,8 @@ var DeleteGroupRulegroupRuleId string
 
 func NewDeleteGroupRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteRule",
-
+		Use:  "deleteRule",
+		Long: "Delete a group Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.DeleteGroupRule(apiClient.GetConfig().Context, DeleteGroupRulegroupRuleId)
 
@@ -309,8 +309,8 @@ var ActivateGroupRulegroupRuleId string
 
 func NewActivateGroupRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activateRule",
-
+		Use:  "activateRule",
+		Long: "Activate a Group Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.ActivateGroupRule(apiClient.GetConfig().Context, ActivateGroupRulegroupRuleId)
 
@@ -349,8 +349,8 @@ var DeactivateGroupRulegroupRuleId string
 
 func NewDeactivateGroupRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivateRule",
-
+		Use:  "deactivateRule",
+		Long: "Deactivate a Group Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.DeactivateGroupRule(apiClient.GetConfig().Context, DeactivateGroupRulegroupRuleId)
 
@@ -389,8 +389,8 @@ var GetGroupgroupId string
 
 func NewGetGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Group",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.GetGroup(apiClient.GetConfig().Context, GetGroupgroupId)
 
@@ -433,8 +433,8 @@ var (
 
 func NewReplaceGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a Group",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.ReplaceGroup(apiClient.GetConfig().Context, ReplaceGroupgroupId)
 
@@ -480,8 +480,8 @@ var DeleteGroupgroupId string
 
 func NewDeleteGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Group",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.DeleteGroup(apiClient.GetConfig().Context, DeleteGroupgroupId)
 
@@ -520,8 +520,8 @@ var ListAssignedApplicationsForGroupgroupId string
 
 func NewListAssignedApplicationsForGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listAssignedApplicationsFor",
-
+		Use:  "listAssignedApplicationsFor",
+		Long: "List all Assigned Applications",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.ListAssignedApplicationsForGroup(apiClient.GetConfig().Context, ListAssignedApplicationsForGroupgroupId)
 
@@ -560,8 +560,8 @@ var ListGroupUsersgroupId string
 
 func NewListGroupUsersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listUsers",
-
+		Use:  "listUsers",
+		Long: "List all Member Users",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.ListGroupUsers(apiClient.GetConfig().Context, ListGroupUsersgroupId)
 
@@ -604,8 +604,8 @@ var (
 
 func NewAssignUserToGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignUserTo",
-
+		Use:  "assignUserTo",
+		Long: "Assign a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.AssignUserToGroup(apiClient.GetConfig().Context, AssignUserToGroupgroupId, AssignUserToGroupuserId)
 
@@ -651,8 +651,8 @@ var (
 
 func NewUnassignUserFromGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignUserFrom",
-
+		Use:  "unassignUserFrom",
+		Long: "Unassign a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.GroupAPI.UnassignUserFromGroup(apiClient.GetConfig().Context, UnassignUserFromGroupgroupId, UnassignUserFromGroupuserId)
 

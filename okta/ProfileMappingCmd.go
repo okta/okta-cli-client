@@ -18,8 +18,8 @@ func init() {
 
 func NewListProfileMappingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Profile Mappings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ProfileMappingAPI.ListProfileMappings(apiClient.GetConfig().Context)
 
@@ -59,8 +59,8 @@ var (
 
 func NewUpdateProfileMappingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "update",
-
+		Use:  "update",
+		Long: "Update a Profile Mapping",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ProfileMappingAPI.UpdateProfileMapping(apiClient.GetConfig().Context, UpdateProfileMappingmappingId)
 
@@ -106,8 +106,8 @@ var GetProfileMappingmappingId string
 
 func NewGetProfileMappingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Profile Mapping",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ProfileMappingAPI.GetProfileMapping(apiClient.GetConfig().Context, GetProfileMappingmappingId)
 

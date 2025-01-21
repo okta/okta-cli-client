@@ -20,8 +20,8 @@ var ActivatePreregistrationEnrollmentdata string
 
 func NewActivatePreregistrationEnrollmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activatePreregistrationEnrollment",
-
+		Use:  "activatePreregistrationEnrollment",
+		Long: "Activate a Preregistered WebAuthn Factor",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.WebAuthnPreregistrationAPI.ActivatePreregistrationEnrollment(apiClient.GetConfig().Context)
 
@@ -64,8 +64,8 @@ var EnrollPreregistrationEnrollmentdata string
 
 func NewEnrollPreregistrationEnrollmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "enrollPreregistrationEnrollment",
-
+		Use:  "enrollPreregistrationEnrollment",
+		Long: "Enroll a Preregistered WebAuthn Factor",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.WebAuthnPreregistrationAPI.EnrollPreregistrationEnrollment(apiClient.GetConfig().Context)
 
@@ -108,8 +108,8 @@ var GenerateFulfillmentRequestdata string
 
 func NewGenerateFulfillmentRequestCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "generateFulfillmentRequest",
-
+		Use:  "generateFulfillmentRequest",
+		Long: "Generate a Fulfillment Request",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.WebAuthnPreregistrationAPI.GenerateFulfillmentRequest(apiClient.GetConfig().Context)
 
@@ -152,8 +152,8 @@ var ListWebAuthnPreregistrationFactorsuserId string
 
 func NewListWebAuthnPreregistrationFactorsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listFactors",
-
+		Use:  "listFactors",
+		Long: "List all WebAuthn Preregistration Factors",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.WebAuthnPreregistrationAPI.ListWebAuthnPreregistrationFactors(apiClient.GetConfig().Context, ListWebAuthnPreregistrationFactorsuserId)
 
@@ -196,8 +196,8 @@ var (
 
 func NewDeleteWebAuthnPreregistrationFactorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteFactor",
-
+		Use:  "deleteFactor",
+		Long: "Delete a WebAuthn Preregistration Factor",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.WebAuthnPreregistrationAPI.DeleteWebAuthnPreregistrationFactor(apiClient.GetConfig().Context, DeleteWebAuthnPreregistrationFactoruserId, DeleteWebAuthnPreregistrationFactorauthenticatorEnrollmentId)
 

@@ -20,8 +20,8 @@ var CreateRealmAssignmentdata string
 
 func NewCreateRealmAssignmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Realm Assignment",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAssignmentAPI.CreateRealmAssignment(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListRealmAssignmentsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Realm Assignments",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAssignmentAPI.ListRealmAssignments(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var ExecuteRealmAssignmentdata string
 
 func NewExecuteRealmAssignmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "execute",
-
+		Use:  "execute",
+		Long: "Execute a Realm Assignment",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAssignmentAPI.ExecuteRealmAssignment(apiClient.GetConfig().Context)
 
@@ -141,8 +141,8 @@ func init() {
 
 func NewListRealmAssignmentOperationsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listOperations",
-
+		Use:  "listOperations",
+		Long: "List all Realm Assignment operations",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAssignmentAPI.ListRealmAssignmentOperations(apiClient.GetConfig().Context)
 
@@ -178,8 +178,8 @@ var GetRealmAssignmentassignmentId string
 
 func NewGetRealmAssignmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Realm Assignment",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAssignmentAPI.GetRealmAssignment(apiClient.GetConfig().Context, GetRealmAssignmentassignmentId)
 
@@ -222,8 +222,8 @@ var (
 
 func NewReplaceRealmAssignmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a Realm Assignment",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAssignmentAPI.ReplaceRealmAssignment(apiClient.GetConfig().Context, ReplaceRealmAssignmentassignmentId)
 
@@ -269,8 +269,8 @@ var DeleteRealmAssignmentassignmentId string
 
 func NewDeleteRealmAssignmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Realm Assignment",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAssignmentAPI.DeleteRealmAssignment(apiClient.GetConfig().Context, DeleteRealmAssignmentassignmentId)
 
@@ -309,8 +309,8 @@ var ActivateRealmAssignmentassignmentId string
 
 func NewActivateRealmAssignmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate a Realm Assignment",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAssignmentAPI.ActivateRealmAssignment(apiClient.GetConfig().Context, ActivateRealmAssignmentassignmentId)
 
@@ -349,8 +349,8 @@ var DeactivateRealmAssignmentassignmentId string
 
 func NewDeactivateRealmAssignmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate a Realm Assignment",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAssignmentAPI.DeactivateRealmAssignment(apiClient.GetConfig().Context, DeactivateRealmAssignmentassignmentId)
 

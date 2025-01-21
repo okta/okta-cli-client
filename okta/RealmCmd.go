@@ -20,8 +20,8 @@ var CreateRealmdata string
 
 func NewCreateRealmCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Realm",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAPI.CreateRealm(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListRealmsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Realms",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAPI.ListRealms(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetRealmrealmId string
 
 func NewGetRealmCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Realm",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAPI.GetRealm(apiClient.GetConfig().Context, GetRealmrealmId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceRealmCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace the realm profile",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAPI.ReplaceRealm(apiClient.GetConfig().Context, ReplaceRealmrealmId)
 
@@ -190,8 +190,8 @@ var DeleteRealmrealmId string
 
 func NewDeleteRealmCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Realm",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RealmAPI.DeleteRealm(apiClient.GetConfig().Context, DeleteRealmrealmId)
 

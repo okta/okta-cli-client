@@ -20,8 +20,8 @@ var PreviewSAMLmetadataForApplicationappId string
 
 func NewPreviewSAMLmetadataForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "previewSAMLmetadataForApplication",
-
+		Use:  "previewSAMLmetadataForApplication",
+		Long: "Preview the application SAML metadata",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationSSOAPI.PreviewSAMLmetadataForApplication(apiClient.GetConfig().Context, PreviewSAMLmetadataForApplicationappId)
 

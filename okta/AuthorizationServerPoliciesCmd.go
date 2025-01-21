@@ -24,8 +24,8 @@ var (
 
 func NewCreateAuthorizationServerPolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createAuthorizationServerPolicy",
-
+		Use:  "createAuthorizationServerPolicy",
+		Long: "Create a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerPoliciesAPI.CreateAuthorizationServerPolicy(apiClient.GetConfig().Context, CreateAuthorizationServerPolicyauthServerId)
 
@@ -71,8 +71,8 @@ var ListAuthorizationServerPoliciesauthServerId string
 
 func NewListAuthorizationServerPoliciesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "list",
-
+		Use:  "list",
+		Long: "List all Policies",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerPoliciesAPI.ListAuthorizationServerPolicies(apiClient.GetConfig().Context, ListAuthorizationServerPoliciesauthServerId)
 
@@ -115,8 +115,8 @@ var (
 
 func NewGetAuthorizationServerPolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getAuthorizationServerPolicy",
-
+		Use:  "getAuthorizationServerPolicy",
+		Long: "Retrieve a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerPoliciesAPI.GetAuthorizationServerPolicy(apiClient.GetConfig().Context, GetAuthorizationServerPolicyauthServerId, GetAuthorizationServerPolicypolicyId)
 
@@ -164,8 +164,8 @@ var (
 
 func NewReplaceAuthorizationServerPolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceAuthorizationServerPolicy",
-
+		Use:  "replaceAuthorizationServerPolicy",
+		Long: "Replace a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerPoliciesAPI.ReplaceAuthorizationServerPolicy(apiClient.GetConfig().Context, ReplaceAuthorizationServerPolicyauthServerId, ReplaceAuthorizationServerPolicypolicyId)
 
@@ -218,8 +218,8 @@ var (
 
 func NewDeleteAuthorizationServerPolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteAuthorizationServerPolicy",
-
+		Use:  "deleteAuthorizationServerPolicy",
+		Long: "Delete a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerPoliciesAPI.DeleteAuthorizationServerPolicy(apiClient.GetConfig().Context, DeleteAuthorizationServerPolicyauthServerId, DeleteAuthorizationServerPolicypolicyId)
 
@@ -265,8 +265,8 @@ var (
 
 func NewActivateAuthorizationServerPolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activateAuthorizationServerPolicy",
-
+		Use:  "activateAuthorizationServerPolicy",
+		Long: "Activate a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerPoliciesAPI.ActivateAuthorizationServerPolicy(apiClient.GetConfig().Context, ActivateAuthorizationServerPolicyauthServerId, ActivateAuthorizationServerPolicypolicyId)
 
@@ -312,8 +312,8 @@ var (
 
 func NewDeactivateAuthorizationServerPolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivateAuthorizationServerPolicy",
-
+		Use:  "deactivateAuthorizationServerPolicy",
+		Long: "Deactivate a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerPoliciesAPI.DeactivateAuthorizationServerPolicy(apiClient.GetConfig().Context, DeactivateAuthorizationServerPolicyauthServerId, DeactivateAuthorizationServerPolicypolicyId)
 

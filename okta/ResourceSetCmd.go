@@ -20,8 +20,8 @@ var CreateResourceSetdata string
 
 func NewCreateResourceSetCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Resource Set",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.CreateResourceSet(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListResourceSetsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Resource Sets",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.ListResourceSets(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetResourceSetresourceSetId string
 
 func NewGetResourceSetCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Resource Set",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.GetResourceSet(apiClient.GetConfig().Context, GetResourceSetresourceSetId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceResourceSetCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a Resource Set",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.ReplaceResourceSet(apiClient.GetConfig().Context, ReplaceResourceSetresourceSetId)
 
@@ -190,8 +190,8 @@ var DeleteResourceSetresourceSetId string
 
 func NewDeleteResourceSetCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Resource Set",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.DeleteResourceSet(apiClient.GetConfig().Context, DeleteResourceSetresourceSetId)
 
@@ -234,8 +234,8 @@ var (
 
 func NewCreateResourceSetBindingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createBinding",
-
+		Use:  "createBinding",
+		Long: "Create a Resource Set Binding",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.CreateResourceSetBinding(apiClient.GetConfig().Context, CreateResourceSetBindingresourceSetId)
 
@@ -281,8 +281,8 @@ var ListBindingsresourceSetId string
 
 func NewListBindingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listBindings",
-
+		Use:  "listBindings",
+		Long: "List all Bindings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.ListBindings(apiClient.GetConfig().Context, ListBindingsresourceSetId)
 
@@ -325,8 +325,8 @@ var (
 
 func NewGetBindingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getBinding",
-
+		Use:  "getBinding",
+		Long: "Retrieve a Binding",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.GetBinding(apiClient.GetConfig().Context, GetBindingresourceSetId, GetBindingroleIdOrLabel)
 
@@ -372,8 +372,8 @@ var (
 
 func NewDeleteBindingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteBinding",
-
+		Use:  "deleteBinding",
+		Long: "Delete a Binding",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.DeleteBinding(apiClient.GetConfig().Context, DeleteBindingresourceSetId, DeleteBindingroleIdOrLabel)
 
@@ -419,8 +419,8 @@ var (
 
 func NewListMembersOfBindingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listMembersOfBinding",
-
+		Use:  "listMembersOfBinding",
+		Long: "List all Members of a binding",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.ListMembersOfBinding(apiClient.GetConfig().Context, ListMembersOfBindingresourceSetId, ListMembersOfBindingroleIdOrLabel)
 
@@ -468,8 +468,8 @@ var (
 
 func NewAddMembersToBindingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "addMembersToBinding",
-
+		Use:  "addMembersToBinding",
+		Long: "Add more Members to a binding",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.AddMembersToBinding(apiClient.GetConfig().Context, AddMembersToBindingresourceSetId, AddMembersToBindingroleIdOrLabel)
 
@@ -524,8 +524,8 @@ var (
 
 func NewGetMemberOfBindingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getMemberOfBinding",
-
+		Use:  "getMemberOfBinding",
+		Long: "Retrieve a Member of a binding",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.GetMemberOfBinding(apiClient.GetConfig().Context, GetMemberOfBindingresourceSetId, GetMemberOfBindingroleIdOrLabel, GetMemberOfBindingmemberId)
 
@@ -576,8 +576,8 @@ var (
 
 func NewUnassignMemberFromBindingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignMemberFromBinding",
-
+		Use:  "unassignMemberFromBinding",
+		Long: "Unassign a Member from a binding",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.UnassignMemberFromBinding(apiClient.GetConfig().Context, UnassignMemberFromBindingresourceSetId, UnassignMemberFromBindingroleIdOrLabel, UnassignMemberFromBindingmemberId)
 
@@ -622,8 +622,8 @@ var ListResourceSetResourcesresourceSetId string
 
 func NewListResourceSetResourcesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listResources",
-
+		Use:  "listResources",
+		Long: "List all Resources of a Resource Set",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.ListResourceSetResources(apiClient.GetConfig().Context, ListResourceSetResourcesresourceSetId)
 
@@ -666,8 +666,8 @@ var (
 
 func NewAddResourceSetResourceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "addResource",
-
+		Use:  "addResource",
+		Long: "Add more Resource to a Resource Set",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.AddResourceSetResource(apiClient.GetConfig().Context, AddResourceSetResourceresourceSetId)
 
@@ -717,8 +717,8 @@ var (
 
 func NewDeleteResourceSetResourceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteResource",
-
+		Use:  "deleteResource",
+		Long: "Delete a Resource from a Resource Set",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ResourceSetAPI.DeleteResourceSetResource(apiClient.GetConfig().Context, DeleteResourceSetResourceresourceSetId, DeleteResourceSetResourceresourceId)
 

@@ -24,14 +24,14 @@ import (
 type SessionAPI interface {
 
 	/*
-		CloseCurrentSession Close the current Session
+			CloseCurrentSession Close the current Session
 
-		Closes the Session for the user who is currently signed in. Use this method in a browser-based application to sign out a user.
+			Closes the Session for the user who is currently signed in. Use this method in a browser-based application to sign out a user.
 
-	> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
+		> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCloseCurrentSessionRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCloseCurrentSessionRequest
 	*/
 	CloseCurrentSession(ctx context.Context) ApiCloseCurrentSessionRequest
 
@@ -53,14 +53,14 @@ type SessionAPI interface {
 	CreateSessionExecute(r ApiCreateSessionRequest) (*APIResponse, error)
 
 	/*
-		GetCurrentSession Retrieve the current Session
+			GetCurrentSession Retrieve the current Session
 
-		Retrieves Session information for the current user. Use this method in a browser-based application to determine if the user is signed in.
+			Retrieves Session information for the current user. Use this method in a browser-based application to determine if the user is signed in.
 
-	> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
+		> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiGetCurrentSessionRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiGetCurrentSessionRequest
 	*/
 	GetCurrentSession(ctx context.Context) ApiGetCurrentSessionRequest
 
@@ -84,14 +84,14 @@ type SessionAPI interface {
 	GetSessionExecute(r ApiGetSessionRequest) (*APIResponse, error)
 
 	/*
-		RefreshCurrentSession Refresh the current Session
+			RefreshCurrentSession Refresh the current Session
 
-		Refreshes the Session for the current user
+			Refreshes the Session for the current user
 
-	> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
+		> **Note:** This operation requires a session cookie for the user. An API token isn't allowed for this operation.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiRefreshCurrentSessionRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiRefreshCurrentSessionRequest
 	*/
 	RefreshCurrentSession(ctx context.Context) ApiRefreshCurrentSessionRequest
 

@@ -20,8 +20,8 @@ var CreateRiskProviderdata string
 
 func NewCreateRiskProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Risk Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RiskProviderAPI.CreateRiskProvider(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListRiskProvidersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Risk Providers",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RiskProviderAPI.ListRiskProviders(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetRiskProviderriskProviderId string
 
 func NewGetRiskProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Risk Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RiskProviderAPI.GetRiskProvider(apiClient.GetConfig().Context, GetRiskProviderriskProviderId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceRiskProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a Risk Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RiskProviderAPI.ReplaceRiskProvider(apiClient.GetConfig().Context, ReplaceRiskProviderriskProviderId)
 
@@ -190,8 +190,8 @@ var DeleteRiskProviderriskProviderId string
 
 func NewDeleteRiskProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Risk Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RiskProviderAPI.DeleteRiskProvider(apiClient.GetConfig().Context, DeleteRiskProviderriskProviderId)
 

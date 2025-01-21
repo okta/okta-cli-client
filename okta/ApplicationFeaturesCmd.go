@@ -20,8 +20,8 @@ var ListFeaturesForApplicationappId string
 
 func NewListFeaturesForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listFeaturesForApplication",
-
+		Use:  "listFeaturesForApplication",
+		Long: "List all Features",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationFeaturesAPI.ListFeaturesForApplication(apiClient.GetConfig().Context, ListFeaturesForApplicationappId)
 
@@ -64,8 +64,8 @@ var (
 
 func NewGetFeatureForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getFeatureForApplication",
-
+		Use:  "getFeatureForApplication",
+		Long: "Retrieve a Feature",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationFeaturesAPI.GetFeatureForApplication(apiClient.GetConfig().Context, GetFeatureForApplicationappId, GetFeatureForApplicationfeatureName)
 
@@ -113,8 +113,8 @@ var (
 
 func NewUpdateFeatureForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateFeatureForApplication",
-
+		Use:  "updateFeatureForApplication",
+		Long: "Update a Feature",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationFeaturesAPI.UpdateFeatureForApplication(apiClient.GetConfig().Context, UpdateFeatureForApplicationappId, UpdateFeatureForApplicationfeatureName)
 

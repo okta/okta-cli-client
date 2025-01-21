@@ -18,8 +18,8 @@ func init() {
 
 func NewGetRateLimitSettingsAdminNotificationsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getAdminNotifications",
-
+		Use:  "getAdminNotifications",
+		Long: "Retrieve the Rate Limit Admin Notification Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsAdminNotifications(apiClient.GetConfig().Context)
 
@@ -55,8 +55,8 @@ var ReplaceRateLimitSettingsAdminNotificationsdata string
 
 func NewReplaceRateLimitSettingsAdminNotificationsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceAdminNotifications",
-
+		Use:  "replaceAdminNotifications",
+		Long: "Replace the Rate Limit Admin Notification Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsAdminNotifications(apiClient.GetConfig().Context)
 
@@ -97,8 +97,8 @@ func init() {
 
 func NewGetRateLimitSettingsPerClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getPerClient",
-
+		Use:  "getPerClient",
+		Long: "Retrieve the Per-Client Rate Limit Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsPerClient(apiClient.GetConfig().Context)
 
@@ -134,8 +134,8 @@ var ReplaceRateLimitSettingsPerClientdata string
 
 func NewReplaceRateLimitSettingsPerClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replacePerClient",
-
+		Use:  "replacePerClient",
+		Long: "Replace the Per-Client Rate Limit Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsPerClient(apiClient.GetConfig().Context)
 
@@ -176,8 +176,8 @@ func init() {
 
 func NewGetRateLimitSettingsWarningThresholdCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getWarningThreshold",
-
+		Use:  "getWarningThreshold",
+		Long: "Retrieve the Rate Limit Warning Threshold Percentage",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RateLimitSettingsAPI.GetRateLimitSettingsWarningThreshold(apiClient.GetConfig().Context)
 
@@ -213,8 +213,8 @@ var ReplaceRateLimitSettingsWarningThresholddata string
 
 func NewReplaceRateLimitSettingsWarningThresholdCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceWarningThreshold",
-
+		Use:  "replaceWarningThreshold",
+		Long: "Replace the Rate Limit Warning Threshold Percentage",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RateLimitSettingsAPI.ReplaceRateLimitSettingsWarningThreshold(apiClient.GetConfig().Context)
 

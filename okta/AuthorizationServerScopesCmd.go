@@ -24,8 +24,8 @@ var (
 
 func NewCreateOAuth2ScopeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createOAuth2Scope",
-
+		Use:  "createOAuth2Scope",
+		Long: "Create a Custom Token Scope",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerScopesAPI.CreateOAuth2Scope(apiClient.GetConfig().Context, CreateOAuth2ScopeauthServerId)
 
@@ -71,8 +71,8 @@ var ListOAuth2ScopesauthServerId string
 
 func NewListOAuth2ScopesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listOAuth2Scopes",
-
+		Use:  "listOAuth2Scopes",
+		Long: "List all Custom Token Scopes",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerScopesAPI.ListOAuth2Scopes(apiClient.GetConfig().Context, ListOAuth2ScopesauthServerId)
 
@@ -115,8 +115,8 @@ var (
 
 func NewGetOAuth2ScopeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getOAuth2Scope",
-
+		Use:  "getOAuth2Scope",
+		Long: "Retrieve a Custom Token Scope",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerScopesAPI.GetOAuth2Scope(apiClient.GetConfig().Context, GetOAuth2ScopeauthServerId, GetOAuth2ScopescopeId)
 
@@ -164,8 +164,8 @@ var (
 
 func NewReplaceOAuth2ScopeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceOAuth2Scope",
-
+		Use:  "replaceOAuth2Scope",
+		Long: "Replace a Custom Token Scope",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerScopesAPI.ReplaceOAuth2Scope(apiClient.GetConfig().Context, ReplaceOAuth2ScopeauthServerId, ReplaceOAuth2ScopescopeId)
 
@@ -218,8 +218,8 @@ var (
 
 func NewDeleteOAuth2ScopeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteOAuth2Scope",
-
+		Use:  "deleteOAuth2Scope",
+		Long: "Delete a Custom Token Scope",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerScopesAPI.DeleteOAuth2Scope(apiClient.GetConfig().Context, DeleteOAuth2ScopeauthServerId, DeleteOAuth2ScopescopeId)
 

@@ -20,8 +20,8 @@ var CreateBehaviorDetectionRuledata string
 
 func NewCreateBehaviorDetectionRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createDetectionRule",
-
+		Use:  "createDetectionRule",
+		Long: "Create a Behavior Detection Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.BehaviorAPI.CreateBehaviorDetectionRule(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListBehaviorDetectionRulesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listDetectionRules",
-
+		Use:  "listDetectionRules",
+		Long: "List all Behavior Detection Rules",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.BehaviorAPI.ListBehaviorDetectionRules(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetBehaviorDetectionRulebehaviorId string
 
 func NewGetBehaviorDetectionRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getDetectionRule",
-
+		Use:  "getDetectionRule",
+		Long: "Retrieve a Behavior Detection Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.BehaviorAPI.GetBehaviorDetectionRule(apiClient.GetConfig().Context, GetBehaviorDetectionRulebehaviorId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceBehaviorDetectionRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceDetectionRule",
-
+		Use:  "replaceDetectionRule",
+		Long: "Replace a Behavior Detection Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.BehaviorAPI.ReplaceBehaviorDetectionRule(apiClient.GetConfig().Context, ReplaceBehaviorDetectionRulebehaviorId)
 
@@ -190,8 +190,8 @@ var DeleteBehaviorDetectionRulebehaviorId string
 
 func NewDeleteBehaviorDetectionRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteDetectionRule",
-
+		Use:  "deleteDetectionRule",
+		Long: "Delete a Behavior Detection Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.BehaviorAPI.DeleteBehaviorDetectionRule(apiClient.GetConfig().Context, DeleteBehaviorDetectionRulebehaviorId)
 
@@ -230,8 +230,8 @@ var ActivateBehaviorDetectionRulebehaviorId string
 
 func NewActivateBehaviorDetectionRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activateDetectionRule",
-
+		Use:  "activateDetectionRule",
+		Long: "Activate a Behavior Detection Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.BehaviorAPI.ActivateBehaviorDetectionRule(apiClient.GetConfig().Context, ActivateBehaviorDetectionRulebehaviorId)
 
@@ -270,8 +270,8 @@ var DeactivateBehaviorDetectionRulebehaviorId string
 
 func NewDeactivateBehaviorDetectionRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivateDetectionRule",
-
+		Use:  "deactivateDetectionRule",
+		Long: "Deactivate a Behavior Detection Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.BehaviorAPI.DeactivateBehaviorDetectionRule(apiClient.GetConfig().Context, DeactivateBehaviorDetectionRulebehaviorId)
 

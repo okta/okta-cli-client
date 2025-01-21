@@ -20,8 +20,8 @@ var SendRiskEventsdata string
 
 func NewSendRiskEventsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "sends",
-
+		Use:  "sends",
+		Long: "Send multiple Risk Events",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RiskEventAPI.SendRiskEvents(apiClient.GetConfig().Context)
 

@@ -39,17 +39,17 @@ type CustomizationAPI interface {
 	CreateBrandExecute(r ApiCreateBrandRequest) (*APIResponse, error)
 
 	/*
-		CreateEmailCustomization Create an Email Customization
+			CreateEmailCustomization Create an Email Customization
 
-		Creates a new Email Customization
+			Creates a new Email Customization
 
-	<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, you can create a customization for any BCP47 language in addition to the Okta-supported languages.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, you can create a customization for any BCP47 language in addition to the Okta-supported languages.
 
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param brandId The ID of the brand
-		@param templateName The name of the email template
-		@return ApiCreateEmailCustomizationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiCreateEmailCustomizationRequest
 	*/
 	CreateEmailCustomization(ctx context.Context, brandId string, templateName string) ApiCreateEmailCustomizationRequest
 
@@ -58,17 +58,17 @@ type CustomizationAPI interface {
 	CreateEmailCustomizationExecute(r ApiCreateEmailCustomizationRequest) (*APIResponse, error)
 
 	/*
-		DeleteAllCustomizations Delete all Email Customizations
+			DeleteAllCustomizations Delete all Email Customizations
 
-		Deletes all customizations for an email template
+			Deletes all customizations for an email template
 
-	<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, all customizations are deleted, including customizations for additional languages. If disabled, only customizations in Okta-supported languages are deleted.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, all customizations are deleted, including customizations for additional languages. If disabled, only customizations in Okta-supported languages are deleted.
 
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param brandId The ID of the brand
-		@param templateName The name of the email template
-		@return ApiDeleteAllCustomizationsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiDeleteAllCustomizationsRequest
 	*/
 	DeleteAllCustomizations(ctx context.Context, brandId string, templateName string) ApiDeleteAllCustomizationsRequest
 
@@ -163,18 +163,18 @@ type CustomizationAPI interface {
 	DeleteCustomizedSignInPageExecute(r ApiDeleteCustomizedSignInPageRequest) (*APIResponse, error)
 
 	/*
-		DeleteEmailCustomization Delete an Email Customization
+			DeleteEmailCustomization Delete an Email Customization
 
-		Deletes an Email Customization by its unique identifier
+			Deletes an Email Customization by its unique identifier
 
-	<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, deletion of an existing additional language customization by ID doesn't register.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, deletion of an existing additional language customization by ID doesn't register.
 
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param brandId The ID of the brand
-		@param templateName The name of the email template
-		@param customizationId The ID of the email customization
-		@return ApiDeleteEmailCustomizationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@param customizationId The ID of the email customization
+			@return ApiDeleteEmailCustomizationRequest
 	*/
 	DeleteEmailCustomization(ctx context.Context, brandId string, templateName string, customizationId string) ApiDeleteEmailCustomizationRequest
 
@@ -241,18 +241,18 @@ type CustomizationAPI interface {
 	GetBrandThemeExecute(r ApiGetBrandThemeRequest) (*APIResponse, error)
 
 	/*
-		GetCustomizationPreview Retrieve a Preview of an Email Customization
+			GetCustomizationPreview Retrieve a Preview of an Email Customization
 
-		Retrieves a Preview of an Email Customization. All variable references are populated from the current user's context. For example, `${user.profile.firstName}`.
+			Retrieves a Preview of an Email Customization. All variable references are populated from the current user's context. For example, `${user.profile.firstName}`.
 
-	<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests for the preview of an additional language customization by ID return a `404 Not Found` error response.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests for the preview of an additional language customization by ID return a `404 Not Found` error response.
 
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param brandId The ID of the brand
-		@param templateName The name of the email template
-		@param customizationId The ID of the email customization
-		@return ApiGetCustomizationPreviewRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@param customizationId The ID of the email customization
+			@return ApiGetCustomizationPreviewRequest
 	*/
 	GetCustomizationPreview(ctx context.Context, brandId string, templateName string, customizationId string) ApiGetCustomizationPreviewRequest
 
@@ -321,18 +321,18 @@ type CustomizationAPI interface {
 	GetDefaultSignInPageExecute(r ApiGetDefaultSignInPageRequest) (*APIResponse, error)
 
 	/*
-		GetEmailCustomization Retrieve an Email Customization
+			GetEmailCustomization Retrieve an Email Customization
 
-		Retrieves an email customization by its unique identifier
+			Retrieves an email customization by its unique identifier
 
-	<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests to retrieve an additional language customization by ID result in a `404 Not Found` error response.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests to retrieve an additional language customization by ID result in a `404 Not Found` error response.
 
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param brandId The ID of the brand
-		@param templateName The name of the email template
-		@param customizationId The ID of the email customization
-		@return ApiGetEmailCustomizationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@param customizationId The ID of the email customization
+			@return ApiGetEmailCustomizationRequest
 	*/
 	GetEmailCustomization(ctx context.Context, brandId string, templateName string, customizationId string) ApiGetEmailCustomizationRequest
 
@@ -341,19 +341,19 @@ type CustomizationAPI interface {
 	GetEmailCustomizationExecute(r ApiGetEmailCustomizationRequest) (*APIResponse, error)
 
 	/*
-		GetEmailDefaultContent Retrieve an Email Template Default Content
+			GetEmailDefaultContent Retrieve an Email Template Default Content
 
-		Retrieves an email template's default content
+			Retrieves an email template's default content
 
-	<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
-	- Custom languages for Okta Email Templates is enabled
-	- An additional language is specified for the `language` parameter
+		<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
+		- Custom languages for Okta Email Templates is enabled
+		- An additional language is specified for the `language` parameter
 
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param brandId The ID of the brand
-		@param templateName The name of the email template
-		@return ApiGetEmailDefaultContentRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiGetEmailDefaultContentRequest
 	*/
 	GetEmailDefaultContent(ctx context.Context, brandId string, templateName string) ApiGetEmailDefaultContentRequest
 
@@ -362,19 +362,19 @@ type CustomizationAPI interface {
 	GetEmailDefaultContentExecute(r ApiGetEmailDefaultContentRequest) (*APIResponse, error)
 
 	/*
-		GetEmailDefaultPreview Retrieve a Preview of the Email Template default content
+			GetEmailDefaultPreview Retrieve a Preview of the Email Template default content
 
-		Retrieves a preview of an Email Template's default content. All variable references are populated using the current user's context. For example, `${user.profile.firstName}`.
+			Retrieves a preview of an Email Template's default content. All variable references are populated using the current user's context. For example, `${user.profile.firstName}`.
 
-	<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
-	- Custom languages for Okta Email Templates is enabled
-	- An additional language is specified for the `language` parameter
+		<x-lifecycle class="ea"></x-lifecycle> Defaults to the current user's language given the following:
+		- Custom languages for Okta Email Templates is enabled
+		- An additional language is specified for the `language` parameter
 
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param brandId The ID of the brand
-		@param templateName The name of the email template
-		@return ApiGetEmailDefaultPreviewRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiGetEmailDefaultPreviewRequest
 	*/
 	GetEmailDefaultPreview(ctx context.Context, brandId string, templateName string) ApiGetEmailDefaultPreviewRequest
 
@@ -549,17 +549,17 @@ type CustomizationAPI interface {
 	ListBrandsExecute(r ApiListBrandsRequest) (*APIResponse, error)
 
 	/*
-		ListEmailCustomizations List all Email Customizations
+			ListEmailCustomizations List all Email Customizations
 
-		Lists all customizations of an email template
+			Lists all customizations of an email template
 
-	<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, all existing customizations are retrieved, including customizations for additional languages. If disabled, only customizations for Okta-supported languages are returned.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled, all existing customizations are retrieved, including customizations for additional languages. If disabled, only customizations for Okta-supported languages are returned.
 
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param brandId The ID of the brand
-		@param templateName The name of the email template
-		@return ApiListEmailCustomizationsRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiListEmailCustomizationsRequest
 	*/
 	ListEmailCustomizations(ctx context.Context, brandId string, templateName string) ApiListEmailCustomizationsRequest
 
@@ -644,18 +644,18 @@ type CustomizationAPI interface {
 	ReplaceCustomizedSignInPageExecute(r ApiReplaceCustomizedSignInPageRequest) (*APIResponse, error)
 
 	/*
-		ReplaceEmailCustomization Replace an Email Customization
+			ReplaceEmailCustomization Replace an Email Customization
 
-		Replaces an email customization using property values
+			Replaces an email customization using property values
 
-	<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests to update a customization for an additional language return a `404 Not Found` error response.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is disabled, requests to update a customization for an additional language return a `404 Not Found` error response.
 
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param brandId The ID of the brand
-		@param templateName The name of the email template
-		@param customizationId The ID of the email customization
-		@return ApiReplaceEmailCustomizationRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@param customizationId The ID of the email customization
+			@return ApiReplaceEmailCustomizationRequest
 	*/
 	ReplaceEmailCustomization(ctx context.Context, brandId string, templateName string, customizationId string) ApiReplaceEmailCustomizationRequest
 
@@ -724,18 +724,18 @@ type CustomizationAPI interface {
 	ReplaceSignOutPageSettingsExecute(r ApiReplaceSignOutPageSettingsRequest) (*APIResponse, error)
 
 	/*
-		SendTestEmail Send a Test Email
+			SendTestEmail Send a Test Email
 
-		Sends a test email to the current user’s primary and secondary email addresses. The email content is selected based on the following priority:
-	1. The email customization for the language specified in the `language` query parameter.
-	<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled and the `language` parameter is an additional language, the test email uses the customization corresponding to the language.
-	2. The email template's default customization.
-	3. The email template’s default content, translated to the current user's language.
+			Sends a test email to the current user’s primary and secondary email addresses. The email content is selected based on the following priority:
+		1. The email customization for the language specified in the `language` query parameter.
+		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled and the `language` parameter is an additional language, the test email uses the customization corresponding to the language.
+		2. The email template's default customization.
+		3. The email template’s default content, translated to the current user's language.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param brandId The ID of the brand
-		@param templateName The name of the email template
-		@return ApiSendTestEmailRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param brandId The ID of the brand
+			@param templateName The name of the email template
+			@return ApiSendTestEmailRequest
 	*/
 	SendTestEmail(ctx context.Context, brandId string, templateName string) ApiSendTestEmailRequest
 

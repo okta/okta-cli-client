@@ -13,7 +13,7 @@ var (
 func New{{ .operationId }}Cmd() *cobra.Command {
     cmd := &cobra.Command{
 	    Use:   "{{ .subCommand }}",
-	  
+        Long: "{{ .summary }}",
         RunE: func(cmd *cobra.Command, args []string) error {
             {{ $operationId := .operationId }}
             {{ $newParam := "" }}

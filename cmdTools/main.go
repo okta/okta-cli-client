@@ -122,7 +122,6 @@ func buildCmdFile(c <-chan orderedmap.Pair[string, *v3high.PathItem]) error {
 
 func buildCmdForHTTPMethod(ops *v3high.Operation, endpoint, httpMethod string, pathParams []string) error {
 	methodName := ops.OperationId
-	description := ops.Description
 	tags := ops.Tags
 	var fileName string
 	if len(tags) != 1 {
@@ -150,10 +149,11 @@ func buildCmdForHTTPMethod(ops *v3high.Operation, endpoint, httpMethod string, p
 	templateData := map[string]interface{}{
 		"name":          fileName,
 		"operationId":   sanitizedOperationID,
-		"description":   description,
+		"description":   ops.Description,
 		"pathParams":    sanitizedPathParams,
 		"requiredFlags": requiredFlags,
 		"subCommand":    subCommand,
+		"summary":       ops.Summary,
 	}
 	if checkRequestBodyExist(ops) {
 		templateData["data"] = true

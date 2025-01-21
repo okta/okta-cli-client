@@ -24,13 +24,13 @@ import (
 type UserTypeAPI interface {
 
 	/*
-		CreateUserType Create a User Type
+			CreateUserType Create a User Type
 
-		Creates a new User Type. Okta automatically creates a `default` User Type for your org. You may add up to nine additional User Types.
-	> **Note**: New User Types are based on the current default schema template. Modifications to this schema do not automatically propagate to previously created User Types.
+			Creates a new User Type. Okta automatically creates a `default` User Type for your org. You may add up to nine additional User Types.
+		> **Note**: New User Types are based on the current default schema template. Modifications to this schema do not automatically propagate to previously created User Types.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCreateUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateUserTypeRequest
 	*/
 	CreateUserType(ctx context.Context) ApiCreateUserTypeRequest
 
@@ -39,14 +39,14 @@ type UserTypeAPI interface {
 	CreateUserTypeExecute(r ApiCreateUserTypeRequest) (*APIResponse, error)
 
 	/*
-		DeleteUserType Delete a User Type
+			DeleteUserType Delete a User Type
 
-		Deletes a User Type permanently.
-	> **Note**: You can't delete the default User Type or a User Type that is currently assigned to users.
+			Deletes a User Type permanently.
+		> **Note**: You can't delete the default User Type or a User Type that is currently assigned to users.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param typeId
-		@return ApiDeleteUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param typeId
+			@return ApiDeleteUserTypeRequest
 	*/
 	DeleteUserType(ctx context.Context, typeId string) ApiDeleteUserTypeRequest
 
@@ -83,14 +83,14 @@ type UserTypeAPI interface {
 	ListUserTypesExecute(r ApiListUserTypesRequest) (*APIResponse, error)
 
 	/*
-		ReplaceUserType Replace a User Type
+			ReplaceUserType Replace a User Type
 
-		Replaces an existing User Type.
-	> **Note**: The `name` of an existing User Type can't be changed, but must be part of the request body. You can only replace the `displayName` and `description` elements.
+			Replaces an existing User Type.
+		> **Note**: The `name` of an existing User Type can't be changed, but must be part of the request body. You can only replace the `displayName` and `description` elements.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param typeId
-		@return ApiReplaceUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param typeId
+			@return ApiReplaceUserTypeRequest
 	*/
 	ReplaceUserType(ctx context.Context, typeId string) ApiReplaceUserTypeRequest
 
@@ -99,14 +99,14 @@ type UserTypeAPI interface {
 	ReplaceUserTypeExecute(r ApiReplaceUserTypeRequest) (*APIResponse, error)
 
 	/*
-		UpdateUserType Update a User Type
+			UpdateUserType Update a User Type
 
-		Updates an existing User Type.
-	> **Note**: You can only update the `displayName` and `description` elements. The `name` of an existing User Type can't be changed.
+			Updates an existing User Type.
+		> **Note**: You can only update the `displayName` and `description` elements. The `name` of an existing User Type can't be changed.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param typeId
-		@return ApiUpdateUserTypeRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param typeId
+			@return ApiUpdateUserTypeRequest
 	*/
 	UpdateUserType(ctx context.Context, typeId string) ApiUpdateUserTypeRequest
 

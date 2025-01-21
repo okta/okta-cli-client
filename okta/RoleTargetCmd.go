@@ -24,8 +24,8 @@ var (
 
 func NewListApplicationTargetsForApplicationAdministratorRoleForGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listApplicationTargetsForApplicationAdministratorRoleForGroup",
-
+		Use:  "listApplicationTargetsForApplicationAdministratorRoleForGroup",
+		Long: "List all Application Targets for an Application Administrator Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForGroup(apiClient.GetConfig().Context, ListApplicationTargetsForApplicationAdministratorRoleForGroupgroupId, ListApplicationTargetsForApplicationAdministratorRoleForGrouproleId)
 
@@ -73,8 +73,8 @@ var (
 
 func NewAssignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignAppTargetToAdminRoleForGroup",
-
+		Use:  "assignAppTargetToAdminRoleForGroup",
+		Long: "Assign an Application Target to Administrator Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppTargetToAdminRoleForGroup(apiClient.GetConfig().Context, AssignAppTargetToAdminRoleForGroupgroupId, AssignAppTargetToAdminRoleForGrouproleId, AssignAppTargetToAdminRoleForGroupappName)
 
@@ -125,8 +125,8 @@ var (
 
 func NewUnassignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignAppTargetToAdminRoleForGroup",
-
+		Use:  "unassignAppTargetToAdminRoleForGroup",
+		Long: "Unassign an Application Target from Application Administrator Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignAppTargetToAdminRoleForGroup(apiClient.GetConfig().Context, UnassignAppTargetToAdminRoleForGroupgroupId, UnassignAppTargetToAdminRoleForGrouproleId, UnassignAppTargetToAdminRoleForGroupappName)
 
@@ -179,8 +179,8 @@ var (
 
 func NewAssignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignAppInstanceTargetToAppAdminRoleForGroup",
-
+		Use:  "assignAppInstanceTargetToAppAdminRoleForGroup",
+		Long: "Assign an Application Instance Target to Application Administrator Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForGroup(apiClient.GetConfig().Context, AssignAppInstanceTargetToAppAdminRoleForGroupgroupId, AssignAppInstanceTargetToAppAdminRoleForGrouproleId, AssignAppInstanceTargetToAppAdminRoleForGroupappName, AssignAppInstanceTargetToAppAdminRoleForGroupappId)
 
@@ -236,8 +236,8 @@ var (
 
 func NewUnassignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignAppInstanceTargetToAppAdminRoleForGroup",
-
+		Use:  "unassignAppInstanceTargetToAppAdminRoleForGroup",
+		Long: "Unassign an Application Instance Target from an Application Administrator Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignAppInstanceTargetToAppAdminRoleForGroup(apiClient.GetConfig().Context, UnassignAppInstanceTargetToAppAdminRoleForGroupgroupId, UnassignAppInstanceTargetToAppAdminRoleForGrouproleId, UnassignAppInstanceTargetToAppAdminRoleForGroupappName, UnassignAppInstanceTargetToAppAdminRoleForGroupappId)
 
@@ -289,8 +289,8 @@ var (
 
 func NewListGroupTargetsForGroupRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listGroupTargetsForGroupRole",
-
+		Use:  "listGroupTargetsForGroupRole",
+		Long: "List all Group Targets for a Group Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.ListGroupTargetsForGroupRole(apiClient.GetConfig().Context, ListGroupTargetsForGroupRolegroupId, ListGroupTargetsForGroupRoleroleId)
 
@@ -338,8 +338,8 @@ var (
 
 func NewAssignGroupTargetToGroupAdminRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignGroupTargetToGroupAdminRole",
-
+		Use:  "assignGroupTargetToGroupAdminRole",
+		Long: "Assign a Group Target to a Group Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignGroupTargetToGroupAdminRole(apiClient.GetConfig().Context, AssignGroupTargetToGroupAdminRolegroupId, AssignGroupTargetToGroupAdminRoleroleId, AssignGroupTargetToGroupAdminRoletargetGroupId)
 
@@ -390,8 +390,8 @@ var (
 
 func NewUnassignGroupTargetFromGroupAdminRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignGroupTargetFromGroupAdminRole",
-
+		Use:  "unassignGroupTargetFromGroupAdminRole",
+		Long: "Unassign a Group Target from a Group Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignGroupTargetFromGroupAdminRole(apiClient.GetConfig().Context, UnassignGroupTargetFromGroupAdminRolegroupId, UnassignGroupTargetFromGroupAdminRoleroleId, UnassignGroupTargetFromGroupAdminRoletargetGroupId)
 
@@ -440,8 +440,8 @@ var (
 
 func NewListApplicationTargetsForApplicationAdministratorRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listApplicationTargetsForApplicationAdministratorRoleForUser",
-
+		Use:  "listApplicationTargetsForApplicationAdministratorRoleForUser",
+		Long: "List all Application Targets for Application Administrator Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForUser(apiClient.GetConfig().Context, ListApplicationTargetsForApplicationAdministratorRoleForUseruserId, ListApplicationTargetsForApplicationAdministratorRoleForUserroleId)
 
@@ -487,8 +487,8 @@ var (
 
 func NewAssignAllAppsAsTargetToRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignAllAppsAsTargetToRoleForUser",
-
+		Use:  "assignAllAppsAsTargetToRoleForUser",
+		Long: "Assign all Apps as Target to Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAllAppsAsTargetToRoleForUser(apiClient.GetConfig().Context, AssignAllAppsAsTargetToRoleForUseruserId, AssignAllAppsAsTargetToRoleForUserroleId)
 
@@ -536,8 +536,8 @@ var (
 
 func NewAssignAppTargetToAdminRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignAppTargetToAdminRoleForUser",
-
+		Use:  "assignAppTargetToAdminRoleForUser",
+		Long: "Assign an Application Target to Administrator Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppTargetToAdminRoleForUser(apiClient.GetConfig().Context, AssignAppTargetToAdminRoleForUseruserId, AssignAppTargetToAdminRoleForUserroleId, AssignAppTargetToAdminRoleForUserappName)
 
@@ -588,8 +588,8 @@ var (
 
 func NewUnassignAppTargetFromAppAdminRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignAppTargetFromAppAdminRoleForUser",
-
+		Use:  "unassignAppTargetFromAppAdminRoleForUser",
+		Long: "Unassign an Application Target from an Application Administrator Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignAppTargetFromAppAdminRoleForUser(apiClient.GetConfig().Context, UnassignAppTargetFromAppAdminRoleForUseruserId, UnassignAppTargetFromAppAdminRoleForUserroleId, UnassignAppTargetFromAppAdminRoleForUserappName)
 
@@ -642,8 +642,8 @@ var (
 
 func NewAssignAppInstanceTargetToAppAdminRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignAppInstanceTargetToAppAdminRoleForUser",
-
+		Use:  "assignAppInstanceTargetToAppAdminRoleForUser",
+		Long: "Assign an Application Instance Target to an Application Administrator Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForUser(apiClient.GetConfig().Context, AssignAppInstanceTargetToAppAdminRoleForUseruserId, AssignAppInstanceTargetToAppAdminRoleForUserroleId, AssignAppInstanceTargetToAppAdminRoleForUserappName, AssignAppInstanceTargetToAppAdminRoleForUserappId)
 
@@ -699,8 +699,8 @@ var (
 
 func NewUnassignAppInstanceTargetFromAdminRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignAppInstanceTargetFromAdminRoleForUser",
-
+		Use:  "unassignAppInstanceTargetFromAdminRoleForUser",
+		Long: "Unassign an Application Instance Target from an Application Administrator Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignAppInstanceTargetFromAdminRoleForUser(apiClient.GetConfig().Context, UnassignAppInstanceTargetFromAdminRoleForUseruserId, UnassignAppInstanceTargetFromAdminRoleForUserroleId, UnassignAppInstanceTargetFromAdminRoleForUserappName, UnassignAppInstanceTargetFromAdminRoleForUserappId)
 
@@ -752,8 +752,8 @@ var (
 
 func NewListGroupTargetsForRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listGroupTargetsForRole",
-
+		Use:  "listGroupTargetsForRole",
+		Long: "List all Group Targets for Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.ListGroupTargetsForRole(apiClient.GetConfig().Context, ListGroupTargetsForRoleuserId, ListGroupTargetsForRoleroleId)
 
@@ -801,8 +801,8 @@ var (
 
 func NewAssignGroupTargetToUserRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignGroupTargetToUserRole",
-
+		Use:  "assignGroupTargetToUserRole",
+		Long: "Assign a Group Target to Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignGroupTargetToUserRole(apiClient.GetConfig().Context, AssignGroupTargetToUserRoleuserId, AssignGroupTargetToUserRoleroleId, AssignGroupTargetToUserRolegroupId)
 
@@ -853,8 +853,8 @@ var (
 
 func NewUnassignGroupTargetFromUserAdminRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignGroupTargetFromUserAdminRole",
-
+		Use:  "unassignGroupTargetFromUserAdminRole",
+		Long: "Unassign a Group Target from Role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignGroupTargetFromUserAdminRole(apiClient.GetConfig().Context, UnassignGroupTargetFromUserAdminRoleuserId, UnassignGroupTargetFromUserAdminRoleroleId, UnassignGroupTargetFromUserAdminRolegroupId)
 

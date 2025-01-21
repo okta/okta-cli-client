@@ -20,8 +20,8 @@ var CreateEventHookdata string
 
 func NewCreateEventHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create an Event Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EventHookAPI.CreateEventHook(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListEventHooksCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Event Hooks",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EventHookAPI.ListEventHooks(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetEventHookeventHookId string
 
 func NewGetEventHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve an Event Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EventHookAPI.GetEventHook(apiClient.GetConfig().Context, GetEventHookeventHookId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceEventHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace an Event Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EventHookAPI.ReplaceEventHook(apiClient.GetConfig().Context, ReplaceEventHookeventHookId)
 
@@ -190,8 +190,8 @@ var DeleteEventHookeventHookId string
 
 func NewDeleteEventHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete an Event Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EventHookAPI.DeleteEventHook(apiClient.GetConfig().Context, DeleteEventHookeventHookId)
 
@@ -230,8 +230,8 @@ var ActivateEventHookeventHookId string
 
 func NewActivateEventHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate an Event Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EventHookAPI.ActivateEventHook(apiClient.GetConfig().Context, ActivateEventHookeventHookId)
 
@@ -270,8 +270,8 @@ var DeactivateEventHookeventHookId string
 
 func NewDeactivateEventHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate an Event Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EventHookAPI.DeactivateEventHook(apiClient.GetConfig().Context, DeactivateEventHookeventHookId)
 
@@ -310,8 +310,8 @@ var VerifyEventHookeventHookId string
 
 func NewVerifyEventHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "verify",
-
+		Use:  "verify",
+		Long: "Verify an Event Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EventHookAPI.VerifyEventHook(apiClient.GetConfig().Context, VerifyEventHookeventHookId)
 

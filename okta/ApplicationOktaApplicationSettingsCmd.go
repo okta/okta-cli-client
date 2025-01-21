@@ -20,8 +20,8 @@ var GetFirstPartyAppSettingsappName string
 
 func NewGetFirstPartyAppSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getFirstPartyAppSettings",
-
+		Use:  "getFirstPartyAppSettings",
+		Long: "Retrieve the Okta app settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationOktaApplicationSettingsAPI.GetFirstPartyAppSettings(apiClient.GetConfig().Context, GetFirstPartyAppSettingsappName)
 
@@ -64,8 +64,8 @@ var (
 
 func NewReplaceFirstPartyAppSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceFirstPartyAppSettings",
-
+		Use:  "replaceFirstPartyAppSettings",
+		Long: "Replace the Okta app settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationOktaApplicationSettingsAPI.ReplaceFirstPartyAppSettings(apiClient.GetConfig().Context, ReplaceFirstPartyAppSettingsappName)
 

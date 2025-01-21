@@ -20,8 +20,8 @@ var ListOAuth2ClientsForAuthorizationServerauthServerId string
 
 func NewListOAuth2ClientsForAuthorizationServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listOAuth2ClientsForAuthorizationServer",
-
+		Use:  "listOAuth2ClientsForAuthorizationServer",
+		Long: "List all Client resources for an authorization server",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerClientsAPI.ListOAuth2ClientsForAuthorizationServer(apiClient.GetConfig().Context, ListOAuth2ClientsForAuthorizationServerauthServerId)
 
@@ -64,8 +64,8 @@ var (
 
 func NewListRefreshTokensForAuthorizationServerAndClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listRefreshTokensForAuthorizationServerAndClient",
-
+		Use:  "listRefreshTokensForAuthorizationServerAndClient",
+		Long: "List all refresh tokens for a Client",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerClientsAPI.ListRefreshTokensForAuthorizationServerAndClient(apiClient.GetConfig().Context, ListRefreshTokensForAuthorizationServerAndClientauthServerId, ListRefreshTokensForAuthorizationServerAndClientclientId)
 
@@ -111,8 +111,8 @@ var (
 
 func NewRevokeRefreshTokensForAuthorizationServerAndClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeRefreshTokensForAuthorizationServerAndClient",
-
+		Use:  "revokeRefreshTokensForAuthorizationServerAndClient",
+		Long: "Revoke all refresh tokens for a Client",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerClientsAPI.RevokeRefreshTokensForAuthorizationServerAndClient(apiClient.GetConfig().Context, RevokeRefreshTokensForAuthorizationServerAndClientauthServerId, RevokeRefreshTokensForAuthorizationServerAndClientclientId)
 
@@ -160,8 +160,8 @@ var (
 
 func NewGetRefreshTokenForAuthorizationServerAndClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getRefreshTokenForAuthorizationServerAndClient",
-
+		Use:  "getRefreshTokenForAuthorizationServerAndClient",
+		Long: "Retrieve a refresh token for a Client",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerClientsAPI.GetRefreshTokenForAuthorizationServerAndClient(apiClient.GetConfig().Context, GetRefreshTokenForAuthorizationServerAndClientauthServerId, GetRefreshTokenForAuthorizationServerAndClientclientId, GetRefreshTokenForAuthorizationServerAndClienttokenId)
 
@@ -212,8 +212,8 @@ var (
 
 func NewRevokeRefreshTokenForAuthorizationServerAndClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeRefreshTokenForAuthorizationServerAndClient",
-
+		Use:  "revokeRefreshTokenForAuthorizationServerAndClient",
+		Long: "Revoke a refresh token for a Client",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerClientsAPI.RevokeRefreshTokenForAuthorizationServerAndClient(apiClient.GetConfig().Context, RevokeRefreshTokenForAuthorizationServerAndClientauthServerId, RevokeRefreshTokenForAuthorizationServerAndClientclientId, RevokeRefreshTokenForAuthorizationServerAndClienttokenId)
 

@@ -20,8 +20,8 @@ var CreateSmsTemplatedata string
 
 func NewCreateSmsTemplateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createSms",
-
+		Use:  "createSms",
+		Long: "Create an SMS Template",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TemplateAPI.CreateSmsTemplate(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListSmsTemplatesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listSmss",
-
+		Use:  "listSmss",
+		Long: "List all SMS Templates",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TemplateAPI.ListSmsTemplates(apiClient.GetConfig().Context)
 
@@ -103,8 +103,8 @@ var (
 
 func NewUpdateSmsTemplateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateSms",
-
+		Use:  "updateSms",
+		Long: "Update an SMS Template",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TemplateAPI.UpdateSmsTemplate(apiClient.GetConfig().Context, UpdateSmsTemplatetemplateId)
 
@@ -150,8 +150,8 @@ var GetSmsTemplatetemplateId string
 
 func NewGetSmsTemplateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getSms",
-
+		Use:  "getSms",
+		Long: "Retrieve an SMS Template",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TemplateAPI.GetSmsTemplate(apiClient.GetConfig().Context, GetSmsTemplatetemplateId)
 
@@ -194,8 +194,8 @@ var (
 
 func NewReplaceSmsTemplateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceSms",
-
+		Use:  "replaceSms",
+		Long: "Replace an SMS Template",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TemplateAPI.ReplaceSmsTemplate(apiClient.GetConfig().Context, ReplaceSmsTemplatetemplateId)
 
@@ -241,8 +241,8 @@ var DeleteSmsTemplatetemplateId string
 
 func NewDeleteSmsTemplateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteSms",
-
+		Use:  "deleteSms",
+		Long: "Delete an SMS Template",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TemplateAPI.DeleteSmsTemplate(apiClient.GetConfig().Context, DeleteSmsTemplatetemplateId)
 

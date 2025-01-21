@@ -20,8 +20,8 @@ var CreateNetworkZonedata string
 
 func NewCreateNetworkZoneCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Network Zone",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.NetworkZoneAPI.CreateNetworkZone(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListNetworkZonesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Network Zones",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.NetworkZoneAPI.ListNetworkZones(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetNetworkZonezoneId string
 
 func NewGetNetworkZoneCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Network Zone",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.NetworkZoneAPI.GetNetworkZone(apiClient.GetConfig().Context, GetNetworkZonezoneId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceNetworkZoneCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a Network Zone",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.NetworkZoneAPI.ReplaceNetworkZone(apiClient.GetConfig().Context, ReplaceNetworkZonezoneId)
 
@@ -190,8 +190,8 @@ var DeleteNetworkZonezoneId string
 
 func NewDeleteNetworkZoneCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Network Zone",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.NetworkZoneAPI.DeleteNetworkZone(apiClient.GetConfig().Context, DeleteNetworkZonezoneId)
 
@@ -230,8 +230,8 @@ var ActivateNetworkZonezoneId string
 
 func NewActivateNetworkZoneCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate a Network Zone",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.NetworkZoneAPI.ActivateNetworkZone(apiClient.GetConfig().Context, ActivateNetworkZonezoneId)
 
@@ -270,8 +270,8 @@ var DeactivateNetworkZonezoneId string
 
 func NewDeactivateNetworkZoneCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate a Network Zone",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.NetworkZoneAPI.DeactivateNetworkZone(apiClient.GetConfig().Context, DeactivateNetworkZonezoneId)
 

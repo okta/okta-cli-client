@@ -20,8 +20,8 @@ var CreateUISchemadata string
 
 func NewCreateUISchemaCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a UI Schema",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UISchemaAPI.CreateUISchema(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListUISchemasCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all UI Schemas",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UISchemaAPI.ListUISchemas(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetUISchemaid string
 
 func NewGetUISchemaCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a UI Schema",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UISchemaAPI.GetUISchema(apiClient.GetConfig().Context, GetUISchemaid)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceUISchemasCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaces",
-
+		Use:  "replaces",
+		Long: "Replace a UI Schema",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UISchemaAPI.ReplaceUISchemas(apiClient.GetConfig().Context, ReplaceUISchemasid)
 
@@ -190,8 +190,8 @@ var DeleteUISchemasid string
 
 func NewDeleteUISchemasCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deletes",
-
+		Use:  "deletes",
+		Long: "Delete a UI Schema",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UISchemaAPI.DeleteUISchemas(apiClient.GetConfig().Context, DeleteUISchemasid)
 
