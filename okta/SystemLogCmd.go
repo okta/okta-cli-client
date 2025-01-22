@@ -18,8 +18,8 @@ func init() {
 
 func NewListLogEventsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listLogEvents",
-
+		Use:  "listLogEvents",
+		Long: "List all System Log Events",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SystemLogAPI.ListLogEvents(apiClient.GetConfig().Context)
 

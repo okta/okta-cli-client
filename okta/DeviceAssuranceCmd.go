@@ -20,8 +20,8 @@ var CreateDeviceAssurancePolicydata string
 
 func NewCreateDeviceAssurancePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createPolicy",
-
+		Use:  "createPolicy",
+		Long: "Create a Device Assurance Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAssuranceAPI.CreateDeviceAssurancePolicy(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListDeviceAssurancePoliciesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listPolicies",
-
+		Use:  "listPolicies",
+		Long: "List all Device Assurance Policies",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAssuranceAPI.ListDeviceAssurancePolicies(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetDeviceAssurancePolicydeviceAssuranceId string
 
 func NewGetDeviceAssurancePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getPolicy",
-
+		Use:  "getPolicy",
+		Long: "Retrieve a Device Assurance Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAssuranceAPI.GetDeviceAssurancePolicy(apiClient.GetConfig().Context, GetDeviceAssurancePolicydeviceAssuranceId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceDeviceAssurancePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replacePolicy",
-
+		Use:  "replacePolicy",
+		Long: "Replace a Device Assurance Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAssuranceAPI.ReplaceDeviceAssurancePolicy(apiClient.GetConfig().Context, ReplaceDeviceAssurancePolicydeviceAssuranceId)
 
@@ -190,8 +190,8 @@ var DeleteDeviceAssurancePolicydeviceAssuranceId string
 
 func NewDeleteDeviceAssurancePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deletePolicy",
-
+		Use:  "deletePolicy",
+		Long: "Delete a Device Assurance Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAssuranceAPI.DeleteDeviceAssurancePolicy(apiClient.GetConfig().Context, DeleteDeviceAssurancePolicydeviceAssuranceId)
 

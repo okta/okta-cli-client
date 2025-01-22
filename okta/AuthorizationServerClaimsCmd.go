@@ -24,8 +24,8 @@ var (
 
 func NewCreateOAuth2ClaimCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createOAuth2Claim",
-
+		Use:  "createOAuth2Claim",
+		Long: "Create a custom token Claim",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerClaimsAPI.CreateOAuth2Claim(apiClient.GetConfig().Context, CreateOAuth2ClaimauthServerId)
 
@@ -71,8 +71,8 @@ var ListOAuth2ClaimsauthServerId string
 
 func NewListOAuth2ClaimsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listOAuth2Claims",
-
+		Use:  "listOAuth2Claims",
+		Long: "List all custom token Claims",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerClaimsAPI.ListOAuth2Claims(apiClient.GetConfig().Context, ListOAuth2ClaimsauthServerId)
 
@@ -115,8 +115,8 @@ var (
 
 func NewGetOAuth2ClaimCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getOAuth2Claim",
-
+		Use:  "getOAuth2Claim",
+		Long: "Retrieve a custom token Claim",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerClaimsAPI.GetOAuth2Claim(apiClient.GetConfig().Context, GetOAuth2ClaimauthServerId, GetOAuth2ClaimclaimId)
 
@@ -164,8 +164,8 @@ var (
 
 func NewReplaceOAuth2ClaimCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceOAuth2Claim",
-
+		Use:  "replaceOAuth2Claim",
+		Long: "Replace a custom token Claim",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerClaimsAPI.ReplaceOAuth2Claim(apiClient.GetConfig().Context, ReplaceOAuth2ClaimauthServerId, ReplaceOAuth2ClaimclaimId)
 
@@ -218,8 +218,8 @@ var (
 
 func NewDeleteOAuth2ClaimCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteOAuth2Claim",
-
+		Use:  "deleteOAuth2Claim",
+		Long: "Delete a custom token Claim",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthorizationServerClaimsAPI.DeleteOAuth2Claim(apiClient.GetConfig().Context, DeleteOAuth2ClaimauthServerId, DeleteOAuth2ClaimclaimId)
 

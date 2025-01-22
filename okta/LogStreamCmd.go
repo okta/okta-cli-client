@@ -20,8 +20,8 @@ var CreateLogStreamdata string
 
 func NewCreateLogStreamCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Log Stream",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LogStreamAPI.CreateLogStream(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListLogStreamsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Log Streams",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LogStreamAPI.ListLogStreams(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetLogStreamlogStreamId string
 
 func NewGetLogStreamCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Log Stream",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LogStreamAPI.GetLogStream(apiClient.GetConfig().Context, GetLogStreamlogStreamId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceLogStreamCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a Log Stream",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LogStreamAPI.ReplaceLogStream(apiClient.GetConfig().Context, ReplaceLogStreamlogStreamId)
 
@@ -190,8 +190,8 @@ var DeleteLogStreamlogStreamId string
 
 func NewDeleteLogStreamCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Log Stream",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LogStreamAPI.DeleteLogStream(apiClient.GetConfig().Context, DeleteLogStreamlogStreamId)
 
@@ -230,8 +230,8 @@ var ActivateLogStreamlogStreamId string
 
 func NewActivateLogStreamCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate a Log Stream",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LogStreamAPI.ActivateLogStream(apiClient.GetConfig().Context, ActivateLogStreamlogStreamId)
 
@@ -270,8 +270,8 @@ var DeactivateLogStreamlogStreamId string
 
 func NewDeactivateLogStreamCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate a Log Stream",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LogStreamAPI.DeactivateLogStream(apiClient.GetConfig().Context, DeactivateLogStreamlogStreamId)
 

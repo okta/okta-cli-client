@@ -20,8 +20,8 @@ var ListApplicationGroupAssignmentsappId string
 
 func NewListApplicationGroupAssignmentsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listApplicationGroupAssignments",
-
+		Use:  "listApplicationGroupAssignments",
+		Long: "List all Assigned Groups",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationGroupsAPI.ListApplicationGroupAssignments(apiClient.GetConfig().Context, ListApplicationGroupAssignmentsappId)
 
@@ -64,8 +64,8 @@ var (
 
 func NewGetApplicationGroupAssignmentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getApplicationGroupAssignment",
-
+		Use:  "getApplicationGroupAssignment",
+		Long: "Retrieve an Assigned Group",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationGroupsAPI.GetApplicationGroupAssignment(apiClient.GetConfig().Context, GetApplicationGroupAssignmentappId, GetApplicationGroupAssignmentgroupId)
 
@@ -113,8 +113,8 @@ var (
 
 func NewAssignGroupToApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignGroupToApplication",
-
+		Use:  "assignGroupToApplication",
+		Long: "Assign a Group",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationGroupsAPI.AssignGroupToApplication(apiClient.GetConfig().Context, AssignGroupToApplicationappId, AssignGroupToApplicationgroupId)
 
@@ -167,8 +167,8 @@ var (
 
 func NewUnassignApplicationFromGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignApplicationFromGroup",
-
+		Use:  "unassignApplicationFromGroup",
+		Long: "Unassign a Group",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationGroupsAPI.UnassignApplicationFromGroup(apiClient.GetConfig().Context, UnassignApplicationFromGroupappId, UnassignApplicationFromGroupgroupId)
 

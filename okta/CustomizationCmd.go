@@ -20,8 +20,8 @@ var CreateBranddata string
 
 func NewCreateBrandCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createBrand",
-
+		Use:  "createBrand",
+		Long: "Create a Brand",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.CreateBrand(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListBrandsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listBrands",
-
+		Use:  "listBrands",
+		Long: "List all Brands",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListBrands(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetBrandbrandId string
 
 func NewGetBrandCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getBrand",
-
+		Use:  "getBrand",
+		Long: "Retrieve a Brand",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetBrand(apiClient.GetConfig().Context, GetBrandbrandId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceBrandCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceBrand",
-
+		Use:  "replaceBrand",
+		Long: "Replace a Brand",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceBrand(apiClient.GetConfig().Context, ReplaceBrandbrandId)
 
@@ -190,8 +190,8 @@ var DeleteBrandbrandId string
 
 func NewDeleteBrandCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteBrand",
-
+		Use:  "deleteBrand",
+		Long: "Delete a brand",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteBrand(apiClient.GetConfig().Context, DeleteBrandbrandId)
 
@@ -230,8 +230,8 @@ var ListBrandDomainsbrandId string
 
 func NewListBrandDomainsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listBrandDomains",
-
+		Use:  "listBrandDomains",
+		Long: "List all Domains associated with a Brand",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListBrandDomains(apiClient.GetConfig().Context, ListBrandDomainsbrandId)
 
@@ -270,8 +270,8 @@ var GetErrorPagebrandId string
 
 func NewGetErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getErrorPage",
-
+		Use:  "getErrorPage",
+		Long: "Retrieve the Error Page Sub-Resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetErrorPage(apiClient.GetConfig().Context, GetErrorPagebrandId)
 
@@ -310,8 +310,8 @@ var GetCustomizedErrorPagebrandId string
 
 func NewGetCustomizedErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getCustomizedErrorPage",
-
+		Use:  "getCustomizedErrorPage",
+		Long: "Retrieve the Customized Error Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetCustomizedErrorPage(apiClient.GetConfig().Context, GetCustomizedErrorPagebrandId)
 
@@ -354,8 +354,8 @@ var (
 
 func NewReplaceCustomizedErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceCustomizedErrorPage",
-
+		Use:  "replaceCustomizedErrorPage",
+		Long: "Replace the Customized Error Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceCustomizedErrorPage(apiClient.GetConfig().Context, ReplaceCustomizedErrorPagebrandId)
 
@@ -401,8 +401,8 @@ var DeleteCustomizedErrorPagebrandId string
 
 func NewDeleteCustomizedErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteCustomizedErrorPage",
-
+		Use:  "deleteCustomizedErrorPage",
+		Long: "Delete the Customized Error Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteCustomizedErrorPage(apiClient.GetConfig().Context, DeleteCustomizedErrorPagebrandId)
 
@@ -441,8 +441,8 @@ var GetDefaultErrorPagebrandId string
 
 func NewGetDefaultErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getDefaultErrorPage",
-
+		Use:  "getDefaultErrorPage",
+		Long: "Retrieve the Default Error Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetDefaultErrorPage(apiClient.GetConfig().Context, GetDefaultErrorPagebrandId)
 
@@ -481,8 +481,8 @@ var GetPreviewErrorPagebrandId string
 
 func NewGetPreviewErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getPreviewErrorPage",
-
+		Use:  "getPreviewErrorPage",
+		Long: "Retrieve the Preview Error Page Preview",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetPreviewErrorPage(apiClient.GetConfig().Context, GetPreviewErrorPagebrandId)
 
@@ -525,8 +525,8 @@ var (
 
 func NewReplacePreviewErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replacePreviewErrorPage",
-
+		Use:  "replacePreviewErrorPage",
+		Long: "Replace the Preview Error Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplacePreviewErrorPage(apiClient.GetConfig().Context, ReplacePreviewErrorPagebrandId)
 
@@ -572,8 +572,8 @@ var DeletePreviewErrorPagebrandId string
 
 func NewDeletePreviewErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deletePreviewErrorPage",
-
+		Use:  "deletePreviewErrorPage",
+		Long: "Delete the Preview Error Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeletePreviewErrorPage(apiClient.GetConfig().Context, DeletePreviewErrorPagebrandId)
 
@@ -612,8 +612,8 @@ var GetSignInPagebrandId string
 
 func NewGetSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getSignInPage",
-
+		Use:  "getSignInPage",
+		Long: "Retrieve the Sign-in Page Sub-Resources",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetSignInPage(apiClient.GetConfig().Context, GetSignInPagebrandId)
 
@@ -652,8 +652,8 @@ var GetCustomizedSignInPagebrandId string
 
 func NewGetCustomizedSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getCustomizedSignInPage",
-
+		Use:  "getCustomizedSignInPage",
+		Long: "Retrieve the Customized Sign-in Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetCustomizedSignInPage(apiClient.GetConfig().Context, GetCustomizedSignInPagebrandId)
 
@@ -696,8 +696,8 @@ var (
 
 func NewReplaceCustomizedSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceCustomizedSignInPage",
-
+		Use:  "replaceCustomizedSignInPage",
+		Long: "Replace the Customized Sign-in Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceCustomizedSignInPage(apiClient.GetConfig().Context, ReplaceCustomizedSignInPagebrandId)
 
@@ -743,8 +743,8 @@ var DeleteCustomizedSignInPagebrandId string
 
 func NewDeleteCustomizedSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteCustomizedSignInPage",
-
+		Use:  "deleteCustomizedSignInPage",
+		Long: "Delete the Customized Sign-in Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteCustomizedSignInPage(apiClient.GetConfig().Context, DeleteCustomizedSignInPagebrandId)
 
@@ -783,8 +783,8 @@ var GetDefaultSignInPagebrandId string
 
 func NewGetDefaultSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getDefaultSignInPage",
-
+		Use:  "getDefaultSignInPage",
+		Long: "Retrieve the Default Sign-in Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetDefaultSignInPage(apiClient.GetConfig().Context, GetDefaultSignInPagebrandId)
 
@@ -823,8 +823,8 @@ var GetPreviewSignInPagebrandId string
 
 func NewGetPreviewSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getPreviewSignInPage",
-
+		Use:  "getPreviewSignInPage",
+		Long: "Retrieve the Preview Sign-in Page Preview",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetPreviewSignInPage(apiClient.GetConfig().Context, GetPreviewSignInPagebrandId)
 
@@ -867,8 +867,8 @@ var (
 
 func NewReplacePreviewSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replacePreviewSignInPage",
-
+		Use:  "replacePreviewSignInPage",
+		Long: "Replace the Preview Sign-in Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplacePreviewSignInPage(apiClient.GetConfig().Context, ReplacePreviewSignInPagebrandId)
 
@@ -914,8 +914,8 @@ var DeletePreviewSignInPagebrandId string
 
 func NewDeletePreviewSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deletePreviewSignInPage",
-
+		Use:  "deletePreviewSignInPage",
+		Long: "Delete the Preview Sign-in Page",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeletePreviewSignInPage(apiClient.GetConfig().Context, DeletePreviewSignInPagebrandId)
 
@@ -954,8 +954,8 @@ var ListAllSignInWidgetVersionsbrandId string
 
 func NewListAllSignInWidgetVersionsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listAllSignInWidgetVersions",
-
+		Use:  "listAllSignInWidgetVersions",
+		Long: "List all Sign-in Widget Versions",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListAllSignInWidgetVersions(apiClient.GetConfig().Context, ListAllSignInWidgetVersionsbrandId)
 
@@ -994,8 +994,8 @@ var GetSignOutPageSettingsbrandId string
 
 func NewGetSignOutPageSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getSignOutPageSettings",
-
+		Use:  "getSignOutPageSettings",
+		Long: "Retrieve the Sign-out Page Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetSignOutPageSettings(apiClient.GetConfig().Context, GetSignOutPageSettingsbrandId)
 
@@ -1038,8 +1038,8 @@ var (
 
 func NewReplaceSignOutPageSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceSignOutPageSettings",
-
+		Use:  "replaceSignOutPageSettings",
+		Long: "Replace the Sign-out Page Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceSignOutPageSettings(apiClient.GetConfig().Context, ReplaceSignOutPageSettingsbrandId)
 
@@ -1085,8 +1085,8 @@ var ListEmailTemplatesbrandId string
 
 func NewListEmailTemplatesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listEmailTemplates",
-
+		Use:  "listEmailTemplates",
+		Long: "List all Email Templates",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListEmailTemplates(apiClient.GetConfig().Context, ListEmailTemplatesbrandId)
 
@@ -1129,8 +1129,8 @@ var (
 
 func NewGetEmailTemplateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getEmailTemplate",
-
+		Use:  "getEmailTemplate",
+		Long: "Retrieve an Email Template",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetEmailTemplate(apiClient.GetConfig().Context, GetEmailTemplatebrandId, GetEmailTemplatetemplateName)
 
@@ -1178,8 +1178,8 @@ var (
 
 func NewCreateEmailCustomizationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createEmail",
-
+		Use:  "createEmail",
+		Long: "Create an Email Customization",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.CreateEmailCustomization(apiClient.GetConfig().Context, CreateEmailCustomizationbrandId, CreateEmailCustomizationtemplateName)
 
@@ -1232,8 +1232,8 @@ var (
 
 func NewListEmailCustomizationsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listEmails",
-
+		Use:  "listEmails",
+		Long: "List all Email Customizations",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListEmailCustomizations(apiClient.GetConfig().Context, ListEmailCustomizationsbrandId, ListEmailCustomizationstemplateName)
 
@@ -1279,8 +1279,8 @@ var (
 
 func NewDeleteAllCustomizationsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteAlls",
-
+		Use:  "deleteAlls",
+		Long: "Delete all Email Customizations",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteAllCustomizations(apiClient.GetConfig().Context, DeleteAllCustomizationsbrandId, DeleteAllCustomizationstemplateName)
 
@@ -1328,8 +1328,8 @@ var (
 
 func NewGetEmailCustomizationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getEmail",
-
+		Use:  "getEmail",
+		Long: "Retrieve an Email Customization",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetEmailCustomization(apiClient.GetConfig().Context, GetEmailCustomizationbrandId, GetEmailCustomizationtemplateName, GetEmailCustomizationcustomizationId)
 
@@ -1382,8 +1382,8 @@ var (
 
 func NewReplaceEmailCustomizationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceEmail",
-
+		Use:  "replaceEmail",
+		Long: "Replace an Email Customization",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceEmailCustomization(apiClient.GetConfig().Context, ReplaceEmailCustomizationbrandId, ReplaceEmailCustomizationtemplateName, ReplaceEmailCustomizationcustomizationId)
 
@@ -1441,8 +1441,8 @@ var (
 
 func NewDeleteEmailCustomizationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteEmail",
-
+		Use:  "deleteEmail",
+		Long: "Delete an Email Customization",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteEmailCustomization(apiClient.GetConfig().Context, DeleteEmailCustomizationbrandId, DeleteEmailCustomizationtemplateName, DeleteEmailCustomizationcustomizationId)
 
@@ -1493,8 +1493,8 @@ var (
 
 func NewGetCustomizationPreviewCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getPreview",
-
+		Use:  "getPreview",
+		Long: "Retrieve a Preview of an Email Customization",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetCustomizationPreview(apiClient.GetConfig().Context, GetCustomizationPreviewbrandId, GetCustomizationPreviewtemplateName, GetCustomizationPreviewcustomizationId)
 
@@ -1543,8 +1543,8 @@ var (
 
 func NewGetEmailDefaultContentCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getEmailDefaultContent",
-
+		Use:  "getEmailDefaultContent",
+		Long: "Retrieve an Email Template Default Content",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetEmailDefaultContent(apiClient.GetConfig().Context, GetEmailDefaultContentbrandId, GetEmailDefaultContenttemplateName)
 
@@ -1590,8 +1590,8 @@ var (
 
 func NewGetEmailDefaultPreviewCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getEmailDefaultPreview",
-
+		Use:  "getEmailDefaultPreview",
+		Long: "Retrieve a Preview of the Email Template default content",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetEmailDefaultPreview(apiClient.GetConfig().Context, GetEmailDefaultPreviewbrandId, GetEmailDefaultPreviewtemplateName)
 
@@ -1637,8 +1637,8 @@ var (
 
 func NewGetEmailSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getEmailSettings",
-
+		Use:  "getEmailSettings",
+		Long: "Retrieve the Email Template Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetEmailSettings(apiClient.GetConfig().Context, GetEmailSettingsbrandId, GetEmailSettingstemplateName)
 
@@ -1686,8 +1686,8 @@ var (
 
 func NewReplaceEmailSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceEmailSettings",
-
+		Use:  "replaceEmailSettings",
+		Long: "Replace the Email Template Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceEmailSettings(apiClient.GetConfig().Context, ReplaceEmailSettingsbrandId, ReplaceEmailSettingstemplateName)
 
@@ -1740,8 +1740,8 @@ var (
 
 func NewSendTestEmailCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "sendTestEmail",
-
+		Use:  "sendTestEmail",
+		Long: "Send a Test Email",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.SendTestEmail(apiClient.GetConfig().Context, SendTestEmailbrandId, SendTestEmailtemplateName)
 
@@ -1783,8 +1783,8 @@ var ListBrandThemesbrandId string
 
 func NewListBrandThemesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listBrandThemes",
-
+		Use:  "listBrandThemes",
+		Long: "List all Themes",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListBrandThemes(apiClient.GetConfig().Context, ListBrandThemesbrandId)
 
@@ -1827,8 +1827,8 @@ var (
 
 func NewGetBrandThemeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getBrandTheme",
-
+		Use:  "getBrandTheme",
+		Long: "Retrieve a Theme",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetBrandTheme(apiClient.GetConfig().Context, GetBrandThemebrandId, GetBrandThemethemeId)
 
@@ -1876,8 +1876,8 @@ var (
 
 func NewReplaceBrandThemeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceBrandTheme",
-
+		Use:  "replaceBrandTheme",
+		Long: "Replace a Theme",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceBrandTheme(apiClient.GetConfig().Context, ReplaceBrandThemebrandId, ReplaceBrandThemethemeId)
 
@@ -1932,8 +1932,8 @@ var (
 
 func NewUploadBrandThemeBackgroundImageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "uploadBrandThemeBackgroundImage",
-
+		Use:  "uploadBrandThemeBackgroundImage",
+		Long: "Upload the Background Image",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.UploadBrandThemeBackgroundImage(apiClient.GetConfig().Context, UploadBrandThemeBackgroundImagebrandId, UploadBrandThemeBackgroundImagethemeId)
 
@@ -1986,8 +1986,8 @@ var (
 
 func NewDeleteBrandThemeBackgroundImageCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteBrandThemeBackgroundImage",
-
+		Use:  "deleteBrandThemeBackgroundImage",
+		Long: "Delete the Background Image",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteBrandThemeBackgroundImage(apiClient.GetConfig().Context, DeleteBrandThemeBackgroundImagebrandId, DeleteBrandThemeBackgroundImagethemeId)
 
@@ -2035,8 +2035,8 @@ var (
 
 func NewUploadBrandThemeFaviconCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "uploadBrandThemeFavicon",
-
+		Use:  "uploadBrandThemeFavicon",
+		Long: "Upload the Favicon",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.UploadBrandThemeFavicon(apiClient.GetConfig().Context, UploadBrandThemeFaviconbrandId, UploadBrandThemeFaviconthemeId)
 
@@ -2089,8 +2089,8 @@ var (
 
 func NewDeleteBrandThemeFaviconCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteBrandThemeFavicon",
-
+		Use:  "deleteBrandThemeFavicon",
+		Long: "Delete the Favicon",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteBrandThemeFavicon(apiClient.GetConfig().Context, DeleteBrandThemeFaviconbrandId, DeleteBrandThemeFaviconthemeId)
 
@@ -2138,8 +2138,8 @@ var (
 
 func NewUploadBrandThemeLogoCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "uploadBrandThemeLogo",
-
+		Use:  "uploadBrandThemeLogo",
+		Long: "Upload the Logo",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.UploadBrandThemeLogo(apiClient.GetConfig().Context, UploadBrandThemeLogobrandId, UploadBrandThemeLogothemeId)
 
@@ -2192,8 +2192,8 @@ var (
 
 func NewDeleteBrandThemeLogoCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteBrandThemeLogo",
-
+		Use:  "deleteBrandThemeLogo",
+		Long: "Delete the Logo",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteBrandThemeLogo(apiClient.GetConfig().Context, DeleteBrandThemeLogobrandId, DeleteBrandThemeLogothemeId)
 

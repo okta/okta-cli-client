@@ -20,8 +20,8 @@ var CreatePrincipalRateLimitEntitydata string
 
 func NewCreatePrincipalRateLimitEntityCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createEntity",
-
+		Use:  "createEntity",
+		Long: "Create a Principal Rate Limit",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PrincipalRateLimitAPI.CreatePrincipalRateLimitEntity(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListPrincipalRateLimitEntitiesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listEntities",
-
+		Use:  "listEntities",
+		Long: "List all Principal Rate Limits",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PrincipalRateLimitAPI.ListPrincipalRateLimitEntities(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetPrincipalRateLimitEntityprincipalRateLimitId string
 
 func NewGetPrincipalRateLimitEntityCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getEntity",
-
+		Use:  "getEntity",
+		Long: "Retrieve a Principal Rate Limit",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PrincipalRateLimitAPI.GetPrincipalRateLimitEntity(apiClient.GetConfig().Context, GetPrincipalRateLimitEntityprincipalRateLimitId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplacePrincipalRateLimitEntityCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceEntity",
-
+		Use:  "replaceEntity",
+		Long: "Replace a Principal Rate Limit",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PrincipalRateLimitAPI.ReplacePrincipalRateLimitEntity(apiClient.GetConfig().Context, ReplacePrincipalRateLimitEntityprincipalRateLimitId)
 

@@ -18,8 +18,8 @@ func init() {
 
 func NewListApiTokensCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all API Token Metadata",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiTokenAPI.ListApiTokens(apiClient.GetConfig().Context)
 
@@ -53,8 +53,8 @@ func init() {
 
 func NewRevokeCurrentApiTokenCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeCurrent",
-
+		Use:  "revokeCurrent",
+		Long: "Revoke the Current API Token",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiTokenAPI.RevokeCurrentApiToken(apiClient.GetConfig().Context)
 
@@ -90,8 +90,8 @@ var GetApiTokenapiTokenId string
 
 func NewGetApiTokenCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve an API Token's Metadata",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiTokenAPI.GetApiToken(apiClient.GetConfig().Context, GetApiTokenapiTokenId)
 
@@ -130,8 +130,8 @@ var RevokeApiTokenapiTokenId string
 
 func NewRevokeApiTokenCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revoke",
-
+		Use:  "revoke",
+		Long: "Revoke an API Token",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApiTokenAPI.RevokeApiToken(apiClient.GetConfig().Context, RevokeApiTokenapiTokenId)
 

@@ -24,8 +24,8 @@ var (
 
 func NewEnrollFactorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "enrollFactor",
-
+		Use:  "enrollFactor",
+		Long: "Enroll a Factor",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserFactorAPI.EnrollFactor(apiClient.GetConfig().Context, EnrollFactoruserId)
 
@@ -71,8 +71,8 @@ var ListFactorsuserId string
 
 func NewListFactorsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listFactors",
-
+		Use:  "listFactors",
+		Long: "List all enrolled Factors",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserFactorAPI.ListFactors(apiClient.GetConfig().Context, ListFactorsuserId)
 
@@ -111,8 +111,8 @@ var ListSupportedFactorsuserId string
 
 func NewListSupportedFactorsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listSupportedFactors",
-
+		Use:  "listSupportedFactors",
+		Long: "List all supported Factors",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserFactorAPI.ListSupportedFactors(apiClient.GetConfig().Context, ListSupportedFactorsuserId)
 
@@ -151,8 +151,8 @@ var ListSupportedSecurityQuestionsuserId string
 
 func NewListSupportedSecurityQuestionsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listSupportedSecurityQuestions",
-
+		Use:  "listSupportedSecurityQuestions",
+		Long: "List all supported Security Questions",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserFactorAPI.ListSupportedSecurityQuestions(apiClient.GetConfig().Context, ListSupportedSecurityQuestionsuserId)
 
@@ -195,8 +195,8 @@ var (
 
 func NewGetFactorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getFactor",
-
+		Use:  "getFactor",
+		Long: "Retrieve a Factor",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserFactorAPI.GetFactor(apiClient.GetConfig().Context, GetFactoruserId, GetFactorfactorId)
 
@@ -242,8 +242,8 @@ var (
 
 func NewUnenrollFactorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unenrollFactor",
-
+		Use:  "unenrollFactor",
+		Long: "Unenroll a Factor",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserFactorAPI.UnenrollFactor(apiClient.GetConfig().Context, UnenrollFactoruserId, UnenrollFactorfactorId)
 
@@ -291,8 +291,8 @@ var (
 
 func NewActivateFactorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activateFactor",
-
+		Use:  "activateFactor",
+		Long: "Activate a Factor",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserFactorAPI.ActivateFactor(apiClient.GetConfig().Context, ActivateFactoruserId, ActivateFactorfactorId)
 
@@ -347,8 +347,8 @@ var (
 
 func NewResendEnrollFactorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "resendEnrollFactor",
-
+		Use:  "resendEnrollFactor",
+		Long: "Resend a Factor enrollment",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserFactorAPI.ResendEnrollFactor(apiClient.GetConfig().Context, ResendEnrollFactoruserId, ResendEnrollFactorfactorId)
 
@@ -403,8 +403,8 @@ var (
 
 func NewGetFactorTransactionStatusCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getFactorTransactionStatus",
-
+		Use:  "getFactorTransactionStatus",
+		Long: "Retrieve a Factor transaction status",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserFactorAPI.GetFactorTransactionStatus(apiClient.GetConfig().Context, GetFactorTransactionStatususerId, GetFactorTransactionStatusfactorId, GetFactorTransactionStatustransactionId)
 
@@ -455,8 +455,8 @@ var (
 
 func NewVerifyFactorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "verifyFactor",
-
+		Use:  "verifyFactor",
+		Long: "Verify a Factor",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserFactorAPI.VerifyFactor(apiClient.GetConfig().Context, VerifyFactoruserId, VerifyFactorfactorId)
 

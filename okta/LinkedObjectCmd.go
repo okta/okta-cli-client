@@ -20,8 +20,8 @@ var CreateLinkedObjectDefinitiondata string
 
 func NewCreateLinkedObjectDefinitionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createDefinition",
-
+		Use:  "createDefinition",
+		Long: "Create a Linked Object Definition",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LinkedObjectAPI.CreateLinkedObjectDefinition(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListLinkedObjectDefinitionsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listDefinitions",
-
+		Use:  "listDefinitions",
+		Long: "List all Linked Object Definitions",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LinkedObjectAPI.ListLinkedObjectDefinitions(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetLinkedObjectDefinitionlinkedObjectName string
 
 func NewGetLinkedObjectDefinitionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getDefinition",
-
+		Use:  "getDefinition",
+		Long: "Retrieve a Linked Object Definition",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LinkedObjectAPI.GetLinkedObjectDefinition(apiClient.GetConfig().Context, GetLinkedObjectDefinitionlinkedObjectName)
 
@@ -139,8 +139,8 @@ var DeleteLinkedObjectDefinitionlinkedObjectName string
 
 func NewDeleteLinkedObjectDefinitionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteDefinition",
-
+		Use:  "deleteDefinition",
+		Long: "Delete a Linked Object Definition",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.LinkedObjectAPI.DeleteLinkedObjectDefinition(apiClient.GetConfig().Context, DeleteLinkedObjectDefinitionlinkedObjectName)
 

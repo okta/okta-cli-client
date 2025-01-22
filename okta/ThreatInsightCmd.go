@@ -20,8 +20,8 @@ var UpdateConfigurationdata string
 
 func NewUpdateConfigurationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateConfiguration",
-
+		Use:  "updateConfiguration",
+		Long: "Update the ThreatInsight Configuration",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ThreatInsightAPI.UpdateConfiguration(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewGetCurrentConfigurationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getCurrentConfiguration",
-
+		Use:  "getCurrentConfiguration",
+		Long: "Retrieve the ThreatInsight Configuration",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ThreatInsightAPI.GetCurrentConfiguration(apiClient.GetConfig().Context)
 

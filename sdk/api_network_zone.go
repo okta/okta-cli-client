@@ -39,14 +39,14 @@ type NetworkZoneAPI interface {
 	ActivateNetworkZoneExecute(r ApiActivateNetworkZoneRequest) (*APIResponse, error)
 
 	/*
-		CreateNetworkZone Create a Network Zone
+			CreateNetworkZone Create a Network Zone
 
-		Creates a new network zone.
-	* At least one of either the `gateways` attribute or `proxies` attribute must be defined when creating a Network Zone.
-	* At least one of the following attributes must be defined: `proxyType`, `locations`, or `asns`.
+			Creates a new network zone.
+		* At least one of either the `gateways` attribute or `proxies` attribute must be defined when creating a Network Zone.
+		* At least one of the following attributes must be defined: `proxyType`, `locations`, or `asns`.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCreateNetworkZoneRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateNetworkZoneRequest
 	*/
 	CreateNetworkZone(ctx context.Context) ApiCreateNetworkZoneRequest
 
@@ -99,16 +99,16 @@ type NetworkZoneAPI interface {
 	GetNetworkZoneExecute(r ApiGetNetworkZoneRequest) (*APIResponse, error)
 
 	/*
-		ListNetworkZones List all Network Zones
+			ListNetworkZones List all Network Zones
 
-		Lists all network zones with pagination. A subset of zones can be returned that match a supported filter expression or query.
+			Lists all network zones with pagination. A subset of zones can be returned that match a supported filter expression or query.
 
-	This operation requires URL encoding. For example, `filter=(id eq "nzoul0wf9jyb8xwZm0g3" or id eq "nzoul1MxmGN18NDQT0g3")` is encoded as `filter=%28id+eq+%22nzoul0wf9jyb8xwZm0g3%22+or+id+eq+%22nzoul1MxmGN18NDQT0g3%22%29`.
+		This operation requires URL encoding. For example, `filter=(id eq "nzoul0wf9jyb8xwZm0g3" or id eq "nzoul1MxmGN18NDQT0g3")` is encoded as `filter=%28id+eq+%22nzoul0wf9jyb8xwZm0g3%22+or+id+eq+%22nzoul1MxmGN18NDQT0g3%22%29`.
 
-	Okta supports filtering on the `id` and `usage` properties. See [Filtering](https://developer.okta.com/docs/reference/core-okta-api/#filter) for more information on the expressions that are used in filtering.
+		Okta supports filtering on the `id` and `usage` properties. See [Filtering](https://developer.okta.com/docs/reference/core-okta-api/#filter) for more information on the expressions that are used in filtering.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListNetworkZonesRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListNetworkZonesRequest
 	*/
 	ListNetworkZones(ctx context.Context) ApiListNetworkZonesRequest
 
@@ -117,14 +117,14 @@ type NetworkZoneAPI interface {
 	ListNetworkZonesExecute(r ApiListNetworkZonesRequest) (*APIResponse, error)
 
 	/*
-		ReplaceNetworkZone Replace a Network Zone
+			ReplaceNetworkZone Replace a Network Zone
 
-		Replaces a network zone by `zoneId`. The replaced network zone type must be the same as the existing type.
-	You may replace the usage (`POLICY`, `BLOCKLIST`) of a network zone by updating the `usage` attribute.
+			Replaces a network zone by `zoneId`. The replaced network zone type must be the same as the existing type.
+		You may replace the usage (`POLICY`, `BLOCKLIST`) of a network zone by updating the `usage` attribute.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param zoneId `id` of the Network Zone
-		@return ApiReplaceNetworkZoneRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param zoneId `id` of the Network Zone
+			@return ApiReplaceNetworkZoneRequest
 	*/
 	ReplaceNetworkZone(ctx context.Context, zoneId string) ApiReplaceNetworkZoneRequest
 

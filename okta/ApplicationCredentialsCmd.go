@@ -24,8 +24,8 @@ var (
 
 func NewGenerateCsrForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "generateCsrForApplication",
-
+		Use:  "generateCsrForApplication",
+		Long: "Generate a Certificate Signing Request",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationCredentialsAPI.GenerateCsrForApplication(apiClient.GetConfig().Context, GenerateCsrForApplicationappId)
 
@@ -71,8 +71,8 @@ var ListCsrsForApplicationappId string
 
 func NewListCsrsForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listCsrsForApplication",
-
+		Use:  "listCsrsForApplication",
+		Long: "List all Certificate Signing Requests",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationCredentialsAPI.ListCsrsForApplication(apiClient.GetConfig().Context, ListCsrsForApplicationappId)
 
@@ -115,8 +115,8 @@ var (
 
 func NewGetCsrForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getCsrForApplication",
-
+		Use:  "getCsrForApplication",
+		Long: "Retrieve a Certificate Signing Request",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationCredentialsAPI.GetCsrForApplication(apiClient.GetConfig().Context, GetCsrForApplicationappId, GetCsrForApplicationcsrId)
 
@@ -162,8 +162,8 @@ var (
 
 func NewRevokeCsrFromApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeCsrFromApplication",
-
+		Use:  "revokeCsrFromApplication",
+		Long: "Revoke a Certificate Signing Request",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationCredentialsAPI.RevokeCsrFromApplication(apiClient.GetConfig().Context, RevokeCsrFromApplicationappId, RevokeCsrFromApplicationcsrId)
 
@@ -211,8 +211,8 @@ var (
 
 func NewPublishCsrFromApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "publishCsrFromApplication",
-
+		Use:  "publishCsrFromApplication",
+		Long: "Publish a Certificate Signing Request",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationCredentialsAPI.PublishCsrFromApplication(apiClient.GetConfig().Context, PublishCsrFromApplicationappId, PublishCsrFromApplicationcsrId)
 
@@ -261,8 +261,8 @@ var ListApplicationKeysappId string
 
 func NewListApplicationKeysCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listApplicationKeys",
-
+		Use:  "listApplicationKeys",
+		Long: "List all Key Credentials",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationCredentialsAPI.ListApplicationKeys(apiClient.GetConfig().Context, ListApplicationKeysappId)
 
@@ -301,8 +301,8 @@ var GenerateApplicationKeyappId string
 
 func NewGenerateApplicationKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "generateApplicationKey",
-
+		Use:  "generateApplicationKey",
+		Long: "Generate a Key Credential",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationCredentialsAPI.GenerateApplicationKey(apiClient.GetConfig().Context, GenerateApplicationKeyappId)
 
@@ -345,8 +345,8 @@ var (
 
 func NewGetApplicationKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getApplicationKey",
-
+		Use:  "getApplicationKey",
+		Long: "Retrieve a Key Credential",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationCredentialsAPI.GetApplicationKey(apiClient.GetConfig().Context, GetApplicationKeyappId, GetApplicationKeykeyId)
 
@@ -392,8 +392,8 @@ var (
 
 func NewCloneApplicationKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "cloneApplicationKey",
-
+		Use:  "cloneApplicationKey",
+		Long: "Clone a Key Credential",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationCredentialsAPI.CloneApplicationKey(apiClient.GetConfig().Context, CloneApplicationKeyappId, CloneApplicationKeykeyId)
 

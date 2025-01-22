@@ -20,8 +20,8 @@ var CreateIdentityProviderdata string
 
 func NewCreateIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create an Identity Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.CreateIdentityProvider(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListIdentityProvidersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Identity Providers",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.ListIdentityProviders(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var CreateIdentityProviderKeydata string
 
 func NewCreateIdentityProviderKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createKey",
-
+		Use:  "createKey",
+		Long: "Create an X.509 Certificate Public Key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.CreateIdentityProviderKey(apiClient.GetConfig().Context)
 
@@ -141,8 +141,8 @@ func init() {
 
 func NewListIdentityProviderKeysCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listKeys",
-
+		Use:  "listKeys",
+		Long: "List all Credential Keys",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.ListIdentityProviderKeys(apiClient.GetConfig().Context)
 
@@ -178,8 +178,8 @@ var GetIdentityProviderKeyidpKeyId string
 
 func NewGetIdentityProviderKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getKey",
-
+		Use:  "getKey",
+		Long: "Retrieve an Credential Key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.GetIdentityProviderKey(apiClient.GetConfig().Context, GetIdentityProviderKeyidpKeyId)
 
@@ -218,8 +218,8 @@ var DeleteIdentityProviderKeyidpKeyId string
 
 func NewDeleteIdentityProviderKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteKey",
-
+		Use:  "deleteKey",
+		Long: "Delete a Signing Credential Key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.DeleteIdentityProviderKey(apiClient.GetConfig().Context, DeleteIdentityProviderKeyidpKeyId)
 
@@ -258,8 +258,8 @@ var GetIdentityProvideridpId string
 
 func NewGetIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve an Identity Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.GetIdentityProvider(apiClient.GetConfig().Context, GetIdentityProvideridpId)
 
@@ -302,8 +302,8 @@ var (
 
 func NewReplaceIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace an Identity Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.ReplaceIdentityProvider(apiClient.GetConfig().Context, ReplaceIdentityProvideridpId)
 
@@ -349,8 +349,8 @@ var DeleteIdentityProvideridpId string
 
 func NewDeleteIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete an Identity Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.DeleteIdentityProvider(apiClient.GetConfig().Context, DeleteIdentityProvideridpId)
 
@@ -393,8 +393,8 @@ var (
 
 func NewGenerateCsrForIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "generateCsrFor",
-
+		Use:  "generateCsrFor",
+		Long: "Generate a Certificate Signing Request",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.GenerateCsrForIdentityProvider(apiClient.GetConfig().Context, GenerateCsrForIdentityProvideridpId)
 
@@ -440,8 +440,8 @@ var ListCsrsForIdentityProvideridpId string
 
 func NewListCsrsForIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listCsrsFor",
-
+		Use:  "listCsrsFor",
+		Long: "List all Certificate Signing Requests",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.ListCsrsForIdentityProvider(apiClient.GetConfig().Context, ListCsrsForIdentityProvideridpId)
 
@@ -484,8 +484,8 @@ var (
 
 func NewGetCsrForIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getCsrFor",
-
+		Use:  "getCsrFor",
+		Long: "Retrieve a Certificate Signing Request",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.GetCsrForIdentityProvider(apiClient.GetConfig().Context, GetCsrForIdentityProvideridpId, GetCsrForIdentityProvideridpCsrId)
 
@@ -531,8 +531,8 @@ var (
 
 func NewRevokeCsrForIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeCsrFor",
-
+		Use:  "revokeCsrFor",
+		Long: "Revoke a Certificate Signing Request",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.RevokeCsrForIdentityProvider(apiClient.GetConfig().Context, RevokeCsrForIdentityProvideridpId, RevokeCsrForIdentityProvideridpCsrId)
 
@@ -580,8 +580,8 @@ var (
 
 func NewPublishCsrForIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "publishCsrFor",
-
+		Use:  "publishCsrFor",
+		Long: "Publish a Certificate Signing Request",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.PublishCsrForIdentityProvider(apiClient.GetConfig().Context, PublishCsrForIdentityProvideridpId, PublishCsrForIdentityProvideridpCsrId)
 
@@ -630,8 +630,8 @@ var ListIdentityProviderSigningKeysidpId string
 
 func NewListIdentityProviderSigningKeysCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listSigningKeys",
-
+		Use:  "listSigningKeys",
+		Long: "List all Signing Credential Keys",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.ListIdentityProviderSigningKeys(apiClient.GetConfig().Context, ListIdentityProviderSigningKeysidpId)
 
@@ -670,8 +670,8 @@ var GenerateIdentityProviderSigningKeyidpId string
 
 func NewGenerateIdentityProviderSigningKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "generateSigningKey",
-
+		Use:  "generateSigningKey",
+		Long: "Generate a new Signing Credential Key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.GenerateIdentityProviderSigningKey(apiClient.GetConfig().Context, GenerateIdentityProviderSigningKeyidpId)
 
@@ -714,8 +714,8 @@ var (
 
 func NewGetIdentityProviderSigningKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getSigningKey",
-
+		Use:  "getSigningKey",
+		Long: "Retrieve a Signing Credential Key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.GetIdentityProviderSigningKey(apiClient.GetConfig().Context, GetIdentityProviderSigningKeyidpId, GetIdentityProviderSigningKeyidpKeyId)
 
@@ -761,8 +761,8 @@ var (
 
 func NewCloneIdentityProviderKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "cloneKey",
-
+		Use:  "cloneKey",
+		Long: "Clone a Signing Credential Key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.CloneIdentityProviderKey(apiClient.GetConfig().Context, CloneIdentityProviderKeyidpId, CloneIdentityProviderKeyidpKeyId)
 
@@ -804,8 +804,8 @@ var ActivateIdentityProvideridpId string
 
 func NewActivateIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate an Identity Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.ActivateIdentityProvider(apiClient.GetConfig().Context, ActivateIdentityProvideridpId)
 
@@ -844,8 +844,8 @@ var DeactivateIdentityProvideridpId string
 
 func NewDeactivateIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate an Identity Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.DeactivateIdentityProvider(apiClient.GetConfig().Context, DeactivateIdentityProvideridpId)
 
@@ -884,8 +884,8 @@ var ListIdentityProviderApplicationUsersidpId string
 
 func NewListIdentityProviderApplicationUsersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listApplicationUsers",
-
+		Use:  "listApplicationUsers",
+		Long: "List all Users",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.ListIdentityProviderApplicationUsers(apiClient.GetConfig().Context, ListIdentityProviderApplicationUsersidpId)
 
@@ -930,8 +930,8 @@ var (
 
 func NewLinkUserToIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "linkUserTo",
-
+		Use:  "linkUserTo",
+		Long: "Link a User to a Social IdP",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.LinkUserToIdentityProvider(apiClient.GetConfig().Context, LinkUserToIdentityProvideridpId, LinkUserToIdentityProvideruserId)
 
@@ -984,8 +984,8 @@ var (
 
 func NewGetIdentityProviderApplicationUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getApplicationUser",
-
+		Use:  "getApplicationUser",
+		Long: "Retrieve a User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.GetIdentityProviderApplicationUser(apiClient.GetConfig().Context, GetIdentityProviderApplicationUseridpId, GetIdentityProviderApplicationUseruserId)
 
@@ -1031,8 +1031,8 @@ var (
 
 func NewUnlinkUserFromIdentityProviderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unlinkUserFrom",
-
+		Use:  "unlinkUserFrom",
+		Long: "Unlink a User from IdP",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.UnlinkUserFromIdentityProvider(apiClient.GetConfig().Context, UnlinkUserFromIdentityProvideridpId, UnlinkUserFromIdentityProvideruserId)
 
@@ -1078,8 +1078,8 @@ var (
 
 func NewListSocialAuthTokensCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listSocialAuthTokens",
-
+		Use:  "listSocialAuthTokens",
+		Long: "List all Tokens from a OIDC Identity Provider",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.IdentityProviderAPI.ListSocialAuthTokens(apiClient.GetConfig().Context, ListSocialAuthTokensidpId, ListSocialAuthTokensuserId)
 

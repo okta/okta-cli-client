@@ -20,8 +20,8 @@ var CreatePolicydata string
 
 func NewCreatePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.CreatePolicy(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListPoliciesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listPolicies",
-
+		Use:  "listPolicies",
+		Long: "List all Policies",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ListPolicies(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var CreatePolicySimulationdata string
 
 func NewCreatePolicySimulationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createSimulation",
-
+		Use:  "createSimulation",
+		Long: "Create a Policy Simulation",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.CreatePolicySimulation(apiClient.GetConfig().Context)
 
@@ -143,8 +143,8 @@ var GetPolicypolicyId string
 
 func NewGetPolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.GetPolicy(apiClient.GetConfig().Context, GetPolicypolicyId)
 
@@ -187,8 +187,8 @@ var (
 
 func NewReplacePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ReplacePolicy(apiClient.GetConfig().Context, ReplacePolicypolicyId)
 
@@ -234,8 +234,8 @@ var DeletePolicypolicyId string
 
 func NewDeletePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.DeletePolicy(apiClient.GetConfig().Context, DeletePolicypolicyId)
 
@@ -274,8 +274,8 @@ var ListPolicyAppspolicyId string
 
 func NewListPolicyAppsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listApps",
-
+		Use:  "listApps",
+		Long: "List all Applications mapped to a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ListPolicyApps(apiClient.GetConfig().Context, ListPolicyAppspolicyId)
 
@@ -314,8 +314,8 @@ var ClonePolicypolicyId string
 
 func NewClonePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "clone",
-
+		Use:  "clone",
+		Long: "Clone an existing Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ClonePolicy(apiClient.GetConfig().Context, ClonePolicypolicyId)
 
@@ -354,8 +354,8 @@ var ActivatePolicypolicyId string
 
 func NewActivatePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ActivatePolicy(apiClient.GetConfig().Context, ActivatePolicypolicyId)
 
@@ -394,8 +394,8 @@ var DeactivatePolicypolicyId string
 
 func NewDeactivatePolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.DeactivatePolicy(apiClient.GetConfig().Context, DeactivatePolicypolicyId)
 
@@ -438,8 +438,8 @@ var (
 
 func NewMapResourceToPolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "mapResourceTo",
-
+		Use:  "mapResourceTo",
+		Long: "Map a resource to a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.MapResourceToPolicy(apiClient.GetConfig().Context, MapResourceToPolicypolicyId)
 
@@ -485,8 +485,8 @@ var ListPolicyMappingspolicyId string
 
 func NewListPolicyMappingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listMappings",
-
+		Use:  "listMappings",
+		Long: "List all resources mapped to a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ListPolicyMappings(apiClient.GetConfig().Context, ListPolicyMappingspolicyId)
 
@@ -529,8 +529,8 @@ var (
 
 func NewGetPolicyMappingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getMapping",
-
+		Use:  "getMapping",
+		Long: "Retrieve a policy resource Mapping",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.GetPolicyMapping(apiClient.GetConfig().Context, GetPolicyMappingpolicyId, GetPolicyMappingmappingId)
 
@@ -576,8 +576,8 @@ var (
 
 func NewDeletePolicyResourceMappingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteResourceMapping",
-
+		Use:  "deleteResourceMapping",
+		Long: "Delete a policy resource Mapping",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.DeletePolicyResourceMapping(apiClient.GetConfig().Context, DeletePolicyResourceMappingpolicyId, DeletePolicyResourceMappingmappingId)
 
@@ -623,8 +623,8 @@ var (
 
 func NewCreatePolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createRule",
-
+		Use:  "createRule",
+		Long: "Create a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.CreatePolicyRule(apiClient.GetConfig().Context, CreatePolicyRulepolicyId)
 
@@ -670,8 +670,8 @@ var ListPolicyRulespolicyId string
 
 func NewListPolicyRulesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listRules",
-
+		Use:  "listRules",
+		Long: "List all Policy Rules",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ListPolicyRules(apiClient.GetConfig().Context, ListPolicyRulespolicyId)
 
@@ -714,8 +714,8 @@ var (
 
 func NewGetPolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getRule",
-
+		Use:  "getRule",
+		Long: "Retrieve a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.GetPolicyRule(apiClient.GetConfig().Context, GetPolicyRulepolicyId, GetPolicyRuleruleId)
 
@@ -763,8 +763,8 @@ var (
 
 func NewReplacePolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceRule",
-
+		Use:  "replaceRule",
+		Long: "Replace a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ReplacePolicyRule(apiClient.GetConfig().Context, ReplacePolicyRulepolicyId, ReplacePolicyRuleruleId)
 
@@ -817,8 +817,8 @@ var (
 
 func NewDeletePolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteRule",
-
+		Use:  "deleteRule",
+		Long: "Delete a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.DeletePolicyRule(apiClient.GetConfig().Context, DeletePolicyRulepolicyId, DeletePolicyRuleruleId)
 
@@ -864,8 +864,8 @@ var (
 
 func NewActivatePolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activateRule",
-
+		Use:  "activateRule",
+		Long: "Activate a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.ActivatePolicyRule(apiClient.GetConfig().Context, ActivatePolicyRulepolicyId, ActivatePolicyRuleruleId)
 
@@ -911,8 +911,8 @@ var (
 
 func NewDeactivatePolicyRuleCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivateRule",
-
+		Use:  "deactivateRule",
+		Long: "Deactivate a Policy Rule",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.PolicyAPI.DeactivatePolicyRule(apiClient.GetConfig().Context, DeactivatePolicyRulepolicyId, DeactivatePolicyRuleruleId)
 

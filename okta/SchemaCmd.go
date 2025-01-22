@@ -24,8 +24,8 @@ var (
 
 func NewUpdateApplicationUserProfileCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateApplicationUserProfile",
-
+		Use:  "updateApplicationUserProfile",
+		Long: "Update the default Application User Schema for an Application",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SchemaAPI.UpdateApplicationUserProfile(apiClient.GetConfig().Context, UpdateApplicationUserProfileappId)
 
@@ -71,8 +71,8 @@ var GetApplicationUserSchemaappId string
 
 func NewGetApplicationUserSchemaCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getApplicationUser",
-
+		Use:  "getApplicationUser",
+		Long: "Retrieve the default Application User Schema for an Application",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SchemaAPI.GetApplicationUserSchema(apiClient.GetConfig().Context, GetApplicationUserSchemaappId)
 
@@ -111,8 +111,8 @@ var UpdateGroupSchemadata string
 
 func NewUpdateGroupSchemaCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateGroup",
-
+		Use:  "updateGroup",
+		Long: "Update the default Group Schema",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SchemaAPI.UpdateGroupSchema(apiClient.GetConfig().Context)
 
@@ -153,8 +153,8 @@ func init() {
 
 func NewGetGroupSchemaCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getGroup",
-
+		Use:  "getGroup",
+		Long: "Retrieve the default Group Schema",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SchemaAPI.GetGroupSchema(apiClient.GetConfig().Context)
 
@@ -188,8 +188,8 @@ func init() {
 
 func NewListLogStreamSchemasCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listLogStreams",
-
+		Use:  "listLogStreams",
+		Long: "List the Log Stream Schemas",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SchemaAPI.ListLogStreamSchemas(apiClient.GetConfig().Context)
 
@@ -225,8 +225,8 @@ var GetLogStreamSchemalogStreamType string
 
 func NewGetLogStreamSchemaCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getLogStream",
-
+		Use:  "getLogStream",
+		Long: "Retrieve the Log Stream Schema for the schema type",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SchemaAPI.GetLogStreamSchema(apiClient.GetConfig().Context, GetLogStreamSchemalogStreamType)
 
@@ -269,8 +269,8 @@ var (
 
 func NewUpdateUserProfileCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateUserProfile",
-
+		Use:  "updateUserProfile",
+		Long: "Update a User Schema",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SchemaAPI.UpdateUserProfile(apiClient.GetConfig().Context, UpdateUserProfileschemaId)
 
@@ -316,8 +316,8 @@ var GetUserSchemaschemaId string
 
 func NewGetUserSchemaCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getUser",
-
+		Use:  "getUser",
+		Long: "Retrieve a User Schema",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SchemaAPI.GetUserSchema(apiClient.GetConfig().Context, GetUserSchemaschemaId)
 

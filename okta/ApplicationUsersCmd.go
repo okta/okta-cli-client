@@ -24,8 +24,8 @@ var (
 
 func NewAssignUserToApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignUserToApplication",
-
+		Use:  "assignUserToApplication",
+		Long: "Assign an Application User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationUsersAPI.AssignUserToApplication(apiClient.GetConfig().Context, AssignUserToApplicationappId)
 
@@ -71,8 +71,8 @@ var ListApplicationUsersappId string
 
 func NewListApplicationUsersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "list",
-
+		Use:  "list",
+		Long: "List all Application Users",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationUsersAPI.ListApplicationUsers(apiClient.GetConfig().Context, ListApplicationUsersappId)
 
@@ -117,8 +117,8 @@ var (
 
 func NewUpdateApplicationUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateApplicationUser",
-
+		Use:  "updateApplicationUser",
+		Long: "Update an Application User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationUsersAPI.UpdateApplicationUser(apiClient.GetConfig().Context, UpdateApplicationUserappId, UpdateApplicationUseruserId)
 
@@ -171,8 +171,8 @@ var (
 
 func NewGetApplicationUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getApplicationUser",
-
+		Use:  "getApplicationUser",
+		Long: "Retrieve an Application User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationUsersAPI.GetApplicationUser(apiClient.GetConfig().Context, GetApplicationUserappId, GetApplicationUseruserId)
 
@@ -218,8 +218,8 @@ var (
 
 func NewUnassignUserFromApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unassignUserFromApplication",
-
+		Use:  "unassignUserFromApplication",
+		Long: "Unassign an Application User",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationUsersAPI.UnassignUserFromApplication(apiClient.GetConfig().Context, UnassignUserFromApplicationappId, UnassignUserFromApplicationuserId)
 

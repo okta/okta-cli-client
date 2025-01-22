@@ -24,8 +24,8 @@ var (
 
 func NewUploadApplicationLogoCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "uploadApplicationLogo",
-
+		Use:  "uploadApplicationLogo",
+		Long: "Upload an application Logo",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationLogosAPI.UploadApplicationLogo(apiClient.GetConfig().Context, UploadApplicationLogoappId)
 

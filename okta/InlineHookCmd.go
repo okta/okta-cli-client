@@ -20,8 +20,8 @@ var CreateInlineHookdata string
 
 func NewCreateInlineHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create an Inline Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.InlineHookAPI.CreateInlineHook(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListInlineHooksCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Inline Hooks",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.InlineHookAPI.ListInlineHooks(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetInlineHookinlineHookId string
 
 func NewGetInlineHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve an Inline Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.InlineHookAPI.GetInlineHook(apiClient.GetConfig().Context, GetInlineHookinlineHookId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceInlineHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace an Inline Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.InlineHookAPI.ReplaceInlineHook(apiClient.GetConfig().Context, ReplaceInlineHookinlineHookId)
 
@@ -190,8 +190,8 @@ var DeleteInlineHookinlineHookId string
 
 func NewDeleteInlineHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete an Inline Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.InlineHookAPI.DeleteInlineHook(apiClient.GetConfig().Context, DeleteInlineHookinlineHookId)
 
@@ -234,8 +234,8 @@ var (
 
 func NewExecuteInlineHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "execute",
-
+		Use:  "execute",
+		Long: "Execute an Inline Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.InlineHookAPI.ExecuteInlineHook(apiClient.GetConfig().Context, ExecuteInlineHookinlineHookId)
 
@@ -281,8 +281,8 @@ var ActivateInlineHookinlineHookId string
 
 func NewActivateInlineHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate an Inline Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.InlineHookAPI.ActivateInlineHook(apiClient.GetConfig().Context, ActivateInlineHookinlineHookId)
 
@@ -321,8 +321,8 @@ var DeactivateInlineHookinlineHookId string
 
 func NewDeactivateInlineHookCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate an Inline Hook",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.InlineHookAPI.DeactivateInlineHook(apiClient.GetConfig().Context, DeactivateInlineHookinlineHookId)
 

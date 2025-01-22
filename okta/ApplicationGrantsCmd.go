@@ -24,8 +24,8 @@ var (
 
 func NewGrantConsentToScopeCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "grantConsentToScope",
-
+		Use:  "grantConsentToScope",
+		Long: "Grant consent to scope",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationGrantsAPI.GrantConsentToScope(apiClient.GetConfig().Context, GrantConsentToScopeappId)
 
@@ -71,8 +71,8 @@ var ListScopeConsentGrantsappId string
 
 func NewListScopeConsentGrantsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listScopeConsentGrants",
-
+		Use:  "listScopeConsentGrants",
+		Long: "List all app Grants",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationGrantsAPI.ListScopeConsentGrants(apiClient.GetConfig().Context, ListScopeConsentGrantsappId)
 
@@ -115,8 +115,8 @@ var (
 
 func NewGetScopeConsentGrantCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getScopeConsentGrant",
-
+		Use:  "getScopeConsentGrant",
+		Long: "Retrieve an app Grant",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationGrantsAPI.GetScopeConsentGrant(apiClient.GetConfig().Context, GetScopeConsentGrantappId, GetScopeConsentGrantgrantId)
 
@@ -162,8 +162,8 @@ var (
 
 func NewRevokeScopeConsentGrantCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeScopeConsentGrant",
-
+		Use:  "revokeScopeConsentGrant",
+		Long: "Revoke an app Grant",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationGrantsAPI.RevokeScopeConsentGrant(apiClient.GetConfig().Context, RevokeScopeConsentGrantappId, RevokeScopeConsentGrantgrantId)
 

@@ -25,20 +25,20 @@ import (
 type ApplicationLogosAPI interface {
 
 	/*
-		UploadApplicationLogo Upload an application Logo
+			UploadApplicationLogo Upload an application Logo
 
-		Uploads a logo for the app instance.
-	If the app already has a logo, this operation replaces the previous logo.
+			Uploads a logo for the app instance.
+		If the app already has a logo, this operation replaces the previous logo.
 
-	The logo is visible in the Admin Console as an icon for your app instance.
-	If you have one `appLink` object configured, this logo also appears in the End-User Dashboard as an icon for your app.
-	> **Note:** If you have multiple `appLink` objects, use the Admin Console to add logos for each app link.
-	> You can't use the API to add logos for multiple app links.
+		The logo is visible in the Admin Console as an icon for your app instance.
+		If you have one `appLink` object configured, this logo also appears in the End-User Dashboard as an icon for your app.
+		> **Note:** If you have multiple `appLink` objects, use the Admin Console to add logos for each app link.
+		> You can't use the API to add logos for multiple app links.
 
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param appId Application ID
-		@return ApiUploadApplicationLogoRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appId Application ID
+			@return ApiUploadApplicationLogoRequest
 	*/
 	UploadApplicationLogo(ctx context.Context, appId string) ApiUploadApplicationLogoRequest
 

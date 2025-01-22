@@ -18,8 +18,8 @@ func init() {
 
 func NewListDevicesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Devices",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.ListDevices(apiClient.GetConfig().Context)
 
@@ -55,8 +55,8 @@ var GetDevicedeviceId string
 
 func NewGetDeviceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Device",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.GetDevice(apiClient.GetConfig().Context, GetDevicedeviceId)
 
@@ -95,8 +95,8 @@ var DeleteDevicedeviceId string
 
 func NewDeleteDeviceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Device",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.DeleteDevice(apiClient.GetConfig().Context, DeleteDevicedeviceId)
 
@@ -135,8 +135,8 @@ var ActivateDevicedeviceId string
 
 func NewActivateDeviceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate a Device",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.ActivateDevice(apiClient.GetConfig().Context, ActivateDevicedeviceId)
 
@@ -175,8 +175,8 @@ var DeactivateDevicedeviceId string
 
 func NewDeactivateDeviceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate a Device",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.DeactivateDevice(apiClient.GetConfig().Context, DeactivateDevicedeviceId)
 
@@ -215,8 +215,8 @@ var SuspendDevicedeviceId string
 
 func NewSuspendDeviceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "suspend",
-
+		Use:  "suspend",
+		Long: "Suspend a Device",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.SuspendDevice(apiClient.GetConfig().Context, SuspendDevicedeviceId)
 
@@ -255,8 +255,8 @@ var UnsuspendDevicedeviceId string
 
 func NewUnsuspendDeviceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "unsuspend",
-
+		Use:  "unsuspend",
+		Long: "Unsuspend a Device",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.UnsuspendDevice(apiClient.GetConfig().Context, UnsuspendDevicedeviceId)
 
@@ -295,8 +295,8 @@ var ListDeviceUsersdeviceId string
 
 func NewListDeviceUsersCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listUsers",
-
+		Use:  "listUsers",
+		Long: "List all Users for a Device",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.DeviceAPI.ListDeviceUsers(apiClient.GetConfig().Context, ListDeviceUsersdeviceId)
 

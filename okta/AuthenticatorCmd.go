@@ -18,8 +18,8 @@ func init() {
 
 func NewGetWellKnownAppAuthenticatorConfigurationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getWellKnownAppConfiguration",
-
+		Use:  "getWellKnownAppConfiguration",
+		Long: "Retrieve the Well-Known App Authenticator Configuration",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.GetWellKnownAppAuthenticatorConfiguration(apiClient.GetConfig().Context)
 
@@ -55,8 +55,8 @@ var CreateAuthenticatordata string
 
 func NewCreateAuthenticatorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create an Authenticator",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.CreateAuthenticator(apiClient.GetConfig().Context)
 
@@ -97,8 +97,8 @@ func init() {
 
 func NewListAuthenticatorsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Authenticators",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.ListAuthenticators(apiClient.GetConfig().Context)
 
@@ -134,8 +134,8 @@ var GetAuthenticatorauthenticatorId string
 
 func NewGetAuthenticatorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve an Authenticator",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.GetAuthenticator(apiClient.GetConfig().Context, GetAuthenticatorauthenticatorId)
 
@@ -178,8 +178,8 @@ var (
 
 func NewReplaceAuthenticatorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace an Authenticator",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.ReplaceAuthenticator(apiClient.GetConfig().Context, ReplaceAuthenticatorauthenticatorId)
 
@@ -225,8 +225,8 @@ var ActivateAuthenticatorauthenticatorId string
 
 func NewActivateAuthenticatorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate an Authenticator",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.ActivateAuthenticator(apiClient.GetConfig().Context, ActivateAuthenticatorauthenticatorId)
 
@@ -265,8 +265,8 @@ var DeactivateAuthenticatorauthenticatorId string
 
 func NewDeactivateAuthenticatorCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate an Authenticator",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.DeactivateAuthenticator(apiClient.GetConfig().Context, DeactivateAuthenticatorauthenticatorId)
 
@@ -305,8 +305,8 @@ var ListAuthenticatorMethodsauthenticatorId string
 
 func NewListAuthenticatorMethodsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listMethods",
-
+		Use:  "listMethods",
+		Long: "List all Methods of an Authenticator",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.ListAuthenticatorMethods(apiClient.GetConfig().Context, ListAuthenticatorMethodsauthenticatorId)
 
@@ -349,8 +349,8 @@ var (
 
 func NewGetAuthenticatorMethodCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getMethod",
-
+		Use:  "getMethod",
+		Long: "Retrieve a Method",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.GetAuthenticatorMethod(apiClient.GetConfig().Context, GetAuthenticatorMethodauthenticatorId, GetAuthenticatorMethodmethodType)
 
@@ -398,8 +398,8 @@ var (
 
 func NewReplaceAuthenticatorMethodCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceMethod",
-
+		Use:  "replaceMethod",
+		Long: "Replace a Method",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.ReplaceAuthenticatorMethod(apiClient.GetConfig().Context, ReplaceAuthenticatorMethodauthenticatorId, ReplaceAuthenticatorMethodmethodType)
 
@@ -452,8 +452,8 @@ var (
 
 func NewActivateAuthenticatorMethodCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activateMethod",
-
+		Use:  "activateMethod",
+		Long: "Activate an Authenticator Method",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.ActivateAuthenticatorMethod(apiClient.GetConfig().Context, ActivateAuthenticatorMethodauthenticatorId, ActivateAuthenticatorMethodmethodType)
 
@@ -499,8 +499,8 @@ var (
 
 func NewDeactivateAuthenticatorMethodCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivateMethod",
-
+		Use:  "deactivateMethod",
+		Long: "Deactivate an Authenticator Method",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AuthenticatorAPI.DeactivateAuthenticatorMethod(apiClient.GetConfig().Context, DeactivateAuthenticatorMethodauthenticatorId, DeactivateAuthenticatorMethodmethodType)
 

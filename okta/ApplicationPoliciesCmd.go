@@ -24,8 +24,8 @@ var (
 
 func NewAssignApplicationPolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignApplicationPolicy",
-
+		Use:  "assignApplicationPolicy",
+		Long: "Assign an application to a Policy",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationPoliciesAPI.AssignApplicationPolicy(apiClient.GetConfig().Context, AssignApplicationPolicyappId, AssignApplicationPolicypolicyId)
 

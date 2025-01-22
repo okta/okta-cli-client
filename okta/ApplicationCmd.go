@@ -20,8 +20,8 @@ var CreateApplicationdata string
 
 func NewCreateApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create an Application",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationAPI.CreateApplication(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListApplicationsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Applications",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationAPI.ListApplications(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetApplicationappId string
 
 func NewGetApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve an Application",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationAPI.GetApplication(apiClient.GetConfig().Context, GetApplicationappId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace an Application",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationAPI.ReplaceApplication(apiClient.GetConfig().Context, ReplaceApplicationappId)
 
@@ -190,8 +190,8 @@ var DeleteApplicationappId string
 
 func NewDeleteApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete an Application",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationAPI.DeleteApplication(apiClient.GetConfig().Context, DeleteApplicationappId)
 
@@ -230,8 +230,8 @@ var ActivateApplicationappId string
 
 func NewActivateApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate an Application",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationAPI.ActivateApplication(apiClient.GetConfig().Context, ActivateApplicationappId)
 
@@ -270,8 +270,8 @@ var DeactivateApplicationappId string
 
 func NewDeactivateApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate an Application",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationAPI.DeactivateApplication(apiClient.GetConfig().Context, DeactivateApplicationappId)
 

@@ -20,8 +20,8 @@ var CreateSessiondata string
 
 func NewCreateSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Session with session token",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SessionAPI.CreateSession(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewGetCurrentSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getCurrent",
-
+		Use:  "getCurrent",
+		Long: "Retrieve the current Session",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SessionAPI.GetCurrentSession(apiClient.GetConfig().Context)
 
@@ -97,8 +97,8 @@ func init() {
 
 func NewCloseCurrentSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "closeCurrent",
-
+		Use:  "closeCurrent",
+		Long: "Close the current Session",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SessionAPI.CloseCurrentSession(apiClient.GetConfig().Context)
 
@@ -132,8 +132,8 @@ func init() {
 
 func NewRefreshCurrentSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "refreshCurrent",
-
+		Use:  "refreshCurrent",
+		Long: "Refresh the current Session",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SessionAPI.RefreshCurrentSession(apiClient.GetConfig().Context)
 
@@ -169,8 +169,8 @@ var GetSessionsessionId string
 
 func NewGetSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Session",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SessionAPI.GetSession(apiClient.GetConfig().Context, GetSessionsessionId)
 
@@ -209,8 +209,8 @@ var RevokeSessionsessionId string
 
 func NewRevokeSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revoke",
-
+		Use:  "revoke",
+		Long: "Revoke a Session",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SessionAPI.RevokeSession(apiClient.GetConfig().Context, RevokeSessionsessionId)
 
@@ -249,8 +249,8 @@ var RefreshSessionsessionId string
 
 func NewRefreshSessionCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "refresh",
-
+		Use:  "refresh",
+		Long: "Refresh a Session",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.SessionAPI.RefreshSession(apiClient.GetConfig().Context, RefreshSessionsessionId)
 

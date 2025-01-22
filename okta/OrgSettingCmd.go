@@ -18,8 +18,8 @@ func init() {
 
 func NewGetWellknownOrgMetadataCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getWellknownOrgMetadata",
-
+		Use:  "getWellknownOrgMetadata",
+		Long: "Retrieve the Well-Known Org Metadata",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.GetWellknownOrgMetadata(apiClient.GetConfig().Context)
 
@@ -55,8 +55,8 @@ var UpdateOrgSettingsdata string
 
 func NewUpdateOrgSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updates",
-
+		Use:  "updates",
+		Long: "Update the Org Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.UpdateOrgSettings(apiClient.GetConfig().Context)
 
@@ -97,8 +97,8 @@ func init() {
 
 func NewGetOrgSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "gets",
-
+		Use:  "gets",
+		Long: "Retrieve the Org Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.GetOrgSettings(apiClient.GetConfig().Context)
 
@@ -134,8 +134,8 @@ var ReplaceOrgSettingsdata string
 
 func NewReplaceOrgSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaces",
-
+		Use:  "replaces",
+		Long: "Replace the Org Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.ReplaceOrgSettings(apiClient.GetConfig().Context)
 
@@ -176,8 +176,8 @@ func init() {
 
 func NewGetOrgContactTypesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getOrgContactTypes",
-
+		Use:  "getOrgContactTypes",
+		Long: "Retrieve the Org Contact Types",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.GetOrgContactTypes(apiClient.GetConfig().Context)
 
@@ -213,8 +213,8 @@ var GetOrgContactUsercontactType string
 
 func NewGetOrgContactUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getOrgContactUser",
-
+		Use:  "getOrgContactUser",
+		Long: "Retrieve the User of the Contact Type",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.GetOrgContactUser(apiClient.GetConfig().Context, GetOrgContactUsercontactType)
 
@@ -257,8 +257,8 @@ var (
 
 func NewReplaceOrgContactUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceOrgContactUser",
-
+		Use:  "replaceOrgContactUser",
+		Long: "Replace the User of the Contact Type",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.ReplaceOrgContactUser(apiClient.GetConfig().Context, ReplaceOrgContactUsercontactType)
 
@@ -304,8 +304,8 @@ var BulkRemoveEmailAddressBouncesdata string
 
 func NewBulkRemoveEmailAddressBouncesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "bulkRemoveEmailAddressBounces",
-
+		Use:  "bulkRemoveEmailAddressBounces",
+		Long: "Remove Emails from Email Provider Bounce List",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.BulkRemoveEmailAddressBounces(apiClient.GetConfig().Context)
 
@@ -348,8 +348,8 @@ var UploadOrgLogodata string
 
 func NewUploadOrgLogoCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "uploadOrgLogo",
-
+		Use:  "uploadOrgLogo",
+		Long: "Upload the Org Logo",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.UploadOrgLogo(apiClient.GetConfig().Context)
 
@@ -390,8 +390,8 @@ func init() {
 
 func NewUpdateThirdPartyAdminSettingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateThirdPartyAdminSetting",
-
+		Use:  "updateThirdPartyAdminSetting",
+		Long: "Update the Org Third-Party Admin setting",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.UpdateThirdPartyAdminSetting(apiClient.GetConfig().Context)
 
@@ -425,8 +425,8 @@ func init() {
 
 func NewGetThirdPartyAdminSettingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getThirdPartyAdminSetting",
-
+		Use:  "getThirdPartyAdminSetting",
+		Long: "Retrieve the Org Third-Party Admin setting",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.GetThirdPartyAdminSetting(apiClient.GetConfig().Context)
 
@@ -460,8 +460,8 @@ func init() {
 
 func NewGetOrgPreferencesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getOrgPreferences",
-
+		Use:  "getOrgPreferences",
+		Long: "Retrieve the Org Preferences",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.GetOrgPreferences(apiClient.GetConfig().Context)
 
@@ -495,8 +495,8 @@ func init() {
 
 func NewUpdateOrgHideOktaUIFooterCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateOrgHideOktaUIFooter",
-
+		Use:  "updateOrgHideOktaUIFooter",
+		Long: "Update the Preference to Hide the Okta Dashboard Footer",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.UpdateOrgHideOktaUIFooter(apiClient.GetConfig().Context)
 
@@ -530,8 +530,8 @@ func init() {
 
 func NewUpdateOrgShowOktaUIFooterCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateOrgShowOktaUIFooter",
-
+		Use:  "updateOrgShowOktaUIFooter",
+		Long: "Update the Preference to Show the Okta Dashboard Footer",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.UpdateOrgShowOktaUIFooter(apiClient.GetConfig().Context)
 
@@ -565,8 +565,8 @@ func init() {
 
 func NewGetOktaCommunicationSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getOktaCommunicationSettings",
-
+		Use:  "getOktaCommunicationSettings",
+		Long: "Retrieve the Okta Communication Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.GetOktaCommunicationSettings(apiClient.GetConfig().Context)
 
@@ -600,8 +600,8 @@ func init() {
 
 func NewOptInUsersToOktaCommunicationEmailsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "optInUsersToOktaCommunicationEmails",
-
+		Use:  "optInUsersToOktaCommunicationEmails",
+		Long: "Opt in all Users to Okta Communication emails",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.OptInUsersToOktaCommunicationEmails(apiClient.GetConfig().Context)
 
@@ -635,8 +635,8 @@ func init() {
 
 func NewOptOutUsersFromOktaCommunicationEmailsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "optOutUsersFromOktaCommunicationEmails",
-
+		Use:  "optOutUsersFromOktaCommunicationEmails",
+		Long: "Opt out all Users from Okta Communication emails",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.OptOutUsersFromOktaCommunicationEmails(apiClient.GetConfig().Context)
 
@@ -670,8 +670,8 @@ func init() {
 
 func NewGetOrgOktaSupportSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getOrgOktaSupportSettings",
-
+		Use:  "getOrgOktaSupportSettings",
+		Long: "Retrieve the Okta Support Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.GetOrgOktaSupportSettings(apiClient.GetConfig().Context)
 
@@ -705,8 +705,8 @@ func init() {
 
 func NewExtendOktaSupportCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "extendOktaSupport",
-
+		Use:  "extendOktaSupport",
+		Long: "Extend Okta Support Access",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.ExtendOktaSupport(apiClient.GetConfig().Context)
 
@@ -740,8 +740,8 @@ func init() {
 
 func NewGrantOktaSupportCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "grantOktaSupport",
-
+		Use:  "grantOktaSupport",
+		Long: "Grant Okta Support Access to your Org",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.GrantOktaSupport(apiClient.GetConfig().Context)
 
@@ -775,8 +775,8 @@ func init() {
 
 func NewRevokeOktaSupportCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeOktaSupport",
-
+		Use:  "revokeOktaSupport",
+		Long: "Revoke Okta Support Access",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.RevokeOktaSupport(apiClient.GetConfig().Context)
 
@@ -810,8 +810,8 @@ func init() {
 
 func NewGetClientPrivilegesSettingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getClientPrivilegesSetting",
-
+		Use:  "getClientPrivilegesSetting",
+		Long: "Retrieve the Org settings to assign the Super Admin role",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.GetClientPrivilegesSetting(apiClient.GetConfig().Context)
 
@@ -847,8 +847,8 @@ var AssignClientPrivilegesSettingdata string
 
 func NewAssignClientPrivilegesSettingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "assignClientPrivilegesSetting",
-
+		Use:  "assignClientPrivilegesSetting",
+		Long: "Assign the Super Admin role to a public client app",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.OrgSettingAPI.AssignClientPrivilegesSetting(apiClient.GetConfig().Context)
 

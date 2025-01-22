@@ -20,8 +20,8 @@ var CreateEmailDomaindata string
 
 func NewCreateEmailDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create an Email Domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailDomainAPI.CreateEmailDomain(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListEmailDomainsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Email Domains",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailDomainAPI.ListEmailDomains(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetEmailDomainemailDomainId string
 
 func NewGetEmailDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve an Email Domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailDomainAPI.GetEmailDomain(apiClient.GetConfig().Context, GetEmailDomainemailDomainId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceEmailDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace an Email Domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailDomainAPI.ReplaceEmailDomain(apiClient.GetConfig().Context, ReplaceEmailDomainemailDomainId)
 
@@ -190,8 +190,8 @@ var DeleteEmailDomainemailDomainId string
 
 func NewDeleteEmailDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete an Email Domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailDomainAPI.DeleteEmailDomain(apiClient.GetConfig().Context, DeleteEmailDomainemailDomainId)
 
@@ -230,8 +230,8 @@ var VerifyEmailDomainemailDomainId string
 
 func NewVerifyEmailDomainCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "verify",
-
+		Use:  "verify",
+		Long: "Verify an Email Domain",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.EmailDomainAPI.VerifyEmailDomain(apiClient.GetConfig().Context, VerifyEmailDomainemailDomainId)
 

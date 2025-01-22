@@ -18,8 +18,8 @@ func init() {
 
 func NewListAgentPoolsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "list",
-
+		Use:  "list",
+		Long: "List all Agent Pools",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.ListAgentPools(apiClient.GetConfig().Context)
 
@@ -59,8 +59,8 @@ var (
 
 func NewCreateAgentPoolsUpdateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createUpdate",
-
+		Use:  "createUpdate",
+		Long: "Create an Agent Pool update",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.CreateAgentPoolsUpdate(apiClient.GetConfig().Context, CreateAgentPoolsUpdatepoolId)
 
@@ -106,8 +106,8 @@ var ListAgentPoolsUpdatespoolId string
 
 func NewListAgentPoolsUpdatesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listUpdates",
-
+		Use:  "listUpdates",
+		Long: "List all Agent Pool updates",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.ListAgentPoolsUpdates(apiClient.GetConfig().Context, ListAgentPoolsUpdatespoolId)
 
@@ -150,8 +150,8 @@ var (
 
 func NewUpdateAgentPoolsUpdateSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateUpdateSettings",
-
+		Use:  "updateUpdateSettings",
+		Long: "Update an Agent Pool update settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.UpdateAgentPoolsUpdateSettings(apiClient.GetConfig().Context, UpdateAgentPoolsUpdateSettingspoolId)
 
@@ -197,8 +197,8 @@ var GetAgentPoolsUpdateSettingspoolId string
 
 func NewGetAgentPoolsUpdateSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getUpdateSettings",
-
+		Use:  "getUpdateSettings",
+		Long: "Retrieve an Agent Pool update's settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.GetAgentPoolsUpdateSettings(apiClient.GetConfig().Context, GetAgentPoolsUpdateSettingspoolId)
 
@@ -243,8 +243,8 @@ var (
 
 func NewUpdateAgentPoolsUpdateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateUpdate",
-
+		Use:  "updateUpdate",
+		Long: "Update an Agent Pool update by id",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.UpdateAgentPoolsUpdate(apiClient.GetConfig().Context, UpdateAgentPoolsUpdatepoolId, UpdateAgentPoolsUpdateupdateId)
 
@@ -297,8 +297,8 @@ var (
 
 func NewGetAgentPoolsUpdateInstanceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getUpdateInstance",
-
+		Use:  "getUpdateInstance",
+		Long: "Retrieve an Agent Pool update by id",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.GetAgentPoolsUpdateInstance(apiClient.GetConfig().Context, GetAgentPoolsUpdateInstancepoolId, GetAgentPoolsUpdateInstanceupdateId)
 
@@ -344,8 +344,8 @@ var (
 
 func NewDeleteAgentPoolsUpdateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteUpdate",
-
+		Use:  "deleteUpdate",
+		Long: "Delete an Agent Pool update",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.DeleteAgentPoolsUpdate(apiClient.GetConfig().Context, DeleteAgentPoolsUpdatepoolId, DeleteAgentPoolsUpdateupdateId)
 
@@ -391,8 +391,8 @@ var (
 
 func NewActivateAgentPoolsUpdateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activateUpdate",
-
+		Use:  "activateUpdate",
+		Long: "Activate an Agent Pool update",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.ActivateAgentPoolsUpdate(apiClient.GetConfig().Context, ActivateAgentPoolsUpdatepoolId, ActivateAgentPoolsUpdateupdateId)
 
@@ -438,8 +438,8 @@ var (
 
 func NewDeactivateAgentPoolsUpdateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivateUpdate",
-
+		Use:  "deactivateUpdate",
+		Long: "Deactivate an Agent Pool update",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.DeactivateAgentPoolsUpdate(apiClient.GetConfig().Context, DeactivateAgentPoolsUpdatepoolId, DeactivateAgentPoolsUpdateupdateId)
 
@@ -485,8 +485,8 @@ var (
 
 func NewPauseAgentPoolsUpdateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "pauseUpdate",
-
+		Use:  "pauseUpdate",
+		Long: "Pause an Agent Pool update",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.PauseAgentPoolsUpdate(apiClient.GetConfig().Context, PauseAgentPoolsUpdatepoolId, PauseAgentPoolsUpdateupdateId)
 
@@ -532,8 +532,8 @@ var (
 
 func NewResumeAgentPoolsUpdateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "resumeUpdate",
-
+		Use:  "resumeUpdate",
+		Long: "Resume an Agent Pool update",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.ResumeAgentPoolsUpdate(apiClient.GetConfig().Context, ResumeAgentPoolsUpdatepoolId, ResumeAgentPoolsUpdateupdateId)
 
@@ -579,8 +579,8 @@ var (
 
 func NewRetryAgentPoolsUpdateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "retryUpdate",
-
+		Use:  "retryUpdate",
+		Long: "Retry an Agent Pool update",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.RetryAgentPoolsUpdate(apiClient.GetConfig().Context, RetryAgentPoolsUpdatepoolId, RetryAgentPoolsUpdateupdateId)
 
@@ -626,8 +626,8 @@ var (
 
 func NewStopAgentPoolsUpdateCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "stopUpdate",
-
+		Use:  "stopUpdate",
+		Long: "Stop an Agent Pool update",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.AgentPoolsAPI.StopAgentPoolsUpdate(apiClient.GetConfig().Context, StopAgentPoolsUpdatepoolId, StopAgentPoolsUpdateupdateId)
 

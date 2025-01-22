@@ -24,25 +24,25 @@ import (
 type UserAPI interface {
 
 	/*
-		ActivateUser Activate a User
+			ActivateUser Activate a User
 
-		Activates a user. This operation can only be performed on users with a `STAGED` or `DEPROVISIONED` status.
-	Activation of a user is an asynchronous operation. The user will have the `transitioningToStatus`
-	property with a value of `ACTIVE` during activation to indicate that the user hasn't completed the asynchronous operation.
-	The user will have a status of `ACTIVE` when the activation process is complete.
-	> **Multibrand and User activation**<br>
-	If you want to send a branded User Activation email, change the subdomain of your request to the custom domain that's associated with the brand.
-	For example, change `subdomain.okta.com` to `custom.domain.one`. See [Multibrand and custom domains](https://developer.okta.com/docs/concepts/brands/#multibrand-and-custom-domains).
-	<br><br>
-	> **Legal disclaimer**<br>
-	After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
-	you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
-	Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
-	liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
+			Activates a user. This operation can only be performed on users with a `STAGED` or `DEPROVISIONED` status.
+		Activation of a user is an asynchronous operation. The user will have the `transitioningToStatus`
+		property with a value of `ACTIVE` during activation to indicate that the user hasn't completed the asynchronous operation.
+		The user will have a status of `ACTIVE` when the activation process is complete.
+		> **Multibrand and User activation**<br>
+		If you want to send a branded User Activation email, change the subdomain of your request to the custom domain that's associated with the brand.
+		For example, change `subdomain.okta.com` to `custom.domain.one`. See [Multibrand and custom domains](https://developer.okta.com/docs/concepts/brands/#multibrand-and-custom-domains).
+		<br><br>
+		> **Legal disclaimer**<br>
+		After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
+		you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
+		Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
+		liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param userId ID of an existing Okta user
-		@return ApiActivateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param userId ID of an existing Okta user
+			@return ApiActivateUserRequest
 	*/
 	ActivateUser(ctx context.Context, userId string) ApiActivateUserRequest
 
@@ -81,17 +81,17 @@ type UserAPI interface {
 	ChangeRecoveryQuestionExecute(r ApiChangeRecoveryQuestionRequest) (*APIResponse, error)
 
 	/*
-		CreateUser Create a User
+			CreateUser Create a User
 
-		Creates a new user in your Okta organization with or without credentials<br>
-	> **Legal Disclaimer**<br>
-	After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
-	you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
-	Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
-	liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
+			Creates a new user in your Okta organization with or without credentials<br>
+		> **Legal Disclaimer**<br>
+		After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
+		you agreed not to use Okta's service/product to spam and/or send unsolicited messages.
+		Please refrain from adding unrelated accounts to the directory as Okta is not responsible for, and disclaims any and all
+		liability associated with, the activation email's content. You, and you alone, bear responsibility for the emails sent to any recipients.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCreateUserRequest
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateUserRequest
 	*/
 	CreateUser(ctx context.Context) ApiCreateUserRequest
 

@@ -20,8 +20,8 @@ var CreateHookKeydata string
 
 func NewCreateHookKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.HookKeyAPI.CreateHookKey(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListHookKeysCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all keys",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.HookKeyAPI.ListHookKeys(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetPublicKeypublicKeyId string
 
 func NewGetPublicKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getPublicKey",
-
+		Use:  "getPublicKey",
+		Long: "Retrieve a public key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.HookKeyAPI.GetPublicKey(apiClient.GetConfig().Context, GetPublicKeypublicKeyId)
 
@@ -139,8 +139,8 @@ var GetHookKeyhookKeyId string
 
 func NewGetHookKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.HookKeyAPI.GetHookKey(apiClient.GetConfig().Context, GetHookKeyhookKeyId)
 
@@ -183,8 +183,8 @@ var (
 
 func NewReplaceHookKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.HookKeyAPI.ReplaceHookKey(apiClient.GetConfig().Context, ReplaceHookKeyhookKeyId)
 
@@ -230,8 +230,8 @@ var DeleteHookKeyhookKeyId string
 
 func NewDeleteHookKeyCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a key",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.HookKeyAPI.DeleteHookKey(apiClient.GetConfig().Context, DeleteHookKeyhookKeyId)
 

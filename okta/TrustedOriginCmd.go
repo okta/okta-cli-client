@@ -20,8 +20,8 @@ var CreateTrustedOrigindata string
 
 func NewCreateTrustedOriginCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "create",
-
+		Use:  "create",
+		Long: "Create a Trusted Origin",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TrustedOriginAPI.CreateTrustedOrigin(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListTrustedOriginsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "lists",
-
+		Use:  "lists",
+		Long: "List all Trusted Origins",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TrustedOriginAPI.ListTrustedOrigins(apiClient.GetConfig().Context)
 
@@ -99,8 +99,8 @@ var GetTrustedOrigintrustedOriginId string
 
 func NewGetTrustedOriginCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get",
-
+		Use:  "get",
+		Long: "Retrieve a Trusted Origin",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TrustedOriginAPI.GetTrustedOrigin(apiClient.GetConfig().Context, GetTrustedOrigintrustedOriginId)
 
@@ -143,8 +143,8 @@ var (
 
 func NewReplaceTrustedOriginCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replace",
-
+		Use:  "replace",
+		Long: "Replace a Trusted Origin",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TrustedOriginAPI.ReplaceTrustedOrigin(apiClient.GetConfig().Context, ReplaceTrustedOrigintrustedOriginId)
 
@@ -190,8 +190,8 @@ var DeleteTrustedOrigintrustedOriginId string
 
 func NewDeleteTrustedOriginCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "delete",
-
+		Use:  "delete",
+		Long: "Delete a Trusted Origin",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TrustedOriginAPI.DeleteTrustedOrigin(apiClient.GetConfig().Context, DeleteTrustedOrigintrustedOriginId)
 
@@ -230,8 +230,8 @@ var ActivateTrustedOrigintrustedOriginId string
 
 func NewActivateTrustedOriginCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activate",
-
+		Use:  "activate",
+		Long: "Activate a Trusted Origin",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TrustedOriginAPI.ActivateTrustedOrigin(apiClient.GetConfig().Context, ActivateTrustedOrigintrustedOriginId)
 
@@ -270,8 +270,8 @@ var DeactivateTrustedOrigintrustedOriginId string
 
 func NewDeactivateTrustedOriginCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivate",
-
+		Use:  "deactivate",
+		Long: "Deactivate a Trusted Origin",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.TrustedOriginAPI.DeactivateTrustedOrigin(apiClient.GetConfig().Context, DeactivateTrustedOrigintrustedOriginId)
 

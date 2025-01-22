@@ -20,8 +20,8 @@ var ListOAuth2TokensForApplicationappId string
 
 func NewListOAuth2TokensForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listOAuth2TokensForApplication",
-
+		Use:  "listOAuth2TokensForApplication",
+		Long: "List all application refresh Tokens",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationTokensAPI.ListOAuth2TokensForApplication(apiClient.GetConfig().Context, ListOAuth2TokensForApplicationappId)
 
@@ -60,8 +60,8 @@ var RevokeOAuth2TokensForApplicationappId string
 
 func NewRevokeOAuth2TokensForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeOAuth2TokensForApplication",
-
+		Use:  "revokeOAuth2TokensForApplication",
+		Long: "Revoke all application Tokens",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationTokensAPI.RevokeOAuth2TokensForApplication(apiClient.GetConfig().Context, RevokeOAuth2TokensForApplicationappId)
 
@@ -104,8 +104,8 @@ var (
 
 func NewGetOAuth2TokenForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getOAuth2TokenForApplication",
-
+		Use:  "getOAuth2TokenForApplication",
+		Long: "Retrieve an application Token",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationTokensAPI.GetOAuth2TokenForApplication(apiClient.GetConfig().Context, GetOAuth2TokenForApplicationappId, GetOAuth2TokenForApplicationtokenId)
 
@@ -151,8 +151,8 @@ var (
 
 func NewRevokeOAuth2TokenForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "revokeOAuth2TokenForApplication",
-
+		Use:  "revokeOAuth2TokenForApplication",
+		Long: "Revoke an application Token",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationTokensAPI.RevokeOAuth2TokenForApplication(apiClient.GetConfig().Context, RevokeOAuth2TokenForApplicationappId, RevokeOAuth2TokenForApplicationtokenId)
 

@@ -20,8 +20,8 @@ var CreateCaptchaInstancedata string
 
 func NewCreateCaptchaInstanceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "createCaptchaInstance",
-
+		Use:  "createCaptchaInstance",
+		Long: "Create a CAPTCHA instance",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CAPTCHAAPI.CreateCaptchaInstance(apiClient.GetConfig().Context)
 
@@ -62,8 +62,8 @@ func init() {
 
 func NewListCaptchaInstancesCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "listCaptchaInstances",
-
+		Use:  "listCaptchaInstances",
+		Long: "List all CAPTCHA Instances",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CAPTCHAAPI.ListCaptchaInstances(apiClient.GetConfig().Context)
 
@@ -103,8 +103,8 @@ var (
 
 func NewUpdateCaptchaInstanceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateCaptchaInstance",
-
+		Use:  "updateCaptchaInstance",
+		Long: "Update a CAPTCHA Instance",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CAPTCHAAPI.UpdateCaptchaInstance(apiClient.GetConfig().Context, UpdateCaptchaInstancecaptchaId)
 
@@ -150,8 +150,8 @@ var GetCaptchaInstancecaptchaId string
 
 func NewGetCaptchaInstanceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getCaptchaInstance",
-
+		Use:  "getCaptchaInstance",
+		Long: "Retrieve a CAPTCHA Instance",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CAPTCHAAPI.GetCaptchaInstance(apiClient.GetConfig().Context, GetCaptchaInstancecaptchaId)
 
@@ -194,8 +194,8 @@ var (
 
 func NewReplaceCaptchaInstanceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replaceCaptchaInstance",
-
+		Use:  "replaceCaptchaInstance",
+		Long: "Replace a CAPTCHA Instance",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CAPTCHAAPI.ReplaceCaptchaInstance(apiClient.GetConfig().Context, ReplaceCaptchaInstancecaptchaId)
 
@@ -241,8 +241,8 @@ var DeleteCaptchaInstancecaptchaId string
 
 func NewDeleteCaptchaInstanceCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteCaptchaInstance",
-
+		Use:  "deleteCaptchaInstance",
+		Long: "Delete a CAPTCHA Instance",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CAPTCHAAPI.DeleteCaptchaInstance(apiClient.GetConfig().Context, DeleteCaptchaInstancecaptchaId)
 
@@ -279,8 +279,8 @@ func init() {
 
 func NewGetOrgCaptchaSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getOrgCaptchaSettings",
-
+		Use:  "getOrgCaptchaSettings",
+		Long: "Retrieve the Org-wide CAPTCHA Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CAPTCHAAPI.GetOrgCaptchaSettings(apiClient.GetConfig().Context)
 
@@ -316,8 +316,8 @@ var ReplacesOrgCaptchaSettingsdata string
 
 func NewReplacesOrgCaptchaSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "replacesOrgCaptchaSettings",
-
+		Use:  "replacesOrgCaptchaSettings",
+		Long: "Replace the Org-wide CAPTCHA Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CAPTCHAAPI.ReplacesOrgCaptchaSettings(apiClient.GetConfig().Context)
 
@@ -358,8 +358,8 @@ func init() {
 
 func NewDeleteOrgCaptchaSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deleteOrgCaptchaSettings",
-
+		Use:  "deleteOrgCaptchaSettings",
+		Long: "Delete the Org-wide CAPTCHA Settings",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CAPTCHAAPI.DeleteOrgCaptchaSettings(apiClient.GetConfig().Context)
 

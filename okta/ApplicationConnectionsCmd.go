@@ -24,8 +24,8 @@ var (
 
 func NewUpdateDefaultProvisioningConnectionForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "updateDefaultProvisioningConnectionForApplication",
-
+		Use:  "updateDefaultProvisioningConnectionForApplication",
+		Long: "Update the default Provisioning Connection",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationConnectionsAPI.UpdateDefaultProvisioningConnectionForApplication(apiClient.GetConfig().Context, UpdateDefaultProvisioningConnectionForApplicationappId)
 
@@ -71,8 +71,8 @@ var GetDefaultProvisioningConnectionForApplicationappId string
 
 func NewGetDefaultProvisioningConnectionForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "getDefaultProvisioningConnectionForApplication",
-
+		Use:  "getDefaultProvisioningConnectionForApplication",
+		Long: "Retrieve the default Provisioning Connection",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationConnectionsAPI.GetDefaultProvisioningConnectionForApplication(apiClient.GetConfig().Context, GetDefaultProvisioningConnectionForApplicationappId)
 
@@ -111,8 +111,8 @@ var ActivateDefaultProvisioningConnectionForApplicationappId string
 
 func NewActivateDefaultProvisioningConnectionForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "activateDefaultProvisioningConnectionForApplication",
-
+		Use:  "activateDefaultProvisioningConnectionForApplication",
+		Long: "Activate the default Provisioning Connection",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationConnectionsAPI.ActivateDefaultProvisioningConnectionForApplication(apiClient.GetConfig().Context, ActivateDefaultProvisioningConnectionForApplicationappId)
 
@@ -151,8 +151,8 @@ var DeactivateDefaultProvisioningConnectionForApplicationappId string
 
 func NewDeactivateDefaultProvisioningConnectionForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "deactivateDefaultProvisioningConnectionForApplication",
-
+		Use:  "deactivateDefaultProvisioningConnectionForApplication",
+		Long: "Deactivate the default Provisioning Connection",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationConnectionsAPI.DeactivateDefaultProvisioningConnectionForApplication(apiClient.GetConfig().Context, DeactivateDefaultProvisioningConnectionForApplicationappId)
 
@@ -195,8 +195,8 @@ var (
 
 func NewVerifyProvisioningConnectionForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "verifyProvisioningConnectionForApplication",
-
+		Use:  "verifyProvisioningConnectionForApplication",
+		Long: "Verify the Provisioning Connection",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationConnectionsAPI.VerifyProvisioningConnectionForApplication(apiClient.GetConfig().Context, VerifyProvisioningConnectionForApplicationappName, VerifyProvisioningConnectionForApplicationappId)
 
