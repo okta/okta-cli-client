@@ -9,8 +9,8 @@ dep: # Download required dependencies
 # build: fmtcheck
 # 	go build -o $(GOBIN)/okta-cli cmd/okta-cli/main.go
 
-# build:
-# 	go build -o $(GOBIN)/okta-cli-client okta-cli-client
+build:
+	go build -o $(GOBIN)/okta-cli-client okta-cli-client
 
 install:
 	go install .
