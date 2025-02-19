@@ -10,7 +10,7 @@ dep: # Download required dependencies
 # 	go build -o $(GOBIN)/okta-cli cmd/okta-cli/main.go
 
 build:
-	go build -o $(GOBIN)/okta-cli-client okta-cli-client
+	go build -o $(GOBIN)/okta-cli-client . 
 
 install:
 	go install .
