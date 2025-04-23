@@ -1,8 +1,15 @@
 package okta
 
 import (
+	"encoding/json"
+	"fmt"
 	"io"
+	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
 
+	"github.com/okta/okta-cli-client/sdk"
 	"github.com/okta/okta-cli-client/utils"
 	"github.com/spf13/cobra"
 )
@@ -20,32 +27,189 @@ var (
 	ListApplicationTargetsForApplicationAdministratorRoleForGroupgroupId string
 
 	ListApplicationTargetsForApplicationAdministratorRoleForGrouproleId string
+
+	ListApplicationTargetsForApplicationAdministratorRoleForGroupBackupDir string
+
+	ListApplicationTargetsForApplicationAdministratorRoleForGroupLimit    int32
+	ListApplicationTargetsForApplicationAdministratorRoleForGroupPage     string
+	ListApplicationTargetsForApplicationAdministratorRoleForGroupFetchAll bool
+
+	ListApplicationTargetsForApplicationAdministratorRoleForGroupQuiet bool
 )
 
 func NewListApplicationTargetsForApplicationAdministratorRoleForGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "listApplicationTargetsForApplicationAdministratorRoleForGroup",
 		Long: "List all Application Targets for an Application Administrator Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForGroup(apiClient.GetConfig().Context, ListApplicationTargetsForApplicationAdministratorRoleForGroupgroupId, ListApplicationTargetsForApplicationAdministratorRoleForGrouproleId)
 
-			resp, err := req.Execute()
-			if err != nil {
-				if resp != nil && resp.Body != nil {
-					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+			var allItems []map[string]interface{}
+			var pageCount int
+
+			for {
+				resp, err := req.Execute()
+				if err != nil {
+					if resp != nil && resp.Body != nil {
+						d, err := io.ReadAll(resp.Body)
+						if err == nil && !ListApplicationTargetsForApplicationAdministratorRoleForGroupQuiet {
+							utils.PrettyPrintByte(d)
+						}
+					}
+					return err
+				}
+
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+
+				var items []map[string]interface{}
+				if err := json.Unmarshal(d, &items); err != nil {
+					if !ListApplicationTargetsForApplicationAdministratorRoleForGroupQuiet {
 						utils.PrettyPrintByte(d)
 					}
+					return nil
 				}
-				return err
+
+				allItems = append(allItems, items...)
+				pageCount++
+
+				if !ListApplicationTargetsForApplicationAdministratorRoleForGroupFetchAll || len(items) == 0 {
+					break
+				}
+
+				nextURL := ""
+				if resp != nil {
+					links := resp.Header["Link"]
+					for _, link := range links {
+						if strings.Contains(link, `rel="next"`) {
+							parts := strings.Split(link, ";")
+							if len(parts) > 0 {
+								urlPart := strings.TrimSpace(parts[0])
+								urlPart = strings.TrimPrefix(urlPart, "<")
+								urlPart = strings.TrimSuffix(urlPart, ">")
+								nextURL = urlPart
+								break
+							}
+						}
+					}
+				}
+
+				if nextURL == "" {
+					break
+				}
+
+				nextReq, err := http.NewRequest("GET", nextURL, nil)
+				if err != nil {
+					break
+				}
+
+				token := ""
+				cfg := apiClient.GetConfig()
+				if cfg != nil {
+					apiKeys, ok := cfg.Context.Value(sdk.ContextAPIKeys).(map[string]sdk.APIKey)
+					if ok {
+						apiKey, exists := apiKeys["API_Token"]
+						if exists {
+							token = apiKey.Prefix + " " + apiKey.Key
+						}
+					}
+				}
+
+				if token != "" {
+					nextReq.Header.Add("Authorization", token)
+				}
+
+				nextReq.Header.Add("Accept", "application/json")
+
+				respNext, err := http.DefaultClient.Do(nextReq)
+				if err != nil {
+					break
+				}
+
+				dNext, err := io.ReadAll(respNext.Body)
+				respNext.Body.Close()
+				if err != nil {
+					break
+				}
+
+				var nextItems []map[string]interface{}
+				if err := json.Unmarshal(dNext, &nextItems); err != nil {
+					break
+				}
+
+				allItems = append(allItems, nextItems...)
+				pageCount++
 			}
-			d, err := io.ReadAll(resp.Body)
+
+			if ListApplicationTargetsForApplicationAdministratorRoleForGroupFetchAll && pageCount > 1 && !ListApplicationTargetsForApplicationAdministratorRoleForGroupQuiet {
+				fmt.Printf("Retrieved %d items across %d pages\n", len(allItems), pageCount)
+			}
+
+			combinedJSON, err := json.Marshal(allItems)
 			if err != nil {
-				return err
+				return fmt.Errorf("error combining results: %w", err)
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
-			return nil
+
+			if cmd.Flags().Changed("batch-backup") {
+				dirPath := filepath.Join(ListApplicationTargetsForApplicationAdministratorRoleForGroupBackupDir, "roletarget", "listApplicationTargetsForApplicationAdministratorRoleForGroup")
+
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				if !ListApplicationTargetsForApplicationAdministratorRoleForGroupQuiet {
+					fmt.Printf("Backing up RoleTargets to %s\n", dirPath)
+				}
+
+				success := 0
+				for _, item := range allItems {
+					id, ok := item["id"].(string)
+					if !ok {
+						if !ListApplicationTargetsForApplicationAdministratorRoleForGroupQuiet {
+							fmt.Println("Warning: item missing ID field, skipping")
+						}
+						continue
+					}
+
+					itemJSON, err := json.MarshalIndent(item, "", "  ")
+					if err != nil {
+						if !ListApplicationTargetsForApplicationAdministratorRoleForGroupQuiet {
+							fmt.Printf("Error marshaling item %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					filePath := filepath.Join(dirPath, id+".json")
+					if err := os.WriteFile(filePath, itemJSON, 0o644); err != nil {
+						if !ListApplicationTargetsForApplicationAdministratorRoleForGroupQuiet {
+							fmt.Printf("Error writing file for %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					success++
+				}
+
+				if !ListApplicationTargetsForApplicationAdministratorRoleForGroupQuiet {
+					fmt.Printf("Successfully backed up %d/%d RoleTargets\n", success, len(allItems))
+				}
+				return nil
+			} else {
+				if !ListApplicationTargetsForApplicationAdministratorRoleForGroupQuiet {
+					return utils.PrettyPrintByte(combinedJSON)
+				}
+				return nil
+			}
 		},
 	}
 
@@ -54,6 +218,15 @@ func NewListApplicationTargetsForApplicationAdministratorRoleForGroupCmd() *cobr
 
 	cmd.Flags().StringVarP(&ListApplicationTargetsForApplicationAdministratorRoleForGrouproleId, "roleId", "", "", "")
 	cmd.MarkFlagRequired("roleId")
+
+	cmd.Flags().Int32VarP(&ListApplicationTargetsForApplicationAdministratorRoleForGroupLimit, "limit", "l", 0, "Maximum number of items to return per page")
+	cmd.Flags().StringVarP(&ListApplicationTargetsForApplicationAdministratorRoleForGroupPage, "page", "p", "", "Page to fetch (if supported)")
+	cmd.Flags().BoolVarP(&ListApplicationTargetsForApplicationAdministratorRoleForGroupFetchAll, "all", "", false, "Fetch all items by following pagination automatically")
+	cmd.Flags().BoolP("batch-backup", "b", false, "Backup multiple RoleTargets to a directory")
+
+	cmd.Flags().StringVarP(&ListApplicationTargetsForApplicationAdministratorRoleForGroupBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&ListApplicationTargetsForApplicationAdministratorRoleForGroupQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -69,12 +242,17 @@ var (
 	AssignAppTargetToAdminRoleForGrouproleId string
 
 	AssignAppTargetToAdminRoleForGroupappName string
+
+	AssignAppTargetToAdminRoleForGroupQuiet bool
 )
 
 func NewAssignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "assignAppTargetToAdminRoleForGroup",
 		Long: "Assign an Application Target to Administrator Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppTargetToAdminRoleForGroup(apiClient.GetConfig().Context, AssignAppTargetToAdminRoleForGroupgroupId, AssignAppTargetToAdminRoleForGrouproleId, AssignAppTargetToAdminRoleForGroupappName)
 
@@ -82,7 +260,7 @@ func NewAssignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !AssignAppTargetToAdminRoleForGroupQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -92,8 +270,10 @@ func NewAssignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !AssignAppTargetToAdminRoleForGroupQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -106,6 +286,8 @@ func NewAssignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignAppTargetToAdminRoleForGroupappName, "appName", "", "", "")
 	cmd.MarkFlagRequired("appName")
+
+	cmd.Flags().BoolVarP(&AssignAppTargetToAdminRoleForGroupQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -121,12 +303,17 @@ var (
 	UnassignAppTargetToAdminRoleForGrouproleId string
 
 	UnassignAppTargetToAdminRoleForGroupappName string
+
+	UnassignAppTargetToAdminRoleForGroupQuiet bool
 )
 
 func NewUnassignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "unassignAppTargetToAdminRoleForGroup",
 		Long: "Unassign an Application Target from Application Administrator Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignAppTargetToAdminRoleForGroup(apiClient.GetConfig().Context, UnassignAppTargetToAdminRoleForGroupgroupId, UnassignAppTargetToAdminRoleForGrouproleId, UnassignAppTargetToAdminRoleForGroupappName)
 
@@ -134,7 +321,7 @@ func NewUnassignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !UnassignAppTargetToAdminRoleForGroupQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -144,8 +331,10 @@ func NewUnassignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !UnassignAppTargetToAdminRoleForGroupQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -158,6 +347,8 @@ func NewUnassignAppTargetToAdminRoleForGroupCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&UnassignAppTargetToAdminRoleForGroupappName, "appName", "", "", "")
 	cmd.MarkFlagRequired("appName")
+
+	cmd.Flags().BoolVarP(&UnassignAppTargetToAdminRoleForGroupQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -175,12 +366,17 @@ var (
 	AssignAppInstanceTargetToAppAdminRoleForGroupappName string
 
 	AssignAppInstanceTargetToAppAdminRoleForGroupappId string
+
+	AssignAppInstanceTargetToAppAdminRoleForGroupQuiet bool
 )
 
 func NewAssignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "assignAppInstanceTargetToAppAdminRoleForGroup",
 		Long: "Assign an Application Instance Target to Application Administrator Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForGroup(apiClient.GetConfig().Context, AssignAppInstanceTargetToAppAdminRoleForGroupgroupId, AssignAppInstanceTargetToAppAdminRoleForGrouproleId, AssignAppInstanceTargetToAppAdminRoleForGroupappName, AssignAppInstanceTargetToAppAdminRoleForGroupappId)
 
@@ -188,7 +384,7 @@ func NewAssignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !AssignAppInstanceTargetToAppAdminRoleForGroupQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -198,8 +394,10 @@ func NewAssignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !AssignAppInstanceTargetToAppAdminRoleForGroupQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -215,6 +413,8 @@ func NewAssignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignAppInstanceTargetToAppAdminRoleForGroupappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
+
+	cmd.Flags().BoolVarP(&AssignAppInstanceTargetToAppAdminRoleForGroupQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -232,12 +432,17 @@ var (
 	UnassignAppInstanceTargetToAppAdminRoleForGroupappName string
 
 	UnassignAppInstanceTargetToAppAdminRoleForGroupappId string
+
+	UnassignAppInstanceTargetToAppAdminRoleForGroupQuiet bool
 )
 
 func NewUnassignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "unassignAppInstanceTargetToAppAdminRoleForGroup",
 		Long: "Unassign an Application Instance Target from an Application Administrator Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignAppInstanceTargetToAppAdminRoleForGroup(apiClient.GetConfig().Context, UnassignAppInstanceTargetToAppAdminRoleForGroupgroupId, UnassignAppInstanceTargetToAppAdminRoleForGrouproleId, UnassignAppInstanceTargetToAppAdminRoleForGroupappName, UnassignAppInstanceTargetToAppAdminRoleForGroupappId)
 
@@ -245,7 +450,7 @@ func NewUnassignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !UnassignAppInstanceTargetToAppAdminRoleForGroupQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -255,8 +460,10 @@ func NewUnassignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !UnassignAppInstanceTargetToAppAdminRoleForGroupQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -273,6 +480,8 @@ func NewUnassignAppInstanceTargetToAppAdminRoleForGroupCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&UnassignAppInstanceTargetToAppAdminRoleForGroupappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
 
+	cmd.Flags().BoolVarP(&UnassignAppInstanceTargetToAppAdminRoleForGroupQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -285,32 +494,189 @@ var (
 	ListGroupTargetsForGroupRolegroupId string
 
 	ListGroupTargetsForGroupRoleroleId string
+
+	ListGroupTargetsForGroupRoleBackupDir string
+
+	ListGroupTargetsForGroupRoleLimit    int32
+	ListGroupTargetsForGroupRolePage     string
+	ListGroupTargetsForGroupRoleFetchAll bool
+
+	ListGroupTargetsForGroupRoleQuiet bool
 )
 
 func NewListGroupTargetsForGroupRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "listGroupTargetsForGroupRole",
 		Long: "List all Group Targets for a Group Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.ListGroupTargetsForGroupRole(apiClient.GetConfig().Context, ListGroupTargetsForGroupRolegroupId, ListGroupTargetsForGroupRoleroleId)
 
-			resp, err := req.Execute()
-			if err != nil {
-				if resp != nil && resp.Body != nil {
-					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+			var allItems []map[string]interface{}
+			var pageCount int
+
+			for {
+				resp, err := req.Execute()
+				if err != nil {
+					if resp != nil && resp.Body != nil {
+						d, err := io.ReadAll(resp.Body)
+						if err == nil && !ListGroupTargetsForGroupRoleQuiet {
+							utils.PrettyPrintByte(d)
+						}
+					}
+					return err
+				}
+
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+
+				var items []map[string]interface{}
+				if err := json.Unmarshal(d, &items); err != nil {
+					if !ListGroupTargetsForGroupRoleQuiet {
 						utils.PrettyPrintByte(d)
 					}
+					return nil
 				}
-				return err
+
+				allItems = append(allItems, items...)
+				pageCount++
+
+				if !ListGroupTargetsForGroupRoleFetchAll || len(items) == 0 {
+					break
+				}
+
+				nextURL := ""
+				if resp != nil {
+					links := resp.Header["Link"]
+					for _, link := range links {
+						if strings.Contains(link, `rel="next"`) {
+							parts := strings.Split(link, ";")
+							if len(parts) > 0 {
+								urlPart := strings.TrimSpace(parts[0])
+								urlPart = strings.TrimPrefix(urlPart, "<")
+								urlPart = strings.TrimSuffix(urlPart, ">")
+								nextURL = urlPart
+								break
+							}
+						}
+					}
+				}
+
+				if nextURL == "" {
+					break
+				}
+
+				nextReq, err := http.NewRequest("GET", nextURL, nil)
+				if err != nil {
+					break
+				}
+
+				token := ""
+				cfg := apiClient.GetConfig()
+				if cfg != nil {
+					apiKeys, ok := cfg.Context.Value(sdk.ContextAPIKeys).(map[string]sdk.APIKey)
+					if ok {
+						apiKey, exists := apiKeys["API_Token"]
+						if exists {
+							token = apiKey.Prefix + " " + apiKey.Key
+						}
+					}
+				}
+
+				if token != "" {
+					nextReq.Header.Add("Authorization", token)
+				}
+
+				nextReq.Header.Add("Accept", "application/json")
+
+				respNext, err := http.DefaultClient.Do(nextReq)
+				if err != nil {
+					break
+				}
+
+				dNext, err := io.ReadAll(respNext.Body)
+				respNext.Body.Close()
+				if err != nil {
+					break
+				}
+
+				var nextItems []map[string]interface{}
+				if err := json.Unmarshal(dNext, &nextItems); err != nil {
+					break
+				}
+
+				allItems = append(allItems, nextItems...)
+				pageCount++
 			}
-			d, err := io.ReadAll(resp.Body)
+
+			if ListGroupTargetsForGroupRoleFetchAll && pageCount > 1 && !ListGroupTargetsForGroupRoleQuiet {
+				fmt.Printf("Retrieved %d items across %d pages\n", len(allItems), pageCount)
+			}
+
+			combinedJSON, err := json.Marshal(allItems)
 			if err != nil {
-				return err
+				return fmt.Errorf("error combining results: %w", err)
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
-			return nil
+
+			if cmd.Flags().Changed("batch-backup") {
+				dirPath := filepath.Join(ListGroupTargetsForGroupRoleBackupDir, "roletarget", "listGroupTargetsForGroupRole")
+
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				if !ListGroupTargetsForGroupRoleQuiet {
+					fmt.Printf("Backing up RoleTargets to %s\n", dirPath)
+				}
+
+				success := 0
+				for _, item := range allItems {
+					id, ok := item["id"].(string)
+					if !ok {
+						if !ListGroupTargetsForGroupRoleQuiet {
+							fmt.Println("Warning: item missing ID field, skipping")
+						}
+						continue
+					}
+
+					itemJSON, err := json.MarshalIndent(item, "", "  ")
+					if err != nil {
+						if !ListGroupTargetsForGroupRoleQuiet {
+							fmt.Printf("Error marshaling item %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					filePath := filepath.Join(dirPath, id+".json")
+					if err := os.WriteFile(filePath, itemJSON, 0o644); err != nil {
+						if !ListGroupTargetsForGroupRoleQuiet {
+							fmt.Printf("Error writing file for %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					success++
+				}
+
+				if !ListGroupTargetsForGroupRoleQuiet {
+					fmt.Printf("Successfully backed up %d/%d RoleTargets\n", success, len(allItems))
+				}
+				return nil
+			} else {
+				if !ListGroupTargetsForGroupRoleQuiet {
+					return utils.PrettyPrintByte(combinedJSON)
+				}
+				return nil
+			}
 		},
 	}
 
@@ -319,6 +685,15 @@ func NewListGroupTargetsForGroupRoleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&ListGroupTargetsForGroupRoleroleId, "roleId", "", "", "")
 	cmd.MarkFlagRequired("roleId")
+
+	cmd.Flags().Int32VarP(&ListGroupTargetsForGroupRoleLimit, "limit", "l", 0, "Maximum number of items to return per page")
+	cmd.Flags().StringVarP(&ListGroupTargetsForGroupRolePage, "page", "p", "", "Page to fetch (if supported)")
+	cmd.Flags().BoolVarP(&ListGroupTargetsForGroupRoleFetchAll, "all", "", false, "Fetch all items by following pagination automatically")
+	cmd.Flags().BoolP("batch-backup", "b", false, "Backup multiple RoleTargets to a directory")
+
+	cmd.Flags().StringVarP(&ListGroupTargetsForGroupRoleBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&ListGroupTargetsForGroupRoleQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -334,12 +709,17 @@ var (
 	AssignGroupTargetToGroupAdminRoleroleId string
 
 	AssignGroupTargetToGroupAdminRoletargetGroupId string
+
+	AssignGroupTargetToGroupAdminRoleQuiet bool
 )
 
 func NewAssignGroupTargetToGroupAdminRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "assignGroupTargetToGroupAdminRole",
 		Long: "Assign a Group Target to a Group Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignGroupTargetToGroupAdminRole(apiClient.GetConfig().Context, AssignGroupTargetToGroupAdminRolegroupId, AssignGroupTargetToGroupAdminRoleroleId, AssignGroupTargetToGroupAdminRoletargetGroupId)
 
@@ -347,7 +727,7 @@ func NewAssignGroupTargetToGroupAdminRoleCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !AssignGroupTargetToGroupAdminRoleQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -357,8 +737,10 @@ func NewAssignGroupTargetToGroupAdminRoleCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !AssignGroupTargetToGroupAdminRoleQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -371,6 +753,8 @@ func NewAssignGroupTargetToGroupAdminRoleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignGroupTargetToGroupAdminRoletargetGroupId, "targetGroupId", "", "", "")
 	cmd.MarkFlagRequired("targetGroupId")
+
+	cmd.Flags().BoolVarP(&AssignGroupTargetToGroupAdminRoleQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -386,12 +770,17 @@ var (
 	UnassignGroupTargetFromGroupAdminRoleroleId string
 
 	UnassignGroupTargetFromGroupAdminRoletargetGroupId string
+
+	UnassignGroupTargetFromGroupAdminRoleQuiet bool
 )
 
 func NewUnassignGroupTargetFromGroupAdminRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "unassignGroupTargetFromGroupAdminRole",
 		Long: "Unassign a Group Target from a Group Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignGroupTargetFromGroupAdminRole(apiClient.GetConfig().Context, UnassignGroupTargetFromGroupAdminRolegroupId, UnassignGroupTargetFromGroupAdminRoleroleId, UnassignGroupTargetFromGroupAdminRoletargetGroupId)
 
@@ -399,7 +788,7 @@ func NewUnassignGroupTargetFromGroupAdminRoleCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !UnassignGroupTargetFromGroupAdminRoleQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -409,8 +798,10 @@ func NewUnassignGroupTargetFromGroupAdminRoleCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !UnassignGroupTargetFromGroupAdminRoleQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -424,6 +815,8 @@ func NewUnassignGroupTargetFromGroupAdminRoleCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&UnassignGroupTargetFromGroupAdminRoletargetGroupId, "targetGroupId", "", "", "")
 	cmd.MarkFlagRequired("targetGroupId")
 
+	cmd.Flags().BoolVarP(&UnassignGroupTargetFromGroupAdminRoleQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -436,32 +829,189 @@ var (
 	ListApplicationTargetsForApplicationAdministratorRoleForUseruserId string
 
 	ListApplicationTargetsForApplicationAdministratorRoleForUserroleId string
+
+	ListApplicationTargetsForApplicationAdministratorRoleForUserBackupDir string
+
+	ListApplicationTargetsForApplicationAdministratorRoleForUserLimit    int32
+	ListApplicationTargetsForApplicationAdministratorRoleForUserPage     string
+	ListApplicationTargetsForApplicationAdministratorRoleForUserFetchAll bool
+
+	ListApplicationTargetsForApplicationAdministratorRoleForUserQuiet bool
 )
 
 func NewListApplicationTargetsForApplicationAdministratorRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "listApplicationTargetsForApplicationAdministratorRoleForUser",
 		Long: "List all Application Targets for Application Administrator Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.ListApplicationTargetsForApplicationAdministratorRoleForUser(apiClient.GetConfig().Context, ListApplicationTargetsForApplicationAdministratorRoleForUseruserId, ListApplicationTargetsForApplicationAdministratorRoleForUserroleId)
 
-			resp, err := req.Execute()
-			if err != nil {
-				if resp != nil && resp.Body != nil {
-					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+			var allItems []map[string]interface{}
+			var pageCount int
+
+			for {
+				resp, err := req.Execute()
+				if err != nil {
+					if resp != nil && resp.Body != nil {
+						d, err := io.ReadAll(resp.Body)
+						if err == nil && !ListApplicationTargetsForApplicationAdministratorRoleForUserQuiet {
+							utils.PrettyPrintByte(d)
+						}
+					}
+					return err
+				}
+
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+
+				var items []map[string]interface{}
+				if err := json.Unmarshal(d, &items); err != nil {
+					if !ListApplicationTargetsForApplicationAdministratorRoleForUserQuiet {
 						utils.PrettyPrintByte(d)
 					}
+					return nil
 				}
-				return err
+
+				allItems = append(allItems, items...)
+				pageCount++
+
+				if !ListApplicationTargetsForApplicationAdministratorRoleForUserFetchAll || len(items) == 0 {
+					break
+				}
+
+				nextURL := ""
+				if resp != nil {
+					links := resp.Header["Link"]
+					for _, link := range links {
+						if strings.Contains(link, `rel="next"`) {
+							parts := strings.Split(link, ";")
+							if len(parts) > 0 {
+								urlPart := strings.TrimSpace(parts[0])
+								urlPart = strings.TrimPrefix(urlPart, "<")
+								urlPart = strings.TrimSuffix(urlPart, ">")
+								nextURL = urlPart
+								break
+							}
+						}
+					}
+				}
+
+				if nextURL == "" {
+					break
+				}
+
+				nextReq, err := http.NewRequest("GET", nextURL, nil)
+				if err != nil {
+					break
+				}
+
+				token := ""
+				cfg := apiClient.GetConfig()
+				if cfg != nil {
+					apiKeys, ok := cfg.Context.Value(sdk.ContextAPIKeys).(map[string]sdk.APIKey)
+					if ok {
+						apiKey, exists := apiKeys["API_Token"]
+						if exists {
+							token = apiKey.Prefix + " " + apiKey.Key
+						}
+					}
+				}
+
+				if token != "" {
+					nextReq.Header.Add("Authorization", token)
+				}
+
+				nextReq.Header.Add("Accept", "application/json")
+
+				respNext, err := http.DefaultClient.Do(nextReq)
+				if err != nil {
+					break
+				}
+
+				dNext, err := io.ReadAll(respNext.Body)
+				respNext.Body.Close()
+				if err != nil {
+					break
+				}
+
+				var nextItems []map[string]interface{}
+				if err := json.Unmarshal(dNext, &nextItems); err != nil {
+					break
+				}
+
+				allItems = append(allItems, nextItems...)
+				pageCount++
 			}
-			d, err := io.ReadAll(resp.Body)
+
+			if ListApplicationTargetsForApplicationAdministratorRoleForUserFetchAll && pageCount > 1 && !ListApplicationTargetsForApplicationAdministratorRoleForUserQuiet {
+				fmt.Printf("Retrieved %d items across %d pages\n", len(allItems), pageCount)
+			}
+
+			combinedJSON, err := json.Marshal(allItems)
 			if err != nil {
-				return err
+				return fmt.Errorf("error combining results: %w", err)
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
-			return nil
+
+			if cmd.Flags().Changed("batch-backup") {
+				dirPath := filepath.Join(ListApplicationTargetsForApplicationAdministratorRoleForUserBackupDir, "roletarget", "listApplicationTargetsForApplicationAdministratorRoleForUser")
+
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				if !ListApplicationTargetsForApplicationAdministratorRoleForUserQuiet {
+					fmt.Printf("Backing up RoleTargets to %s\n", dirPath)
+				}
+
+				success := 0
+				for _, item := range allItems {
+					id, ok := item["id"].(string)
+					if !ok {
+						if !ListApplicationTargetsForApplicationAdministratorRoleForUserQuiet {
+							fmt.Println("Warning: item missing ID field, skipping")
+						}
+						continue
+					}
+
+					itemJSON, err := json.MarshalIndent(item, "", "  ")
+					if err != nil {
+						if !ListApplicationTargetsForApplicationAdministratorRoleForUserQuiet {
+							fmt.Printf("Error marshaling item %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					filePath := filepath.Join(dirPath, id+".json")
+					if err := os.WriteFile(filePath, itemJSON, 0o644); err != nil {
+						if !ListApplicationTargetsForApplicationAdministratorRoleForUserQuiet {
+							fmt.Printf("Error writing file for %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					success++
+				}
+
+				if !ListApplicationTargetsForApplicationAdministratorRoleForUserQuiet {
+					fmt.Printf("Successfully backed up %d/%d RoleTargets\n", success, len(allItems))
+				}
+				return nil
+			} else {
+				if !ListApplicationTargetsForApplicationAdministratorRoleForUserQuiet {
+					return utils.PrettyPrintByte(combinedJSON)
+				}
+				return nil
+			}
 		},
 	}
 
@@ -470,6 +1020,15 @@ func NewListApplicationTargetsForApplicationAdministratorRoleForUserCmd() *cobra
 
 	cmd.Flags().StringVarP(&ListApplicationTargetsForApplicationAdministratorRoleForUserroleId, "roleId", "", "", "")
 	cmd.MarkFlagRequired("roleId")
+
+	cmd.Flags().Int32VarP(&ListApplicationTargetsForApplicationAdministratorRoleForUserLimit, "limit", "l", 0, "Maximum number of items to return per page")
+	cmd.Flags().StringVarP(&ListApplicationTargetsForApplicationAdministratorRoleForUserPage, "page", "p", "", "Page to fetch (if supported)")
+	cmd.Flags().BoolVarP(&ListApplicationTargetsForApplicationAdministratorRoleForUserFetchAll, "all", "", false, "Fetch all items by following pagination automatically")
+	cmd.Flags().BoolP("batch-backup", "b", false, "Backup multiple RoleTargets to a directory")
+
+	cmd.Flags().StringVarP(&ListApplicationTargetsForApplicationAdministratorRoleForUserBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&ListApplicationTargetsForApplicationAdministratorRoleForUserQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -483,12 +1042,17 @@ var (
 	AssignAllAppsAsTargetToRoleForUseruserId string
 
 	AssignAllAppsAsTargetToRoleForUserroleId string
+
+	AssignAllAppsAsTargetToRoleForUserQuiet bool
 )
 
 func NewAssignAllAppsAsTargetToRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "assignAllAppsAsTargetToRoleForUser",
 		Long: "Assign all Apps as Target to Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAllAppsAsTargetToRoleForUser(apiClient.GetConfig().Context, AssignAllAppsAsTargetToRoleForUseruserId, AssignAllAppsAsTargetToRoleForUserroleId)
 
@@ -496,7 +1060,7 @@ func NewAssignAllAppsAsTargetToRoleForUserCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !AssignAllAppsAsTargetToRoleForUserQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -506,8 +1070,10 @@ func NewAssignAllAppsAsTargetToRoleForUserCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !AssignAllAppsAsTargetToRoleForUserQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -517,6 +1083,8 @@ func NewAssignAllAppsAsTargetToRoleForUserCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignAllAppsAsTargetToRoleForUserroleId, "roleId", "", "", "")
 	cmd.MarkFlagRequired("roleId")
+
+	cmd.Flags().BoolVarP(&AssignAllAppsAsTargetToRoleForUserQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -532,12 +1100,17 @@ var (
 	AssignAppTargetToAdminRoleForUserroleId string
 
 	AssignAppTargetToAdminRoleForUserappName string
+
+	AssignAppTargetToAdminRoleForUserQuiet bool
 )
 
 func NewAssignAppTargetToAdminRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "assignAppTargetToAdminRoleForUser",
 		Long: "Assign an Application Target to Administrator Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppTargetToAdminRoleForUser(apiClient.GetConfig().Context, AssignAppTargetToAdminRoleForUseruserId, AssignAppTargetToAdminRoleForUserroleId, AssignAppTargetToAdminRoleForUserappName)
 
@@ -545,7 +1118,7 @@ func NewAssignAppTargetToAdminRoleForUserCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !AssignAppTargetToAdminRoleForUserQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -555,8 +1128,10 @@ func NewAssignAppTargetToAdminRoleForUserCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !AssignAppTargetToAdminRoleForUserQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -569,6 +1144,8 @@ func NewAssignAppTargetToAdminRoleForUserCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignAppTargetToAdminRoleForUserappName, "appName", "", "", "")
 	cmd.MarkFlagRequired("appName")
+
+	cmd.Flags().BoolVarP(&AssignAppTargetToAdminRoleForUserQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -584,12 +1161,17 @@ var (
 	UnassignAppTargetFromAppAdminRoleForUserroleId string
 
 	UnassignAppTargetFromAppAdminRoleForUserappName string
+
+	UnassignAppTargetFromAppAdminRoleForUserQuiet bool
 )
 
 func NewUnassignAppTargetFromAppAdminRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "unassignAppTargetFromAppAdminRoleForUser",
 		Long: "Unassign an Application Target from an Application Administrator Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignAppTargetFromAppAdminRoleForUser(apiClient.GetConfig().Context, UnassignAppTargetFromAppAdminRoleForUseruserId, UnassignAppTargetFromAppAdminRoleForUserroleId, UnassignAppTargetFromAppAdminRoleForUserappName)
 
@@ -597,7 +1179,7 @@ func NewUnassignAppTargetFromAppAdminRoleForUserCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !UnassignAppTargetFromAppAdminRoleForUserQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -607,8 +1189,10 @@ func NewUnassignAppTargetFromAppAdminRoleForUserCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !UnassignAppTargetFromAppAdminRoleForUserQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -621,6 +1205,8 @@ func NewUnassignAppTargetFromAppAdminRoleForUserCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&UnassignAppTargetFromAppAdminRoleForUserappName, "appName", "", "", "")
 	cmd.MarkFlagRequired("appName")
+
+	cmd.Flags().BoolVarP(&UnassignAppTargetFromAppAdminRoleForUserQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -638,12 +1224,17 @@ var (
 	AssignAppInstanceTargetToAppAdminRoleForUserappName string
 
 	AssignAppInstanceTargetToAppAdminRoleForUserappId string
+
+	AssignAppInstanceTargetToAppAdminRoleForUserQuiet bool
 )
 
 func NewAssignAppInstanceTargetToAppAdminRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "assignAppInstanceTargetToAppAdminRoleForUser",
 		Long: "Assign an Application Instance Target to an Application Administrator Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignAppInstanceTargetToAppAdminRoleForUser(apiClient.GetConfig().Context, AssignAppInstanceTargetToAppAdminRoleForUseruserId, AssignAppInstanceTargetToAppAdminRoleForUserroleId, AssignAppInstanceTargetToAppAdminRoleForUserappName, AssignAppInstanceTargetToAppAdminRoleForUserappId)
 
@@ -651,7 +1242,7 @@ func NewAssignAppInstanceTargetToAppAdminRoleForUserCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !AssignAppInstanceTargetToAppAdminRoleForUserQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -661,8 +1252,10 @@ func NewAssignAppInstanceTargetToAppAdminRoleForUserCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !AssignAppInstanceTargetToAppAdminRoleForUserQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -678,6 +1271,8 @@ func NewAssignAppInstanceTargetToAppAdminRoleForUserCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignAppInstanceTargetToAppAdminRoleForUserappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
+
+	cmd.Flags().BoolVarP(&AssignAppInstanceTargetToAppAdminRoleForUserQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -695,12 +1290,17 @@ var (
 	UnassignAppInstanceTargetFromAdminRoleForUserappName string
 
 	UnassignAppInstanceTargetFromAdminRoleForUserappId string
+
+	UnassignAppInstanceTargetFromAdminRoleForUserQuiet bool
 )
 
 func NewUnassignAppInstanceTargetFromAdminRoleForUserCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "unassignAppInstanceTargetFromAdminRoleForUser",
 		Long: "Unassign an Application Instance Target from an Application Administrator Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignAppInstanceTargetFromAdminRoleForUser(apiClient.GetConfig().Context, UnassignAppInstanceTargetFromAdminRoleForUseruserId, UnassignAppInstanceTargetFromAdminRoleForUserroleId, UnassignAppInstanceTargetFromAdminRoleForUserappName, UnassignAppInstanceTargetFromAdminRoleForUserappId)
 
@@ -708,7 +1308,7 @@ func NewUnassignAppInstanceTargetFromAdminRoleForUserCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !UnassignAppInstanceTargetFromAdminRoleForUserQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -718,8 +1318,10 @@ func NewUnassignAppInstanceTargetFromAdminRoleForUserCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !UnassignAppInstanceTargetFromAdminRoleForUserQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -736,6 +1338,8 @@ func NewUnassignAppInstanceTargetFromAdminRoleForUserCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&UnassignAppInstanceTargetFromAdminRoleForUserappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
 
+	cmd.Flags().BoolVarP(&UnassignAppInstanceTargetFromAdminRoleForUserQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -748,32 +1352,189 @@ var (
 	ListGroupTargetsForRoleuserId string
 
 	ListGroupTargetsForRoleroleId string
+
+	ListGroupTargetsForRoleBackupDir string
+
+	ListGroupTargetsForRoleLimit    int32
+	ListGroupTargetsForRolePage     string
+	ListGroupTargetsForRoleFetchAll bool
+
+	ListGroupTargetsForRoleQuiet bool
 )
 
 func NewListGroupTargetsForRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "listGroupTargetsForRole",
 		Long: "List all Group Targets for Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.ListGroupTargetsForRole(apiClient.GetConfig().Context, ListGroupTargetsForRoleuserId, ListGroupTargetsForRoleroleId)
 
-			resp, err := req.Execute()
-			if err != nil {
-				if resp != nil && resp.Body != nil {
-					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+			var allItems []map[string]interface{}
+			var pageCount int
+
+			for {
+				resp, err := req.Execute()
+				if err != nil {
+					if resp != nil && resp.Body != nil {
+						d, err := io.ReadAll(resp.Body)
+						if err == nil && !ListGroupTargetsForRoleQuiet {
+							utils.PrettyPrintByte(d)
+						}
+					}
+					return err
+				}
+
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+
+				var items []map[string]interface{}
+				if err := json.Unmarshal(d, &items); err != nil {
+					if !ListGroupTargetsForRoleQuiet {
 						utils.PrettyPrintByte(d)
 					}
+					return nil
 				}
-				return err
+
+				allItems = append(allItems, items...)
+				pageCount++
+
+				if !ListGroupTargetsForRoleFetchAll || len(items) == 0 {
+					break
+				}
+
+				nextURL := ""
+				if resp != nil {
+					links := resp.Header["Link"]
+					for _, link := range links {
+						if strings.Contains(link, `rel="next"`) {
+							parts := strings.Split(link, ";")
+							if len(parts) > 0 {
+								urlPart := strings.TrimSpace(parts[0])
+								urlPart = strings.TrimPrefix(urlPart, "<")
+								urlPart = strings.TrimSuffix(urlPart, ">")
+								nextURL = urlPart
+								break
+							}
+						}
+					}
+				}
+
+				if nextURL == "" {
+					break
+				}
+
+				nextReq, err := http.NewRequest("GET", nextURL, nil)
+				if err != nil {
+					break
+				}
+
+				token := ""
+				cfg := apiClient.GetConfig()
+				if cfg != nil {
+					apiKeys, ok := cfg.Context.Value(sdk.ContextAPIKeys).(map[string]sdk.APIKey)
+					if ok {
+						apiKey, exists := apiKeys["API_Token"]
+						if exists {
+							token = apiKey.Prefix + " " + apiKey.Key
+						}
+					}
+				}
+
+				if token != "" {
+					nextReq.Header.Add("Authorization", token)
+				}
+
+				nextReq.Header.Add("Accept", "application/json")
+
+				respNext, err := http.DefaultClient.Do(nextReq)
+				if err != nil {
+					break
+				}
+
+				dNext, err := io.ReadAll(respNext.Body)
+				respNext.Body.Close()
+				if err != nil {
+					break
+				}
+
+				var nextItems []map[string]interface{}
+				if err := json.Unmarshal(dNext, &nextItems); err != nil {
+					break
+				}
+
+				allItems = append(allItems, nextItems...)
+				pageCount++
 			}
-			d, err := io.ReadAll(resp.Body)
+
+			if ListGroupTargetsForRoleFetchAll && pageCount > 1 && !ListGroupTargetsForRoleQuiet {
+				fmt.Printf("Retrieved %d items across %d pages\n", len(allItems), pageCount)
+			}
+
+			combinedJSON, err := json.Marshal(allItems)
 			if err != nil {
-				return err
+				return fmt.Errorf("error combining results: %w", err)
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
-			return nil
+
+			if cmd.Flags().Changed("batch-backup") {
+				dirPath := filepath.Join(ListGroupTargetsForRoleBackupDir, "roletarget", "listGroupTargetsForRole")
+
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				if !ListGroupTargetsForRoleQuiet {
+					fmt.Printf("Backing up RoleTargets to %s\n", dirPath)
+				}
+
+				success := 0
+				for _, item := range allItems {
+					id, ok := item["id"].(string)
+					if !ok {
+						if !ListGroupTargetsForRoleQuiet {
+							fmt.Println("Warning: item missing ID field, skipping")
+						}
+						continue
+					}
+
+					itemJSON, err := json.MarshalIndent(item, "", "  ")
+					if err != nil {
+						if !ListGroupTargetsForRoleQuiet {
+							fmt.Printf("Error marshaling item %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					filePath := filepath.Join(dirPath, id+".json")
+					if err := os.WriteFile(filePath, itemJSON, 0o644); err != nil {
+						if !ListGroupTargetsForRoleQuiet {
+							fmt.Printf("Error writing file for %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					success++
+				}
+
+				if !ListGroupTargetsForRoleQuiet {
+					fmt.Printf("Successfully backed up %d/%d RoleTargets\n", success, len(allItems))
+				}
+				return nil
+			} else {
+				if !ListGroupTargetsForRoleQuiet {
+					return utils.PrettyPrintByte(combinedJSON)
+				}
+				return nil
+			}
 		},
 	}
 
@@ -782,6 +1543,15 @@ func NewListGroupTargetsForRoleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&ListGroupTargetsForRoleroleId, "roleId", "", "", "")
 	cmd.MarkFlagRequired("roleId")
+
+	cmd.Flags().Int32VarP(&ListGroupTargetsForRoleLimit, "limit", "l", 0, "Maximum number of items to return per page")
+	cmd.Flags().StringVarP(&ListGroupTargetsForRolePage, "page", "p", "", "Page to fetch (if supported)")
+	cmd.Flags().BoolVarP(&ListGroupTargetsForRoleFetchAll, "all", "", false, "Fetch all items by following pagination automatically")
+	cmd.Flags().BoolP("batch-backup", "b", false, "Backup multiple RoleTargets to a directory")
+
+	cmd.Flags().StringVarP(&ListGroupTargetsForRoleBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&ListGroupTargetsForRoleQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -797,12 +1567,17 @@ var (
 	AssignGroupTargetToUserRoleroleId string
 
 	AssignGroupTargetToUserRolegroupId string
+
+	AssignGroupTargetToUserRoleQuiet bool
 )
 
 func NewAssignGroupTargetToUserRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "assignGroupTargetToUserRole",
 		Long: "Assign a Group Target to Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.AssignGroupTargetToUserRole(apiClient.GetConfig().Context, AssignGroupTargetToUserRoleuserId, AssignGroupTargetToUserRoleroleId, AssignGroupTargetToUserRolegroupId)
 
@@ -810,7 +1585,7 @@ func NewAssignGroupTargetToUserRoleCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !AssignGroupTargetToUserRoleQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -820,8 +1595,10 @@ func NewAssignGroupTargetToUserRoleCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !AssignGroupTargetToUserRoleQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -834,6 +1611,8 @@ func NewAssignGroupTargetToUserRoleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignGroupTargetToUserRolegroupId, "groupId", "", "", "")
 	cmd.MarkFlagRequired("groupId")
+
+	cmd.Flags().BoolVarP(&AssignGroupTargetToUserRoleQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -849,12 +1628,17 @@ var (
 	UnassignGroupTargetFromUserAdminRoleroleId string
 
 	UnassignGroupTargetFromUserAdminRolegroupId string
+
+	UnassignGroupTargetFromUserAdminRoleQuiet bool
 )
 
 func NewUnassignGroupTargetFromUserAdminRoleCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "unassignGroupTargetFromUserAdminRole",
 		Long: "Unassign a Group Target from Role",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RoleTargetAPI.UnassignGroupTargetFromUserAdminRole(apiClient.GetConfig().Context, UnassignGroupTargetFromUserAdminRoleuserId, UnassignGroupTargetFromUserAdminRoleroleId, UnassignGroupTargetFromUserAdminRolegroupId)
 
@@ -862,7 +1646,7 @@ func NewUnassignGroupTargetFromUserAdminRoleCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !UnassignGroupTargetFromUserAdminRoleQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -872,8 +1656,10 @@ func NewUnassignGroupTargetFromUserAdminRoleCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !UnassignGroupTargetFromUserAdminRoleQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -886,6 +1672,8 @@ func NewUnassignGroupTargetFromUserAdminRoleCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&UnassignGroupTargetFromUserAdminRolegroupId, "groupId", "", "", "")
 	cmd.MarkFlagRequired("groupId")
+
+	cmd.Flags().BoolVarP(&UnassignGroupTargetFromUserAdminRoleQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }

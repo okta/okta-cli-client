@@ -16,12 +16,19 @@ func init() {
 	rootCmd.AddCommand(RiskEventCmd)
 }
 
-var SendRiskEventsdata string
+var (
+	SendRiskEventsdata string
+
+	SendRiskEventsQuiet bool
+)
 
 func NewSendRiskEventsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "sends",
 		Long: "Send multiple Risk Events",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.RiskEventAPI.SendRiskEvents(apiClient.GetConfig().Context)
 
@@ -33,7 +40,7 @@ func NewSendRiskEventsCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !SendRiskEventsQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -43,14 +50,18 @@ func NewSendRiskEventsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !SendRiskEventsQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&SendRiskEventsdata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
+
+	cmd.Flags().BoolVarP(&SendRiskEventsQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }

@@ -20,12 +20,17 @@ var (
 	UploadApplicationLogoappId string
 
 	UploadApplicationLogodata string
+
+	UploadApplicationLogoQuiet bool
 )
 
 func NewUploadApplicationLogoCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "uploadApplicationLogo",
 		Long: "Upload an application Logo",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationLogosAPI.UploadApplicationLogo(apiClient.GetConfig().Context, UploadApplicationLogoappId)
 
@@ -37,7 +42,7 @@ func NewUploadApplicationLogoCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !UploadApplicationLogoQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -47,8 +52,10 @@ func NewUploadApplicationLogoCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !UploadApplicationLogoQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -58,6 +65,8 @@ func NewUploadApplicationLogoCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&UploadApplicationLogodata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
+
+	cmd.Flags().BoolVarP(&UploadApplicationLogoQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }

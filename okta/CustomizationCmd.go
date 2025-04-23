@@ -1,8 +1,15 @@
 package okta
 
 import (
+	"encoding/json"
+	"fmt"
 	"io"
+	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
 
+	"github.com/okta/okta-cli-client/sdk"
 	"github.com/okta/okta-cli-client/utils"
 	"github.com/spf13/cobra"
 )
@@ -16,13 +23,41 @@ func init() {
 	rootCmd.AddCommand(CustomizationCmd)
 }
 
-var CreateBranddata string
+var (
+	CreateBranddata string
+
+	CreateBrandRestoreFile string
+
+	CreateBrandQuiet bool
+)
 
 func NewCreateBrandCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "createBrand",
 		Long: "Create a Brand",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
+			if CreateBrandRestoreFile != "" {
+
+				jsonData, err := os.ReadFile(CreateBrandRestoreFile)
+				if err != nil {
+					return fmt.Errorf("failed to read restore file: %w", err)
+				}
+
+				processedData, err := utils.PrepareDataForRestore(jsonData)
+				if err != nil {
+					return fmt.Errorf("failed to process restore data: %w", err)
+				}
+
+				CreateBranddata = string(processedData)
+
+				if !CreateBrandQuiet {
+					fmt.Println("Restoring Customization from:", CreateBrandRestoreFile)
+				}
+			}
+
 			req := apiClient.CustomizationAPI.CreateBrand(apiClient.GetConfig().Context)
 
 			if CreateBranddata != "" {
@@ -33,7 +68,7 @@ func NewCreateBrandCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !CreateBrandQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -43,14 +78,20 @@ func NewCreateBrandCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !CreateBrandQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&CreateBranddata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
+
+	cmd.Flags().StringVarP(&CreateBrandRestoreFile, "restore-from", "r", "", "Restore Customization from a JSON backup file")
+
+	cmd.Flags().BoolVarP(&CreateBrandQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -60,32 +101,200 @@ func init() {
 	CustomizationCmd.AddCommand(CreateBrandCmd)
 }
 
+var (
+	ListBrandsBackupDir string
+
+	ListBrandsLimit    int32
+	ListBrandsPage     string
+	ListBrandsFetchAll bool
+
+	ListBrandsQuiet bool
+)
+
 func NewListBrandsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "listBrands",
 		Long: "List all Brands",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListBrands(apiClient.GetConfig().Context)
 
-			resp, err := req.Execute()
-			if err != nil {
-				if resp != nil && resp.Body != nil {
-					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+			var allItems []map[string]interface{}
+			var pageCount int
+
+			for {
+				resp, err := req.Execute()
+				if err != nil {
+					if resp != nil && resp.Body != nil {
+						d, err := io.ReadAll(resp.Body)
+						if err == nil && !ListBrandsQuiet {
+							utils.PrettyPrintByte(d)
+						}
+					}
+					return err
+				}
+
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+
+				var items []map[string]interface{}
+				if err := json.Unmarshal(d, &items); err != nil {
+					if !ListBrandsQuiet {
 						utils.PrettyPrintByte(d)
 					}
+					return nil
 				}
-				return err
+
+				allItems = append(allItems, items...)
+				pageCount++
+
+				if !ListBrandsFetchAll || len(items) == 0 {
+					break
+				}
+
+				nextURL := ""
+				if resp != nil {
+					links := resp.Header["Link"]
+					for _, link := range links {
+						if strings.Contains(link, `rel="next"`) {
+							parts := strings.Split(link, ";")
+							if len(parts) > 0 {
+								urlPart := strings.TrimSpace(parts[0])
+								urlPart = strings.TrimPrefix(urlPart, "<")
+								urlPart = strings.TrimSuffix(urlPart, ">")
+								nextURL = urlPart
+								break
+							}
+						}
+					}
+				}
+
+				if nextURL == "" {
+					break
+				}
+
+				nextReq, err := http.NewRequest("GET", nextURL, nil)
+				if err != nil {
+					break
+				}
+
+				token := ""
+				cfg := apiClient.GetConfig()
+				if cfg != nil {
+					apiKeys, ok := cfg.Context.Value(sdk.ContextAPIKeys).(map[string]sdk.APIKey)
+					if ok {
+						apiKey, exists := apiKeys["API_Token"]
+						if exists {
+							token = apiKey.Prefix + " " + apiKey.Key
+						}
+					}
+				}
+
+				if token != "" {
+					nextReq.Header.Add("Authorization", token)
+				}
+
+				nextReq.Header.Add("Accept", "application/json")
+
+				respNext, err := http.DefaultClient.Do(nextReq)
+				if err != nil {
+					break
+				}
+
+				dNext, err := io.ReadAll(respNext.Body)
+				respNext.Body.Close()
+				if err != nil {
+					break
+				}
+
+				var nextItems []map[string]interface{}
+				if err := json.Unmarshal(dNext, &nextItems); err != nil {
+					break
+				}
+
+				allItems = append(allItems, nextItems...)
+				pageCount++
 			}
-			d, err := io.ReadAll(resp.Body)
+
+			if ListBrandsFetchAll && pageCount > 1 && !ListBrandsQuiet {
+				fmt.Printf("Retrieved %d items across %d pages\n", len(allItems), pageCount)
+			}
+
+			combinedJSON, err := json.Marshal(allItems)
 			if err != nil {
-				return err
+				return fmt.Errorf("error combining results: %w", err)
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
-			return nil
+
+			if cmd.Flags().Changed("batch-backup") {
+				dirPath := filepath.Join(ListBrandsBackupDir, "customization", "listBrands")
+
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				if !ListBrandsQuiet {
+					fmt.Printf("Backing up Customizations to %s\n", dirPath)
+				}
+
+				success := 0
+				for _, item := range allItems {
+					id, ok := item["id"].(string)
+					if !ok {
+						if !ListBrandsQuiet {
+							fmt.Println("Warning: item missing ID field, skipping")
+						}
+						continue
+					}
+
+					itemJSON, err := json.MarshalIndent(item, "", "  ")
+					if err != nil {
+						if !ListBrandsQuiet {
+							fmt.Printf("Error marshaling item %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					filePath := filepath.Join(dirPath, id+".json")
+					if err := os.WriteFile(filePath, itemJSON, 0o644); err != nil {
+						if !ListBrandsQuiet {
+							fmt.Printf("Error writing file for %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					success++
+				}
+
+				if !ListBrandsQuiet {
+					fmt.Printf("Successfully backed up %d/%d Customizations\n", success, len(allItems))
+				}
+				return nil
+			} else {
+				if !ListBrandsQuiet {
+					return utils.PrettyPrintByte(combinedJSON)
+				}
+				return nil
+			}
 		},
 	}
+
+	cmd.Flags().Int32VarP(&ListBrandsLimit, "limit", "l", 0, "Maximum number of items to return per page")
+	cmd.Flags().StringVarP(&ListBrandsPage, "page", "p", "", "Page to fetch (if supported)")
+	cmd.Flags().BoolVarP(&ListBrandsFetchAll, "all", "", false, "Fetch all items by following pagination automatically")
+	cmd.Flags().BoolP("batch-backup", "b", false, "Backup multiple Customizations to a directory")
+
+	cmd.Flags().StringVarP(&ListBrandsBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&ListBrandsQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -95,12 +304,26 @@ func init() {
 	CustomizationCmd.AddCommand(ListBrandsCmd)
 }
 
-var GetBrandbrandId string
+var (
+	GetBrandbrandId string
+
+	GetBrandBackupDir string
+
+	GetBrandQuiet bool
+)
 
 func NewGetBrandCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getBrand",
 		Long: "Retrieve a Brand",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetBrand(apiClient.GetConfig().Context, GetBrandbrandId)
 
@@ -108,7 +331,7 @@ func NewGetBrandCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetBrandQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -118,14 +341,43 @@ func NewGetBrandCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetBrandBackupDir, "customization", "getBrand")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetBrandbrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetBrandQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetBrandQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&GetBrandbrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetBrandBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetBrandQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -139,12 +391,17 @@ var (
 	ReplaceBrandbrandId string
 
 	ReplaceBranddata string
+
+	ReplaceBrandQuiet bool
 )
 
 func NewReplaceBrandCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "replaceBrand",
 		Long: "Replace a Brand",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceBrand(apiClient.GetConfig().Context, ReplaceBrandbrandId)
 
@@ -156,7 +413,7 @@ func NewReplaceBrandCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !ReplaceBrandQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -166,8 +423,10 @@ func NewReplaceBrandCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !ReplaceBrandQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -178,6 +437,8 @@ func NewReplaceBrandCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ReplaceBranddata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().BoolVarP(&ReplaceBrandQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -186,12 +447,19 @@ func init() {
 	CustomizationCmd.AddCommand(ReplaceBrandCmd)
 }
 
-var DeleteBrandbrandId string
+var (
+	DeleteBrandbrandId string
+
+	DeleteBrandQuiet bool
+)
 
 func NewDeleteBrandCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "deleteBrand",
 		Long: "Delete a brand",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteBrand(apiClient.GetConfig().Context, DeleteBrandbrandId)
 
@@ -199,7 +467,7 @@ func NewDeleteBrandCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !DeleteBrandQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -209,14 +477,18 @@ func NewDeleteBrandCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !DeleteBrandQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&DeleteBrandbrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolVarP(&DeleteBrandQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -226,37 +498,205 @@ func init() {
 	CustomizationCmd.AddCommand(DeleteBrandCmd)
 }
 
-var ListBrandDomainsbrandId string
+var (
+	ListBrandDomainsbrandId string
+
+	ListBrandDomainsBackupDir string
+
+	ListBrandDomainsLimit    int32
+	ListBrandDomainsPage     string
+	ListBrandDomainsFetchAll bool
+
+	ListBrandDomainsQuiet bool
+)
 
 func NewListBrandDomainsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "listBrandDomains",
 		Long: "List all Domains associated with a Brand",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListBrandDomains(apiClient.GetConfig().Context, ListBrandDomainsbrandId)
 
-			resp, err := req.Execute()
-			if err != nil {
-				if resp != nil && resp.Body != nil {
-					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+			var allItems []map[string]interface{}
+			var pageCount int
+
+			for {
+				resp, err := req.Execute()
+				if err != nil {
+					if resp != nil && resp.Body != nil {
+						d, err := io.ReadAll(resp.Body)
+						if err == nil && !ListBrandDomainsQuiet {
+							utils.PrettyPrintByte(d)
+						}
+					}
+					return err
+				}
+
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+
+				var items []map[string]interface{}
+				if err := json.Unmarshal(d, &items); err != nil {
+					if !ListBrandDomainsQuiet {
 						utils.PrettyPrintByte(d)
 					}
+					return nil
 				}
-				return err
+
+				allItems = append(allItems, items...)
+				pageCount++
+
+				if !ListBrandDomainsFetchAll || len(items) == 0 {
+					break
+				}
+
+				nextURL := ""
+				if resp != nil {
+					links := resp.Header["Link"]
+					for _, link := range links {
+						if strings.Contains(link, `rel="next"`) {
+							parts := strings.Split(link, ";")
+							if len(parts) > 0 {
+								urlPart := strings.TrimSpace(parts[0])
+								urlPart = strings.TrimPrefix(urlPart, "<")
+								urlPart = strings.TrimSuffix(urlPart, ">")
+								nextURL = urlPart
+								break
+							}
+						}
+					}
+				}
+
+				if nextURL == "" {
+					break
+				}
+
+				nextReq, err := http.NewRequest("GET", nextURL, nil)
+				if err != nil {
+					break
+				}
+
+				token := ""
+				cfg := apiClient.GetConfig()
+				if cfg != nil {
+					apiKeys, ok := cfg.Context.Value(sdk.ContextAPIKeys).(map[string]sdk.APIKey)
+					if ok {
+						apiKey, exists := apiKeys["API_Token"]
+						if exists {
+							token = apiKey.Prefix + " " + apiKey.Key
+						}
+					}
+				}
+
+				if token != "" {
+					nextReq.Header.Add("Authorization", token)
+				}
+
+				nextReq.Header.Add("Accept", "application/json")
+
+				respNext, err := http.DefaultClient.Do(nextReq)
+				if err != nil {
+					break
+				}
+
+				dNext, err := io.ReadAll(respNext.Body)
+				respNext.Body.Close()
+				if err != nil {
+					break
+				}
+
+				var nextItems []map[string]interface{}
+				if err := json.Unmarshal(dNext, &nextItems); err != nil {
+					break
+				}
+
+				allItems = append(allItems, nextItems...)
+				pageCount++
 			}
-			d, err := io.ReadAll(resp.Body)
+
+			if ListBrandDomainsFetchAll && pageCount > 1 && !ListBrandDomainsQuiet {
+				fmt.Printf("Retrieved %d items across %d pages\n", len(allItems), pageCount)
+			}
+
+			combinedJSON, err := json.Marshal(allItems)
 			if err != nil {
-				return err
+				return fmt.Errorf("error combining results: %w", err)
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
-			return nil
+
+			if cmd.Flags().Changed("batch-backup") {
+				dirPath := filepath.Join(ListBrandDomainsBackupDir, "customization", "listBrandDomains")
+
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				if !ListBrandDomainsQuiet {
+					fmt.Printf("Backing up Customizations to %s\n", dirPath)
+				}
+
+				success := 0
+				for _, item := range allItems {
+					id, ok := item["id"].(string)
+					if !ok {
+						if !ListBrandDomainsQuiet {
+							fmt.Println("Warning: item missing ID field, skipping")
+						}
+						continue
+					}
+
+					itemJSON, err := json.MarshalIndent(item, "", "  ")
+					if err != nil {
+						if !ListBrandDomainsQuiet {
+							fmt.Printf("Error marshaling item %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					filePath := filepath.Join(dirPath, id+".json")
+					if err := os.WriteFile(filePath, itemJSON, 0o644); err != nil {
+						if !ListBrandDomainsQuiet {
+							fmt.Printf("Error writing file for %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					success++
+				}
+
+				if !ListBrandDomainsQuiet {
+					fmt.Printf("Successfully backed up %d/%d Customizations\n", success, len(allItems))
+				}
+				return nil
+			} else {
+				if !ListBrandDomainsQuiet {
+					return utils.PrettyPrintByte(combinedJSON)
+				}
+				return nil
+			}
 		},
 	}
 
 	cmd.Flags().StringVarP(&ListBrandDomainsbrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().Int32VarP(&ListBrandDomainsLimit, "limit", "l", 0, "Maximum number of items to return per page")
+	cmd.Flags().StringVarP(&ListBrandDomainsPage, "page", "p", "", "Page to fetch (if supported)")
+	cmd.Flags().BoolVarP(&ListBrandDomainsFetchAll, "all", "", false, "Fetch all items by following pagination automatically")
+	cmd.Flags().BoolP("batch-backup", "b", false, "Backup multiple Customizations to a directory")
+
+	cmd.Flags().StringVarP(&ListBrandDomainsBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&ListBrandDomainsQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -266,12 +706,26 @@ func init() {
 	CustomizationCmd.AddCommand(ListBrandDomainsCmd)
 }
 
-var GetErrorPagebrandId string
+var (
+	GetErrorPagebrandId string
+
+	GetErrorPageBackupDir string
+
+	GetErrorPageQuiet bool
+)
 
 func NewGetErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getErrorPage",
 		Long: "Retrieve the Error Page Sub-Resources",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetErrorPage(apiClient.GetConfig().Context, GetErrorPagebrandId)
 
@@ -279,7 +733,7 @@ func NewGetErrorPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetErrorPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -289,14 +743,43 @@ func NewGetErrorPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetErrorPageBackupDir, "customization", "getErrorPage")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetErrorPagebrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetErrorPageQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetErrorPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&GetErrorPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetErrorPageBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetErrorPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -306,12 +789,26 @@ func init() {
 	CustomizationCmd.AddCommand(GetErrorPageCmd)
 }
 
-var GetCustomizedErrorPagebrandId string
+var (
+	GetCustomizedErrorPagebrandId string
+
+	GetCustomizedErrorPageBackupDir string
+
+	GetCustomizedErrorPageQuiet bool
+)
 
 func NewGetCustomizedErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getCustomizedErrorPage",
 		Long: "Retrieve the Customized Error Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetCustomizedErrorPage(apiClient.GetConfig().Context, GetCustomizedErrorPagebrandId)
 
@@ -319,7 +816,7 @@ func NewGetCustomizedErrorPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetCustomizedErrorPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -329,14 +826,43 @@ func NewGetCustomizedErrorPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetCustomizedErrorPageBackupDir, "customization", "getCustomizedErrorPage")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetCustomizedErrorPagebrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetCustomizedErrorPageQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetCustomizedErrorPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&GetCustomizedErrorPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetCustomizedErrorPageBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetCustomizedErrorPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -350,12 +876,17 @@ var (
 	ReplaceCustomizedErrorPagebrandId string
 
 	ReplaceCustomizedErrorPagedata string
+
+	ReplaceCustomizedErrorPageQuiet bool
 )
 
 func NewReplaceCustomizedErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "replaceCustomizedErrorPage",
 		Long: "Replace the Customized Error Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceCustomizedErrorPage(apiClient.GetConfig().Context, ReplaceCustomizedErrorPagebrandId)
 
@@ -367,7 +898,7 @@ func NewReplaceCustomizedErrorPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !ReplaceCustomizedErrorPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -377,8 +908,10 @@ func NewReplaceCustomizedErrorPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !ReplaceCustomizedErrorPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -389,6 +922,8 @@ func NewReplaceCustomizedErrorPageCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ReplaceCustomizedErrorPagedata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().BoolVarP(&ReplaceCustomizedErrorPageQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -397,12 +932,19 @@ func init() {
 	CustomizationCmd.AddCommand(ReplaceCustomizedErrorPageCmd)
 }
 
-var DeleteCustomizedErrorPagebrandId string
+var (
+	DeleteCustomizedErrorPagebrandId string
+
+	DeleteCustomizedErrorPageQuiet bool
+)
 
 func NewDeleteCustomizedErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "deleteCustomizedErrorPage",
 		Long: "Delete the Customized Error Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteCustomizedErrorPage(apiClient.GetConfig().Context, DeleteCustomizedErrorPagebrandId)
 
@@ -410,7 +952,7 @@ func NewDeleteCustomizedErrorPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !DeleteCustomizedErrorPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -420,14 +962,18 @@ func NewDeleteCustomizedErrorPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !DeleteCustomizedErrorPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&DeleteCustomizedErrorPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolVarP(&DeleteCustomizedErrorPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -437,12 +983,26 @@ func init() {
 	CustomizationCmd.AddCommand(DeleteCustomizedErrorPageCmd)
 }
 
-var GetDefaultErrorPagebrandId string
+var (
+	GetDefaultErrorPagebrandId string
+
+	GetDefaultErrorPageBackupDir string
+
+	GetDefaultErrorPageQuiet bool
+)
 
 func NewGetDefaultErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getDefaultErrorPage",
 		Long: "Retrieve the Default Error Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetDefaultErrorPage(apiClient.GetConfig().Context, GetDefaultErrorPagebrandId)
 
@@ -450,7 +1010,7 @@ func NewGetDefaultErrorPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetDefaultErrorPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -460,14 +1020,43 @@ func NewGetDefaultErrorPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetDefaultErrorPageBackupDir, "customization", "getDefaultErrorPage")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetDefaultErrorPagebrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetDefaultErrorPageQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetDefaultErrorPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&GetDefaultErrorPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetDefaultErrorPageBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetDefaultErrorPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -477,12 +1066,26 @@ func init() {
 	CustomizationCmd.AddCommand(GetDefaultErrorPageCmd)
 }
 
-var GetPreviewErrorPagebrandId string
+var (
+	GetPreviewErrorPagebrandId string
+
+	GetPreviewErrorPageBackupDir string
+
+	GetPreviewErrorPageQuiet bool
+)
 
 func NewGetPreviewErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getPreviewErrorPage",
 		Long: "Retrieve the Preview Error Page Preview",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetPreviewErrorPage(apiClient.GetConfig().Context, GetPreviewErrorPagebrandId)
 
@@ -490,7 +1093,7 @@ func NewGetPreviewErrorPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetPreviewErrorPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -500,14 +1103,43 @@ func NewGetPreviewErrorPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetPreviewErrorPageBackupDir, "customization", "getPreviewErrorPage")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetPreviewErrorPagebrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetPreviewErrorPageQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetPreviewErrorPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&GetPreviewErrorPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetPreviewErrorPageBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetPreviewErrorPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -521,12 +1153,17 @@ var (
 	ReplacePreviewErrorPagebrandId string
 
 	ReplacePreviewErrorPagedata string
+
+	ReplacePreviewErrorPageQuiet bool
 )
 
 func NewReplacePreviewErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "replacePreviewErrorPage",
 		Long: "Replace the Preview Error Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplacePreviewErrorPage(apiClient.GetConfig().Context, ReplacePreviewErrorPagebrandId)
 
@@ -538,7 +1175,7 @@ func NewReplacePreviewErrorPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !ReplacePreviewErrorPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -548,8 +1185,10 @@ func NewReplacePreviewErrorPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !ReplacePreviewErrorPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -560,6 +1199,8 @@ func NewReplacePreviewErrorPageCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ReplacePreviewErrorPagedata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().BoolVarP(&ReplacePreviewErrorPageQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -568,12 +1209,19 @@ func init() {
 	CustomizationCmd.AddCommand(ReplacePreviewErrorPageCmd)
 }
 
-var DeletePreviewErrorPagebrandId string
+var (
+	DeletePreviewErrorPagebrandId string
+
+	DeletePreviewErrorPageQuiet bool
+)
 
 func NewDeletePreviewErrorPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "deletePreviewErrorPage",
 		Long: "Delete the Preview Error Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeletePreviewErrorPage(apiClient.GetConfig().Context, DeletePreviewErrorPagebrandId)
 
@@ -581,7 +1229,7 @@ func NewDeletePreviewErrorPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !DeletePreviewErrorPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -591,14 +1239,18 @@ func NewDeletePreviewErrorPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !DeletePreviewErrorPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&DeletePreviewErrorPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolVarP(&DeletePreviewErrorPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -608,12 +1260,26 @@ func init() {
 	CustomizationCmd.AddCommand(DeletePreviewErrorPageCmd)
 }
 
-var GetSignInPagebrandId string
+var (
+	GetSignInPagebrandId string
+
+	GetSignInPageBackupDir string
+
+	GetSignInPageQuiet bool
+)
 
 func NewGetSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getSignInPage",
 		Long: "Retrieve the Sign-in Page Sub-Resources",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetSignInPage(apiClient.GetConfig().Context, GetSignInPagebrandId)
 
@@ -621,7 +1287,7 @@ func NewGetSignInPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetSignInPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -631,14 +1297,43 @@ func NewGetSignInPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetSignInPageBackupDir, "customization", "getSignInPage")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetSignInPagebrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetSignInPageQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetSignInPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&GetSignInPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetSignInPageBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetSignInPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -648,12 +1343,26 @@ func init() {
 	CustomizationCmd.AddCommand(GetSignInPageCmd)
 }
 
-var GetCustomizedSignInPagebrandId string
+var (
+	GetCustomizedSignInPagebrandId string
+
+	GetCustomizedSignInPageBackupDir string
+
+	GetCustomizedSignInPageQuiet bool
+)
 
 func NewGetCustomizedSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getCustomizedSignInPage",
 		Long: "Retrieve the Customized Sign-in Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetCustomizedSignInPage(apiClient.GetConfig().Context, GetCustomizedSignInPagebrandId)
 
@@ -661,7 +1370,7 @@ func NewGetCustomizedSignInPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetCustomizedSignInPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -671,14 +1380,43 @@ func NewGetCustomizedSignInPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetCustomizedSignInPageBackupDir, "customization", "getCustomizedSignInPage")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetCustomizedSignInPagebrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetCustomizedSignInPageQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetCustomizedSignInPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&GetCustomizedSignInPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetCustomizedSignInPageBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetCustomizedSignInPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -692,12 +1430,17 @@ var (
 	ReplaceCustomizedSignInPagebrandId string
 
 	ReplaceCustomizedSignInPagedata string
+
+	ReplaceCustomizedSignInPageQuiet bool
 )
 
 func NewReplaceCustomizedSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "replaceCustomizedSignInPage",
 		Long: "Replace the Customized Sign-in Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceCustomizedSignInPage(apiClient.GetConfig().Context, ReplaceCustomizedSignInPagebrandId)
 
@@ -709,7 +1452,7 @@ func NewReplaceCustomizedSignInPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !ReplaceCustomizedSignInPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -719,8 +1462,10 @@ func NewReplaceCustomizedSignInPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !ReplaceCustomizedSignInPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -731,6 +1476,8 @@ func NewReplaceCustomizedSignInPageCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ReplaceCustomizedSignInPagedata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().BoolVarP(&ReplaceCustomizedSignInPageQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -739,12 +1486,19 @@ func init() {
 	CustomizationCmd.AddCommand(ReplaceCustomizedSignInPageCmd)
 }
 
-var DeleteCustomizedSignInPagebrandId string
+var (
+	DeleteCustomizedSignInPagebrandId string
+
+	DeleteCustomizedSignInPageQuiet bool
+)
 
 func NewDeleteCustomizedSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "deleteCustomizedSignInPage",
 		Long: "Delete the Customized Sign-in Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteCustomizedSignInPage(apiClient.GetConfig().Context, DeleteCustomizedSignInPagebrandId)
 
@@ -752,7 +1506,7 @@ func NewDeleteCustomizedSignInPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !DeleteCustomizedSignInPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -762,14 +1516,18 @@ func NewDeleteCustomizedSignInPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !DeleteCustomizedSignInPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&DeleteCustomizedSignInPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolVarP(&DeleteCustomizedSignInPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -779,12 +1537,26 @@ func init() {
 	CustomizationCmd.AddCommand(DeleteCustomizedSignInPageCmd)
 }
 
-var GetDefaultSignInPagebrandId string
+var (
+	GetDefaultSignInPagebrandId string
+
+	GetDefaultSignInPageBackupDir string
+
+	GetDefaultSignInPageQuiet bool
+)
 
 func NewGetDefaultSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getDefaultSignInPage",
 		Long: "Retrieve the Default Sign-in Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetDefaultSignInPage(apiClient.GetConfig().Context, GetDefaultSignInPagebrandId)
 
@@ -792,7 +1564,7 @@ func NewGetDefaultSignInPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetDefaultSignInPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -802,14 +1574,43 @@ func NewGetDefaultSignInPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetDefaultSignInPageBackupDir, "customization", "getDefaultSignInPage")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetDefaultSignInPagebrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetDefaultSignInPageQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetDefaultSignInPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&GetDefaultSignInPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetDefaultSignInPageBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetDefaultSignInPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -819,12 +1620,26 @@ func init() {
 	CustomizationCmd.AddCommand(GetDefaultSignInPageCmd)
 }
 
-var GetPreviewSignInPagebrandId string
+var (
+	GetPreviewSignInPagebrandId string
+
+	GetPreviewSignInPageBackupDir string
+
+	GetPreviewSignInPageQuiet bool
+)
 
 func NewGetPreviewSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getPreviewSignInPage",
 		Long: "Retrieve the Preview Sign-in Page Preview",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetPreviewSignInPage(apiClient.GetConfig().Context, GetPreviewSignInPagebrandId)
 
@@ -832,7 +1647,7 @@ func NewGetPreviewSignInPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetPreviewSignInPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -842,14 +1657,43 @@ func NewGetPreviewSignInPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetPreviewSignInPageBackupDir, "customization", "getPreviewSignInPage")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetPreviewSignInPagebrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetPreviewSignInPageQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetPreviewSignInPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&GetPreviewSignInPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetPreviewSignInPageBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetPreviewSignInPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -863,12 +1707,17 @@ var (
 	ReplacePreviewSignInPagebrandId string
 
 	ReplacePreviewSignInPagedata string
+
+	ReplacePreviewSignInPageQuiet bool
 )
 
 func NewReplacePreviewSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "replacePreviewSignInPage",
 		Long: "Replace the Preview Sign-in Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplacePreviewSignInPage(apiClient.GetConfig().Context, ReplacePreviewSignInPagebrandId)
 
@@ -880,7 +1729,7 @@ func NewReplacePreviewSignInPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !ReplacePreviewSignInPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -890,8 +1739,10 @@ func NewReplacePreviewSignInPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !ReplacePreviewSignInPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -902,6 +1753,8 @@ func NewReplacePreviewSignInPageCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ReplacePreviewSignInPagedata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().BoolVarP(&ReplacePreviewSignInPageQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -910,12 +1763,19 @@ func init() {
 	CustomizationCmd.AddCommand(ReplacePreviewSignInPageCmd)
 }
 
-var DeletePreviewSignInPagebrandId string
+var (
+	DeletePreviewSignInPagebrandId string
+
+	DeletePreviewSignInPageQuiet bool
+)
 
 func NewDeletePreviewSignInPageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "deletePreviewSignInPage",
 		Long: "Delete the Preview Sign-in Page",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeletePreviewSignInPage(apiClient.GetConfig().Context, DeletePreviewSignInPagebrandId)
 
@@ -923,7 +1783,7 @@ func NewDeletePreviewSignInPageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !DeletePreviewSignInPageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -933,14 +1793,18 @@ func NewDeletePreviewSignInPageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !DeletePreviewSignInPageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&DeletePreviewSignInPagebrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolVarP(&DeletePreviewSignInPageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -950,37 +1814,205 @@ func init() {
 	CustomizationCmd.AddCommand(DeletePreviewSignInPageCmd)
 }
 
-var ListAllSignInWidgetVersionsbrandId string
+var (
+	ListAllSignInWidgetVersionsbrandId string
+
+	ListAllSignInWidgetVersionsBackupDir string
+
+	ListAllSignInWidgetVersionsLimit    int32
+	ListAllSignInWidgetVersionsPage     string
+	ListAllSignInWidgetVersionsFetchAll bool
+
+	ListAllSignInWidgetVersionsQuiet bool
+)
 
 func NewListAllSignInWidgetVersionsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "listAllSignInWidgetVersions",
 		Long: "List all Sign-in Widget Versions",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListAllSignInWidgetVersions(apiClient.GetConfig().Context, ListAllSignInWidgetVersionsbrandId)
 
-			resp, err := req.Execute()
-			if err != nil {
-				if resp != nil && resp.Body != nil {
-					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+			var allItems []map[string]interface{}
+			var pageCount int
+
+			for {
+				resp, err := req.Execute()
+				if err != nil {
+					if resp != nil && resp.Body != nil {
+						d, err := io.ReadAll(resp.Body)
+						if err == nil && !ListAllSignInWidgetVersionsQuiet {
+							utils.PrettyPrintByte(d)
+						}
+					}
+					return err
+				}
+
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+
+				var items []map[string]interface{}
+				if err := json.Unmarshal(d, &items); err != nil {
+					if !ListAllSignInWidgetVersionsQuiet {
 						utils.PrettyPrintByte(d)
 					}
+					return nil
 				}
-				return err
+
+				allItems = append(allItems, items...)
+				pageCount++
+
+				if !ListAllSignInWidgetVersionsFetchAll || len(items) == 0 {
+					break
+				}
+
+				nextURL := ""
+				if resp != nil {
+					links := resp.Header["Link"]
+					for _, link := range links {
+						if strings.Contains(link, `rel="next"`) {
+							parts := strings.Split(link, ";")
+							if len(parts) > 0 {
+								urlPart := strings.TrimSpace(parts[0])
+								urlPart = strings.TrimPrefix(urlPart, "<")
+								urlPart = strings.TrimSuffix(urlPart, ">")
+								nextURL = urlPart
+								break
+							}
+						}
+					}
+				}
+
+				if nextURL == "" {
+					break
+				}
+
+				nextReq, err := http.NewRequest("GET", nextURL, nil)
+				if err != nil {
+					break
+				}
+
+				token := ""
+				cfg := apiClient.GetConfig()
+				if cfg != nil {
+					apiKeys, ok := cfg.Context.Value(sdk.ContextAPIKeys).(map[string]sdk.APIKey)
+					if ok {
+						apiKey, exists := apiKeys["API_Token"]
+						if exists {
+							token = apiKey.Prefix + " " + apiKey.Key
+						}
+					}
+				}
+
+				if token != "" {
+					nextReq.Header.Add("Authorization", token)
+				}
+
+				nextReq.Header.Add("Accept", "application/json")
+
+				respNext, err := http.DefaultClient.Do(nextReq)
+				if err != nil {
+					break
+				}
+
+				dNext, err := io.ReadAll(respNext.Body)
+				respNext.Body.Close()
+				if err != nil {
+					break
+				}
+
+				var nextItems []map[string]interface{}
+				if err := json.Unmarshal(dNext, &nextItems); err != nil {
+					break
+				}
+
+				allItems = append(allItems, nextItems...)
+				pageCount++
 			}
-			d, err := io.ReadAll(resp.Body)
+
+			if ListAllSignInWidgetVersionsFetchAll && pageCount > 1 && !ListAllSignInWidgetVersionsQuiet {
+				fmt.Printf("Retrieved %d items across %d pages\n", len(allItems), pageCount)
+			}
+
+			combinedJSON, err := json.Marshal(allItems)
 			if err != nil {
-				return err
+				return fmt.Errorf("error combining results: %w", err)
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
-			return nil
+
+			if cmd.Flags().Changed("batch-backup") {
+				dirPath := filepath.Join(ListAllSignInWidgetVersionsBackupDir, "customization", "listAllSignInWidgetVersions")
+
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				if !ListAllSignInWidgetVersionsQuiet {
+					fmt.Printf("Backing up Customizations to %s\n", dirPath)
+				}
+
+				success := 0
+				for _, item := range allItems {
+					id, ok := item["id"].(string)
+					if !ok {
+						if !ListAllSignInWidgetVersionsQuiet {
+							fmt.Println("Warning: item missing ID field, skipping")
+						}
+						continue
+					}
+
+					itemJSON, err := json.MarshalIndent(item, "", "  ")
+					if err != nil {
+						if !ListAllSignInWidgetVersionsQuiet {
+							fmt.Printf("Error marshaling item %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					filePath := filepath.Join(dirPath, id+".json")
+					if err := os.WriteFile(filePath, itemJSON, 0o644); err != nil {
+						if !ListAllSignInWidgetVersionsQuiet {
+							fmt.Printf("Error writing file for %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					success++
+				}
+
+				if !ListAllSignInWidgetVersionsQuiet {
+					fmt.Printf("Successfully backed up %d/%d Customizations\n", success, len(allItems))
+				}
+				return nil
+			} else {
+				if !ListAllSignInWidgetVersionsQuiet {
+					return utils.PrettyPrintByte(combinedJSON)
+				}
+				return nil
+			}
 		},
 	}
 
 	cmd.Flags().StringVarP(&ListAllSignInWidgetVersionsbrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().Int32VarP(&ListAllSignInWidgetVersionsLimit, "limit", "l", 0, "Maximum number of items to return per page")
+	cmd.Flags().StringVarP(&ListAllSignInWidgetVersionsPage, "page", "p", "", "Page to fetch (if supported)")
+	cmd.Flags().BoolVarP(&ListAllSignInWidgetVersionsFetchAll, "all", "", false, "Fetch all items by following pagination automatically")
+	cmd.Flags().BoolP("batch-backup", "b", false, "Backup multiple Customizations to a directory")
+
+	cmd.Flags().StringVarP(&ListAllSignInWidgetVersionsBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&ListAllSignInWidgetVersionsQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -990,12 +2022,26 @@ func init() {
 	CustomizationCmd.AddCommand(ListAllSignInWidgetVersionsCmd)
 }
 
-var GetSignOutPageSettingsbrandId string
+var (
+	GetSignOutPageSettingsbrandId string
+
+	GetSignOutPageSettingsBackupDir string
+
+	GetSignOutPageSettingsQuiet bool
+)
 
 func NewGetSignOutPageSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getSignOutPageSettings",
 		Long: "Retrieve the Sign-out Page Settings",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetSignOutPageSettings(apiClient.GetConfig().Context, GetSignOutPageSettingsbrandId)
 
@@ -1003,7 +2049,7 @@ func NewGetSignOutPageSettingsCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetSignOutPageSettingsQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1013,14 +2059,43 @@ func NewGetSignOutPageSettingsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetSignOutPageSettingsBackupDir, "customization", "getSignOutPageSettings")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetSignOutPageSettingsbrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetSignOutPageSettingsQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetSignOutPageSettingsQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&GetSignOutPageSettingsbrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetSignOutPageSettingsBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetSignOutPageSettingsQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1034,12 +2109,17 @@ var (
 	ReplaceSignOutPageSettingsbrandId string
 
 	ReplaceSignOutPageSettingsdata string
+
+	ReplaceSignOutPageSettingsQuiet bool
 )
 
 func NewReplaceSignOutPageSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "replaceSignOutPageSettings",
 		Long: "Replace the Sign-out Page Settings",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceSignOutPageSettings(apiClient.GetConfig().Context, ReplaceSignOutPageSettingsbrandId)
 
@@ -1051,7 +2131,7 @@ func NewReplaceSignOutPageSettingsCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !ReplaceSignOutPageSettingsQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1061,8 +2141,10 @@ func NewReplaceSignOutPageSettingsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !ReplaceSignOutPageSettingsQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1073,6 +2155,8 @@ func NewReplaceSignOutPageSettingsCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ReplaceSignOutPageSettingsdata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().BoolVarP(&ReplaceSignOutPageSettingsQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -1081,37 +2165,205 @@ func init() {
 	CustomizationCmd.AddCommand(ReplaceSignOutPageSettingsCmd)
 }
 
-var ListEmailTemplatesbrandId string
+var (
+	ListEmailTemplatesbrandId string
+
+	ListEmailTemplatesBackupDir string
+
+	ListEmailTemplatesLimit    int32
+	ListEmailTemplatesPage     string
+	ListEmailTemplatesFetchAll bool
+
+	ListEmailTemplatesQuiet bool
+)
 
 func NewListEmailTemplatesCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "listEmailTemplates",
 		Long: "List all Email Templates",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListEmailTemplates(apiClient.GetConfig().Context, ListEmailTemplatesbrandId)
 
-			resp, err := req.Execute()
-			if err != nil {
-				if resp != nil && resp.Body != nil {
-					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+			var allItems []map[string]interface{}
+			var pageCount int
+
+			for {
+				resp, err := req.Execute()
+				if err != nil {
+					if resp != nil && resp.Body != nil {
+						d, err := io.ReadAll(resp.Body)
+						if err == nil && !ListEmailTemplatesQuiet {
+							utils.PrettyPrintByte(d)
+						}
+					}
+					return err
+				}
+
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+
+				var items []map[string]interface{}
+				if err := json.Unmarshal(d, &items); err != nil {
+					if !ListEmailTemplatesQuiet {
 						utils.PrettyPrintByte(d)
 					}
+					return nil
 				}
-				return err
+
+				allItems = append(allItems, items...)
+				pageCount++
+
+				if !ListEmailTemplatesFetchAll || len(items) == 0 {
+					break
+				}
+
+				nextURL := ""
+				if resp != nil {
+					links := resp.Header["Link"]
+					for _, link := range links {
+						if strings.Contains(link, `rel="next"`) {
+							parts := strings.Split(link, ";")
+							if len(parts) > 0 {
+								urlPart := strings.TrimSpace(parts[0])
+								urlPart = strings.TrimPrefix(urlPart, "<")
+								urlPart = strings.TrimSuffix(urlPart, ">")
+								nextURL = urlPart
+								break
+							}
+						}
+					}
+				}
+
+				if nextURL == "" {
+					break
+				}
+
+				nextReq, err := http.NewRequest("GET", nextURL, nil)
+				if err != nil {
+					break
+				}
+
+				token := ""
+				cfg := apiClient.GetConfig()
+				if cfg != nil {
+					apiKeys, ok := cfg.Context.Value(sdk.ContextAPIKeys).(map[string]sdk.APIKey)
+					if ok {
+						apiKey, exists := apiKeys["API_Token"]
+						if exists {
+							token = apiKey.Prefix + " " + apiKey.Key
+						}
+					}
+				}
+
+				if token != "" {
+					nextReq.Header.Add("Authorization", token)
+				}
+
+				nextReq.Header.Add("Accept", "application/json")
+
+				respNext, err := http.DefaultClient.Do(nextReq)
+				if err != nil {
+					break
+				}
+
+				dNext, err := io.ReadAll(respNext.Body)
+				respNext.Body.Close()
+				if err != nil {
+					break
+				}
+
+				var nextItems []map[string]interface{}
+				if err := json.Unmarshal(dNext, &nextItems); err != nil {
+					break
+				}
+
+				allItems = append(allItems, nextItems...)
+				pageCount++
 			}
-			d, err := io.ReadAll(resp.Body)
+
+			if ListEmailTemplatesFetchAll && pageCount > 1 && !ListEmailTemplatesQuiet {
+				fmt.Printf("Retrieved %d items across %d pages\n", len(allItems), pageCount)
+			}
+
+			combinedJSON, err := json.Marshal(allItems)
 			if err != nil {
-				return err
+				return fmt.Errorf("error combining results: %w", err)
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
-			return nil
+
+			if cmd.Flags().Changed("batch-backup") {
+				dirPath := filepath.Join(ListEmailTemplatesBackupDir, "customization", "listEmailTemplates")
+
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				if !ListEmailTemplatesQuiet {
+					fmt.Printf("Backing up Customizations to %s\n", dirPath)
+				}
+
+				success := 0
+				for _, item := range allItems {
+					id, ok := item["id"].(string)
+					if !ok {
+						if !ListEmailTemplatesQuiet {
+							fmt.Println("Warning: item missing ID field, skipping")
+						}
+						continue
+					}
+
+					itemJSON, err := json.MarshalIndent(item, "", "  ")
+					if err != nil {
+						if !ListEmailTemplatesQuiet {
+							fmt.Printf("Error marshaling item %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					filePath := filepath.Join(dirPath, id+".json")
+					if err := os.WriteFile(filePath, itemJSON, 0o644); err != nil {
+						if !ListEmailTemplatesQuiet {
+							fmt.Printf("Error writing file for %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					success++
+				}
+
+				if !ListEmailTemplatesQuiet {
+					fmt.Printf("Successfully backed up %d/%d Customizations\n", success, len(allItems))
+				}
+				return nil
+			} else {
+				if !ListEmailTemplatesQuiet {
+					return utils.PrettyPrintByte(combinedJSON)
+				}
+				return nil
+			}
 		},
 	}
 
 	cmd.Flags().StringVarP(&ListEmailTemplatesbrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().Int32VarP(&ListEmailTemplatesLimit, "limit", "l", 0, "Maximum number of items to return per page")
+	cmd.Flags().StringVarP(&ListEmailTemplatesPage, "page", "p", "", "Page to fetch (if supported)")
+	cmd.Flags().BoolVarP(&ListEmailTemplatesFetchAll, "all", "", false, "Fetch all items by following pagination automatically")
+	cmd.Flags().BoolP("batch-backup", "b", false, "Backup multiple Customizations to a directory")
+
+	cmd.Flags().StringVarP(&ListEmailTemplatesBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&ListEmailTemplatesQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1125,12 +2377,24 @@ var (
 	GetEmailTemplatebrandId string
 
 	GetEmailTemplatetemplateName string
+
+	GetEmailTemplateBackupDir string
+
+	GetEmailTemplateQuiet bool
 )
 
 func NewGetEmailTemplateCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getEmailTemplate",
 		Long: "Retrieve an Email Template",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetEmailTemplate(apiClient.GetConfig().Context, GetEmailTemplatebrandId, GetEmailTemplatetemplateName)
 
@@ -1138,7 +2402,7 @@ func NewGetEmailTemplateCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetEmailTemplateQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1148,8 +2412,31 @@ func NewGetEmailTemplateCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetEmailTemplateBackupDir, "customization", "getEmailTemplate")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetEmailTemplatebrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetEmailTemplateQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetEmailTemplateQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1159,6 +2446,12 @@ func NewGetEmailTemplateCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&GetEmailTemplatetemplateName, "templateName", "", "", "")
 	cmd.MarkFlagRequired("templateName")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetEmailTemplateBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetEmailTemplateQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1174,13 +2467,39 @@ var (
 	CreateEmailCustomizationtemplateName string
 
 	CreateEmailCustomizationdata string
+
+	CreateEmailCustomizationRestoreFile string
+
+	CreateEmailCustomizationQuiet bool
 )
 
 func NewCreateEmailCustomizationCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "createEmail",
 		Long: "Create an Email Customization",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
+			if CreateEmailCustomizationRestoreFile != "" {
+
+				jsonData, err := os.ReadFile(CreateEmailCustomizationRestoreFile)
+				if err != nil {
+					return fmt.Errorf("failed to read restore file: %w", err)
+				}
+
+				processedData, err := utils.PrepareDataForRestore(jsonData)
+				if err != nil {
+					return fmt.Errorf("failed to process restore data: %w", err)
+				}
+
+				CreateEmailCustomizationdata = string(processedData)
+
+				if !CreateEmailCustomizationQuiet {
+					fmt.Println("Restoring Customization from:", CreateEmailCustomizationRestoreFile)
+				}
+			}
+
 			req := apiClient.CustomizationAPI.CreateEmailCustomization(apiClient.GetConfig().Context, CreateEmailCustomizationbrandId, CreateEmailCustomizationtemplateName)
 
 			if CreateEmailCustomizationdata != "" {
@@ -1191,7 +2510,7 @@ func NewCreateEmailCustomizationCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !CreateEmailCustomizationQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1201,8 +2520,10 @@ func NewCreateEmailCustomizationCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !CreateEmailCustomizationQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1216,6 +2537,10 @@ func NewCreateEmailCustomizationCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&CreateEmailCustomizationdata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().StringVarP(&CreateEmailCustomizationRestoreFile, "restore-from", "r", "", "Restore Customization from a JSON backup file")
+
+	cmd.Flags().BoolVarP(&CreateEmailCustomizationQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -1228,32 +2553,189 @@ var (
 	ListEmailCustomizationsbrandId string
 
 	ListEmailCustomizationstemplateName string
+
+	ListEmailCustomizationsBackupDir string
+
+	ListEmailCustomizationsLimit    int32
+	ListEmailCustomizationsPage     string
+	ListEmailCustomizationsFetchAll bool
+
+	ListEmailCustomizationsQuiet bool
 )
 
 func NewListEmailCustomizationsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "listEmails",
 		Long: "List all Email Customizations",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListEmailCustomizations(apiClient.GetConfig().Context, ListEmailCustomizationsbrandId, ListEmailCustomizationstemplateName)
 
-			resp, err := req.Execute()
-			if err != nil {
-				if resp != nil && resp.Body != nil {
-					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+			var allItems []map[string]interface{}
+			var pageCount int
+
+			for {
+				resp, err := req.Execute()
+				if err != nil {
+					if resp != nil && resp.Body != nil {
+						d, err := io.ReadAll(resp.Body)
+						if err == nil && !ListEmailCustomizationsQuiet {
+							utils.PrettyPrintByte(d)
+						}
+					}
+					return err
+				}
+
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+
+				var items []map[string]interface{}
+				if err := json.Unmarshal(d, &items); err != nil {
+					if !ListEmailCustomizationsQuiet {
 						utils.PrettyPrintByte(d)
 					}
+					return nil
 				}
-				return err
+
+				allItems = append(allItems, items...)
+				pageCount++
+
+				if !ListEmailCustomizationsFetchAll || len(items) == 0 {
+					break
+				}
+
+				nextURL := ""
+				if resp != nil {
+					links := resp.Header["Link"]
+					for _, link := range links {
+						if strings.Contains(link, `rel="next"`) {
+							parts := strings.Split(link, ";")
+							if len(parts) > 0 {
+								urlPart := strings.TrimSpace(parts[0])
+								urlPart = strings.TrimPrefix(urlPart, "<")
+								urlPart = strings.TrimSuffix(urlPart, ">")
+								nextURL = urlPart
+								break
+							}
+						}
+					}
+				}
+
+				if nextURL == "" {
+					break
+				}
+
+				nextReq, err := http.NewRequest("GET", nextURL, nil)
+				if err != nil {
+					break
+				}
+
+				token := ""
+				cfg := apiClient.GetConfig()
+				if cfg != nil {
+					apiKeys, ok := cfg.Context.Value(sdk.ContextAPIKeys).(map[string]sdk.APIKey)
+					if ok {
+						apiKey, exists := apiKeys["API_Token"]
+						if exists {
+							token = apiKey.Prefix + " " + apiKey.Key
+						}
+					}
+				}
+
+				if token != "" {
+					nextReq.Header.Add("Authorization", token)
+				}
+
+				nextReq.Header.Add("Accept", "application/json")
+
+				respNext, err := http.DefaultClient.Do(nextReq)
+				if err != nil {
+					break
+				}
+
+				dNext, err := io.ReadAll(respNext.Body)
+				respNext.Body.Close()
+				if err != nil {
+					break
+				}
+
+				var nextItems []map[string]interface{}
+				if err := json.Unmarshal(dNext, &nextItems); err != nil {
+					break
+				}
+
+				allItems = append(allItems, nextItems...)
+				pageCount++
 			}
-			d, err := io.ReadAll(resp.Body)
+
+			if ListEmailCustomizationsFetchAll && pageCount > 1 && !ListEmailCustomizationsQuiet {
+				fmt.Printf("Retrieved %d items across %d pages\n", len(allItems), pageCount)
+			}
+
+			combinedJSON, err := json.Marshal(allItems)
 			if err != nil {
-				return err
+				return fmt.Errorf("error combining results: %w", err)
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
-			return nil
+
+			if cmd.Flags().Changed("batch-backup") {
+				dirPath := filepath.Join(ListEmailCustomizationsBackupDir, "customization", "listEmails")
+
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				if !ListEmailCustomizationsQuiet {
+					fmt.Printf("Backing up Customizations to %s\n", dirPath)
+				}
+
+				success := 0
+				for _, item := range allItems {
+					id, ok := item["id"].(string)
+					if !ok {
+						if !ListEmailCustomizationsQuiet {
+							fmt.Println("Warning: item missing ID field, skipping")
+						}
+						continue
+					}
+
+					itemJSON, err := json.MarshalIndent(item, "", "  ")
+					if err != nil {
+						if !ListEmailCustomizationsQuiet {
+							fmt.Printf("Error marshaling item %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					filePath := filepath.Join(dirPath, id+".json")
+					if err := os.WriteFile(filePath, itemJSON, 0o644); err != nil {
+						if !ListEmailCustomizationsQuiet {
+							fmt.Printf("Error writing file for %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					success++
+				}
+
+				if !ListEmailCustomizationsQuiet {
+					fmt.Printf("Successfully backed up %d/%d Customizations\n", success, len(allItems))
+				}
+				return nil
+			} else {
+				if !ListEmailCustomizationsQuiet {
+					return utils.PrettyPrintByte(combinedJSON)
+				}
+				return nil
+			}
 		},
 	}
 
@@ -1262,6 +2744,15 @@ func NewListEmailCustomizationsCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&ListEmailCustomizationstemplateName, "templateName", "", "", "")
 	cmd.MarkFlagRequired("templateName")
+
+	cmd.Flags().Int32VarP(&ListEmailCustomizationsLimit, "limit", "l", 0, "Maximum number of items to return per page")
+	cmd.Flags().StringVarP(&ListEmailCustomizationsPage, "page", "p", "", "Page to fetch (if supported)")
+	cmd.Flags().BoolVarP(&ListEmailCustomizationsFetchAll, "all", "", false, "Fetch all items by following pagination automatically")
+	cmd.Flags().BoolP("batch-backup", "b", false, "Backup multiple Customizations to a directory")
+
+	cmd.Flags().StringVarP(&ListEmailCustomizationsBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&ListEmailCustomizationsQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1275,12 +2766,17 @@ var (
 	DeleteAllCustomizationsbrandId string
 
 	DeleteAllCustomizationstemplateName string
+
+	DeleteAllCustomizationsQuiet bool
 )
 
 func NewDeleteAllCustomizationsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "deleteAlls",
 		Long: "Delete all Email Customizations",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteAllCustomizations(apiClient.GetConfig().Context, DeleteAllCustomizationsbrandId, DeleteAllCustomizationstemplateName)
 
@@ -1288,7 +2784,7 @@ func NewDeleteAllCustomizationsCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !DeleteAllCustomizationsQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1298,8 +2794,10 @@ func NewDeleteAllCustomizationsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !DeleteAllCustomizationsQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1309,6 +2807,8 @@ func NewDeleteAllCustomizationsCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeleteAllCustomizationstemplateName, "templateName", "", "", "")
 	cmd.MarkFlagRequired("templateName")
+
+	cmd.Flags().BoolVarP(&DeleteAllCustomizationsQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1324,12 +2824,24 @@ var (
 	GetEmailCustomizationtemplateName string
 
 	GetEmailCustomizationcustomizationId string
+
+	GetEmailCustomizationBackupDir string
+
+	GetEmailCustomizationQuiet bool
 )
 
 func NewGetEmailCustomizationCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getEmail",
 		Long: "Retrieve an Email Customization",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetEmailCustomization(apiClient.GetConfig().Context, GetEmailCustomizationbrandId, GetEmailCustomizationtemplateName, GetEmailCustomizationcustomizationId)
 
@@ -1337,7 +2849,7 @@ func NewGetEmailCustomizationCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetEmailCustomizationQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1347,8 +2859,31 @@ func NewGetEmailCustomizationCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetEmailCustomizationBackupDir, "customization", "getEmail")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetEmailCustomizationbrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetEmailCustomizationQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetEmailCustomizationQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1361,6 +2896,12 @@ func NewGetEmailCustomizationCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&GetEmailCustomizationcustomizationId, "customizationId", "", "", "")
 	cmd.MarkFlagRequired("customizationId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetEmailCustomizationBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetEmailCustomizationQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1378,12 +2919,17 @@ var (
 	ReplaceEmailCustomizationcustomizationId string
 
 	ReplaceEmailCustomizationdata string
+
+	ReplaceEmailCustomizationQuiet bool
 )
 
 func NewReplaceEmailCustomizationCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "replaceEmail",
 		Long: "Replace an Email Customization",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceEmailCustomization(apiClient.GetConfig().Context, ReplaceEmailCustomizationbrandId, ReplaceEmailCustomizationtemplateName, ReplaceEmailCustomizationcustomizationId)
 
@@ -1395,7 +2941,7 @@ func NewReplaceEmailCustomizationCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !ReplaceEmailCustomizationQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1405,8 +2951,10 @@ func NewReplaceEmailCustomizationCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !ReplaceEmailCustomizationQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1423,6 +2971,8 @@ func NewReplaceEmailCustomizationCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ReplaceEmailCustomizationdata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().BoolVarP(&ReplaceEmailCustomizationQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -1437,12 +2987,17 @@ var (
 	DeleteEmailCustomizationtemplateName string
 
 	DeleteEmailCustomizationcustomizationId string
+
+	DeleteEmailCustomizationQuiet bool
 )
 
 func NewDeleteEmailCustomizationCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "deleteEmail",
 		Long: "Delete an Email Customization",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteEmailCustomization(apiClient.GetConfig().Context, DeleteEmailCustomizationbrandId, DeleteEmailCustomizationtemplateName, DeleteEmailCustomizationcustomizationId)
 
@@ -1450,7 +3005,7 @@ func NewDeleteEmailCustomizationCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !DeleteEmailCustomizationQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1460,8 +3015,10 @@ func NewDeleteEmailCustomizationCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !DeleteEmailCustomizationQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1474,6 +3031,8 @@ func NewDeleteEmailCustomizationCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeleteEmailCustomizationcustomizationId, "customizationId", "", "", "")
 	cmd.MarkFlagRequired("customizationId")
+
+	cmd.Flags().BoolVarP(&DeleteEmailCustomizationQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1489,12 +3048,24 @@ var (
 	GetCustomizationPreviewtemplateName string
 
 	GetCustomizationPreviewcustomizationId string
+
+	GetCustomizationPreviewBackupDir string
+
+	GetCustomizationPreviewQuiet bool
 )
 
 func NewGetCustomizationPreviewCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getPreview",
 		Long: "Retrieve a Preview of an Email Customization",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetCustomizationPreview(apiClient.GetConfig().Context, GetCustomizationPreviewbrandId, GetCustomizationPreviewtemplateName, GetCustomizationPreviewcustomizationId)
 
@@ -1502,7 +3073,7 @@ func NewGetCustomizationPreviewCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetCustomizationPreviewQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1512,8 +3083,31 @@ func NewGetCustomizationPreviewCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetCustomizationPreviewBackupDir, "customization", "getPreview")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetCustomizationPreviewbrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetCustomizationPreviewQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetCustomizationPreviewQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1527,6 +3121,12 @@ func NewGetCustomizationPreviewCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&GetCustomizationPreviewcustomizationId, "customizationId", "", "", "")
 	cmd.MarkFlagRequired("customizationId")
 
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetCustomizationPreviewBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetCustomizationPreviewQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -1539,12 +3139,24 @@ var (
 	GetEmailDefaultContentbrandId string
 
 	GetEmailDefaultContenttemplateName string
+
+	GetEmailDefaultContentBackupDir string
+
+	GetEmailDefaultContentQuiet bool
 )
 
 func NewGetEmailDefaultContentCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getEmailDefaultContent",
 		Long: "Retrieve an Email Template Default Content",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetEmailDefaultContent(apiClient.GetConfig().Context, GetEmailDefaultContentbrandId, GetEmailDefaultContenttemplateName)
 
@@ -1552,7 +3164,7 @@ func NewGetEmailDefaultContentCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetEmailDefaultContentQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1562,8 +3174,31 @@ func NewGetEmailDefaultContentCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetEmailDefaultContentBackupDir, "customization", "getEmailDefaultContent")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetEmailDefaultContentbrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetEmailDefaultContentQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetEmailDefaultContentQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1573,6 +3208,12 @@ func NewGetEmailDefaultContentCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&GetEmailDefaultContenttemplateName, "templateName", "", "", "")
 	cmd.MarkFlagRequired("templateName")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetEmailDefaultContentBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetEmailDefaultContentQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1586,12 +3227,24 @@ var (
 	GetEmailDefaultPreviewbrandId string
 
 	GetEmailDefaultPreviewtemplateName string
+
+	GetEmailDefaultPreviewBackupDir string
+
+	GetEmailDefaultPreviewQuiet bool
 )
 
 func NewGetEmailDefaultPreviewCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getEmailDefaultPreview",
 		Long: "Retrieve a Preview of the Email Template default content",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetEmailDefaultPreview(apiClient.GetConfig().Context, GetEmailDefaultPreviewbrandId, GetEmailDefaultPreviewtemplateName)
 
@@ -1599,7 +3252,7 @@ func NewGetEmailDefaultPreviewCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetEmailDefaultPreviewQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1609,8 +3262,31 @@ func NewGetEmailDefaultPreviewCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetEmailDefaultPreviewBackupDir, "customization", "getEmailDefaultPreview")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetEmailDefaultPreviewbrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetEmailDefaultPreviewQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetEmailDefaultPreviewQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1620,6 +3296,12 @@ func NewGetEmailDefaultPreviewCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&GetEmailDefaultPreviewtemplateName, "templateName", "", "", "")
 	cmd.MarkFlagRequired("templateName")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetEmailDefaultPreviewBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetEmailDefaultPreviewQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1633,12 +3315,24 @@ var (
 	GetEmailSettingsbrandId string
 
 	GetEmailSettingstemplateName string
+
+	GetEmailSettingsBackupDir string
+
+	GetEmailSettingsQuiet bool
 )
 
 func NewGetEmailSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getEmailSettings",
 		Long: "Retrieve the Email Template Settings",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetEmailSettings(apiClient.GetConfig().Context, GetEmailSettingsbrandId, GetEmailSettingstemplateName)
 
@@ -1646,7 +3340,7 @@ func NewGetEmailSettingsCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetEmailSettingsQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1656,8 +3350,31 @@ func NewGetEmailSettingsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetEmailSettingsBackupDir, "customization", "getEmailSettings")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetEmailSettingsbrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetEmailSettingsQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetEmailSettingsQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1667,6 +3384,12 @@ func NewGetEmailSettingsCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&GetEmailSettingstemplateName, "templateName", "", "", "")
 	cmd.MarkFlagRequired("templateName")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetEmailSettingsBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetEmailSettingsQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1682,12 +3405,17 @@ var (
 	ReplaceEmailSettingstemplateName string
 
 	ReplaceEmailSettingsdata string
+
+	ReplaceEmailSettingsQuiet bool
 )
 
 func NewReplaceEmailSettingsCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "replaceEmailSettings",
 		Long: "Replace the Email Template Settings",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceEmailSettings(apiClient.GetConfig().Context, ReplaceEmailSettingsbrandId, ReplaceEmailSettingstemplateName)
 
@@ -1699,7 +3427,7 @@ func NewReplaceEmailSettingsCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !ReplaceEmailSettingsQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1709,8 +3437,10 @@ func NewReplaceEmailSettingsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !ReplaceEmailSettingsQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1724,6 +3454,8 @@ func NewReplaceEmailSettingsCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&ReplaceEmailSettingsdata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().BoolVarP(&ReplaceEmailSettingsQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -1736,12 +3468,17 @@ var (
 	SendTestEmailbrandId string
 
 	SendTestEmailtemplateName string
+
+	SendTestEmailQuiet bool
 )
 
 func NewSendTestEmailCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "sendTestEmail",
 		Long: "Send a Test Email",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.SendTestEmail(apiClient.GetConfig().Context, SendTestEmailbrandId, SendTestEmailtemplateName)
 
@@ -1749,7 +3486,7 @@ func NewSendTestEmailCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !SendTestEmailQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1759,8 +3496,10 @@ func NewSendTestEmailCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !SendTestEmailQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1771,6 +3510,8 @@ func NewSendTestEmailCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&SendTestEmailtemplateName, "templateName", "", "", "")
 	cmd.MarkFlagRequired("templateName")
 
+	cmd.Flags().BoolVarP(&SendTestEmailQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -1779,37 +3520,205 @@ func init() {
 	CustomizationCmd.AddCommand(SendTestEmailCmd)
 }
 
-var ListBrandThemesbrandId string
+var (
+	ListBrandThemesbrandId string
+
+	ListBrandThemesBackupDir string
+
+	ListBrandThemesLimit    int32
+	ListBrandThemesPage     string
+	ListBrandThemesFetchAll bool
+
+	ListBrandThemesQuiet bool
+)
 
 func NewListBrandThemesCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "listBrandThemes",
 		Long: "List all Themes",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ListBrandThemes(apiClient.GetConfig().Context, ListBrandThemesbrandId)
 
-			resp, err := req.Execute()
-			if err != nil {
-				if resp != nil && resp.Body != nil {
-					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+			var allItems []map[string]interface{}
+			var pageCount int
+
+			for {
+				resp, err := req.Execute()
+				if err != nil {
+					if resp != nil && resp.Body != nil {
+						d, err := io.ReadAll(resp.Body)
+						if err == nil && !ListBrandThemesQuiet {
+							utils.PrettyPrintByte(d)
+						}
+					}
+					return err
+				}
+
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+
+				var items []map[string]interface{}
+				if err := json.Unmarshal(d, &items); err != nil {
+					if !ListBrandThemesQuiet {
 						utils.PrettyPrintByte(d)
 					}
+					return nil
 				}
-				return err
+
+				allItems = append(allItems, items...)
+				pageCount++
+
+				if !ListBrandThemesFetchAll || len(items) == 0 {
+					break
+				}
+
+				nextURL := ""
+				if resp != nil {
+					links := resp.Header["Link"]
+					for _, link := range links {
+						if strings.Contains(link, `rel="next"`) {
+							parts := strings.Split(link, ";")
+							if len(parts) > 0 {
+								urlPart := strings.TrimSpace(parts[0])
+								urlPart = strings.TrimPrefix(urlPart, "<")
+								urlPart = strings.TrimSuffix(urlPart, ">")
+								nextURL = urlPart
+								break
+							}
+						}
+					}
+				}
+
+				if nextURL == "" {
+					break
+				}
+
+				nextReq, err := http.NewRequest("GET", nextURL, nil)
+				if err != nil {
+					break
+				}
+
+				token := ""
+				cfg := apiClient.GetConfig()
+				if cfg != nil {
+					apiKeys, ok := cfg.Context.Value(sdk.ContextAPIKeys).(map[string]sdk.APIKey)
+					if ok {
+						apiKey, exists := apiKeys["API_Token"]
+						if exists {
+							token = apiKey.Prefix + " " + apiKey.Key
+						}
+					}
+				}
+
+				if token != "" {
+					nextReq.Header.Add("Authorization", token)
+				}
+
+				nextReq.Header.Add("Accept", "application/json")
+
+				respNext, err := http.DefaultClient.Do(nextReq)
+				if err != nil {
+					break
+				}
+
+				dNext, err := io.ReadAll(respNext.Body)
+				respNext.Body.Close()
+				if err != nil {
+					break
+				}
+
+				var nextItems []map[string]interface{}
+				if err := json.Unmarshal(dNext, &nextItems); err != nil {
+					break
+				}
+
+				allItems = append(allItems, nextItems...)
+				pageCount++
 			}
-			d, err := io.ReadAll(resp.Body)
+
+			if ListBrandThemesFetchAll && pageCount > 1 && !ListBrandThemesQuiet {
+				fmt.Printf("Retrieved %d items across %d pages\n", len(allItems), pageCount)
+			}
+
+			combinedJSON, err := json.Marshal(allItems)
 			if err != nil {
-				return err
+				return fmt.Errorf("error combining results: %w", err)
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
-			return nil
+
+			if cmd.Flags().Changed("batch-backup") {
+				dirPath := filepath.Join(ListBrandThemesBackupDir, "customization", "listBrandThemes")
+
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				if !ListBrandThemesQuiet {
+					fmt.Printf("Backing up Customizations to %s\n", dirPath)
+				}
+
+				success := 0
+				for _, item := range allItems {
+					id, ok := item["id"].(string)
+					if !ok {
+						if !ListBrandThemesQuiet {
+							fmt.Println("Warning: item missing ID field, skipping")
+						}
+						continue
+					}
+
+					itemJSON, err := json.MarshalIndent(item, "", "  ")
+					if err != nil {
+						if !ListBrandThemesQuiet {
+							fmt.Printf("Error marshaling item %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					filePath := filepath.Join(dirPath, id+".json")
+					if err := os.WriteFile(filePath, itemJSON, 0o644); err != nil {
+						if !ListBrandThemesQuiet {
+							fmt.Printf("Error writing file for %s: %v\n", id, err)
+						}
+						continue
+					}
+
+					success++
+				}
+
+				if !ListBrandThemesQuiet {
+					fmt.Printf("Successfully backed up %d/%d Customizations\n", success, len(allItems))
+				}
+				return nil
+			} else {
+				if !ListBrandThemesQuiet {
+					return utils.PrettyPrintByte(combinedJSON)
+				}
+				return nil
+			}
 		},
 	}
 
 	cmd.Flags().StringVarP(&ListBrandThemesbrandId, "brandId", "", "", "")
 	cmd.MarkFlagRequired("brandId")
+
+	cmd.Flags().Int32VarP(&ListBrandThemesLimit, "limit", "l", 0, "Maximum number of items to return per page")
+	cmd.Flags().StringVarP(&ListBrandThemesPage, "page", "p", "", "Page to fetch (if supported)")
+	cmd.Flags().BoolVarP(&ListBrandThemesFetchAll, "all", "", false, "Fetch all items by following pagination automatically")
+	cmd.Flags().BoolP("batch-backup", "b", false, "Backup multiple Customizations to a directory")
+
+	cmd.Flags().StringVarP(&ListBrandThemesBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&ListBrandThemesQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1823,12 +3732,24 @@ var (
 	GetBrandThemebrandId string
 
 	GetBrandThemethemeId string
+
+	GetBrandThemeBackupDir string
+
+	GetBrandThemeQuiet bool
 )
 
 func NewGetBrandThemeCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "getBrandTheme",
 		Long: "Retrieve a Theme",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			isBackupRequested := cmd.Flags().Changed("backup") || cmd.Flags().Changed("batch-backup")
+			if isBackupRequested && !cmd.Flags().Changed("backup-dir") {
+				return fmt.Errorf("--backup-dir is required when using backup functionality")
+			}
+
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.GetBrandTheme(apiClient.GetConfig().Context, GetBrandThemebrandId, GetBrandThemethemeId)
 
@@ -1836,7 +3757,7 @@ func NewGetBrandThemeCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !GetBrandThemeQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1846,8 +3767,31 @@ func NewGetBrandThemeCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if cmd.Flags().Changed("backup") {
+				dirPath := filepath.Join(GetBrandThemeBackupDir, "customization", "getBrandTheme")
+				if err := os.MkdirAll(dirPath, 0o755); err != nil {
+					return fmt.Errorf("failed to create backup directory: %w", err)
+				}
+
+				idParam := GetBrandThemebrandId
+				fileName := fmt.Sprintf("%s.json", idParam)
+
+				filePath := filepath.Join(dirPath, fileName)
+
+				if err := os.WriteFile(filePath, d, 0o644); err != nil {
+					return fmt.Errorf("failed to write backup file: %w", err)
+				}
+
+				if !GetBrandThemeQuiet {
+					fmt.Printf("Backup completed successfully to %s\n", filePath)
+				}
+				return nil
+			}
+
+			if !GetBrandThemeQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1857,6 +3801,12 @@ func NewGetBrandThemeCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&GetBrandThemethemeId, "themeId", "", "", "")
 	cmd.MarkFlagRequired("themeId")
+
+	cmd.Flags().BoolP("backup", "b", false, "Backup the Customization to a file")
+
+	cmd.Flags().StringVarP(&GetBrandThemeBackupDir, "backup-dir", "d", "", "Directory to save backups")
+
+	cmd.Flags().BoolVarP(&GetBrandThemeQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1872,12 +3822,17 @@ var (
 	ReplaceBrandThemethemeId string
 
 	ReplaceBrandThemedata string
+
+	ReplaceBrandThemeQuiet bool
 )
 
 func NewReplaceBrandThemeCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "replaceBrandTheme",
 		Long: "Replace a Theme",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.ReplaceBrandTheme(apiClient.GetConfig().Context, ReplaceBrandThemebrandId, ReplaceBrandThemethemeId)
 
@@ -1889,7 +3844,7 @@ func NewReplaceBrandThemeCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !ReplaceBrandThemeQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1899,8 +3854,10 @@ func NewReplaceBrandThemeCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !ReplaceBrandThemeQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1913,6 +3870,8 @@ func NewReplaceBrandThemeCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&ReplaceBrandThemedata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
+
+	cmd.Flags().BoolVarP(&ReplaceBrandThemeQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -1928,12 +3887,17 @@ var (
 	UploadBrandThemeBackgroundImagethemeId string
 
 	UploadBrandThemeBackgroundImagedata string
+
+	UploadBrandThemeBackgroundImageQuiet bool
 )
 
 func NewUploadBrandThemeBackgroundImageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "uploadBrandThemeBackgroundImage",
 		Long: "Upload the Background Image",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.UploadBrandThemeBackgroundImage(apiClient.GetConfig().Context, UploadBrandThemeBackgroundImagebrandId, UploadBrandThemeBackgroundImagethemeId)
 
@@ -1945,7 +3909,7 @@ func NewUploadBrandThemeBackgroundImageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !UploadBrandThemeBackgroundImageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -1955,8 +3919,10 @@ func NewUploadBrandThemeBackgroundImageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !UploadBrandThemeBackgroundImageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -1970,6 +3936,8 @@ func NewUploadBrandThemeBackgroundImageCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&UploadBrandThemeBackgroundImagedata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().BoolVarP(&UploadBrandThemeBackgroundImageQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -1982,12 +3950,17 @@ var (
 	DeleteBrandThemeBackgroundImagebrandId string
 
 	DeleteBrandThemeBackgroundImagethemeId string
+
+	DeleteBrandThemeBackgroundImageQuiet bool
 )
 
 func NewDeleteBrandThemeBackgroundImageCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "deleteBrandThemeBackgroundImage",
 		Long: "Delete the Background Image",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteBrandThemeBackgroundImage(apiClient.GetConfig().Context, DeleteBrandThemeBackgroundImagebrandId, DeleteBrandThemeBackgroundImagethemeId)
 
@@ -1995,7 +3968,7 @@ func NewDeleteBrandThemeBackgroundImageCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !DeleteBrandThemeBackgroundImageQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -2005,8 +3978,10 @@ func NewDeleteBrandThemeBackgroundImageCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !DeleteBrandThemeBackgroundImageQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -2016,6 +3991,8 @@ func NewDeleteBrandThemeBackgroundImageCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeleteBrandThemeBackgroundImagethemeId, "themeId", "", "", "")
 	cmd.MarkFlagRequired("themeId")
+
+	cmd.Flags().BoolVarP(&DeleteBrandThemeBackgroundImageQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -2031,12 +4008,17 @@ var (
 	UploadBrandThemeFaviconthemeId string
 
 	UploadBrandThemeFavicondata string
+
+	UploadBrandThemeFaviconQuiet bool
 )
 
 func NewUploadBrandThemeFaviconCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "uploadBrandThemeFavicon",
 		Long: "Upload the Favicon",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.UploadBrandThemeFavicon(apiClient.GetConfig().Context, UploadBrandThemeFaviconbrandId, UploadBrandThemeFaviconthemeId)
 
@@ -2048,7 +4030,7 @@ func NewUploadBrandThemeFaviconCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !UploadBrandThemeFaviconQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -2058,8 +4040,10 @@ func NewUploadBrandThemeFaviconCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !UploadBrandThemeFaviconQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -2073,6 +4057,8 @@ func NewUploadBrandThemeFaviconCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&UploadBrandThemeFavicondata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().BoolVarP(&UploadBrandThemeFaviconQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -2085,12 +4071,17 @@ var (
 	DeleteBrandThemeFaviconbrandId string
 
 	DeleteBrandThemeFaviconthemeId string
+
+	DeleteBrandThemeFaviconQuiet bool
 )
 
 func NewDeleteBrandThemeFaviconCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "deleteBrandThemeFavicon",
 		Long: "Delete the Favicon",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteBrandThemeFavicon(apiClient.GetConfig().Context, DeleteBrandThemeFaviconbrandId, DeleteBrandThemeFaviconthemeId)
 
@@ -2098,7 +4089,7 @@ func NewDeleteBrandThemeFaviconCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !DeleteBrandThemeFaviconQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -2108,8 +4099,10 @@ func NewDeleteBrandThemeFaviconCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !DeleteBrandThemeFaviconQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -2119,6 +4112,8 @@ func NewDeleteBrandThemeFaviconCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeleteBrandThemeFaviconthemeId, "themeId", "", "", "")
 	cmd.MarkFlagRequired("themeId")
+
+	cmd.Flags().BoolVarP(&DeleteBrandThemeFaviconQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
@@ -2134,12 +4129,17 @@ var (
 	UploadBrandThemeLogothemeId string
 
 	UploadBrandThemeLogodata string
+
+	UploadBrandThemeLogoQuiet bool
 )
 
 func NewUploadBrandThemeLogoCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "uploadBrandThemeLogo",
 		Long: "Upload the Logo",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.UploadBrandThemeLogo(apiClient.GetConfig().Context, UploadBrandThemeLogobrandId, UploadBrandThemeLogothemeId)
 
@@ -2151,7 +4151,7 @@ func NewUploadBrandThemeLogoCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !UploadBrandThemeLogoQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -2161,8 +4161,10 @@ func NewUploadBrandThemeLogoCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !UploadBrandThemeLogoQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -2176,6 +4178,8 @@ func NewUploadBrandThemeLogoCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&UploadBrandThemeLogodata, "data", "", "", "")
 	cmd.MarkFlagRequired("data")
 
+	cmd.Flags().BoolVarP(&UploadBrandThemeLogoQuiet, "quiet", "q", false, "Suppress normal output")
+
 	return cmd
 }
 
@@ -2188,12 +4192,17 @@ var (
 	DeleteBrandThemeLogobrandId string
 
 	DeleteBrandThemeLogothemeId string
+
+	DeleteBrandThemeLogoQuiet bool
 )
 
 func NewDeleteBrandThemeLogoCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "deleteBrandThemeLogo",
 		Long: "Delete the Logo",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.CustomizationAPI.DeleteBrandThemeLogo(apiClient.GetConfig().Context, DeleteBrandThemeLogobrandId, DeleteBrandThemeLogothemeId)
 
@@ -2201,7 +4210,7 @@ func NewDeleteBrandThemeLogoCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !DeleteBrandThemeLogoQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -2211,8 +4220,10 @@ func NewDeleteBrandThemeLogoCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !DeleteBrandThemeLogoQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -2222,6 +4233,8 @@ func NewDeleteBrandThemeLogoCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&DeleteBrandThemeLogothemeId, "themeId", "", "", "")
 	cmd.MarkFlagRequired("themeId")
+
+	cmd.Flags().BoolVarP(&DeleteBrandThemeLogoQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }

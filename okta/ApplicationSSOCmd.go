@@ -16,12 +16,19 @@ func init() {
 	rootCmd.AddCommand(ApplicationSSOCmd)
 }
 
-var PreviewSAMLmetadataForApplicationappId string
+var (
+	PreviewSAMLmetadataForApplicationappId string
+
+	PreviewSAMLmetadataForApplicationQuiet bool
+)
 
 func NewPreviewSAMLmetadataForApplicationCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "previewSAMLmetadataForApplication",
 		Long: "Preview the application SAML metadata",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationSSOAPI.PreviewSAMLmetadataForApplication(apiClient.GetConfig().Context, PreviewSAMLmetadataForApplicationappId)
 
@@ -29,7 +36,7 @@ func NewPreviewSAMLmetadataForApplicationCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !PreviewSAMLmetadataForApplicationQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -39,14 +46,18 @@ func NewPreviewSAMLmetadataForApplicationCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !PreviewSAMLmetadataForApplicationQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
 
 	cmd.Flags().StringVarP(&PreviewSAMLmetadataForApplicationappId, "appId", "", "", "")
 	cmd.MarkFlagRequired("appId")
+
+	cmd.Flags().BoolVarP(&PreviewSAMLmetadataForApplicationQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
