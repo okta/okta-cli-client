@@ -2,6 +2,9 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+orbs:
+  general-platform-helpers: okta/general-platform-helpers@1.9.4
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -32,6 +35,18 @@ jobs:
       - run:
           name: "package stage"
           command: "echo package stage"
+
+  snyk-scan:
+    docker:
+      - image: cimg/go:1.23.0
+    steps:
+      - checkout
+      - general-platform-helpers/step-load-dependencies
+      - general-platform-helpers/step-run-snyk-monitor:
+          scan-all-projects: false
+          skip-unresolved: false
+          run-on-non-main: true
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -44,3 +59,7 @@ workflows:
       - package:
           requires:
             - test
+      - snyk-scan:
+          name: execute-snyk
+          context:
+            - static-analysis
