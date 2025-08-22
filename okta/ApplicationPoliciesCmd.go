@@ -20,12 +20,17 @@ var (
 	AssignApplicationPolicyappId string
 
 	AssignApplicationPolicypolicyId string
+
+	AssignApplicationPolicyQuiet bool
 )
 
 func NewAssignApplicationPolicyCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "assignApplicationPolicy",
 		Long: "Assign an application to a Policy",
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			return nil
+		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.ApplicationPoliciesAPI.AssignApplicationPolicy(apiClient.GetConfig().Context, AssignApplicationPolicyappId, AssignApplicationPolicypolicyId)
 
@@ -33,7 +38,7 @@ func NewAssignApplicationPolicyCmd() *cobra.Command {
 			if err != nil {
 				if resp != nil && resp.Body != nil {
 					d, err := io.ReadAll(resp.Body)
-					if err == nil {
+					if err == nil && !AssignApplicationPolicyQuiet {
 						utils.PrettyPrintByte(d)
 					}
 				}
@@ -43,8 +48,10 @@ func NewAssignApplicationPolicyCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
+			if !AssignApplicationPolicyQuiet {
+				utils.PrettyPrintByte(d)
+			}
 			return nil
 		},
 	}
@@ -54,6 +61,8 @@ func NewAssignApplicationPolicyCmd() *cobra.Command {
 
 	cmd.Flags().StringVarP(&AssignApplicationPolicypolicyId, "policyId", "", "", "")
 	cmd.MarkFlagRequired("policyId")
+
+	cmd.Flags().BoolVarP(&AssignApplicationPolicyQuiet, "quiet", "q", false, "Suppress normal output")
 
 	return cmd
 }
