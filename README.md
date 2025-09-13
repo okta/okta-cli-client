@@ -44,7 +44,13 @@ The Okta CLI looks for configuration in the following sources:
 1. A `.okta.yaml` file in the application or project's root directory
 1. Environment variables
 
-### YAML configuration
+### YAML configuration 
+
+Use either an API token or an OAuth 2.0 Application to give the CLI client access to your organization. 
+
+#### API Token Setup
+
+To use token auth, follow the [API Token help guide](https://help.okta.com/en-us/content/topics/security/api.htm?cshid=ext-create-api-token#create-okta-api-token) to create an API token the Okta organization where you want to grant access to the CLI client. 
 
 When you use an API Token instead of OAuth 2.0 the full YAML configuration
 looks like:
@@ -61,6 +67,10 @@ okta:
       password: null
     token: {apiToken}
 ```
+
+#### OAuth 2.0 Setup
+
+To use OAuth 2.0, follow the [app setup guide](https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm) to create an OIDC app for the CLI client, and then follow the [secrets management guide](https://help.okta.com/en-us/content/topics/apps/oauth-client-cred-mgmt.htm) to generate your keypair. 
 
 When you use OAuth 2.0 the full YAML configuration looks like:
 
