@@ -1,6 +1,8 @@
 package okta
 
 import (
+	"encoding/json"
+	"fmt"
 	"io"
 
 	"github.com/okta/okta-cli-client/utils"
@@ -60,12 +62,41 @@ func init() {
 	UserCmd.AddCommand(CreateUserCmd)
 }
 
+var (
+	ListUsersq         string
+	ListUsersafter     string
+	ListUserslimit     int32
+	ListUserssearch    string
+	ListUserssortBy    string
+	ListUserssortOrder string
+	ListUsersgetAll    bool
+)
+
 func NewListUsersCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:  "lists",
 		Long: "List all Users",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			req := apiClient.UserAPI.ListUsers(apiClient.GetConfig().Context)
+
+			if ListUsersq != "" {
+				req = req.Q(ListUsersq)
+			}
+			if ListUsersafter != "" {
+				req = req.After(ListUsersafter)
+			}
+			if ListUserslimit > 0 {
+				req = req.Limit(ListUserslimit)
+			}
+			if ListUserssearch != "" {
+				req = req.Search(ListUserssearch)
+			}
+			if ListUserssortBy != "" {
+				req = req.SortBy(ListUserssortBy)
+			}
+			if ListUserssortOrder != "" {
+				req = req.SortOrder(ListUserssortOrder)
+			}
 
 			resp, err := req.Execute()
 			if err != nil {
@@ -77,15 +108,62 @@ func NewListUsersCmd() *cobra.Command {
 				}
 				return err
 			}
-			d, err := io.ReadAll(resp.Body)
-			if err != nil {
-				return err
+
+			// If --all flag is set, fetch all pages and combine results
+			if ListUsersgetAll {
+				var allUsers []interface{}
+
+				// Read first page
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+
+				if len(d) > 0 {
+					var firstPageUsers []interface{}
+					err = json.Unmarshal(d, &firstPageUsers)
+					if err != nil {
+						return fmt.Errorf("error unmarshaling first page: %v", err)
+					}
+					allUsers = append(allUsers, firstPageUsers...)
+				}
+
+				// Continue with pagination
+				for resp.HasNextPage() {
+					var pageUsers []interface{}
+					resp, err = resp.Next(&pageUsers)
+					if err != nil {
+						return fmt.Errorf("error getting next page: %v", err)
+					}
+					allUsers = append(allUsers, pageUsers...)
+				}
+
+				// Output all users as a single JSON array
+				allUsersJSON, err := json.MarshalIndent(allUsers, "", "  ")
+				if err != nil {
+					return fmt.Errorf("error marshaling all users: %v", err)
+				}
+				fmt.Println(string(allUsersJSON))
+			} else {
+				// For single page requests, just read and print
+				d, err := io.ReadAll(resp.Body)
+				if err != nil {
+					return err
+				}
+				utils.PrettyPrintByte(d)
 			}
-			utils.PrettyPrintByte(d)
-			// cmd.Println(string(d))
+
 			return nil
 		},
 	}
+
+	cmd.Flags().StringVarP(&ListUsersq, "q", "", "", "Finds a user that matches firstName, lastName, and email properties")
+	cmd.Flags().StringVarP(&ListUsersafter, "after", "", "", "The cursor to use for pagination")
+	cmd.Flags().Int32VarP(&ListUserslimit, "limit", "", 0, "Specifies the number of results returned")
+	cmd.Flags().StringVarP(&ListUserssearch, "search", "", "", "Searches for users with a supported filtering expression")
+	cmd.Flags().StringVarP(&ListUserssortBy, "sort-by", "", "", "Sort by property")
+	cmd.Flags().StringVarP(&ListUserssortOrder, "sort-order", "", "", "Sort order (asc/desc)")
+	cmd.Flags().BoolVarP(&ListUsersgetAll, "all", "", false, "Fetch all users across all pages (use with caution for large datasets)")
 
 	return cmd
 }
